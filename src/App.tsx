@@ -342,14 +342,32 @@ function App() {
                     {project.title}
                   </h3>
 
-                  <p className={`text-gray-300 text-base sm:text-lg mb-8 ${animationClasses.fadeIn}`} style={{ animationDelay: `${0.4 + index * 0.2}s` }}>
-                    {project.description}
+                  {/* Short Description (Always Visible) */}
+                  <p className={`text-gray-300 text-base sm:text-lg mb-4 ${animationClasses.fadeIn}`} style={{ animationDelay: `${0.4 + index * 0.2}s` }}>
+                    {project.description.split('. ')[0]}.
                   </p>
 
-                  <Button className={`w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 ${animationClasses.fadeIn}`} style={{ animationDelay: `${0.5 + index * 0.2}s` }}>
+                  {/* Extended Description (Visible on Hover) */}
+                  <div className="overflow-hidden transition-all duration-500 max-h-0 group-hover:max-h-48 opacity-0 group-hover:opacity-100">
+                    <p className={`text-gray-400 text-sm sm:text-base mb-8`}>
+                      {project.description.split('. ').slice(1).join('. ')}
+                    </p>
+                  </div>
+
+                  <Button 
+                    className={`w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 ${animationClasses.fadeIn}`} 
+                    style={{ animationDelay: `${0.5 + index * 0.2}s` }}
+                    onClick={() => {
+                      const element = document.getElementById(`${project.id}-details`)
+                      element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    }}
+                  >
                     Learn More
                     <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
                   </Button>
+
+                  {/* Hidden anchor for scroll target */}
+                  <div id={`${project.id}-details`} className="hidden" />
                 </div>
               </div>
             ))}
