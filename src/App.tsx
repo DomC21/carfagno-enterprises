@@ -207,6 +207,67 @@ function App() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section className="relative py-24 sm:py-32 overflow-hidden">
+        {/* Dynamic Background with Parallax */}
+        <div className="absolute inset-0">
+          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
+          
+          {/* Pattern Overlay */}
+          <div className="absolute inset-0 opacity-10 parallax" data-speed="0.15">
+            <div className="absolute inset-0" style={{ 
+              backgroundImage: `radial-gradient(circle at 2px 2px, ${colorClasses.primary.replace('text-', '')} 1px, transparent 1px)`,
+              backgroundSize: '48px 48px'
+            }} />
+          </div>
+
+          {/* Floating Elements */}
+          <div className={`absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-to-r ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-30 animate-float parallax`} data-speed="0.3" style={{ animationDelay: '1s' }} />
+          <div className={`absolute bottom-1/4 left-1/4 w-64 h-64 bg-gradient-to-l ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-30 animate-float parallax`} data-speed="0.4" style={{ animationDelay: '3s' }} />
+        </div>
+
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8">
+              <Sparkles className="w-5 h-5 text-teal-400" />
+              <span className="text-teal-400 text-sm font-medium">About Me</span>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+              <div className="relative w-48 h-48">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-blue-500/20 rounded-full blur-xl animate-pulse-slow" />
+                <img
+                  src="https://avatars.githubusercontent.com/u/0?v=4"
+                  alt="Dom Carfagno"
+                  className="relative w-full h-full object-cover rounded-full border-2 border-teal-500/20 shadow-xl shadow-teal-500/10"
+                />
+              </div>
+
+              <div className="flex-1 text-center md:text-left">
+                <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-6 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
+                  Dom Carfagno
+                </h2>
+                
+                <p className={`text-xl text-gray-300 leading-relaxed mb-8 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.2s' }}>
+                  Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a passion for innovation and financial markets, I strive to empower investors through cutting-edge tools and insights.
+                </p>
+
+                <div className={`flex justify-center md:justify-start ${animationClasses.fadeIn}`} style={{ animationDelay: '0.4s' }}>
+                  <Button 
+                    className={`group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg font-semibold ${animationClasses.button} border-0 hover:shadow-lg hover:shadow-teal-500/20`}
+                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Contact Me
+                    <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Projects Section */}
       <section id="projects" className="relative py-24 sm:py-32 overflow-hidden">
         {/* Parallax Background */}
