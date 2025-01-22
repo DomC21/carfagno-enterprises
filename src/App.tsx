@@ -126,18 +126,37 @@ function App() {
           {/* Technology-themed pattern overlay */}
           <div className="absolute inset-0 opacity-10 parallax" data-speed="0.1">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 to-transparent" />
+            {/* Circuit board pattern */}
             <div className="absolute inset-0" style={{ 
-              backgroundImage: `radial-gradient(circle at 1px 1px, ${colorClasses.primary.replace('text-', '')} 1px, transparent 1px)`,
-              backgroundSize: '24px 24px'
+              backgroundImage: `
+                linear-gradient(to right, ${colorClasses.primary.replace('text-', '')}1a 1px, transparent 1px),
+                linear-gradient(to bottom, ${colorClasses.primary.replace('text-', '')}1a 1px, transparent 1px),
+                radial-gradient(circle at 24px 24px, ${colorClasses.primary.replace('text-', '')}1a 2px, transparent 2px)
+              `,
+              backgroundSize: '48px 48px, 48px 48px, 96px 96px'
             }} />
           </div>
           
-          {/* Abstract Shapes with Parallax */}
+          {/* Technology Shapes with Parallax */}
           <div className="absolute inset-0">
+            {/* Central glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.15)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
-            <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-50 animate-float parallax`} data-speed="0.3" style={{ animationDelay: '0s' }} />
-            <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-l ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-50 animate-float parallax`} data-speed="0.4" style={{ animationDelay: '2s' }} />
-            <div className="absolute inset-0 bg-blue-950/40 backdrop-blur-sm parallax" data-speed="0.15" />
+            
+            {/* Floating tech orbs */}
+            <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-30 animate-float parallax`} data-speed="0.3" style={{ animationDelay: '0s' }}>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.4)_0%,transparent_70%)] animate-pulse-slow" />
+            </div>
+            
+            <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-l ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-30 animate-float parallax`} data-speed="0.4" style={{ animationDelay: '2s' }}>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.4)_0%,transparent_70%)] animate-pulse-slow" />
+            </div>
+            
+            {/* Additional tech elements */}
+            <div className={`absolute top-1/3 right-1/3 w-48 h-48 bg-gradient-to-br ${colorClasses.gradient.glow} rounded-full blur-xl opacity-20 animate-float parallax`} data-speed="0.25" style={{ animationDelay: '1s' }} />
+            <div className={`absolute bottom-1/3 left-1/3 w-48 h-48 bg-gradient-to-tl ${colorClasses.gradient.glow} rounded-full blur-xl opacity-20 animate-float parallax`} data-speed="0.35" style={{ animationDelay: '3s' }} />
+            
+            {/* Subtle overlay for depth */}
+            <div className="absolute inset-0 bg-blue-950/30 backdrop-blur-sm parallax" data-speed="0.15" />
           </div>
         </div>
 
@@ -238,7 +257,7 @@ function App() {
               <div className="relative w-48 h-48">
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-blue-500/20 rounded-full blur-xl animate-pulse-slow" />
                 <img
-                  src="https://avatars.githubusercontent.com/u/0?v=4"
+                  src="/images/dom-profile.jpg"
                   alt="Dom Carfagno"
                   className="relative w-full h-full object-cover rounded-full border-2 border-teal-500/20 shadow-xl shadow-teal-500/10"
                 />
