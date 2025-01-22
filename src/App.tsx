@@ -376,16 +376,21 @@ function App() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative py-12 sm:py-24 overflow-x-hidden">
-        {/* Dynamic Background */}
+      <section className="relative py-12 sm:py-24 overflow-hidden">
+        {/* Dynamic Background with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background}`} />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)]" />
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: `radial-gradient(circle at 2px 2px, ${colorClasses.primary.replace('text-', '')} 1px, transparent 1px)`,
-            backgroundSize: '32px 32px',
-            opacity: 0.1
-          }} />
+          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
+          <div className="absolute inset-0 opacity-10 parallax" data-speed="0.15">
+            <div className="absolute inset-0" style={{ 
+              backgroundImage: `radial-gradient(circle at 2px 2px, ${colorClasses.primary.replace('text-', '')} 1px, transparent 1px)`,
+              backgroundSize: '32px 32px'
+            }} />
+          </div>
+          
+          {/* Floating Elements */}
+          <div className={`absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-20 animate-float parallax`} data-speed="0.3" style={{ animationDelay: '1s' }} />
+          <div className={`absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-20 animate-float parallax`} data-speed="0.4" style={{ animationDelay: '2.5s' }} />
         </div>
 
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -414,15 +419,15 @@ function App() {
                   <div className="space-y-4 relative">
                     <Input 
                       placeholder="Name" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300"
+                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                     />
                     <Input 
                       placeholder="Email" 
                       type="email" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300"
+                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                     />
                     <Select>
-                      <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300">
+                      <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
                         <SelectValue placeholder="Select your interest" />
                       </SelectTrigger>
                       <SelectContent className="bg-blue-950 border-teal-500/20">
@@ -433,9 +438,9 @@ function App() {
                     </Select>
                   </div>
 
-                  <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0">
+                  <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0 transform-gpu hover:scale-[1.02]">
                     Get Early Access
-                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 transform-gpu" />
                   </Button>
                 </form>
               </div>
@@ -445,51 +450,75 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-12 sm:py-16 md:py-24 lg:py-32 bg-gray-900">
-        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-          <h2 className={`text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-8 sm:mb-12 md:mb-16 text-yellow-500 text-center ${animationClasses.slideUp}`}>Contact Us</h2>
+      <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
+        {/* Dynamic Background with Parallax */}
+        <div className="absolute inset-0">
+          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
+          
+          {/* Floating Elements */}
+          <div className={`absolute top-1/3 left-1/4 w-72 h-72 bg-gradient-to-r ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-20 animate-float parallax`} data-speed="0.3" style={{ animationDelay: '1.5s' }} />
+          <div className={`absolute bottom-1/3 right-1/4 w-72 h-72 bg-gradient-to-l ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-20 animate-float parallax`} data-speed="0.4" style={{ animationDelay: '3s' }} />
+        </div>
+
+        <div className="relative container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <h2 className={`text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-8 sm:mb-12 md:mb-16 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent text-center ${animationClasses.slideUp}`}>Contact Us</h2>
           <div className={`max-w-sm sm:max-w-md md:max-w-xl mx-auto ${animationClasses.fadeIn}`} style={{ animationDelay: '0.2s' }}>
             <div className={`flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 md:mb-10 group text-center sm:text-left ${animationClasses.fadeIn}`} style={{ animationDelay: '0.4s' }}>
               <Mail className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 ${colorClasses.primary} ${animationClasses.icon}`} />
               <a 
                 href="mailto:DominicCarfagno@carfagnoenterprises.com" 
-                className={`text-base sm:text-lg md:text-xl lg:text-2xl ${colorClasses.primary} hover:${colorClasses.accent.replace('text-', '')} ${animationClasses.hover} group font-medium break-all sm:break-normal`}
+                className={`text-base sm:text-lg md:text-xl lg:text-2xl ${colorClasses.primary} hover:${colorClasses.accent.replace('text-', '')} transition-all duration-300 transform-gpu hover:scale-[1.02] group font-medium break-all sm:break-normal`}
               >
                 DominicCarfagno@carfagnoenterprises.com
               </a>
             </div>
-            <form className={`space-y-3 sm:space-y-4 md:space-y-6 bg-black p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg border border-yellow-500/20 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.6s' }}>
-              <Input 
-                placeholder="Name" 
-                className={`bg-black ${colorClasses.border} text-sm sm:text-base md:text-lg ${animationClasses.hover} focus:border-blue-400 focus:ring-blue-400`} 
-              />
-              <Input 
-                placeholder="Email" 
-                type="email" 
-                className={`bg-black ${colorClasses.border} text-sm sm:text-base md:text-lg ${animationClasses.hover} focus:border-blue-400 focus:ring-blue-400`} 
-              />
-              <textarea 
-                placeholder="Message"
-                className={`w-full h-28 sm:h-32 md:h-40 bg-black ${colorClasses.border} rounded-md p-3 sm:p-4 focus:outline-none focus:ring-2 focus:ring-blue-400 ${animationClasses.hover} focus:border-blue-400 text-sm sm:text-base md:text-lg`}
-              />
-              <Button className={`w-full bg-yellow-500 hover:bg-yellow-600 text-black text-sm sm:text-base md:text-lg font-bold tracking-wide ${animationClasses.button} border-2 border-transparent hover:border-blue-400`}>
-                Send Message
-              </Button>
+            <form className={`relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.6s' }}>
+              {/* Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75" />
+              
+              <div className="relative space-y-4">
+                <Input 
+                  placeholder="Name" 
+                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
+                />
+                <Input 
+                  placeholder="Email" 
+                  type="email" 
+                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
+                />
+                <textarea 
+                  placeholder="Message"
+                  className="relative z-50 w-full h-28 sm:h-32 md:h-40 bg-blue-900/30 border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                />
+                <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0 transform-gpu hover:scale-[1.02]">
+                  Send Message
+                  <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 transform-gpu" />
+                </Button>
+              </div>
             </form>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative py-24 border-t border-teal-500/20">
-        {/* Background Pattern */}
+      <footer className="relative py-24 border-t border-teal-500/20 overflow-hidden">
+        {/* Background Pattern with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-b ${colorClasses.gradient.background}`} />
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: `radial-gradient(circle at 2px 2px, ${colorClasses.primary.replace('text-', '')} 1px, transparent 1px)`,
-            backgroundSize: '48px 48px',
-            opacity: 0.05
-          }} />
+          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
+          
+          {/* Pattern Overlay */}
+          <div className="absolute inset-0 opacity-10 parallax" data-speed="0.15">
+            <div className="absolute inset-0" style={{ 
+              backgroundImage: `radial-gradient(circle at 2px 2px, ${colorClasses.primary.replace('text-', '')} 1px, transparent 1px)`,
+              backgroundSize: '48px 48px'
+            }} />
+          </div>
+
+          {/* Floating Elements */}
+          <div className={`absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-r ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-20 animate-float parallax`} data-speed="0.3" style={{ animationDelay: '1s' }} />
+          <div className={`absolute bottom-1/3 right-1/4 w-64 h-64 bg-gradient-to-l ${colorClasses.gradient.glow} rounded-full blur-3xl opacity-20 animate-float parallax`} data-speed="0.4" style={{ animationDelay: '2.5s' }} />
         </div>
 
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
@@ -497,37 +526,37 @@ function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
               {/* Contact Information */}
               <div className="text-center md:text-left space-y-6">
-                <h3 className={`text-2xl font-bold bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent`}>
+                <h3 className={`text-2xl font-bold bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
                   Contact Us
                 </h3>
                 <a 
                   href="mailto:DominicCarfagno@carfagnoenterprises.com"
-                  className="group inline-flex items-center gap-2 text-gray-300 hover:text-teal-400 transition-colors duration-300"
+                  className="group inline-flex items-center gap-2 text-gray-300 hover:text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02]"
                 >
-                  <Mail className="w-5 h-5 text-teal-400 transition-transform group-hover:scale-110" />
+                  <Mail className="w-5 h-5 text-teal-400 transition-transform group-hover:scale-110 transform-gpu" />
                   <span>DominicCarfagno@carfagnoenterprises.com</span>
                 </a>
               </div>
 
               {/* Social Links */}
               <div className="text-center md:text-right">
-                <h3 className={`text-2xl font-bold bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent mb-6`}>
+                <h3 className={`text-2xl font-bold bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent mb-6 ${animationClasses.slideUp}`}>
                   Connect With Us
                 </h3>
                 <div className="flex justify-center md:justify-end space-x-6">
-                  <button className="p-2 rounded-lg bg-blue-900/30 border border-teal-500/20 text-teal-400 hover:border-teal-400/50 transition-all duration-300 cursor-not-allowed">
+                  <button className="p-2 rounded-lg bg-blue-900/30 border border-teal-500/20 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:border-teal-400/50 cursor-not-allowed disabled:opacity-50" disabled>
                     <span className="sr-only">LinkedIn</span>
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                   </button>
-                  <button className="p-2 rounded-lg bg-blue-900/30 border border-teal-500/20 text-teal-400 hover:border-teal-400/50 transition-all duration-300 cursor-not-allowed">
+                  <button className="p-2 rounded-lg bg-blue-900/30 border border-teal-500/20 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:border-teal-400/50 cursor-not-allowed disabled:opacity-50" disabled>
                     <span className="sr-only">Twitter</span>
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                     </svg>
                   </button>
-                  <button className="p-2 rounded-lg bg-blue-900/30 border border-teal-500/20 text-teal-400 hover:border-teal-400/50 transition-all duration-300 cursor-not-allowed">
+                  <button className="p-2 rounded-lg bg-blue-900/30 border border-teal-500/20 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:border-teal-400/50 cursor-not-allowed disabled:opacity-50" disabled>
                     <span className="sr-only">GitHub</span>
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd"/>
@@ -539,7 +568,7 @@ function App() {
 
             {/* Copyright */}
             <div className="mt-12 pt-8 border-t border-teal-500/20 text-center">
-              <p className="text-gray-400">
+              <p className={`text-gray-400 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.4s' }}>
                 © 2025 Carfagno Enterprises. All rights reserved.
               </p>
             </div>
