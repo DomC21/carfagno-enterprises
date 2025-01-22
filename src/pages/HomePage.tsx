@@ -1,7 +1,12 @@
 import { useEffect } from 'react'
-import { ChevronRight, Sparkles, User } from 'lucide-react'
+import { ChevronRight, Sparkles, User, ZoomIn } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../components/ui/dialog"
 import {
   Select,
   SelectContent,
@@ -239,20 +244,73 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10">
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-teal-400/20 shadow-xl">
-                    <img 
-                      src="/Dom PICX.jpg" 
-                      alt="Dom Carfagno"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-teal-400/20 shadow-xl group cursor-pointer transition-all duration-300 hover:border-teal-400/40 hover:shadow-2xl hover:shadow-teal-500/10">
+                        <img 
+                          src="/Dom PICX.jpg" 
+                          alt="Dom Carfagno"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <ZoomIn className="w-8 h-8 text-teal-400" />
+                        </div>
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-2xl">
+                      <img 
+                        src="/Dom PICX.jpg" 
+                        alt="Dom Carfagno"
+                        className="w-full rounded-lg shadow-xl"
+                      />
+                    </DialogContent>
+                  </Dialog>
                   <div className="flex-1 space-y-4">
                     <p className="text-xl text-gray-300 leading-relaxed">
-                      Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a passion for innovation and financial markets, I strive to empower investors through cutting-edge tools and insights.
+                      Hi, I'm Dom Carfagno, a motivated high school senior with a passion for finance, investment, and entrepreneurship. With a GPA above 3.8 and a focus on Global Business, I've generated close to six figures in trading profits while developing innovative financial tools and managing multiple successful ventures.
+                    </p>
+                    <p className="text-lg text-gray-400 mb-4">
+                      As President of the Investment Club and Portfolio Manager of the Wyndmoor Way Fund, I lead high-performing student investment portfolios. My recent win at the St. Joe's Investment Competition showcases my dedication to excellence in financial analysis and strategic investment planning.
                     </p>
                     <p className="text-lg text-gray-400">
-                      My mission is to simplify complex financial data and create powerful tools that help investors make informed decisions in today's dynamic market environment.
+                      My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise, paving the way for my future career in private equity or investment banking.
                     </p>
+                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="bg-blue-900/30 p-4 rounded-lg">
+                        <h4 className="text-sm font-medium text-teal-400 mb-2">Achievements</h4>
+                        <ul className="space-y-2 text-sm text-gray-300">
+                          <li className="flex items-start">
+                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
+                            <span>St. Joe's Investment Competition Winner</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
+                            <span>3.8+ GPA with Global Business Focus</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
+                            <span>Six-Figure Trading Portfolio</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="bg-blue-900/30 p-4 rounded-lg">
+                        <h4 className="text-sm font-medium text-teal-400 mb-2">Leadership</h4>
+                        <ul className="space-y-2 text-sm text-gray-300">
+                          <li className="flex items-start">
+                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
+                            <span>Investment Club President</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
+                            <span>Wyndmoor Way Fund Portfolio Manager</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
+                            <span>E-commerce Business Founder</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
