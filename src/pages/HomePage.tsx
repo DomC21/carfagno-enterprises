@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { ChevronRight, Sparkles } from 'lucide-react'
+import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -215,6 +215,46 @@ export default function HomePage() {
                     <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
                   </Button>
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Me Section */}
+      <section className="relative py-12 sm:py-24 overflow-hidden">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
+                <User className="w-5 h-5 text-teal-400 animate-pulse" />
+                <span className="text-teal-400 text-sm font-medium">About Me</span>
+              </div>
+              
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                Meet Dom Carfagno
+              </h2>
+            </div>
+
+            <div className="relative">
+              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10">
+                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-teal-400/20 shadow-xl">
+                    <img 
+                      src="/Dom PICX.jpg" 
+                      alt="Dom Carfagno"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-4">
+                    <p className="text-xl text-gray-300 leading-relaxed">
+                      Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a passion for innovation and financial markets, I strive to empower investors through cutting-edge tools and insights.
+                    </p>
+                    <p className="text-lg text-gray-400">
+                      My mission is to simplify complex financial data and create powerful tools that help investors make informed decisions in today's dynamic market environment.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
