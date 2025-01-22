@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { ChevronLeft, Brain, TrendingUp, TrendingDown, AlertCircle, HelpCircle } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +12,58 @@ import { stockAnalysisMockData, aiInsightsMockData } from '../demoData/ZomAIData
 
 export default function ZomAI() {
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    // Simulate data loading
+    const loadData = async () => {
+      try {
+        // Log data flow
+        console.log('Loading Zom AI data...')
+        await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
+        console.log('Stock Analysis data loaded:', stockAnalysisMockData)
+        console.log('AI Insights data loaded:', aiInsightsMockData)
+        setIsLoading(false)
+      } catch (err) {
+        console.error('Error loading Zom AI data:', err)
+        setError(err as Error)
+        setIsLoading(false)
+      }
+    }
+    loadData()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-teal-400 border-t-transparent rounded-full animate-spin mb-4" />
+          <p className="text-gray-300">Loading AI analysis...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !stockAnalysisMockData || !aiInsightsMockData || 
+      stockAnalysisMockData.length === 0 || aiInsightsMockData.length === 0) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-teal-400 mb-4">No Data Available</h2>
+          <p className="text-gray-300">Unable to load AI analysis data.</p>
+          <Button
+            variant="ghost"
+            className="mt-4 text-teal-400 hover:text-teal-300 group"
+            onClick={() => navigate('/')}
+          >
+            <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
+            Back to Home
+          </Button>
+        </div>
+      </div>
+    )
+  }
   
   return (
     <div className="min-h-screen bg-black text-white">
@@ -35,9 +88,9 @@ export default function ZomAI() {
 
           <div className="space-y-8">
             {/* Stock Analysis Metrics */}
-            <section className="bg-blue-900/20 p-6 rounded-lg">
+            <section className="bg-blue-950/50 border border-teal-500/20 hover:border-teal-400/50 p-6 rounded-lg">
               <div className="flex items-center gap-2 mb-6">
-                <h2 className="text-2xl font-bold text-teal-400">AI-Powered Analysis</h2>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">AI-Powered Analysis</h2>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
@@ -83,9 +136,9 @@ export default function ZomAI() {
             </section>
 
             {/* AI Insights */}
-            <section className="bg-blue-900/20 p-6 rounded-lg">
+            <section className="bg-blue-950/50 border border-teal-500/20 hover:border-teal-400/50 p-6 rounded-lg">
               <div className="flex items-center gap-2 mb-6">
-                <h2 className="text-2xl font-bold text-teal-400">ChatGPT Insights</h2>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">ChatGPT Insights</h2>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
@@ -135,7 +188,7 @@ export default function ZomAI() {
 
             {/* Features Section */}
             <section>
-              <h2 className="text-2xl font-bold text-teal-400 mb-4">Key Features</h2>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent mb-4">Key Features</h2>
               <ul className="space-y-4 text-gray-300">
                 <li className="flex items-start">
                   <span className="block w-2 h-2 mt-2 mr-3 bg-teal-400 rounded-full" />
@@ -157,7 +210,7 @@ export default function ZomAI() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-teal-400 mb-4">AI Integration</h2>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent mb-4">AI Integration</h2>
               <ul className="space-y-4 text-gray-300">
                 <li className="flex items-start">
                   <span className="block w-2 h-2 mt-2 mr-3 bg-teal-400 rounded-full" />
