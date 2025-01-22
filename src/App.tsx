@@ -161,20 +161,20 @@ function App() {
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 text-center relative">
-          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border ${colorClasses.border} mb-6 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.2s' }}>
-            <Sparkles className={`w-5 h-5 ${colorClasses.primary}`} />
+          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border ${colorClasses.border} mb-6 transform-gpu ${animationClasses.fadeIn}`} style={{ animationDelay: '0.1s' }}>
+            <Sparkles className={`w-5 h-5 ${colorClasses.primary} animate-pulse`} />
             <span className={`${colorClasses.primary} text-sm font-medium`}>Innovating Financial Technology</span>
           </div>
 
-          <h2 className={`text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent leading-tight ${animationClasses.slideUp}`} style={{ animationDelay: '0.4s' }}>
+          <h2 className={`text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent leading-tight transform-gpu ${animationClasses.slideUp}`} style={{ animationDelay: '0.2s' }}>
             Shaping the Future of Financial Innovation
           </h2>
 
-          <p className={`text-base sm:text-lg md:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed ${animationClasses.slideUp}`} style={{ animationDelay: '0.6s' }}>
+          <p className={`text-base sm:text-lg md:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed transform-gpu ${animationClasses.slideUp}`} style={{ animationDelay: '0.3s' }}>
             Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
           </p>
 
-          <Button className={`group w-full sm:w-auto bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold tracking-wide ${animationClasses.button} border-0 hover:shadow-lg hover:shadow-teal-500/20 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.8s' }}>
+          <Button className={`group w-full sm:w-auto bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold tracking-wide ${animationClasses.button} border-0 hover:shadow-lg hover:shadow-teal-500/20 transform-gpu ${animationClasses.fadeIn}`} style={{ animationDelay: '0.4s' }}>
             Explore Our Projects
             <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
           </Button>
