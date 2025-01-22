@@ -2,11 +2,13 @@
 type GreekFlowData = {
   timestamp: string
   symbol: string
-  delta: number
-  gamma: number
-  theta: number
-  vega: number
+  delta: number // Stock price sensitivity
+  gamma: number // Delta change rate
+  theta: number // Time decay
+  vega: number // Volatility sensitivity
   volume: number
+  sentiment: 'bullish' | 'bearish' | 'neutral'
+  confidence: number
 }
 
 type CongressionalTrade = {
@@ -16,20 +18,28 @@ type CongressionalTrade = {
   type: 'BUY' | 'SELL'
   amount: string
   sector: string
+  committee?: string
+  disclosure_date?: string
 }
 
 // Generate mock Greek flow data
 const generateGreekFlowData = (): GreekFlowData[] => {
   const symbols = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'NVDA']
-  return symbols.map(symbol => ({
-    timestamp: new Date().toLocaleTimeString(),
-    symbol,
-    delta: Number((Math.random() * 2 - 1).toFixed(3)),
-    gamma: Number((Math.random() * 0.1).toFixed(4)),
-    theta: Number((-Math.random() * 0.5).toFixed(3)),
-    vega: Number((Math.random() * 0.3).toFixed(3)),
-    volume: Math.floor(1000 + Math.random() * 9000)
-  }))
+  return symbols.map(symbol => {
+    const delta = Number((Math.random() * 2 - 1).toFixed(3))
+    const sentiment = delta > 0.3 ? 'bullish' : delta < -0.3 ? 'bearish' : 'neutral'
+    return {
+      timestamp: new Date().toLocaleTimeString(),
+      symbol,
+      delta,
+      gamma: Number((Math.random() * 0.1).toFixed(4)),
+      theta: Number((-Math.random() * 0.5).toFixed(3)),
+      vega: Number((Math.random() * 0.3).toFixed(3)),
+      volume: Math.floor(1000 + Math.random() * 9000),
+      sentiment,
+      confidence: Number((0.7 + Math.random() * 0.3).toFixed(2))
+    }
+  })
 }
 
 // Generate mock Congressional trade data
