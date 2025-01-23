@@ -3,6 +3,7 @@ import { ChevronLeft } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components/Logo'
+import { Footer } from '../components/Footer'
 
 export default function AboutPage() {
   const navigate = useNavigate()
@@ -102,6 +103,7 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
