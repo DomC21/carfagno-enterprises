@@ -3,9 +3,7 @@ import { Mail, Github, Linkedin, Twitter } from 'lucide-react'
 import { Logo } from './Logo'
 import { colorClasses } from '../utils/styles'
 
-interface FooterProps extends React.HTMLAttributes<HTMLElement> {}
-
-export function Footer({ className, ...props }: FooterProps) {
+export function Footer({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
   return (
     <footer className={`border-t border-teal-500/20 bg-black/50 backdrop-blur-sm ${className}`} {...props}>
       <div className="container mx-auto px-4 py-8">

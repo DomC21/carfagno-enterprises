@@ -117,8 +117,14 @@ export default function CoachingPage() {
           {/* Main Content */}
           <div className="max-w-4xl mx-auto">
             {/* Urgency Banner */}
-            <div className="bg-yellow-900/50 text-yellow-300 p-4 rounded-lg mb-8 text-center font-medium animate-pulse">
-              Sign up by December 31st to get your first coaching session free!
+            <div className="relative bg-gradient-to-r from-yellow-900/50 via-amber-900/50 to-yellow-900/50 border border-yellow-500/20 text-yellow-300 p-6 rounded-xl mb-8 text-center group hover:border-yellow-500/40 transition-all duration-500">
+              <div className="absolute inset-0 bg-yellow-500/5 animate-pulse" />
+              <div className="relative flex items-center justify-center gap-2">
+                <Sparkles className="w-5 h-5 text-yellow-400 animate-pulse" />
+                <p className="text-lg font-semibold">
+                  Limited Time Offer: Sign up by December 31st to get your first coaching session free!
+                </p>
+              </div>
             </div>
 
             <div className="mb-12">

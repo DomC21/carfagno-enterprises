@@ -8,7 +8,12 @@ export const colorClasses = {
   gradient: {
     primary: 'from-teal-400 to-blue-500',
     background: 'from-blue-900 via-blue-950 to-slate-900',
-    glow: 'from-teal-500/20 to-blue-500/20'
+    glow: 'from-teal-500/20 to-blue-500/20',
+    section: {
+      primary: 'from-blue-950/80 to-blue-900/50',
+      secondary: 'from-blue-900/50 to-blue-950/80',
+      tertiary: 'from-blue-950/80 to-blue-900/30'
+    }
   },
   chart: {
     positive: 'text-green-400',
