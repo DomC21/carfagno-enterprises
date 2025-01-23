@@ -1,13 +1,7 @@
 import { useEffect } from 'react'
-import { ChevronRight, Sparkles, User, ZoomIn } from 'lucide-react'
+import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { Button } from '../components/ui/button'
-import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar'
 import { useNavigate } from 'react-router-dom'
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "../components/ui/dialog"
 import {
   Select,
   SelectContent,
@@ -230,95 +224,45 @@ export default function HomePage() {
       {/* About Me Section */}
       <section className="relative py-12 sm:py-24 overflow-hidden">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
                 <User className="w-5 h-5 text-teal-400 animate-pulse" />
                 <span className="text-teal-400 text-sm font-medium">About Me</span>
               </div>
-              
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-                Meet Dom Carfagno
-              </h2>
             </div>
 
-            <div className="relative">
-              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10">
-                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-teal-400/20 shadow-xl group cursor-pointer transition-all duration-300 hover:border-teal-400/40 hover:shadow-2xl hover:shadow-teal-500/10">
-                        <Avatar className="w-full h-full">
-                          <AvatarImage
-                            src="/Dom PICX.jpg"
-                            alt="Dom Carfagno"
-                            className="object-cover transition-transform duration-300 group-hover:scale-110"
-                          />
-                          <AvatarFallback className="text-2xl">DC</AvatarFallback>
-                        </Avatar>
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <ZoomIn className="w-8 h-8 text-teal-400" />
-                        </div>
-                      </div>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-2xl">
-                      <Avatar className="w-full h-auto aspect-square rounded-lg shadow-xl">
-                        <AvatarImage
-                          src="/Dom PICX.jpg"
-                          alt="Dom Carfagno"
-                          className="object-cover"
-                        />
-                        <AvatarFallback className="text-4xl">DC</AvatarFallback>
-                      </Avatar>
-                    </DialogContent>
-                  </Dialog>
-                  <div className="flex-1 space-y-4">
-                    <p className="text-xl text-gray-300 leading-relaxed">
-                      I'm Dom Carfagno, a passionate innovator in finance and technology. Through Carfagno Enterprises, I develop cutting-edge tools that combine advanced technology with financial expertise to empower investors and traders.
-                    </p>
-                    <p className="text-lg text-gray-400 mb-4">
-                      With a strong foundation in financial analysis and strategic investment planning, I focus on developing innovative solutions that transform complex market data into actionable insights. My achievements in competitive financial analysis demonstrate my commitment to excellence in the field.
-                    </p>
-                    <p className="text-lg text-gray-400">
-                      My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise to revolutionize how investors interact with market data.
-                    </p>
-                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="bg-blue-900/30 p-4 rounded-lg">
-                        <h4 className="text-sm font-medium text-teal-400 mb-2">Achievements</h4>
-                        <ul className="space-y-2 text-sm text-gray-300">
-                          <li className="flex items-start">
-                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>St. Joe's Investment Competition Winner</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Financial Technology Innovation</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Advanced Trading Systems Development</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="bg-blue-900/30 p-4 rounded-lg">
-                        <h4 className="text-sm font-medium text-teal-400 mb-2">Leadership</h4>
-                        <ul className="space-y-2 text-sm text-gray-300">
-                          <li className="flex items-start">
-                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Financial Technology Leadership</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Project Management Excellence</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>E-commerce Business Founder</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              {/* Left Column - Photo */}
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-500">
+                  <img
+                    src="/Dom PICX.jpg"
+                    alt="Dom Carfagno"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+              </div>
+
+              {/* Right Column - Content */}
+              <div className="relative space-y-6">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                  About Dom Carfagno
+                </h2>
+                <div className="space-y-6">
+                  <p className="text-xl text-gray-300 leading-relaxed">
+                    Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
+                  </p>
+                  <Button
+                    className="w-full sm:w-auto group bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 transition-all duration-500 hover:scale-[1.02]"
+                    onClick={() => navigate('/about')}
+                    data-devinid="learn-more-button"
+                  >
+                    Learn More About Me
+                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </Button>
                 </div>
               </div>
             </div>
