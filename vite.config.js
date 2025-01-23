@@ -14,6 +14,13 @@ export default defineConfig({
     strictPort: true,
     historyApiFallback: true
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
