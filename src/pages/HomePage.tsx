@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ChevronRight, Sparkles, User, ZoomIn } from 'lucide-react'
 import { Button } from '../components/ui/button'
+import { Avatar, AvatarImage, AvatarFallback } from '../components/ui/avatar'
 import { useNavigate } from 'react-router-dom'
 import {
   Dialog,
@@ -247,33 +248,39 @@ export default function HomePage() {
                   <Dialog>
                     <DialogTrigger asChild>
                       <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-teal-400/20 shadow-xl group cursor-pointer transition-all duration-300 hover:border-teal-400/40 hover:shadow-2xl hover:shadow-teal-500/10">
-                        <img 
-                          src="/Dom PICX.jpg" 
-                          alt="Dom Carfagno"
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
+                        <Avatar className="w-full h-full">
+                          <AvatarImage
+                            src="/Dom PICX.jpg"
+                            alt="Dom Carfagno"
+                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                          />
+                          <AvatarFallback className="text-2xl">DC</AvatarFallback>
+                        </Avatar>
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                           <ZoomIn className="w-8 h-8 text-teal-400" />
                         </div>
                       </div>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-2xl">
-                      <img 
-                        src="/Dom PICX.jpg" 
-                        alt="Dom Carfagno"
-                        className="w-full rounded-lg shadow-xl"
-                      />
+                      <Avatar className="w-full h-auto aspect-square rounded-lg shadow-xl">
+                        <AvatarImage
+                          src="/Dom PICX.jpg"
+                          alt="Dom Carfagno"
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="text-4xl">DC</AvatarFallback>
+                      </Avatar>
                     </DialogContent>
                   </Dialog>
                   <div className="flex-1 space-y-4">
                     <p className="text-xl text-gray-300 leading-relaxed">
-                      Hi, I'm Dom Carfagno, a motivated high school senior with a passion for finance, investment, and entrepreneurship. With a GPA above 3.8 and a focus on Global Business, I've generated close to six figures in trading profits while developing innovative financial tools and managing multiple successful ventures.
+                      I'm Dom Carfagno, a passionate innovator in finance and technology. Through Carfagno Enterprises, I develop cutting-edge tools that combine advanced technology with financial expertise to empower investors and traders.
                     </p>
                     <p className="text-lg text-gray-400 mb-4">
-                      As President of the Investment Club and Portfolio Manager of the Wyndmoor Way Fund, I lead high-performing student investment portfolios. My recent win at the St. Joe's Investment Competition showcases my dedication to excellence in financial analysis and strategic investment planning.
+                      With a strong foundation in financial analysis and strategic investment planning, I focus on developing innovative solutions that transform complex market data into actionable insights. My achievements in competitive financial analysis demonstrate my commitment to excellence in the field.
                     </p>
                     <p className="text-lg text-gray-400">
-                      My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise, paving the way for my future career in private equity or investment banking.
+                      My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise to revolutionize how investors interact with market data.
                     </p>
                     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="bg-blue-900/30 p-4 rounded-lg">
@@ -285,11 +292,11 @@ export default function HomePage() {
                           </li>
                           <li className="flex items-start">
                             <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>3.8+ GPA with Global Business Focus</span>
+                            <span>Financial Technology Innovation</span>
                           </li>
                           <li className="flex items-start">
                             <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Six-Figure Trading Portfolio</span>
+                            <span>Advanced Trading Systems Development</span>
                           </li>
                         </ul>
                       </div>
@@ -298,11 +305,11 @@ export default function HomePage() {
                         <ul className="space-y-2 text-sm text-gray-300">
                           <li className="flex items-start">
                             <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Investment Club President</span>
+                            <span>Financial Technology Leadership</span>
                           </li>
                           <li className="flex items-start">
                             <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
-                            <span>Wyndmoor Way Fund Portfolio Manager</span>
+                            <span>Project Management Excellence</span>
                           </li>
                           <li className="flex items-start">
                             <span className="block w-1.5 h-1.5 mt-1.5 mr-2 bg-teal-400 rounded-full" />
