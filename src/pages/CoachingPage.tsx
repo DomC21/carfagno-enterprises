@@ -4,6 +4,14 @@ import { Input } from '../components/ui/input'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { colorClasses, animationClasses } from '../utils/styles'
+import { BudgetDemo } from '../components/BudgetDemo'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select"
 
 export default function CoachingPage() {
   const navigate = useNavigate()
@@ -28,8 +36,8 @@ export default function CoachingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      <div className="container mx-auto px-4 py-16">
-        {/* Dynamic Background with Parallax */}
+      {/* Hero Section with Dynamic Background */}
+      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
@@ -41,6 +49,38 @@ export default function CoachingPage() {
           </div>
         </div>
 
+        <div className="relative container mx-auto px-4 text-center z-10">
+          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 ${colorClasses.border} mb-8 ${animationClasses.fadeIn}`}>
+            <Sparkles className={`w-5 h-5 ${colorClasses.primary} animate-pulse`} />
+            <span className={`${colorClasses.primary} text-sm font-medium`}>Transform Your Financial Future</span>
+          </div>
+
+          <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
+            Take Control of Your Finances Today!
+          </h1>
+          
+          <h2 className={`text-xl sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-8 leading-relaxed max-w-4xl mx-auto ${animationClasses.fadeIn}`}>
+            Learn to budget, invest, and secure your future with personalized coaching.
+          </h2>
+        </div>
+      </div>
+
+      {/* Dom's Photo Section */}
+      <div className="relative -mt-12 mb-16">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
+        <div className="container mx-auto px-4">
+          <div className="relative w-48 h-48 mx-auto group">
+            <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+            <img
+              src="Dom PICX.jpg"
+              alt="Dom Carfagno"
+              className="relative w-48 h-48 rounded-full object-cover border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-16">
         <div className="relative">
           <Button
             variant="ghost"
@@ -53,43 +93,9 @@ export default function CoachingPage() {
 
           {/* Main Content */}
           <div className="max-w-4xl mx-auto">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 ${colorClasses.border} mb-8 ${animationClasses.fadeIn}`}>
-              <Sparkles className={`w-5 h-5 ${colorClasses.primary} animate-pulse`} />
-              <span className={`${colorClasses.primary} text-sm font-medium`}>Transform Your Financial Future</span>
-            </div>
 
-            <h1 className={`text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-8 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
-              Financial Literacy Coaching with Dom Carfagno
-            </h1>
-            
-            <h2 className={`text-xl sm:text-2xl ${colorClasses.secondary} mb-8 leading-relaxed ${animationClasses.fadeIn}`}>
-              Empowering you to take control of your finances, budget effectively, and invest with confidence.
-            </h2>
-
-            <div className={`bg-blue-950/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
-              <p className={`text-lg ${colorClasses.secondary} mb-8 leading-relaxed`}>
-                Learn how to budget, invest, and plan for a secure financial future. These one-on-one sessions are tailored to your needs, whether you're just starting or looking to refine your strategies.
-              </p>
-
-              <h3 className={`text-xl font-semibold ${colorClasses.primary} mb-6`}>Key Benefits</h3>
-              <ul className={`space-y-4 ${colorClasses.secondary} mb-8`}>
-                <li className="flex items-start">
-                  <span className={`block w-2 h-2 mt-2 mr-3 ${colorClasses.primary} rounded-full`} />
-                  <span>Personalized budgeting plans tailored to your goals and lifestyle</span>
-                </li>
-                <li className="flex items-start">
-                  <span className={`block w-2 h-2 mt-2 mr-3 ${colorClasses.primary} rounded-full`} />
-                  <span>Introduction to investing and portfolio building strategies</span>
-                </li>
-                <li className="flex items-start">
-                  <span className={`block w-2 h-2 mt-2 mr-3 ${colorClasses.primary} rounded-full`} />
-                  <span>Step-by-step guidance on achieving your financial goals</span>
-                </li>
-              </ul>
-
-              <Button className={`w-full sm:w-auto group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
-                Book a Coaching Session
-              </Button>
+            <div className="mb-12">
+              <BudgetDemo />
             </div>
 
             {/* Demo Section */}
@@ -137,18 +143,20 @@ export default function CoachingPage() {
                     type="email"
                     className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
                   />
-                  <textarea 
-                    placeholder="Your Financial Goals"
-                    className={`w-full h-32 bg-blue-900/30 ${colorClasses.border} rounded-md p-3 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
-                  />
-                  <Input 
-                    placeholder="Preferred Session Times"
-                    className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
-                  />
+                  <Select>
+                    <SelectTrigger className={`bg-blue-900/30 ${colorClasses.border} text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}>
+                      <SelectValue placeholder="Select your focus" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-blue-950 border-teal-500/20">
+                      <SelectItem value="budgeting" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Budgeting</SelectItem>
+                      <SelectItem value="investing" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Investing</SelectItem>
+                      <SelectItem value="both" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Both</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
-                <Button className={`w-full sm:w-auto group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
-                  Submit
+                <Button className={`w-full group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
+                  Start Your Financial Transformation!
                 </Button>
 
                 <p className={`text-sm ${colorClasses.secondary} mt-4`}>
