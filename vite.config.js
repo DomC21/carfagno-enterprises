@@ -11,7 +11,8 @@ export default defineConfig({
       'carfagno-financial-app-tunnel-kyxq0l6f.devinapps.com'
     ],
     host: true,
-    strictPort: true
+    strictPort: true,
+    historyApiFallback: true
   },
   resolve: {
     alias: {

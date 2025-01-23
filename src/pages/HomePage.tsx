@@ -78,8 +78,17 @@ export default function HomePage() {
     <>
       {/* Hero Section */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <nav className="flex items-center gap-6">
+            <Button
+              variant="ghost"
+              className="text-teal-400 hover:text-teal-300 transition-colors"
+              onClick={() => navigate('/coaching')}
+            >
+              Financial Coaching
+            </Button>
+          </nav>
         </div>
       </header>
 
