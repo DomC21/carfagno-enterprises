@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     allowedHosts: [
       'localhost',
-      'carfagno-financial-app-tunnel-sboxtf3j.devinapps.com'
+      'carfagno-financial-app-tunnel-kyxq0l6f.devinapps.com'
     ],
     host: true,
     strictPort: true

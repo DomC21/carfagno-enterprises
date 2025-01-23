@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
+import { Logo } from '../components/Logo'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -76,8 +77,14 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
+        <div className="container mx-auto px-4 py-4">
+          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+        </div>
+      </header>
+
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
@@ -238,9 +245,10 @@ export default function HomePage() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-500">
                   <img
-                    src="/Dom PICX.jpg"
+                    src="./Dom PICX.jpg"
                     alt="Dom Carfagno"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="eager"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
