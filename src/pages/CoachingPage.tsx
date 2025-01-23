@@ -2,6 +2,7 @@ import { ChevronLeft, Sparkles } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 import { useNavigate } from 'react-router-dom'
+import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
 import { colorClasses, animationClasses } from '../utils/styles'
 import { BudgetDemo } from '../components/BudgetDemo'
@@ -36,8 +37,14 @@ export default function CoachingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
+        <div className="container mx-auto px-4 py-4">
+          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+        </div>
+      </header>
+
       {/* Hero Section with Dynamic Background */}
-      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0">
           <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
@@ -72,7 +79,7 @@ export default function CoachingPage() {
           <div className="relative w-48 h-48 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
             <img
-              src="Dom PICX.jpg"
+              src="/Dom PICX.jpg"
               alt="Dom Carfagno"
               className="relative w-48 h-48 rounded-full object-cover border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
             />
@@ -93,6 +100,10 @@ export default function CoachingPage() {
 
           {/* Main Content */}
           <div className="max-w-4xl mx-auto">
+            {/* Urgency Banner */}
+            <div className="bg-yellow-900/50 text-yellow-300 p-4 rounded-lg mb-8 text-center font-medium animate-pulse">
+              Sign up by December 31st to get your first coaching session free!
+            </div>
 
             <div className="mb-12">
               <BudgetDemo />
@@ -123,6 +134,30 @@ export default function CoachingPage() {
               <Button className={`w-full sm:w-auto group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
                 Watch the Full Demo
               </Button>
+            </div>
+
+            {/* Success Stories */}
+            <div className="bg-blue-950/50 p-4 rounded-xl mb-12">
+              <h3 className="text-2xl font-bold text-teal-400 mb-4">Success Stories</h3>
+              <p className="text-gray-300 italic">"Dom's coaching helped me save $500 a month and start investing confidently!" – Sarah M.</p>
+              <p className="text-gray-300 italic mt-2">"I doubled my monthly investment budget in 3 months!" – Michael R.</p>
+            </div>
+
+            {/* FAQ Section */}
+            <div className="bg-blue-900/20 p-4 rounded-xl mb-12">
+              <h3 className="text-2xl font-bold text-teal-400 mb-4">Frequently Asked Questions</h3>
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-300">What will I get in a coaching session?</h4>
+                <p className="text-gray-400">You'll receive a personalized budget plan, investment guidelines, and ongoing support.</p>
+              </div>
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-300">How long are the sessions?</h4>
+                <p className="text-gray-400">Each session typically lasts one hour, conducted via video call.</p>
+              </div>
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-300">What topics are covered?</h4>
+                <p className="text-gray-400">Budgeting, investing, debt management, and more.</p>
+              </div>
             </div>
 
             {/* Signup Form */}
