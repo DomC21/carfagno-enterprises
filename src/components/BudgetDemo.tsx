@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useState } from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
 import { Input } from './ui/input'
@@ -44,7 +43,11 @@ export function BudgetDemo() {
 
   return (
     <div className={`bg-blue-950/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl ${animationClasses.fadeIn}`}>
-      <h3 className={`text-2xl font-bold ${colorClasses.primary} mb-6`}>Interactive Budget Calculator</h3>
+      <h3 className={`text-2xl font-bold ${colorClasses.primary} mb-4`}>Interactive Budget Calculator</h3>
+      
+      <p className={`${colorClasses.secondary} mb-6`}>
+        Try adjusting your monthly income and expenses to see how your savings rate changes. Our calculator will provide personalized insights to help optimize your budget.
+      </p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
@@ -95,7 +98,7 @@ export function BudgetDemo() {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {data.map((entry, index) => (
+                  {data.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -115,9 +118,11 @@ export function BudgetDemo() {
           <div className={`p-4 bg-blue-900/30 rounded-lg ${colorClasses.border}`}>
             <p className={`${colorClasses.secondary} text-sm mb-2`}>
               Monthly Savings Potential: <span className={colorClasses.primary}>${actualSavings.toFixed(2)}</span>
+              <span className="block mt-1 text-xs text-gray-400">This is how much you could save based on your current budget</span>
             </p>
             <p className={`${colorClasses.secondary} text-sm`}>
               Recommended Savings (20% Rule): <span className={colorClasses.primary}>${recommendedSavings.toFixed(2)}</span>
+              <span className="block mt-1 text-xs text-gray-400">Financial experts recommend saving at least 20% of your income</span>
             </p>
           </div>
         </div>
@@ -127,7 +132,7 @@ export function BudgetDemo() {
         <Button 
           className={`group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}
         >
-          Get a Full Coaching Session to Maximize Your Budget!
+          Schedule Your Personal Budget Review Session!
         </Button>
       </div>
     </div>

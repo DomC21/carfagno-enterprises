@@ -1,9 +1,7 @@
 import * as React from "react"
 import { cn } from "../lib/utils"
 
-interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function Logo({ className, ...props }: LogoProps) {
+export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={cn("flex items-center gap-4 relative group", className)} {...props}>
       <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>

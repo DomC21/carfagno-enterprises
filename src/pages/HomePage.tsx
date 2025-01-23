@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { Logo } from '../components/Logo'
+import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -317,6 +318,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   )
 }
