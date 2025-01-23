@@ -2,13 +2,20 @@
 import { ChevronLeft } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
+import { Logo } from '../components/Logo'
 
 export default function AboutPage() {
   const navigate = useNavigate()
   
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="container mx-auto px-4 py-16">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
+        <div className="container mx-auto px-4 py-4">
+          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-16 pt-24">
         <Button
           variant="ghost"
           className="mb-8 text-teal-400 hover:text-teal-300 group"
