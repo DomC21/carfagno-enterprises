@@ -79,8 +79,54 @@ export default function HomePage() {
     <>
       {/* Hero Section */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <nav className="hidden sm:flex items-center gap-2 md:gap-4">
+            <Button 
+              variant="ghost" 
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              onClick={() => navigate('/coaching')}
+            >
+              Coaching
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Projects
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Contact
+            </Button>
+          </nav>
+          <button 
+            className="sm:hidden text-teal-400 hover:text-teal-300 p-2"
+            onClick={() => {
+              const nav = document.createElement('div');
+              nav.className = 'fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4';
+              nav.innerHTML = `
+                <button class="absolute top-4 right-4 text-teal-400 hover:text-teal-300 p-2">✕</button>
+                <button class="text-teal-400 hover:text-teal-300 px-4 py-2">Coaching</button>
+                <button class="text-teal-400 hover:text-teal-300 px-4 py-2">Projects</button>
+                <button class="text-teal-400 hover:text-teal-300 px-4 py-2">Contact</button>
+              `;
+              document.body.appendChild(nav);
+              
+              // Add click handlers
+              const buttons = nav.querySelectorAll('button');
+              buttons[0].onclick = () => nav.remove();
+              buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
+              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
+              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
+            }}
+          >
+            ☰
+          </button>
         </div>
       </header>
 
