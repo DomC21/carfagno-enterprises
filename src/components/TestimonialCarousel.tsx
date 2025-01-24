@@ -11,19 +11,24 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    quote: "Dom's coaching helped me save $500 a month and start investing confidently!",
+    quote: "Dom's advice helped me save $500 a month and grow my savings by 20% in less than a year!",
     author: "Sarah M.",
     role: "Software Engineer"
   },
   {
-    quote: "I doubled my monthly investment budget in 3 months!",
+    quote: "I finally understand how to invest wisely, thanks to Dom's simple yet effective coaching techniques.",
     author: "Michael R.",
     role: "Business Owner"
   },
   {
-    quote: "The personalized strategies helped me achieve my financial goals faster than I expected.",
+    quote: "The personalized strategies and budget planning helped me achieve my financial goals in half the time I expected.",
     author: "Jennifer K.",
     role: "Marketing Director"
+  },
+  {
+    quote: "Dom's expertise in both traditional markets and cryptocurrency helped me diversify my portfolio effectively.",
+    author: "Alex T.",
+    role: "Healthcare Professional"
   }
 ]
 

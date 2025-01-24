@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Sparkles, Target, BarChart, BookOpen, Mail } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Sparkles, BarChart, BookOpen, Mail } from 'lucide-react'
 import { TestimonialCarousel } from '../components/TestimonialCarousel'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
@@ -65,11 +65,11 @@ export default function CoachingPage() {
           </div>
 
           <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
-            Transform Your Financial Future Today!
+            Master Your Money with Expert Guidance from Dom Carfagno
           </h1>
           
           <h2 className={`text-xl sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-8 leading-relaxed max-w-4xl mx-auto ${animationClasses.fadeIn}`}>
-            Learn to budget, invest, and secure your future with expert guidance and personalized strategies.
+            With over $100,000 in assets under management at 18, I'll teach you how to budget, invest, and secure your financial future.
           </h2>
 
           <Button 
@@ -116,49 +116,92 @@ export default function CoachingPage() {
 
           {/* Main Content */}
           <div className="max-w-4xl mx-auto">
+            {/* Why Work with Dom Section */}
+            <section className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
+              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>Why Work with Dom Carfagno?</h2>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                  <p className={`${colorClasses.secondary} text-lg`}>
+                    At just 18 years old, I manage over <span className="text-teal-400 font-semibold">$100,000 in assets</span>, leveraging advanced trading strategies and financial expertise.
+                  </p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                  <p className={`${colorClasses.secondary} text-lg`}>
+                    Years of hands-on experience in investing, budgeting, and portfolio management, achieving significant results in both stock and cryptocurrency markets.
+                  </p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                  <p className={`${colorClasses.secondary} text-lg`}>
+                    My strategies are backed by in-depth research, data analysis, and a deep understanding of financial tools and market trends.
+                  </p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                  <p className={`${colorClasses.secondary} text-lg`}>
+                    Award-winning performance in financial competitions, including success in the St. Joe's Investment Competition, demonstrating practical expertise in market analysis.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Services Section */}
+            <section className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
+              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>Services I Offer</h2>
+              <div className="space-y-8">
+                <div className="relative">
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                    <div>
+                      <h3 className="text-xl font-semibold text-teal-400 mb-2">Budgeting Expertise</h3>
+                      <p className={`${colorClasses.secondary} text-lg`}>
+                        Learn how to create a sustainable budget tailored to your goals. We'll identify areas to cut unnecessary expenses, optimize your savings, and build a step-by-step plan for financial stability and growth.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                    <div>
+                      <h3 className="text-xl font-semibold text-teal-400 mb-2">Investment Coaching</h3>
+                      <p className={`${colorClasses.secondary} text-lg`}>
+                        Gain actionable insights into stock markets, cryptocurrency, and portfolio diversification. Learn how to analyze trends, minimize risks, and maximize returns with personalized guidance for long-term investment success.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                    <div>
+                      <h3 className="text-xl font-semibold text-teal-400 mb-2">Goal-Setting &amp; Planning</h3>
+                      <p className={`${colorClasses.secondary} text-lg`}>
+                        Develop clear financial goals and create a roadmap to achieve them. We'll focus on emergency fund setup, planning for major purchases, and building a comprehensive strategy for long-term financial independence.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* Urgency Banner */}
             <div className="relative bg-gradient-to-r from-yellow-900/50 via-amber-900/50 to-yellow-900/50 border border-yellow-500/20 text-yellow-300 p-6 rounded-xl mb-8 text-center group hover:border-yellow-500/40 transition-all duration-500">
               <div className="absolute inset-0 bg-yellow-500/5 animate-pulse" />
               <div className="relative flex items-center justify-center gap-2">
                 <Sparkles className="w-5 h-5 text-yellow-400 animate-pulse" />
                 <p className="text-lg font-semibold">
-                  Limited Time Offer: Sign up by December 31st to get your first coaching session free!
+                  Limited Time Offer: Sign up by February 15th to get your first coaching session free!
                 </p>
               </div>
             </div>
 
             <div className="mb-12">
               <BudgetDemo />
-            </div>
-
-            {/* Demo Section */}
-            <div className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
-              <div className="absolute top-0 right-0 p-4">
-                <Target className={`w-6 h-6 ${colorClasses.primary} opacity-50`} />
-              </div>
-              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-4`}>Experience a Demo Coaching Session</h2>
-              <p className={`text-xl ${colorClasses.secondary} mb-8`}>
-                Get a sneak peek into how coaching can transform your financial life.
-              </p>
-
-              {/* Video Placeholder */}
-              <div className={`relative aspect-video bg-blue-900/30 rounded-lg mb-8 overflow-hidden group ${animationClasses.hover}`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <p className={`${colorClasses.secondary} mb-4`}>Demo Video Coming Soon</p>
-                    <ul className="text-sm text-gray-500 space-y-2 mb-4">
-                      <li>• Brief explanation of budgeting techniques</li>
-                      <li>• Simple investing tips</li>
-                      <li>• How to approach financial goal-setting</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-
-              <Button className={`w-full sm:w-auto group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
-                Watch the Full Demo
-              </Button>
             </div>
 
             {/* Success Stories */}
@@ -211,9 +254,9 @@ export default function CoachingPage() {
                     type="email"
                     className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
                   />
-                  <Input 
-                    placeholder="Your Financial Goals" 
-                    className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                  <textarea 
+                    placeholder="Your Financial Goals (briefly describe what you hope to achieve)"
+                    className={`w-full h-24 bg-blue-900/30 ${colorClasses.border} rounded-md p-3 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
                   />
                   <Select>
                     <SelectTrigger className={`bg-blue-900/30 ${colorClasses.border} text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}>
@@ -228,11 +271,11 @@ export default function CoachingPage() {
                 </div>
 
                 <Button className={`w-full group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
-                  Start My Financial Journey!
+                  Schedule Your Coaching Session
                 </Button>
 
                 <p className={`text-sm ${colorClasses.secondary} mt-4`}>
-                  Thank you for your interest! I'll reach out shortly to confirm your session.
+                  I'll reach out within 24 hours to confirm your session details.
                 </p>
               </form>
             </div>
