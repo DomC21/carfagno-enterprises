@@ -41,7 +41,17 @@ export default function CoachingPage() {
     <div className="min-h-screen bg-black text-white overflow-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto px-4 py-4">
-          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <div className="flex items-center justify-between">
+            <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+            <Button
+              variant="ghost"
+              className="text-teal-400 hover:text-teal-300 group"
+              onClick={() => navigate('/')}
+            >
+              <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
+              Back to Home
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -64,12 +74,12 @@ export default function CoachingPage() {
             <span className={`${colorClasses.primary} text-sm font-medium`}>Transform Your Financial Future</span>
           </div>
 
-          <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
-            Take Control of Your Finances with Expert Coaching from Dom Carfagno
+          <h1 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-6 px-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
+            Master Your Money with Dom Carfagno's Expertise
           </h1>
           
-          <h2 className={`text-xl sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-8 leading-relaxed max-w-4xl mx-auto ${animationClasses.fadeIn}`}>
-            With over $100,000 in assets under management at 18, I'll teach you how to budget, invest, and secure your financial future.
+          <h2 className={`text-lg sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto px-4 ${animationClasses.fadeIn}`}>
+            Gain access to cutting-edge tools like Lukz, Zom AI, and Rust, alongside proven investment strategies and personalized guidance to transform your financial future.
           </h2>
 
           <Button 
@@ -83,19 +93,19 @@ export default function CoachingPage() {
       </div>
 
       {/* Dom's Photo Section */}
-      <div className="relative -mt-24 mb-16">
+      <div className="relative mt-8 sm:-mt-24 mb-24 sm:mb-16">
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
         <div className="container mx-auto px-4">
-          <div className="relative w-48 h-48 mx-auto group">
+          <div className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
             <img
-              src="/Dom PICX.jpg"
+              src="/dom-picx.jpg"
               alt="Dom Carfagno"
-              className="relative w-48 h-48 rounded-full object-cover border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
+              className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
             />
-            <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 w-max">
-              <p className="text-gray-300 text-center text-lg">
-                "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. At just 18 years old, I manage over $100,000 in assets and have helped individuals transform their finances through budgeting and investing strategies. Learn how I can help you achieve your financial goals."
+            <div className="absolute -bottom-36 sm:-bottom-24 left-1/2 transform -translate-x-1/2 w-full sm:w-max px-4 sm:px-0">
+              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-none mx-auto leading-relaxed">
+                "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
               </p>
             </div>
           </div>
@@ -103,6 +113,34 @@ export default function CoachingPage() {
       </div>
 
       <div className="container mx-auto px-4 py-16">
+        {/* What I Bring to the Table Section */}
+        <section className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
+          <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>What I Bring to the Table</h2>
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Lukz</h3>
+                <p className={`${colorClasses.secondary} text-lg`}>A financial analytics platform providing real-time flow data, Congressional trades, and alerts.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Zom AI</h3>
+                <p className={`${colorClasses.secondary} text-lg`}>AI-powered tool offering advanced metrics, market sentiment, and personalized insights.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Rust</h3>
+                <p className={`${colorClasses.secondary} text-lg`}>A robust investment tracking tool focusing on portfolio optimization.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <div className="relative">
           <Button
             variant="ghost"
@@ -185,6 +223,18 @@ export default function CoachingPage() {
                     </div>
                   </div>
                 </div>
+
+                <div className="relative">
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                    <div>
+                      <h3 className="text-xl font-semibold text-teal-400 mb-2">AI-Driven Insights</h3>
+                      <p className={`${colorClasses.secondary} text-lg`}>
+                        Gain access to cutting-edge AI tools that analyze market trends and provide personalized recommendations tailored to your financial needs. Leverage tools like Lukz and Zom AI for data-driven decision making.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -233,9 +283,9 @@ export default function CoachingPage() {
               <div className="absolute top-0 right-0 p-4">
                 <Mail className={`w-6 h-6 ${colorClasses.primary} opacity-50`} />
               </div>
-              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-4`}>Sign Up for Coaching</h2>
+              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-4`}>Take the first step toward financial freedom</h2>
               <p className={`text-xl ${colorClasses.secondary} mb-8`}>
-                Take the first step towards your financial goals. Fill out the form below and I'll reach out to confirm your session.
+                Sign up for a personalized coaching session tailored to your goals.
               </p>
 
               <form className="space-y-6">
@@ -250,7 +300,7 @@ export default function CoachingPage() {
                     className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
                   />
                   <textarea 
-                    placeholder="Your Financial Goals (briefly describe what you hope to achieve)"
+                    placeholder="Your Financial Goals"
                     className={`w-full h-24 bg-blue-900/30 ${colorClasses.border} rounded-md p-3 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
                   />
                   <Select>
@@ -266,7 +316,7 @@ export default function CoachingPage() {
                 </div>
 
                 <Button className={`w-full group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
-                  Schedule Your Coaching Session
+                  Schedule Your Session
                 </Button>
 
                 <p className={`text-sm ${colorClasses.secondary} mt-4`}>
