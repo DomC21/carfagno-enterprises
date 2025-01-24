@@ -11,22 +11,22 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    quote: "Dom's advice helped me save $500 a month and grow my savings by 20% in less than a year!",
+    quote: "Dom's tools and coaching helped me grow my portfolio by 25% in just 6 months! The AI-driven insights from Zom AI were game-changing.",
     author: "Sarah M.",
     role: "Software Engineer"
   },
   {
-    quote: "I finally understand how to invest wisely, thanks to Dom's simple yet effective coaching techniques.",
+    quote: "Using Lukz's Congressional trade tracking and premium flow analysis, I've made significantly better investment decisions. Dom's guidance in using these tools has been invaluable.",
     author: "Michael R.",
     role: "Business Owner"
   },
   {
-    quote: "The personalized strategies and budget planning helped me achieve my financial goals in half the time I expected.",
+    quote: "The combination of personalized coaching and cutting-edge tools helped me achieve my financial goals in half the time I expected. The technical analysis from Rust is exceptional.",
     author: "Jennifer K.",
     role: "Marketing Director"
   },
   {
-    quote: "Dom's expertise in both traditional markets and cryptocurrency helped me diversify my portfolio effectively.",
+    quote: "Dom's expertise and AI-powered tools helped me diversify my portfolio across both traditional markets and cryptocurrency. My returns have increased by 15% since starting.",
     author: "Alex T.",
     role: "Healthcare Professional"
   }
