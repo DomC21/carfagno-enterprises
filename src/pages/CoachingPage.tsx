@@ -74,11 +74,11 @@ export default function CoachingPage() {
             <span className={`${colorClasses.primary} text-sm font-medium`}>Transform Your Financial Future</span>
           </div>
 
-          <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
+          <h1 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-6 px-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
             Master Your Money with Dom Carfagno's Expertise
           </h1>
           
-          <h2 className={`text-xl sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-8 leading-relaxed max-w-4xl mx-auto ${animationClasses.fadeIn}`}>
+          <h2 className={`text-lg sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto px-4 ${animationClasses.fadeIn}`}>
             Gain access to cutting-edge tools like Lukz, Zom AI, and Rust, alongside proven investment strategies and personalized guidance to transform your financial future.
           </h2>
 
@@ -93,18 +93,18 @@ export default function CoachingPage() {
       </div>
 
       {/* Dom's Photo Section */}
-      <div className="relative -mt-24 mb-16">
+      <div className="relative mt-8 sm:-mt-24 mb-24 sm:mb-16">
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
         <div className="container mx-auto px-4">
-          <div className="relative w-56 h-56 mx-auto group">
+          <div className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
             <img
               src="/dom-picx.jpg"
               alt="Dom Carfagno"
-              className="relative w-56 h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
+              className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
             />
-            <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 w-max">
-              <p className="text-gray-300 text-center text-lg">
+            <div className="absolute -bottom-36 sm:-bottom-24 left-1/2 transform -translate-x-1/2 w-full sm:w-max px-4 sm:px-0">
+              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-none mx-auto leading-relaxed">
                 "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
               </p>
             </div>

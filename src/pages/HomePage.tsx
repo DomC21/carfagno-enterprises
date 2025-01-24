@@ -105,15 +105,15 @@ export default function HomePage() {
             </Button>
           </nav>
           <button 
-            className="sm:hidden text-teal-400 hover:text-teal-300 p-2"
+            className="sm:hidden text-teal-400 hover:text-teal-300 p-5 text-2xl flex items-center justify-center"
             onClick={() => {
               const nav = document.createElement('div');
-              nav.className = 'fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4';
+              nav.className = 'fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col items-center justify-center gap-10 px-6';
               nav.innerHTML = `
-                <button class="absolute top-4 right-4 text-teal-400 hover:text-teal-300 p-2">✕</button>
-                <button class="text-teal-400 hover:text-teal-300 px-4 py-2">Coaching</button>
-                <button class="text-teal-400 hover:text-teal-300 px-4 py-2">Projects</button>
-                <button class="text-teal-400 hover:text-teal-300 px-4 py-2">Contact</button>
+                <button class="absolute top-5 right-5 text-teal-400 hover:text-teal-300 p-5 text-3xl">✕</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Coaching</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Projects</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
               `;
               document.body.appendChild(nav);
               
@@ -138,11 +138,11 @@ export default function HomePage() {
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up">
+            <h2 className="text-2xl sm:text-4xl md:text-6xl xl:text-7xl font-black tracking-tight mb-3 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4">
               Shaping the Future of Financial Innovation
             </h2>
 
-            <p className="text-base sm:text-lg md:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-[280px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
               Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
             </p>
 
@@ -170,10 +170,10 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-0">
             {/* Neural Networks Card */}
             <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
                 Neural Networks and Data Pipeline
               </h3>
               <p className="text-gray-300 text-base sm:text-lg mb-4">
