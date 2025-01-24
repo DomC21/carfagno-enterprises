@@ -96,12 +96,12 @@ export default function CoachingPage() {
       <div className="relative -mt-24 mb-16">
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
         <div className="container mx-auto px-4">
-          <div className="relative w-48 h-48 mx-auto group">
+          <div className="relative w-56 h-56 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
             <img
               src="/dom-picx.jpg"
               alt="Dom Carfagno"
-              className="relative w-48 h-48 rounded-full object-cover border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
+              className="relative w-56 h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
             />
             <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 w-max">
               <p className="text-gray-300 text-center text-lg">

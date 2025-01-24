@@ -288,13 +288,13 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               {/* Left Column - Photo */}
-              <div className="relative group">
+              <div className="relative group mx-auto max-w-md">
                 <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-500">
                   <img
                     src="/dom-picx.jpg"
                     alt="Dom Carfagno"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     loading="eager"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
