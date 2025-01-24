@@ -138,11 +138,11 @@ export default function HomePage() {
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl md:text-6xl xl:text-7xl font-black tracking-tight mb-3 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-3 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 max-w-[340px] sm:max-w-2xl mx-auto">
               Shaping the Future of Financial Innovation
             </h2>
 
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-[280px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
               Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
             </p>
 
@@ -170,13 +170,13 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8">
             {/* Neural Networks Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-4 sm:p-6 md:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
                 Neural Networks and Data Pipeline
               </h3>
-              <p className="text-gray-300 text-base sm:text-lg mb-4">
+              <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 max-w-xs mx-auto">
                 A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.
               </p>
               <Button 
@@ -286,9 +286,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center px-4 sm:px-6 md:px-8">
               {/* Left Column - Photo */}
-              <div className="relative group mx-auto max-w-md">
+              <div className="relative group mx-auto max-w-[280px] sm:max-w-md">
                 <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-500">
                   <img
@@ -302,12 +302,12 @@ export default function HomePage() {
               </div>
 
               {/* Right Column - Content */}
-              <div className="relative space-y-6">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+              <div className="relative space-y-4 sm:space-y-6">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent max-w-[320px] sm:max-w-none mx-auto md:mx-0">
                   About Dom Carfagno
                 </h2>
-                <div className="space-y-6">
-                  <p className="text-xl text-gray-300 leading-relaxed">
+                <div className="space-y-4 sm:space-y-6">
+                  <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
                     Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
                   </p>
                   <Button

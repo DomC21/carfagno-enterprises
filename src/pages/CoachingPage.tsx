@@ -74,11 +74,11 @@ export default function CoachingPage() {
             <span className={`${colorClasses.primary} text-sm font-medium`}>Transform Your Financial Future</span>
           </div>
 
-          <h1 className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4 sm:mb-6 px-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
+          <h1 className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4 sm:mb-6 px-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp} max-w-[320px] sm:max-w-[600px] mx-auto leading-tight`}>
             Master Your Money with Dom Carfagno's Expertise
           </h1>
           
-          <h2 className={`text-lg sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-6 sm:mb-8 leading-relaxed max-w-4xl mx-auto px-4 ${animationClasses.fadeIn}`}>
+          <h2 className={`text-base sm:text-xl md:text-2xl ${colorClasses.secondary} mb-6 sm:mb-8 leading-relaxed max-w-[280px] sm:max-w-xl md:max-w-2xl mx-auto px-4 ${animationClasses.fadeIn}`}>
             Gain access to cutting-edge tools like Lukz, Zom AI, and Rust, alongside proven investment strategies and personalized guidance to transform your financial future.
           </h2>
 
@@ -103,8 +103,8 @@ export default function CoachingPage() {
               alt="Dom Carfagno"
               className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
             />
-            <div className="absolute -bottom-36 sm:-bottom-24 left-1/2 transform -translate-x-1/2 w-full sm:w-max px-4 sm:px-0">
-              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-none mx-auto leading-relaxed">
+            <div className="absolute -bottom-24 sm:-bottom-20 left-1/2 transform -translate-x-1/2 w-full px-4">
+              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-xs md:max-w-sm mx-auto leading-relaxed">
                 "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
               </p>
             </div>
