@@ -41,7 +41,17 @@ export default function CoachingPage() {
     <div className="min-h-screen bg-black text-white overflow-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto px-4 py-4">
-          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <div className="flex items-center justify-between">
+            <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+            <Button
+              variant="ghost"
+              className="text-teal-400 hover:text-teal-300 group"
+              onClick={() => navigate('/')}
+            >
+              <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
+              Back to Home
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -89,7 +99,7 @@ export default function CoachingPage() {
           <div className="relative w-48 h-48 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
             <img
-              src="/Dom PICX.jpg"
+              src="/dom-picx.jpg"
               alt="Dom Carfagno"
               className="relative w-48 h-48 rounded-full object-cover border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
             />
