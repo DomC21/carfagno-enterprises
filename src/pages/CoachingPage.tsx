@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
 import { colorClasses, animationClasses } from '../utils/styles'
-import { BudgetDemo } from '../components/BudgetDemo'
+
 import {
   Select,
   SelectContent,
@@ -65,7 +65,7 @@ export default function CoachingPage() {
           </div>
 
           <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp}`}>
-            Master Your Money with Expert Guidance from Dom Carfagno
+            Take Control of Your Finances with Expert Coaching from Dom Carfagno
           </h1>
           
           <h2 className={`text-xl sm:text-2xl md:text-3xl ${colorClasses.secondary} mb-8 leading-relaxed max-w-4xl mx-auto ${animationClasses.fadeIn}`}>
@@ -76,14 +76,14 @@ export default function CoachingPage() {
             className={`group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}
             onClick={() => document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Get Started Now!
+            Book Your Coaching Session Now!
             <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       </div>
 
       {/* Dom's Photo Section */}
-      <div className="relative -mt-12 mb-16">
+      <div className="relative -mt-24 mb-16">
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
         <div className="container mx-auto px-4">
           <div className="relative w-48 h-48 mx-auto group">
@@ -95,8 +95,7 @@ export default function CoachingPage() {
             />
             <div className="absolute -bottom-24 left-1/2 transform -translate-x-1/2 w-max">
               <p className="text-gray-300 text-center text-lg">
-                "Hi, I'm Dom Carfagno, and I'm here to help you<br />
-                take control of your financial journey."
+                "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. At just 18 years old, I manage over $100,000 in assets and have helped individuals transform their finances through budgeting and investing strategies. Learn how I can help you achieve your financial goals."
               </p>
             </div>
           </div>
@@ -198,10 +197,6 @@ export default function CoachingPage() {
                   Limited Time Offer: Sign up by February 15th to get your first coaching session free!
                 </p>
               </div>
-            </div>
-
-            <div className="mb-12">
-              <BudgetDemo />
             </div>
 
             {/* Success Stories */}
