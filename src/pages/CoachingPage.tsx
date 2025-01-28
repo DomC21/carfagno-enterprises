@@ -8,6 +8,8 @@ import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
 import { colorClasses, animationClasses } from '../utils/styles'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { api } from '../lib/api'
 import toast from 'react-hot-toast'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
@@ -29,7 +31,25 @@ interface CoachingForm {
 
 export default function CoachingPage() {
   const navigate = useNavigate()
-  const form = useForm<CoachingForm>()
+  const form = useForm<CoachingForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      goals: '',
+      time: 'morning'
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        goals: z.string().min(10, 'Please describe your goals in at least 10 characters'),
+        time: z.enum(['morning', 'afternoon', 'evening'], {
+          required_error: 'Please select your preferred time'
+        })
+      })
+    )
+  })
 
   // Add parallax scroll effect
   useEffect(() => {

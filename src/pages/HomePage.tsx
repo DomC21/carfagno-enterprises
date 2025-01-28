@@ -13,6 +13,8 @@ import {
 } from '../components/ui/select'
 import { Input } from '../components/ui/input'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { api } from '../lib/api'
 import toast from 'react-hot-toast'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
@@ -32,8 +34,39 @@ interface ContactForm {
 export default function HomePage() {
   const navigate = useNavigate()
   
-  const earlyAccessForm = useForm<EarlyAccessForm>()
-  const contactForm = useForm<ContactForm>()
+  const earlyAccessForm = useForm<EarlyAccessForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      interest: ''
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        interest: z.enum(['neural-networks', 'lukz', 'zom-ai'], {
+          required_error: 'Please select your interest'
+        })
+      })
+    )
+  })
+  
+  const contactForm = useForm<ContactForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: ''
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        message: z.string().min(10, 'Message must be at least 10 characters')
+      })
+    )
+  })
 
   const onEarlyAccessSubmit = async (data: EarlyAccessForm) => {
     try {
