@@ -7,6 +7,12 @@ import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
 import { colorClasses, animationClasses } from '../utils/styles'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { api } from '../lib/api'
+import toast from 'react-hot-toast'
+import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
 
 import {
   Select,
@@ -16,8 +22,34 @@ import {
   SelectValue,
 } from "../components/ui/select"
 
+interface CoachingForm {
+  name: string
+  email: string
+  goals: string
+  time: string
+}
+
 export default function CoachingPage() {
   const navigate = useNavigate()
+  const form = useForm<CoachingForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      goals: '',
+      time: 'morning'
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        goals: z.string().min(10, 'Please describe your goals in at least 10 characters'),
+        time: z.enum(['morning', 'afternoon', 'evening'], {
+          required_error: 'Please select your preferred time'
+        })
+      })
+    )
+  })
 
   // Add parallax scroll effect
   useEffect(() => {
@@ -288,41 +320,103 @@ export default function CoachingPage() {
                 Sign up for a personalized coaching session tailored to your goals.
               </p>
 
-              <form className="space-y-6">
-                <div className="space-y-4">
-                  <Input 
-                    placeholder="Name" 
-                    className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
-                  />
-                  <Input 
-                    placeholder="Email" 
-                    type="email"
-                    className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
-                  />
-                  <textarea 
-                    placeholder="Your Financial Goals"
-                    className={`w-full h-24 bg-blue-900/30 ${colorClasses.border} rounded-md p-3 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
-                  />
-                  <Select>
-                    <SelectTrigger className={`bg-blue-900/30 ${colorClasses.border} text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}>
-                      <SelectValue placeholder="Preferred Session Time" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-blue-950 border-teal-500/20">
-                      <SelectItem value="morning" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Morning (9AM - 12PM)</SelectItem>
-                      <SelectItem value="afternoon" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Afternoon (1PM - 5PM)</SelectItem>
-                      <SelectItem value="evening" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Evening (6PM - 8PM)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(async (data) => {
+                  try {
+                    await api.post('/api/contact', {
+                      name: data.name,
+                      email: data.email,
+                      message: `Financial Goals: ${data.goals}\nPreferred Time: ${data.time}`,
+                    });
+                    toast.success('Thank you! I will contact you within 24 hours to confirm your session.');
+                    form.reset();
+                  } catch (error) {
+                    toast.error('Sorry, there was an error submitting your request. Please try again.');
+                    console.error('Coaching form submission error:', error);
+                  }
+                })} className="space-y-6">
+                  <div className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input 
+                              placeholder="Name" 
+                              className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input 
+                              placeholder="Email" 
+                              type="email"
+                              className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="goals"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <textarea 
+                              placeholder="Your Financial Goals"
+                              className={`w-full h-24 bg-blue-900/30 ${colorClasses.border} rounded-md p-3 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="time"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Select onValueChange={field.onChange} defaultValue="morning">
+                              <SelectTrigger className={`bg-blue-900/30 ${colorClasses.border} text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}>
+                                <SelectValue placeholder="Preferred Session Time" />
+                              </SelectTrigger>
+                              <SelectContent className="bg-blue-950 border-teal-500/20">
+                                <SelectItem value="morning" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Morning (9AM - 12PM)</SelectItem>
+                                <SelectItem value="afternoon" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Afternoon (1PM - 5PM)</SelectItem>
+                                <SelectItem value="evening" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Evening (6PM - 8PM)</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-                <Button className={`w-full group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
-                  Schedule Your Session
-                </Button>
+                  <Button type="submit" className={`w-full group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
+                    Schedule Your Session
+                  </Button>
 
-                <p className={`text-sm ${colorClasses.secondary} mt-4`}>
-                  I'll reach out within 24 hours to confirm your session details.
-                </p>
-              </form>
+                  <p className={`text-sm ${colorClasses.secondary} mt-4`}>
+                    I'll reach out within 24 hours to confirm your session details.
+                  </p>
+                </form>
+              </Form>
             </div>
 
 

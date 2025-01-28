@@ -12,9 +12,83 @@ import {
   SelectValue,
 } from '../components/ui/select'
 import { Input } from '../components/ui/input'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { api } from '../lib/api'
+import toast from 'react-hot-toast'
+import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
+
+interface EarlyAccessForm {
+  name: string
+  email: string
+  interest: string
+}
+
+interface ContactForm {
+  name: string
+  email: string
+  message: string
+}
 
 export default function HomePage() {
   const navigate = useNavigate()
+  
+  const earlyAccessForm = useForm<EarlyAccessForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      interest: ''
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        interest: z.enum(['neural-networks', 'lukz', 'zom-ai'], {
+          required_error: 'Please select your interest'
+        })
+      })
+    )
+  })
+  
+  const contactForm = useForm<ContactForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: ''
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        message: z.string().min(10, 'Message must be at least 10 characters')
+      })
+    )
+  })
+
+  const onEarlyAccessSubmit = async (data: EarlyAccessForm) => {
+    try {
+      await api.post('/api/early-access', data)
+      toast.success('Thank you for your interest! We will be in touch soon.')
+      earlyAccessForm.reset()
+    } catch (error) {
+      toast.error('Something went wrong. Please try again later.')
+      console.error('Early access submission error:', error)
+    }
+  }
+
+  const onContactSubmit = async (data: ContactForm) => {
+    try {
+      await api.post('/api/contact', data)
+      toast.success('Message sent successfully! We will get back to you soon.')
+      contactForm.reset()
+    } catch (error) {
+      toast.error('Something went wrong. Please try again later.')
+      console.error('Contact form submission error:', error)
+    }
+  }
 
   // Add custom animations to index.css
   useEffect(() => {
@@ -241,34 +315,71 @@ export default function HomePage() {
 
             <div className="relative">
               <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10">
-                <form className="space-y-6 relative z-50">
-                  <div className="space-y-4 relative">
-                    <Input 
-                      placeholder="Name" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
-                    />
-                    <Input 
-                      placeholder="Email" 
-                      type="email" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
-                    />
-                    <Select>
-                      <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
-                        <SelectValue placeholder="Select your interest" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-blue-950 border-teal-500/20">
-                        <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
-                        <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
-                        <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <Form {...earlyAccessForm}>
+                  <form onSubmit={earlyAccessForm.handleSubmit(onEarlyAccessSubmit)} className="space-y-6 relative z-50">
+                    <div className="space-y-4 relative">
+                      <FormField
+                        control={earlyAccessForm.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input 
+                                placeholder="Name" 
+                                className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={earlyAccessForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input 
+                                placeholder="Email" 
+                                type="email" 
+                                className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={earlyAccessForm.control}
+                        name="interest"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                                  <SelectValue placeholder="Select your interest" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-blue-950 border-teal-500/20">
+                                  <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
+                                  <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
+                                  <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                  <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
-                    Get Early Access
-                    <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
-                  </Button>
-                </form>
+                    <Button type="submit" className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
+                      Get Early Access
+                      <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
+                    </Button>
+                  </form>
+                </Form>
               </div>
             </div>
           </div>
@@ -340,27 +451,65 @@ export default function HomePage() {
                 DominicCarfagno@carfagnoenterprises.com
               </a>
             </div>
-            <form className="relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20">
-              <div className="relative space-y-4">
-                <Input 
-                  placeholder="Name" 
-                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
-                />
-                <Input 
-                  placeholder="Email" 
-                  type="email" 
-                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
-                />
-                <textarea 
-                  placeholder="Message"
-                  className="relative z-50 w-full h-28 sm:h-32 md:h-40 bg-blue-900/30 border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
-                />
-                <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
-                  Send Message
-                  <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
-                </Button>
-              </div>
-            </form>
+            <Form {...contactForm}>
+              <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20">
+                <div className="relative space-y-4">
+                  <FormField
+                    control={contactForm.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input 
+                            placeholder="Name" 
+                            className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={contactForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input 
+                            placeholder="Email" 
+                            type="email" 
+                            className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={contactForm.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <textarea 
+                            placeholder="Message"
+                            className="relative z-50 w-full h-28 sm:h-32 md:h-40 bg-blue-900/30 border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
+                    Send Message
+                    <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
       </section>
