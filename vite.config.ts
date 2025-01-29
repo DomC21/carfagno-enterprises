@@ -30,5 +30,16 @@ export default defineConfig({
     host: true,
     strictPort: true,
   },
+  server: {
+    port: 5173,
+    host: true,
+    strictPort: true,
+    middlewareMode: false,
+  },
+  preview: {
+    port: 4173,
+    host: true,
+    strictPort: true,
+  },
 })
 
