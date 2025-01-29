@@ -159,13 +159,6 @@ export default function HomePage() {
             <Button 
               variant="ghost" 
               className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
-              onClick={() => navigate('/coaching')}
-            >
-              Coaching
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Projects
@@ -185,7 +178,6 @@ export default function HomePage() {
               nav.className = 'fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col items-center justify-center gap-10 px-6';
               nav.innerHTML = `
                 <button class="absolute top-5 right-5 text-teal-400 hover:text-teal-300 p-5 text-3xl">✕</button>
-                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Coaching</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Projects</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
               `;
@@ -194,9 +186,8 @@ export default function HomePage() {
               // Add click handlers
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
-              buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
-              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
-              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
+              buttons[1].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
+              buttons[2].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
             }}
           >
             ☰
@@ -421,14 +412,7 @@ export default function HomePage() {
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
                     Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
                   </p>
-                  <Button
-                    className="w-full sm:w-auto group bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 transition-all duration-500 hover:scale-[1.02]"
-                    onClick={() => navigate('/about')}
-                    data-devinid="learn-more-button"
-                  >
-                    Learn More About Me
-                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </Button>
+
                 </div>
               </div>
             </div>
