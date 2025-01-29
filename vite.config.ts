@@ -20,6 +20,7 @@ export default defineConfig({
     },
   },
   server: {
+    port: 5173,
     historyApiFallback: {
       rewrites: [
         { from: /^\/coaching/, to: '/index.html' },
@@ -29,6 +30,7 @@ export default defineConfig({
     }
   },
   preview: {
+    port: 4173,
     historyApiFallback: {
       rewrites: [
         { from: /^\/coaching/, to: '/index.html' },
