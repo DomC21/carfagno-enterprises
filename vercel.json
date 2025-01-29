@@ -1,8 +1,9 @@
 {
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+    { "source": "/projects/:path*", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "buildCommand": "pnpm install && pnpm build",
+  "installCommand": "pnpm install",
+  "framework": "vite"
 }
