@@ -20,10 +20,22 @@ export default defineConfig({
     },
   },
   server: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/coaching/, to: '/index.html' },
+        { from: /^\/projects\/.*/, to: '/index.html' },
+        { from: /./, to: '/index.html' }
+      ]
+    }
   },
   preview: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/coaching/, to: '/index.html' },
+        { from: /^\/projects\/.*/, to: '/index.html' },
+        { from: /./, to: '/index.html' }
+      ]
+    }
   },
 })
 
