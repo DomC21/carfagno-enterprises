@@ -421,14 +421,7 @@ export default function HomePage() {
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
                     Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
                   </p>
-                  <Button
-                    className="w-full sm:w-auto group bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 transition-all duration-500 hover:scale-[1.02]"
-                    onClick={() => navigate('/about')}
-                    data-devinid="learn-more-button"
-                  >
-                    Learn More About Me
-                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </Button>
+
                 </div>
               </div>
             </div>
