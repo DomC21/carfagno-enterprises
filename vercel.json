@@ -4,5 +4,12 @@
   ],
   "buildCommand": "pnpm install && pnpm build",
   "installCommand": "pnpm install",
-  "framework": "vite"
+  "framework": "vite",
+  "trailingSlash": false,
+  "cleanUrls": true,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/coaching", "dest": "/index.html", "status": 200 },
+    { "src": "/projects/(.*)", "dest": "/index.html", "status": 200 }
+  ]
 }
