@@ -21,41 +21,14 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    historyApiFallback: {
-      rewrites: [
-        { from: /^\/coaching/, to: '/index.html' },
-        { from: /^\/projects\/.*/, to: '/index.html' },
-        { from: /./, to: '/index.html' }
-      ]
-    }
+    host: true,
+    strictPort: true,
+    middlewareMode: false,
   },
   preview: {
     port: 4173,
-    historyApiFallback: {
-      rewrites: [
-        { from: /^\/coaching/, to: '/index.html' },
-        { from: /^\/projects\/.*/, to: '/index.html' },
-        { from: /./, to: '/index.html' }
-      ]
-    }
-  },
-  server: {
-    historyApiFallback: {
-      rewrites: [
-        { from: /^\/coaching/, to: '/index.html' },
-        { from: /^\/projects\/.*/, to: '/index.html' },
-        { from: /./, to: '/index.html' }
-      ]
-    }
-  },
-  preview: {
-    historyApiFallback: {
-      rewrites: [
-        { from: /^\/coaching/, to: '/index.html' },
-        { from: /^\/projects\/.*/, to: '/index.html' },
-        { from: /./, to: '/index.html' }
-      ]
-    }
+    host: true,
+    strictPort: true,
   },
 })
 
