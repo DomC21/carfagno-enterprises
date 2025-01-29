@@ -9,7 +9,6 @@
   "cleanUrls": true,
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/coaching", "dest": "/index.html", "status": 200 },
-    { "src": "/projects/(.*)", "dest": "/index.html", "status": 200 }
+    { "src": "/(.*)", "dest": "/index.html", "status": 200 }
   ]
 }
