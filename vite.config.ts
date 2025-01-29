@@ -37,5 +37,23 @@ export default defineConfig({
       ]
     }
   },
+  server: {
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/coaching/, to: '/index.html' },
+        { from: /^\/projects\/.*/, to: '/index.html' },
+        { from: /./, to: '/index.html' }
+      ]
+    }
+  },
+  preview: {
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/coaching/, to: '/index.html' },
+        { from: /^\/projects\/.*/, to: '/index.html' },
+        { from: /./, to: '/index.html' }
+      ]
+    }
+  },
 })
 
