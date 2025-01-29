@@ -3,7 +3,7 @@
     { "source": "/projects/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "env": {
-    "VITE_API_URL": "https://carfagno-financial-app-ku4t0zdz.devinapps.com"
-  }
+  "buildCommand": "pnpm install && pnpm build",
+  "installCommand": "pnpm install",
+  "framework": "vite"
 }
