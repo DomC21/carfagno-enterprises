@@ -146,7 +146,7 @@ export default function CoachingPage() {
 
       <div className="container mx-auto px-4 py-16">
         {/* What I Bring to the Table Section */}
-        <section className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
+        <section className={`relative bg-gradient-to-br from-blue-950 to-blue-950/90 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
           <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>What I Bring to the Table</h2>
           <div className="space-y-6">
             <div className="flex items-start gap-4">
