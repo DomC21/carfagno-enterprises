@@ -18,6 +18,7 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
       },
     },
+    copyPublicDir: true,
   },
   server: {
     port: 5173,

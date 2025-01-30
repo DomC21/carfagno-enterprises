@@ -1,8 +1,9 @@
 {
   "rewrites": [
-    { "source": "/coaching", "destination": "/index.html" },
-    { "source": "/projects/:path*", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ],
   "buildCommand": "pnpm install && pnpm build",
   "installCommand": "pnpm install",
