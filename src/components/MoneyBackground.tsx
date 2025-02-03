@@ -5,8 +5,14 @@ import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elemen
 import { CandlestickPattern, TrendLines } from '../assets/backgrounds/financial-elements';
 
 // Define background element positions
+type BackgroundElement = {
+  Component: React.ComponentType;
+  positions: string[];
+  priority: 'high' | 'low';
+};
+
 // Define background elements with mobile-friendly positioning
-const backgroundElements = [
+const backgroundElements: BackgroundElement[] = [
   // Core elements (shown on all devices)
   { Component: DollarIcon, positions: ['15,25', '85,35'], priority: 'high' },
   { Component: GraphIcon, positions: ['25,45', '75,55'], priority: 'high' },
@@ -71,7 +77,7 @@ export function MoneyBackground() {
                 elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
                 elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
                 `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`,
-                el.priority === 'low' ? 'hidden md:block' : '',
+                visibleElements[elementIndex].priority === 'low' ? 'hidden md:block' : '',
                 "transition-all duration-1000",
                 elementIndex % 2 === 0 ? "text-teal-400" : "text-blue-400"
               )}
