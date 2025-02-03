@@ -5,6 +5,7 @@ import { MoneyBackground } from '../components/MoneyBackground'
 import { FinancialTicker } from '../components/FinancialTicker'
 import { Footer } from '../components/Footer'
 import { AIChatbot } from '../components/AIChatbot'
+import { MarketChart } from '../components/MarketChart'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -380,6 +381,10 @@ export default function HomePage() {
                 <User className="w-5 h-5 text-teal-400 animate-pulse" />
                 <span className="text-teal-400 text-sm font-medium">About Me</span>
               </div>
+            </div>
+
+            <div className="mb-12">
+              <MarketChart />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center px-4 sm:px-6 md:px-8">
