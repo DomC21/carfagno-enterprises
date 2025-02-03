@@ -25,43 +25,64 @@ const mockData: DataPoint[] = [
 ];
 
 export function MarketChart() {
-  const width = 600;
-  const height = 300;
+  const [dimensions, setDimensions] = React.useState({ width: 600, height: 300 });
+  const chartRef = React.useRef<HTMLDivElement>(null);
   const padding = 40;
 
+  React.useEffect(() => {
+    const updateDimensions = () => {
+      if (chartRef.current) {
+        const containerWidth = chartRef.current.clientWidth;
+        setDimensions({
+          width: Math.min(600, containerWidth - 32), // 32px for padding
+          height: Math.min(300, (containerWidth - 32) * 0.5)
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
   // Calculate scales
-  const xScale = (width - padding * 2) / (mockData.length - 1);
+  const xScale = (dimensions.width - padding * 2) / (mockData.length - 1);
   const yMin = Math.min(...mockData.map(d => d.value));
   const yMax = Math.max(...mockData.map(d => d.value));
-  const yScale = (height - padding * 2) / (yMax - yMin);
+  const yScale = (dimensions.height - padding * 2) / (yMax - yMin);
 
   // Generate path data
   const pathData = mockData.map((point, i) => {
     const x = padding + i * xScale;
-    const y = height - padding - (point.value - yMin) * yScale;
+    const y = dimensions.height - padding - (point.value - yMin) * yScale;
     return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
   }).join(' ');
 
   // Generate gradient path for fill
-  const fillPathData = `${pathData} L ${width - padding} ${height - padding} L ${padding} ${height - padding} Z`;
+  const fillPathData = `${pathData} L ${dimensions.width - padding} ${dimensions.height - padding} L ${padding} ${dimensions.height - padding} Z`;
 
   return (
-    <div className={cn(
+    <div ref={chartRef} className={cn(
       "relative p-4 rounded-xl",
       "bg-gradient-to-br from-blue-950/50 to-blue-900/30",
       "border border-teal-500/20",
       "backdrop-blur-sm",
       animationClasses.fadeIn
     )}>
-      <svg width={width} height={height} className="overflow-visible">
+      <svg 
+        width={dimensions.width} 
+        height={dimensions.height} 
+        className="overflow-visible"
+        viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
+      >
         {/* Grid lines */}
         {Array.from({ length: 6 }, (_, i) => (
           <line
             key={`grid-${i}`}
             x1={padding}
-            y1={padding + i * (height - padding * 2) / 5}
-            x2={width - padding}
-            y2={padding + i * (height - padding * 2) / 5}
+            y1={padding + i * (dimensions.height - padding * 2) / 5}
+            x2={dimensions.width - padding}
+            y2={padding + i * (dimensions.height - padding * 2) / 5}
             className="stroke-gray-700/20"
             strokeDasharray="4 4"
           />
@@ -72,7 +93,7 @@ export function MarketChart() {
           <text
             key={`label-${i}`}
             x={padding - 10}
-            y={padding + i * (height - padding * 2) / 5}
+            y={padding + i * (dimensions.height - padding * 2) / 5}
             className="text-xs fill-gray-400 text-right"
             textAnchor="end"
             dominantBaseline="middle"
@@ -86,7 +107,7 @@ export function MarketChart() {
           <text
             key={`time-${i}`}
             x={padding + i * xScale * 2}
-            y={height - padding + 20}
+            y={dimensions.height - padding + 20}
             className="text-xs fill-gray-400 text-center"
             textAnchor="middle"
           >
@@ -114,7 +135,7 @@ export function MarketChart() {
           <circle
             key={`point-${i}`}
             cx={padding + i * xScale}
-            cy={height - padding - (point.value - yMin) * yScale}
+            cy={dimensions.height - padding - (point.value - yMin) * yScale}
             r="3"
             className={cn(
               "fill-teal-400",

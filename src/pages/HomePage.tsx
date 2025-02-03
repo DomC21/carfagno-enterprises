@@ -383,7 +383,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="mb-12">
+            <div className="mb-12 w-full max-w-4xl mx-auto px-4">
               <MarketChart />
             </div>
 
