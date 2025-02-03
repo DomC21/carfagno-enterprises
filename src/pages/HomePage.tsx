@@ -4,6 +4,7 @@ import { Logo } from '../components/Logo'
 import { MoneyBackground } from '../components/MoneyBackground'
 import { FinancialTicker } from '../components/FinancialTicker'
 import { Footer } from '../components/Footer'
+import { AIChatbot } from '../components/AIChatbot'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -504,6 +505,7 @@ export default function HomePage() {
         </div>
       </section>
       <Footer />
+      <AIChatbot />
     </>
   )
 }
