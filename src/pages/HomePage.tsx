@@ -167,8 +167,8 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
+      <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
           <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 md:space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
@@ -197,8 +197,9 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-12 sm:py-16 md:py-24 overflow-hidden">
+      <section id="projects" className="relative py-8 sm:py-10 md:py-12 overflow-visible mt-[-4rem] sm:mt-[-6rem] z-10 bg-gradient-to-br from-blue-950/70 via-blue-900/60 to-slate-900/70">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
           <div className="text-center mb-8 sm:mb-12 md:mb-16 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
               <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
@@ -268,8 +269,9 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+      <section className="relative py-8 sm:py-10 md:py-12 overflow-visible mt-[-3rem] sm:mt-[-4rem] z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-6 sm:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
@@ -362,7 +364,7 @@ export default function HomePage() {
       </section>
 
       {/* About Me Section */}
-      <section className="relative py-12 sm:py-24 overflow-hidden">
+      <section className="relative py-8 sm:py-12 overflow-hidden">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8">
