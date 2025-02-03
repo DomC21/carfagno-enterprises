@@ -51,5 +51,7 @@ export const animationClasses = {
   button: 'transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl',
   icon: 'transition-all duration-500 ease-out group-hover:scale-110',
   parallax: 'transition-transform duration-1000 ease-out',
-  glow: 'animate-glow transition-all duration-700 hover:shadow-lg hover:shadow-teal-500/20'
+  glow: 'animate-glow transition-all duration-700 hover:shadow-lg hover:shadow-teal-500/20',
+  drift: 'animate-drift',
+  shimmer: 'animate-shimmer'
 }

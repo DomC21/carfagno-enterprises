@@ -124,28 +124,8 @@ export default function CoachingPage() {
         </div>
       </div>
 
-      {/* Dom's Photo Section */}
-      <div className="relative mt-8 sm:-mt-24 mb-24 sm:mb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
-        <div className="container mx-auto px-4">
-          <div className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto group">
-            <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
-            <img
-              src="/dom-picx.jpg"
-              alt="Dom Carfagno"
-              className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
-            />
-            <div className="absolute -bottom-24 sm:-bottom-20 left-1/2 transform -translate-x-1/2 w-full px-4">
-              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-xs md:max-w-sm mx-auto leading-relaxed">
-                "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-16">
-        {/* What I Bring to the Table Section */}
+      {/* What I Bring to the Table Section */}
+      <div className="container mx-auto px-4 py-8">
         <section className={`relative bg-gradient-to-br from-blue-950 to-blue-950/90 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
           <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>What I Bring to the Table</h2>
           <div className="space-y-6">
@@ -172,6 +152,29 @@ export default function CoachingPage() {
             </div>
           </div>
         </section>
+      </div>
+
+      {/* Dom's Photo Section */}
+      <div className="relative mt-8 sm:mt-0 mb-24 sm:mb-16">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
+        <div className="container mx-auto px-4">
+          <div className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto group">
+            <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+            <img
+              src="/dom-picx.jpg"
+              alt="Dom Carfagno"
+              className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
+            />
+            <div className="absolute -bottom-24 sm:-bottom-20 left-1/2 transform -translate-x-1/2 w-full px-4">
+              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-xs md:max-w-sm mx-auto leading-relaxed">
+                "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-16">
 
         <div className="relative">
           <Button

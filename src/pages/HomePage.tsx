@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { Logo } from '../components/Logo'
+import { MoneyBackground } from '../components/MoneyBackground'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
@@ -103,14 +104,24 @@ export default function HomePage() {
         to { transform: translateY(0); opacity: 1; }
       }
       @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
+        0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) translateX(5px) rotate(2deg); }
+        100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
       }
       @keyframes pulse {
         0% { opacity: 0.4; }
         50% { opacity: 0.6; }
         100% { opacity: 0.4; }
+      }
+      @keyframes drift {
+        0% { transform: translateX(0px) scale(1); }
+        50% { transform: translateX(20px) scale(1.05); }
+        100% { transform: translateX(0px) scale(1); }
+      }
+      @keyframes shimmer {
+        0% { opacity: 0.3; filter: brightness(0.8); }
+        50% { opacity: 0.5; filter: brightness(1.2); }
+        100% { opacity: 0.3; filter: brightness(0.8); }
       }
       .animate-fade-in {
         animation: fadeIn 0.8s ease-out forwards;
@@ -123,6 +134,12 @@ export default function HomePage() {
       }
       .animate-pulse-slow {
         animation: pulse 4s ease-in-out infinite;
+      }
+      .animate-drift {
+        animation: drift 12s ease-in-out infinite;
+      }
+      .animate-shimmer {
+        animation: shimmer 6s ease-in-out infinite;
       }
     `
     document.head.appendChild(style)
@@ -151,6 +168,7 @@ export default function HomePage() {
 
   return (
     <>
+      <MoneyBackground />
       {/* Hero Section */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
