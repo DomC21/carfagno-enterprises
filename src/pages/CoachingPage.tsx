@@ -196,25 +196,25 @@ export default function CoachingPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
                   <p className={`${colorClasses.secondary} text-lg`}>
-                    At just 18 years old, I manage over <span className="text-teal-400 font-semibold">$100,000 in assets</span>, leveraging advanced trading strategies and financial expertise.
+                    At just 18 years old, I manage over <span className="text-teal-400 font-semibold">$100,000 in assets</span>, utilizing AI-powered analytics and proprietary algorithms to achieve exceptional returns through advanced quantitative trading strategies.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
                   <p className={`${colorClasses.secondary} text-lg`}>
-                    Years of hands-on experience in investing, budgeting, and portfolio management, achieving significant results in both stock and cryptocurrency markets.
+                    Proven track record of developing and implementing AI-driven trading systems, combining machine learning algorithms with traditional financial analysis to identify unique market opportunities.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
                   <p className={`${colorClasses.secondary} text-lg`}>
-                    My strategies are backed by in-depth research, data analysis, and a deep understanding of financial tools and market trends.
+                    My strategies leverage state-of-the-art artificial intelligence, processing millions of data points in real-time to generate actionable insights and optimize trading decisions.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
                   <p className={`${colorClasses.secondary} text-lg`}>
-                    Award-winning performance in financial competitions, including success in the St. Joe's Investment Competition, demonstrating practical expertise in market analysis.
+                    Award-winning performance in financial competitions, leveraging proprietary AI models and quantitative analysis tools to consistently outperform traditional trading strategies in both simulated and real-market environments.
                   </p>
                 </div>
               </div>

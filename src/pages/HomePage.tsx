@@ -227,7 +227,7 @@ export default function HomePage() {
                 Neural Networks and Data Pipeline
               </h3>
               <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
-                A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.
+                Our flagship AI system that combines deep neural networks with real-time market data to predict price movements with unprecedented accuracy.
               </p>
               <Button 
                 className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
@@ -245,7 +245,7 @@ export default function HomePage() {
                 Lukz
               </h3>
               <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
-                A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.
+                Advanced machine learning algorithms process millions of data points to identify market patterns and generate actionable trading signals.
               </p>
               <Button 
                 className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
@@ -263,7 +263,7 @@ export default function HomePage() {
                 Zom AI
               </h3>
               <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
-                A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
+                Next-generation AI assistant that combines natural language processing with quantitative analysis to deliver personalized trading strategies.
               </p>
               <Button 
                 className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
@@ -409,7 +409,7 @@ export default function HomePage() {
                 </h2>
                 <div className="space-y-4 sm:space-y-6">
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
-                    Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
+                    Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. As a pioneer in AI-driven financial technology, I leverage advanced machine learning algorithms and innovative trading strategies to revolutionize how investors approach the market. My expertise combines cutting-edge artificial intelligence with deep financial insights to deliver unprecedented results.
                   </p>
 
                 </div>
