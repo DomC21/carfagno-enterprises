@@ -9,7 +9,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/",
+  base: "./",
   build: {
     outDir: "dist",
     assetsDir: "assets",
@@ -17,17 +17,13 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, "index.html"),
       },
+      output: {
+        manualChunks: undefined,
+      },
     },
-    copyPublicDir: true,
   },
   server: {
     port: 5173,
-    host: true,
-    strictPort: true,
-    middlewareMode: false,
-  },
-  preview: {
-    port: 4173,
     host: true,
     strictPort: true,
   },
