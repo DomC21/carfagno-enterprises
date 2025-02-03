@@ -78,7 +78,7 @@ module.exports = {
   				'100%': { opacity: '0.15', filter: 'brightness(0.95)' }
   			},
   			'ticker': {
-  				'0%': { transform: 'translateX(0)', opacity: '0.2' },
+  				'0%': { transform: 'translateX(100%)', opacity: '0.2' },
   				'50%': { opacity: '0.3' },
   				'100%': { transform: 'translateX(-100%)', opacity: '0.2' }
   			},
