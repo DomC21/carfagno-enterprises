@@ -88,9 +88,9 @@ export default function CoachingPage() {
       </header>
 
       {/* Hero Section with Dynamic Background */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.section.primary} parallax`} data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.15)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
           <div className="absolute inset-0 opacity-20 parallax" data-speed="0.15">
             <div className="absolute inset-0" style={{ 
@@ -125,8 +125,9 @@ export default function CoachingPage() {
       </div>
 
       {/* What I Bring to the Table Section */}
-      <div className="container mx-auto px-4 py-8">
-        <section className={`relative bg-gradient-to-br from-blue-950 to-blue-950/90 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
+      <div className="container mx-auto px-4 py-6 mt-[-4rem] sm:mt-[-6rem] relative z-10">
+        <section className={`relative bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80 ${colorClasses.border} ${colorClasses.borderHover} p-8 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>What I Bring to the Table</h2>
           <div className="space-y-6">
             <div className="flex items-start gap-4">
@@ -155,8 +156,8 @@ export default function CoachingPage() {
       </div>
 
       {/* Dom's Photo Section */}
-      <div className="relative mt-8 sm:mt-0 mb-24 sm:mb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black to-black" style={{ height: '50%', bottom: 0 }} />
+      <div className="relative mt-[-2rem] sm:mt-[-3rem] mb-16 sm:mb-12 z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/80" style={{ height: '60%', bottom: 0 }} />
         <div className="container mx-auto px-4">
           <div className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
@@ -174,7 +175,7 @@ export default function CoachingPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-10">
 
         <div className="relative">
           <Button
