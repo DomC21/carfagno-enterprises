@@ -167,21 +167,24 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
-          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 md:space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/95 via-blue-900/90 to-slate-900/95 -mt-16">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+          <div className="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4 md:space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4">
-                Shaping the Future of Financial Innovation
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 group">
+                <span className="relative">
+                  <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-700 animate-pulse"></span>
+                  <span className="relative">The Future of AI-Driven Financial Intelligence Starts Here</span>
+                </span>
               </h2>
 
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
-                Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
+                Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
               </p>
             </div>
 
@@ -197,10 +200,10 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-8 sm:py-10 md:py-12 overflow-visible mt-[-4rem] sm:mt-[-6rem] z-10 bg-gradient-to-br from-blue-950/70 via-blue-900/60 to-slate-900/70">
+      <section id="projects" className="relative py-6 sm:py-8 md:py-10 overflow-visible mt-[-6rem] sm:mt-[-8rem] z-10 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
-          <div className="text-center mb-8 sm:mb-12 md:mb-16 parallax" data-speed="0.1">
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-blue-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
+          <div className="text-center mb-6 sm:mb-8 md:mb-10 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
               <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
             </div>
@@ -364,11 +367,11 @@ export default function HomePage() {
       </section>
 
       {/* About Me Section */}
-      <section className="relative py-8 sm:py-12 overflow-hidden">
+      <section className="relative py-6 sm:py-10 overflow-hidden mt-[-4rem] sm:mt-[-6rem] z-20 bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-teal-500/20 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400 animate-pulse" />
                 <span className="text-teal-400 text-sm font-medium">About Me</span>
               </div>
@@ -407,10 +410,10 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
+      <section id="contact" className="relative py-8 sm:py-12 md:py-16 overflow-hidden mt-[-4rem] sm:mt-[-6rem] z-30 bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-6 sm:mb-8">
+            <div className="text-center mb-4 sm:mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400" />
                 <span className="text-teal-400 text-sm font-medium">Get in Touch</span>
