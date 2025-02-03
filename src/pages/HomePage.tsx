@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { Logo } from '../components/Logo'
 import { MoneyBackground } from '../components/MoneyBackground'
+import { FinancialTicker } from '../components/FinancialTicker'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
@@ -115,9 +116,9 @@ export default function HomePage() {
     <>
       <MoneyBackground />
       {/* Hero Section */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-black/40 via-blue-950/40 to-black/40 backdrop-blur-sm border-b border-teal-500/20">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <Logo className="hover:opacity-90 transition-all duration-700 hover:scale-105 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
           <nav className="hidden sm:flex items-center gap-2 md:gap-4">
             <Button 
               variant="ghost" 
@@ -167,37 +168,44 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
-          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 md:space-y-8">
+      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+        <div className="absolute top-0 left-0 right-0">
+          <FinancialTicker />
+        </div>
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+          <div className="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4 md:space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4">
-                Shaping the Future of Financial Innovation
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 group">
+                <span className="relative">
+                  <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-700 animate-pulse"></span>
+                  <span className="relative">The Future of AI-Driven Financial Intelligence Starts Here</span>
+                </span>
               </h2>
 
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
-                Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
+                Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
               </p>
             </div>
 
             <Button 
-              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold tracking-wide border-0 hover:shadow-lg hover:shadow-teal-500/20 animate-fade-in"
+              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 hover:scale-105 transition-transform border-0 animate-fade-in relative overflow-hidden"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Explore Our Projects
-              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-blue-500/20 animate-shimmer"></div>
+              <span className="relative z-10">Explore Our Projects</span>
+              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-2 relative z-10" />
             </Button>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-8 sm:py-10 md:py-12 overflow-visible mt-[-4rem] sm:mt-[-6rem] z-10 bg-gradient-to-br from-blue-950/70 via-blue-900/60 to-slate-900/70">
+      <section id="projects" className="relative py-6 sm:py-8 md:py-10 overflow-visible mt-[-3rem] sm:mt-[-4rem] z-10 bg-gradient-to-br from-blue-950/70 via-blue-900/60 to-slate-900/70">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
           <div className="text-center mb-8 sm:mb-12 md:mb-16 parallax" data-speed="0.1">
@@ -269,9 +277,9 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative py-8 sm:py-10 md:py-12 overflow-visible mt-[-3rem] sm:mt-[-4rem] z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+      <section className="relative py-6 sm:py-8 md:py-10 overflow-visible mt-[-3rem] sm:mt-[-4rem] z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-shimmer"></div>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-6 sm:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
