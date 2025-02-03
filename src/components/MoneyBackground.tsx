@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cn } from "../lib/utils";
 import { DollarIcon, GraphIcon, ArrowUpIcon, ChartIcon } from '../assets/backgrounds/money-icons';
 import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements';
