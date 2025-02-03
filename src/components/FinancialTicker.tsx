@@ -1,6 +1,3 @@
-import React from 'react';
-import { cn } from "../lib/utils";
-
 export function FinancialTicker() {
   return (
     <div className="relative w-full flex items-center justify-center bg-gradient-to-r from-blue-950/70 via-blue-900/60 to-blue-950/70 h-12 border-y border-teal-500/20 backdrop-blur-sm overflow-hidden">
