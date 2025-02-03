@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from "../lib/utils";
 import { DollarIcon, GraphIcon, ArrowUpIcon, ChartIcon } from '../assets/backgrounds/money-icons';
-import { CirclePattern, GridPattern, WavePattern, HexagonPattern } from '../assets/backgrounds/pattern-elements';
-import { CandlestickPattern, TrendLines, VolumePattern, PriceLabel } from '../assets/backgrounds/financial-elements';
+import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements';
+import { CandlestickPattern, TrendLines } from '../assets/backgrounds/financial-elements';
 
 // Define background element positions
 // Define background elements with mobile-friendly positioning
@@ -71,7 +71,7 @@ export function MoneyBackground() {
                 elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
                 elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
                 `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`,
-                element.priority === 'low' ? 'hidden md:block' : '',
+                el.priority === 'low' ? 'hidden md:block' : '',
                 "transition-all duration-1000",
                 elementIndex % 2 === 0 ? "text-teal-400" : "text-blue-400"
               )}
