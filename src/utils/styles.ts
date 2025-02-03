@@ -6,13 +6,13 @@ export const colorClasses = {
   border: 'border-teal-500/20',
   borderHover: 'hover:border-teal-500',
   gradient: {
-    primary: 'from-teal-400 to-blue-500',
-    background: 'from-blue-900 via-blue-950 to-slate-900',
-    glow: 'from-teal-500/20 to-blue-500/20',
+    primary: 'from-teal-400 via-cyan-400 to-blue-500',
+    background: 'from-blue-950 via-blue-900 to-slate-900',
+    glow: 'from-teal-500/30 via-cyan-400/20 to-blue-500/30',
     section: {
-      primary: 'from-blue-950/80 to-blue-900/50',
-      secondary: 'from-blue-900/50 to-blue-950/80',
-      tertiary: 'from-blue-950/80 to-blue-900/30'
+      primary: 'from-blue-950/90 via-blue-900/80 to-blue-950/90',
+      secondary: 'from-blue-900/80 via-blue-950/70 to-blue-900/80',
+      tertiary: 'from-blue-950/90 via-blue-900/70 to-blue-950/90'
     }
   },
   chart: {
@@ -47,11 +47,11 @@ export const colorClasses = {
 export const animationClasses = {
   fadeIn: 'animate-fade-in',
   slideUp: 'animate-slide-up',
-  hover: 'transition-all duration-300 ease-out hover:scale-[1.02]',
-  button: 'transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-md',
-  icon: 'transition-all duration-500 ease-out group-hover:scale-[1.03]',
-  parallax: 'transition-transform duration-700 ease-out',
-  glow: 'animate-glow transition-all duration-700 hover:shadow-md hover:shadow-teal-500/10',
+  hover: 'transition-all duration-300 ease-out hover:scale-[1.02] hover:brightness-110',
+  button: 'transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110',
+  icon: 'transition-all duration-500 ease-out group-hover:scale-[1.03] group-hover:brightness-110',
+  parallax: 'transition-all duration-700 ease-out hover:brightness-105',
+  glow: 'animate-glow transition-all duration-700 hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110',
   drift: 'animate-drift transition-all duration-[12s] ease-in-out infinite',
   shimmer: 'animate-shimmer transition-all duration-[8s] ease-in-out infinite',
   ticker: 'animate-ticker transition-all duration-[60s] linear infinite',

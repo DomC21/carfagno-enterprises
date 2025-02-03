@@ -58,24 +58,24 @@ module.exports = {
   				to: { transform: 'translateY(0)', opacity: '1' }
   			},
   			'float': {
-  				'0%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)' },
-  				'50%': { transform: 'translateY(-4px) translateX(2px) rotate(0.5deg)' },
-  				'100%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)' }
+  				'0%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)', filter: 'brightness(1) blur(0px)' },
+  				'50%': { transform: 'translateY(-4px) translateX(2px) rotate(0.5deg)', filter: 'brightness(1.2) blur(0.5px)' },
+  				'100%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)', filter: 'brightness(1) blur(0px)' }
   			},
   			'pulse': {
-  				'0%': { opacity: '0.2' },
-  				'50%': { opacity: '0.3' },
-  				'100%': { opacity: '0.2' }
+  				'0%': { opacity: '0.2', filter: 'brightness(0.9) blur(0px)' },
+  				'50%': { opacity: '0.4', filter: 'brightness(1.2) blur(1px)' },
+  				'100%': { opacity: '0.2', filter: 'brightness(0.9) blur(0px)' }
   			},
   			'drift': {
-  				'0%': { transform: 'translateX(0px) scale(1)' },
-  				'50%': { transform: 'translateX(8px) scale(1.01)' },
-  				'100%': { transform: 'translateX(0px) scale(1)' }
+  				'0%': { transform: 'translateX(0px) scale(1)', filter: 'brightness(1)' },
+  				'50%': { transform: 'translateX(8px) scale(1.02)', filter: 'brightness(1.15)' },
+  				'100%': { transform: 'translateX(0px) scale(1)', filter: 'brightness(1)' }
   			},
   			'shimmer': {
-  				'0%': { opacity: '0.15', filter: 'brightness(0.95)' },
-  				'50%': { opacity: '0.25', filter: 'brightness(1.05)' },
-  				'100%': { opacity: '0.15', filter: 'brightness(0.95)' }
+  				'0%': { opacity: '0.15', filter: 'brightness(0.95) blur(0.5px)' },
+  				'50%': { opacity: '0.3', filter: 'brightness(1.15) blur(0px)' },
+  				'100%': { opacity: '0.15', filter: 'brightness(0.95) blur(0.5px)' }
   			},
   			'ticker': {
   				'0%': { transform: 'translateX(0)', opacity: '0.2' },
