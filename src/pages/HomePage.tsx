@@ -91,78 +91,7 @@ export default function HomePage() {
     }
   }
 
-  // Add custom animations to index.css
-  useEffect(() => {
-    const style = document.createElement('style')
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-      @keyframes float {
-        0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-        50% { transform: translateY(-8px) translateX(4px) rotate(1deg); }
-        100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-      }
-      @keyframes pulse {
-        0% { opacity: 0.3; }
-        50% { opacity: 0.5; }
-        100% { opacity: 0.3; }
-      }
-      @keyframes drift {
-        0% { transform: translateX(0px) scale(1); }
-        50% { transform: translateX(15px) scale(1.03); }
-        100% { transform: translateX(0px) scale(1); }
-      }
-      @keyframes shimmer {
-        0% { opacity: 0.2; filter: brightness(0.9); }
-        50% { opacity: 0.4; filter: brightness(1.1); }
-        100% { opacity: 0.2; filter: brightness(0.9); }
-      }
-      @keyframes ticker {
-        0% { transform: translateX(0); opacity: 0.3; }
-        50% { opacity: 0.5; }
-        100% { transform: translateX(-100%); opacity: 0.3; }
-      }
-      @keyframes counting {
-        0% { opacity: 0.3; transform: scale(1) translateY(0); }
-        25% { opacity: 0.5; transform: scale(1.01) translateY(-1px); }
-        75% { opacity: 0.5; transform: scale(1.01) translateY(-1px); }
-        100% { opacity: 0.3; transform: scale(1) translateY(0); }
-      }
-      @keyframes flow {
-        0% { stroke-dashoffset: 0; opacity: 0.2; }
-        50% { opacity: 0.4; }
-        100% { stroke-dashoffset: -15; opacity: 0.2; }
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-      }
-      .animate-slide-up {
-        animation: slideUp 0.8s ease-out forwards;
-      }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      .animate-pulse-slow {
-        animation: pulse 4s ease-in-out infinite;
-      }
-      .animate-drift {
-        animation: drift 12s ease-in-out infinite;
-      }
-      .animate-shimmer {
-        animation: shimmer 6s ease-in-out infinite;
-      }
-    `
-    document.head.appendChild(style)
-    return () => {
-      document.head.removeChild(style)
-    }
-  }, [])
+  // Animation keyframes are now defined in tailwind.config.js
 
   // Parallax scroll effect
   useEffect(() => {
