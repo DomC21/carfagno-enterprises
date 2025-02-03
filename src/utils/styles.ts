@@ -47,14 +47,14 @@ export const colorClasses = {
 export const animationClasses = {
   fadeIn: 'animate-fade-in',
   slideUp: 'animate-slide-up',
-  hover: 'transition-all duration-500 ease-out hover:scale-105',
-  button: 'transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-xl',
-  icon: 'transition-all duration-700 ease-out group-hover:scale-105',
-  parallax: 'transition-transform duration-1000 ease-out',
-  glow: 'animate-glow transition-all duration-1000 hover:shadow-lg hover:shadow-teal-500/20',
+  hover: 'transition-all duration-300 ease-out hover:scale-[1.02]',
+  button: 'transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-md',
+  icon: 'transition-all duration-500 ease-out group-hover:scale-[1.03]',
+  parallax: 'transition-transform duration-700 ease-out',
+  glow: 'animate-glow transition-all duration-700 hover:shadow-md hover:shadow-teal-500/10',
   drift: 'animate-drift transition-all duration-[12s] ease-in-out infinite',
   shimmer: 'animate-shimmer transition-all duration-[8s] ease-in-out infinite',
-  ticker: 'animate-ticker transition-all duration-[60s] ease-in-out infinite',
+  ticker: 'animate-ticker transition-all duration-[60s] linear infinite',
   counting: 'animate-counting transition-all duration-[10s] ease-in-out infinite',
   flow: 'animate-flow transition-all duration-[30s] ease-in-out infinite'
 }

@@ -59,39 +59,39 @@ module.exports = {
   			},
   			'float': {
   				'0%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)' },
-  				'50%': { transform: 'translateY(-8px) translateX(4px) rotate(1deg)' },
+  				'50%': { transform: 'translateY(-4px) translateX(2px) rotate(0.5deg)' },
   				'100%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)' }
   			},
   			'pulse': {
-  				'0%': { opacity: '0.3' },
-  				'50%': { opacity: '0.5' },
-  				'100%': { opacity: '0.3' }
+  				'0%': { opacity: '0.2' },
+  				'50%': { opacity: '0.3' },
+  				'100%': { opacity: '0.2' }
   			},
   			'drift': {
   				'0%': { transform: 'translateX(0px) scale(1)' },
-  				'50%': { transform: 'translateX(15px) scale(1.03)' },
+  				'50%': { transform: 'translateX(8px) scale(1.01)' },
   				'100%': { transform: 'translateX(0px) scale(1)' }
   			},
   			'shimmer': {
-  				'0%': { opacity: '0.2', filter: 'brightness(0.9)' },
-  				'50%': { opacity: '0.4', filter: 'brightness(1.1)' },
-  				'100%': { opacity: '0.2', filter: 'brightness(0.9)' }
+  				'0%': { opacity: '0.15', filter: 'brightness(0.95)' },
+  				'50%': { opacity: '0.25', filter: 'brightness(1.05)' },
+  				'100%': { opacity: '0.15', filter: 'brightness(0.95)' }
   			},
   			'ticker': {
-  				'0%': { transform: 'translateX(0)', opacity: '0.3' },
-  				'50%': { opacity: '0.5' },
-  				'100%': { transform: 'translateX(-100%)', opacity: '0.3' }
+  				'0%': { transform: 'translateX(0)', opacity: '0.2' },
+  				'50%': { opacity: '0.3' },
+  				'100%': { transform: 'translateX(-100%)', opacity: '0.2' }
   			},
   			'counting': {
-  				'0%': { opacity: '0.3', transform: 'scale(1) translateY(0)' },
-  				'25%': { opacity: '0.5', transform: 'scale(1.01) translateY(-1px)' },
-  				'75%': { opacity: '0.5', transform: 'scale(1.01) translateY(-1px)' },
-  				'100%': { opacity: '0.3', transform: 'scale(1) translateY(0)' }
+  				'0%': { opacity: '0.2', transform: 'scale(1) translateY(0)' },
+  				'25%': { opacity: '0.3', transform: 'scale(1.005) translateY(-0.5px)' },
+  				'75%': { opacity: '0.3', transform: 'scale(1.005) translateY(-0.5px)' },
+  				'100%': { opacity: '0.2', transform: 'scale(1) translateY(0)' }
   			},
   			'flow': {
-  				'0%': { strokeDashoffset: '0', opacity: '0.2' },
-  				'50%': { opacity: '0.4' },
-  				'100%': { strokeDashoffset: '-15', opacity: '0.2' }
+  				'0%': { strokeDashoffset: '0', opacity: '0.15' },
+  				'50%': { opacity: '0.25' },
+  				'100%': { strokeDashoffset: '-10', opacity: '0.15' }
   			}
   		},
   		animation: {

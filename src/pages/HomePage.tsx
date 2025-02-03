@@ -167,9 +167,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
-          <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 md:space-y-10">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
+          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 md:space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
@@ -197,9 +197,9 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
+      <section id="projects" className="relative py-12 sm:py-16 md:py-24 overflow-hidden">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16 md:mb-20 parallax" data-speed="0.1">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
               <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
             </div>
@@ -268,10 +268,10 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
+      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12">
+            <div className="text-center mb-6 sm:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
                 <span className="text-teal-400 text-sm font-medium">Early Access</span>
               </div>
@@ -405,10 +405,10 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-16 sm:py-20 md:py-24 overflow-hidden">
+      <section id="contact" className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12">
+            <div className="text-center mb-6 sm:mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400" />
                 <span className="text-teal-400 text-sm font-medium">Get in Touch</span>
