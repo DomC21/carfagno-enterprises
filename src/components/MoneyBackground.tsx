@@ -81,9 +81,9 @@ export function MoneyBackground() {
               className={cn(
                 "absolute transform",
                 visibleElements[elementIndex].customClass || (
-                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
-                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
-                  `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`
+                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-30' : 'opacity-50'}` :
+                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-40' : 'opacity-60'}` :
+                  `animate-shimmer ${isMobile ? 'opacity-35' : 'opacity-55'}`
                 ),
                 visibleElements[elementIndex].priority === 'low' ? 'hidden md:block' : '',
                 "transition-all duration-1000",

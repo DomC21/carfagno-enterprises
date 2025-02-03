@@ -52,9 +52,9 @@ export const animationClasses = {
   icon: 'transition-all duration-500 ease-out group-hover:scale-[1.03]',
   parallax: 'transition-transform duration-700 ease-out',
   glow: 'animate-glow transition-all duration-700 hover:shadow-md hover:shadow-teal-500/10',
-  drift: 'animate-drift transition-all duration-[12s] ease-in-out infinite',
-  shimmer: 'animate-shimmer transition-all duration-[6s] ease-in-out infinite',
-  ticker: 'animate-ticker transition-all duration-[60s] linear infinite',
-  counting: 'animate-counting transition-all duration-[10s] ease-in-out infinite',
-  flow: 'animate-flow transition-all duration-[30s] ease-in-out infinite'
+  drift: 'animate-drift transition-all duration-[12000ms] ease-in-out infinite',
+  shimmer: 'animate-shimmer transition-all duration-[6000ms] ease-in-out infinite',
+  ticker: 'animate-ticker transition-all duration-[60000ms] linear infinite',
+  counting: 'animate-counting transition-all duration-[10000ms] ease-in-out infinite',
+  flow: 'animate-flow transition-all duration-[30000ms] ease-in-out infinite'
 }

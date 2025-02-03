@@ -19,6 +19,10 @@ module.exports = {
       {
         pattern: /^transform-/,
         variants: ['hover', 'group-hover']
+      },
+      {
+        pattern: /^duration-\[\d+ms\]/,
+        variants: ['hover', 'group-hover']
       }
     ],
   theme: {
