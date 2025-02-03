@@ -3,27 +3,33 @@ import { cn } from "../lib/utils";
 import { DollarIcon, GraphIcon, ArrowUpIcon, ChartIcon } from '../assets/backgrounds/money-icons';
 import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements';
 import { CandlestickPattern, TrendLines } from '../assets/backgrounds/financial-elements';
+import { StockTicker, CountingNumber, DataFlow } from '../assets/backgrounds/stock-elements';
 
 // Define background element positions
 type BackgroundElement = {
   Component: React.ComponentType;
   positions: string[];
   priority: 'high' | 'low';
+  scale?: number;
+  customClass?: string;
 };
 
 // Define background elements with mobile-friendly positioning
 const backgroundElements: BackgroundElement[] = [
   // Core elements (shown on all devices)
-  { Component: DollarIcon, positions: ['15,25', '85,35'], priority: 'high' },
-  { Component: GraphIcon, positions: ['25,45', '75,55'], priority: 'high' },
-  { Component: ArrowUpIcon, positions: ['45,15', '55,85'], priority: 'high' },
-  { Component: ChartIcon, positions: ['35,65', '65,35'], priority: 'high' },
+  { Component: DollarIcon, positions: ['15,25', '85,35', '45,75'], priority: 'high', scale: 1 },
+  { Component: GraphIcon, positions: ['25,45', '75,55', '35,15'], priority: 'high', scale: 1 },
+  { Component: ArrowUpIcon, positions: ['45,15', '55,85', '15,65'], priority: 'high', scale: 1 },
+  { Component: ChartIcon, positions: ['35,65', '65,35', '85,85'], priority: 'high', scale: 1 },
+  { Component: StockTicker, positions: ['10,30', '70,70'], priority: 'high', scale: 0.8, customClass: 'animate-ticker' },
+  { Component: CountingNumber, positions: ['20,60', '80,20'], priority: 'high', scale: 0.9, customClass: 'animate-counting' },
   
   // Desktop-only decorative elements
-  { Component: CirclePattern, positions: ['5,10', '95,20', '50,95'], priority: 'low' },
-  { Component: GridPattern, positions: ['35,25', '65,55'], priority: 'low' },
-  { Component: CandlestickPattern, positions: ['55,15', '35,45'], priority: 'low' },
-  { Component: TrendLines, positions: ['65,25', '25,55'], priority: 'low' },
+  { Component: CirclePattern, positions: ['5,10', '95,20', '50,95'], priority: 'low', scale: 0.7 },
+  { Component: GridPattern, positions: ['35,25', '65,55', '15,85'], priority: 'low', scale: 0.8 },
+  { Component: CandlestickPattern, positions: ['55,15', '35,45', '75,75'], priority: 'low', scale: 0.9 },
+  { Component: TrendLines, positions: ['65,25', '25,55', '45,95'], priority: 'low', scale: 0.8 },
+  { Component: DataFlow, positions: ['40,40', '60,80', '20,90'], priority: 'low', scale: 0.7, customClass: 'animate-flow' },
 ];
 
 export function MoneyBackground() {
@@ -74,9 +80,11 @@ export function MoneyBackground() {
               key={`${elementIndex}-${posIndex}`}
               className={cn(
                 "absolute transform",
-                elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
-                elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
-                `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`,
+                visibleElements[elementIndex].customClass || (
+                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
+                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
+                  `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`
+                ),
                 visibleElements[elementIndex].priority === 'low' ? 'hidden md:block' : '',
                 "transition-all duration-1000",
                 elementIndex % 2 === 0 ? "text-teal-400" : "text-blue-400"
@@ -85,7 +93,7 @@ export function MoneyBackground() {
                 left: `${x}%`,
                 top: `${y}%`,
                 animationDelay: `${delay}s`,
-                transform: `scale(${0.8 + Math.random() * 0.4})`,
+                transform: `scale(${(visibleElements[elementIndex].scale || 1) * (0.9 + Math.random() * 0.2)})`,
               }}
             >
               <Component />
