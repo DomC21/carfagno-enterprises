@@ -26,6 +26,13 @@ export default defineConfig({
     port: 5173,
     host: true,
     strictPort: true,
+    allowedHosts: ["old-session-app-tunnel-z4sz27oiu.devinapps.com"]
+  },
+  preview: {
+    port: 4173,
+    host: true,
+    strictPort: true,
+    allowedHosts: ["old-session-app-tunnel-799xvz9n.devinapps.com"]
   },
 })
 
