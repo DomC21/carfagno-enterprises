@@ -71,32 +71,51 @@ export default function CoachingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
-            <Button
-              variant="ghost"
-              className="text-teal-400 hover:text-teal-300 group"
-              onClick={() => navigate('/')}
-            >
-              <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
-              Back to Home
-            </Button>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-md border-b border-teal-500/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            <Logo 
+              className="hover:opacity-80 transition-opacity cursor-pointer transform-gpu hover:scale-[1.02] duration-300" 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            />
+            <nav className="flex items-center gap-2 sm:gap-4">
+              <Button
+                variant="ghost"
+                className="relative group bg-gradient-to-r from-blue-900/30 to-blue-950/30 backdrop-blur-sm border border-teal-500/20 text-teal-400 hover:text-teal-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20 transition-all duration-300"
+                onClick={() => navigate('/')}
+              >
+                <ChevronLeft className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Back</span>
+              </Button>
+            </nav>
           </div>
         </div>
       </header>
 
       {/* Hero Section with Dynamic Background */}
-      <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
+      <div className={`relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-br ${colorClasses.gradient.background}`}>
         <div className="absolute inset-0">
           <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.section.primary} parallax`} data-speed="0.1" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.15)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
+          <div className={`absolute inset-0 bg-gradient-to-r ${colorClasses.gradient.glow} animate-pulse parallax`} data-speed="0.2" />
           <div className="absolute inset-0 opacity-20 parallax" data-speed="0.15">
             <div className="absolute inset-0" style={{ 
               backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(45 212 191) 1px, transparent 1px)',
               backgroundSize: '32px 32px'
             }} />
+          </div>
+          {/* Additional Financial Elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 animate-drift">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M20 2L28 20L20 38L12 20L20 2Z" stroke="currentColor" strokeOpacity="0.5" />
+              </svg>
+            </div>
+            <div className="absolute top-3/4 right-1/4 transform translate-x-1/2 -translate-y-1/2 animate-float">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="18" stroke="currentColor" strokeOpacity="0.5" strokeWidth="2" />
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -115,11 +134,11 @@ export default function CoachingPage() {
           </h2>
 
           <Button 
-            className={`group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}
+            className="group relative bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0 transition-all duration-300"
             onClick={() => document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Book Your Coaching Session Now!
-            <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
       </div>
@@ -157,19 +176,22 @@ export default function CoachingPage() {
       </div>
 
       {/* Dom's Photo Section */}
-      <div className="relative py-12 sm:py-16 md:py-20 mb-16 sm:mb-20 z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+      <div className="relative py-16 sm:py-20 md:py-24 mb-16 sm:mb-20 z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/40 to-blue-950/60"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60" style={{ height: '60%', bottom: 0 }} />
         <div className="container mx-auto px-4">
-          <div className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto group">
+          <div className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 mx-auto group">
             <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-blue-950/50 to-transparent opacity-50"></div>
             <img
               src="/dom-picx.jpg"
               alt="Dom Carfagno"
-              className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-105"
+              className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/20"
+              loading="eager"
+              draggable="false"
             />
-            <div className="absolute -bottom-24 sm:-bottom-20 left-1/2 transform -translate-x-1/2 w-full px-4">
-              <p className="text-gray-300 text-center text-sm sm:text-lg max-w-[280px] sm:max-w-xs md:max-w-sm mx-auto leading-relaxed">
+            <div className="absolute -bottom-28 sm:-bottom-24 left-1/2 transform -translate-x-1/2 w-full px-4">
+              <p className="text-gray-300 text-center text-base sm:text-lg md:text-xl max-w-[300px] sm:max-w-md md:max-w-lg mx-auto leading-relaxed">
                 "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
               </p>
             </div>
@@ -279,8 +301,8 @@ export default function CoachingPage() {
             </section>
 
             {/* Urgency Banner */}
-            <div className="relative bg-gradient-to-r from-yellow-900/50 via-amber-900/50 to-yellow-900/50 border border-yellow-500/20 text-yellow-300 p-8 sm:p-10 rounded-xl mb-12 text-center group hover:border-yellow-500/40 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-500/5 to-transparent animate-pulse" />
+            <div className="relative bg-gradient-to-r from-amber-900/50 via-yellow-900/50 to-amber-900/50 border border-amber-500/20 text-amber-300 p-8 sm:p-10 rounded-xl mb-12 text-center group hover:border-amber-500/40 transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-yellow-500/5 to-amber-500/10 animate-pulse" />
               <div className="relative flex items-center justify-center gap-2">
                 <Sparkles className="w-5 h-5 text-yellow-400 animate-pulse" />
                 <p className="text-lg font-semibold">
@@ -421,8 +443,12 @@ export default function CoachingPage() {
                     />
                   </div>
 
-                  <Button type="submit" className={`w-full group bg-gradient-to-r ${colorClasses.gradient.primary} text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 ${animationClasses.button}`}>
+                  <Button 
+                    type="submit" 
+                    className="w-full group relative bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0 transition-all duration-300"
+                  >
                     Schedule Your Session
+                    <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
 
                   <p className={`text-sm ${colorClasses.secondary} mt-4`}>
