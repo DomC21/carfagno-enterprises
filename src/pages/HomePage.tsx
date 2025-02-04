@@ -1,7 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
+
+interface MousePosition {
+  x: number
+  y: number
+}
 import { Logo } from '../components/Logo'
 import { MoneyBackground } from '../components/MoneyBackground'
+import { CursorEffects } from '../components/CursorEffects'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
@@ -34,6 +40,35 @@ interface ContactForm {
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const [mousePos, setMousePos] = useState<MousePosition>({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Mouse tracking with requestAnimationFrame for performance
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    if (!isMobile) {
+      let rafId: number
+      const handleMouseMove = (e: MouseEvent) => {
+        rafId = requestAnimationFrame(() => {
+          setMousePos({ x: e.clientX, y: e.clientY })
+        })
+      }
+
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        if (rafId) cancelAnimationFrame(rafId)
+      }
+    }
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [isMobile])
   
   const earlyAccessForm = useForm<EarlyAccessForm>({
     defaultValues: {
@@ -114,29 +149,30 @@ export default function HomePage() {
   return (
     <>
       <MoneyBackground />
+      {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <Logo className="hover:opacity-80 transition-all duration-300 cursor-pointer transform-gpu hover:scale-[1.02]" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
           <nav className="hidden sm:flex items-center gap-2 md:gap-4">
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
               onClick={() => navigate('/coaching')}
             >
               Coaching
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Projects
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Contact
             </Button>
@@ -158,8 +194,8 @@ export default function HomePage() {
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
               buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
-              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
-              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
+              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
             }}
           >
             ☰
@@ -167,9 +203,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/95 via-blue-900/90 to-slate-900/95 pt-16">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
-          <div className="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4 md:space-y-6">
+      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/95 via-blue-900/90 to-slate-900/95 pt-12">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 md:py-6">
+          <div className="max-w-4xl mx-auto text-center space-y-2 sm:space-y-3 md:space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
@@ -178,7 +214,7 @@ export default function HomePage() {
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 group">
                 <span className="relative">
-                  <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-700 animate-pulse"></span>
+                  <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
                   <span className="relative">The Future of AI-Driven Financial Intelligence Starts Here</span>
                 </span>
               </h2>
@@ -190,7 +226,7 @@ export default function HomePage() {
 
             <Button 
               className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold tracking-wide border-0 hover:shadow-lg hover:shadow-teal-500/20 animate-fade-in"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Explore Our Projects
               <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
@@ -200,10 +236,10 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-12 sm:py-16 md:py-20 overflow-visible z-10 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
+      <section id="projects" className="relative py-8 sm:py-12 md:py-16 overflow-visible z-10 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-blue-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
-          <div className="text-center mb-6 sm:mb-8 md:mb-10 parallax" data-speed="0.1">
+          <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
               <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
             </div>
@@ -215,56 +251,56 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             {/* Neural Networks Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Neural Networks and Data Pipeline
               </h3>
               <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
                 A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.
               </p>
               <Button 
-                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
+                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
                 onClick={() => navigate('/projects/neural-networks')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
               </Button>
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Lukz
               </h3>
               <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
                 A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.
               </p>
               <Button 
-                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
+                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
                 onClick={() => navigate('/projects/lukz')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
               </Button>
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Zom AI
               </h3>
               <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
                 A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
               </p>
               <Button 
-                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
+                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
                 onClick={() => navigate('/projects/zom-ai')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
               </Button>
             </div>
           </div>
@@ -272,11 +308,11 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative py-12 sm:py-16 md:py-20 overflow-visible z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+      <section className="relative py-8 sm:py-12 md:py-16 overflow-visible z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-6 sm:mb-8">
+            <div className="text-center mb-4 sm:mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
                 <span className="text-teal-400 text-sm font-medium">Early Access</span>
               </div>
@@ -293,7 +329,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <Form {...earlyAccessForm}>
                     <form onSubmit={earlyAccessForm.handleSubmit(onEarlyAccessSubmit)} className="space-y-6 relative z-50">
                       <div className="space-y-4 relative">
@@ -353,9 +389,9 @@ export default function HomePage() {
                         />
                       </div>
 
-                      <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
+                      <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0">
                         Get Early Access
-                        <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
+                        <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                       </Button>
                     </form>
                   </Form>
@@ -380,15 +416,15 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center px-4 sm:px-6 md:px-8">
               {/* Left Column - Photo */}
               <div className="relative group mx-auto max-w-[280px] sm:max-w-md">
-                <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-500">
+                <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-300">
                   <img
                     src="/dom-picx.jpg"
                     alt="Dom Carfagno"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-300 transform-gpu group-hover:scale-[1.02]"
                     loading="eager"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
 
@@ -426,7 +462,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 group text-center sm:text-left">
                 <a 
                   href="mailto:DominicCarfagno@carfagnoenterprises.com" 
-                  className="text-base sm:text-lg md:text-xl text-teal-400 hover:text-blue-400 transition-all duration-300 transform-gpu hover:scale-[1.02] group font-medium break-all sm:break-normal"
+                  className="text-base sm:text-lg md:text-xl text-teal-400 hover:text-blue-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:brightness-110 group font-medium break-all sm:break-normal"
                 >
                   DominicCarfagno@carfagnoenterprises.com
                 </a>
@@ -434,7 +470,7 @@ export default function HomePage() {
             </div>
 
             <div className="relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 group">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <Form {...contactForm}>
                 <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-6 relative z-10">
                   <div className="space-y-4">
@@ -489,9 +525,9 @@ export default function HomePage() {
                     />
                   </div>
 
-                  <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
+                  <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 border-0">
                     Send Message
-                    <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
+                    <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
                 </form>
               </Form>
