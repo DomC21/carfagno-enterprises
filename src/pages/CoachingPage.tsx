@@ -106,11 +106,11 @@ export default function CoachingPage() {
             <span className={`${colorClasses.primary} text-sm font-medium`}>Transform Your Financial Future</span>
           </div>
 
-          <h1 className={`text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-4 sm:mb-6 px-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp} max-w-[320px] sm:max-w-[600px] mx-auto leading-tight`}>
+          <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 sm:mb-8 px-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent ${animationClasses.slideUp} max-w-[320px] sm:max-w-[600px] mx-auto leading-tight`}>
             Master Your Money with Dom Carfagno's Expertise
           </h1>
           
-          <h2 className={`text-base sm:text-xl md:text-2xl ${colorClasses.secondary} mb-6 sm:mb-8 leading-relaxed max-w-[280px] sm:max-w-xl md:max-w-2xl mx-auto px-4 ${animationClasses.fadeIn}`}>
+          <h2 className={`text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-[280px] sm:max-w-xl md:max-w-2xl mx-auto px-4 ${animationClasses.fadeIn}`}>
             Gain access to cutting-edge tools like Lukz, Zom AI, and Rust, alongside proven investment strategies and personalized guidance to transform your financial future.
           </h2>
 
@@ -194,29 +194,29 @@ export default function CoachingPage() {
             {/* Why Work with Dom Section */}
             <section className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 sm:p-10 md:p-12 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent"></div>
-              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6 relative z-10`}>Why Work with Dom Carfagno?</h2>
-              <div className="space-y-6">
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${colorClasses.primary} mb-6 sm:mb-8 relative z-10`}>Why Work with Dom Carfagno?</h2>
+              <div className="space-y-8">
                 <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
-                  <p className={`${colorClasses.secondary} text-lg`}>
+                  <div className="w-2 h-2 mt-2.5 rounded-full bg-teal-400 shrink-0" />
+                  <p className="text-lg text-gray-200 leading-relaxed">
                     At just 18 years old, I manage over <span className="text-teal-400 font-semibold">$100,000 in assets</span>, leveraging advanced trading strategies and financial expertise.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
-                  <p className={`${colorClasses.secondary} text-lg`}>
+                  <div className="w-2 h-2 mt-2.5 rounded-full bg-teal-400 shrink-0" />
+                  <p className="text-lg text-gray-200 leading-relaxed">
                     Years of hands-on experience in investing, budgeting, and portfolio management, achieving significant results in both stock and cryptocurrency markets.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
-                  <p className={`${colorClasses.secondary} text-lg`}>
+                  <div className="w-2 h-2 mt-2.5 rounded-full bg-teal-400 shrink-0" />
+                  <p className="text-lg text-gray-200 leading-relaxed">
                     My strategies are backed by in-depth research, data analysis, and a deep understanding of financial tools and market trends.
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
-                  <p className={`${colorClasses.secondary} text-lg`}>
+                  <div className="w-2 h-2 mt-2.5 rounded-full bg-teal-400 shrink-0" />
+                  <p className="text-lg text-gray-200 leading-relaxed">
                     Award-winning performance in financial competitions, including success in the St. Joe's Investment Competition, demonstrating practical expertise in market analysis.
                   </p>
                 </div>
@@ -226,14 +226,14 @@ export default function CoachingPage() {
             {/* Services Section */}
             <section className={`relative bg-gradient-to-br from-blue-950/80 to-blue-900/50 ${colorClasses.border} ${colorClasses.borderHover} p-8 sm:p-10 md:p-12 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent"></div>
-              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6 relative z-10`}>Services I Offer</h2>
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${colorClasses.primary} mb-6 sm:mb-8 relative z-10`}>Services I Offer</h2>
               <div className="space-y-8">
                 <div className="relative">
                   <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+                    <div className="w-2 h-2 mt-2.5 rounded-full bg-teal-400 shrink-0" />
                     <div>
-                      <h3 className="text-xl font-semibold text-teal-400 mb-2">Budgeting Expertise</h3>
-                      <p className={`${colorClasses.secondary} text-lg`}>
+                      <h3 className="text-xl sm:text-2xl font-semibold text-teal-400 mb-3">Budgeting Expertise</h3>
+                      <p className="text-lg text-gray-200 leading-relaxed">
                         Learn how to create a sustainable budget tailored to your goals. We'll identify areas to cut unnecessary expenses, optimize your savings, and build a step-by-step plan for financial stability and growth.
                       </p>
                     </div>
