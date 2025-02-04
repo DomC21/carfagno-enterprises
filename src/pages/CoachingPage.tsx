@@ -190,7 +190,7 @@ export default function CoachingPage() {
               loading="eager"
               draggable="false"
             />
-            <div className="absolute -bottom-28 sm:-bottom-24 left-1/2 transform -translate-x-1/2 w-full px-4">
+            <div className="relative mt-8 sm:mt-10 md:mt-12 w-full px-4">
               <p className="text-gray-300 text-center text-base sm:text-lg md:text-xl max-w-[300px] sm:max-w-md md:max-w-lg mx-auto leading-relaxed">
                 "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
               </p>
