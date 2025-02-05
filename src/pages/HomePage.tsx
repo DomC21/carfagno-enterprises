@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
+import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements'
+import { DataFlow } from '../assets/backgrounds/stock-elements'
 
 interface MousePosition {
   x: number
@@ -212,6 +214,38 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
+              {/* Large Branding Text */}
+              {/* Background patterns */}
+              <div className="absolute -z-10 w-full h-full pointer-events-none overflow-hidden">
+                <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 opacity-10">
+                  <CirclePattern />
+                </div>
+                <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 opacity-10">
+                  <GridPattern />
+                </div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5">
+                  <DataFlow />
+                </div>
+              </div>
+
+              <div className="relative inline-block px-4 py-2">
+                {/* Enhanced glow effect for better contrast */}
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/30 to-blue-500/30 blur-2xl opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
+                
+                {/* Drop shadow for depth */}
+                <div className="absolute inset-0 bg-black/20 blur-3xl"></div>
+                
+                <h1 className="relative text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight group">
+                  <span className="relative inline-block animate-slide-up">
+                    <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
+                    <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_15px_rgba(45,212,191,0.2)]">
+                      Carfagno Enterprises
+                    </span>
+                  </span>
+                </h1>
+              </div>
+
+              {/* Subheading */}
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 group">
                 <span className="relative">
                   <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
