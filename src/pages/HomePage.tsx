@@ -9,7 +9,6 @@ interface MousePosition {
 }
 import { Logo } from '../components/Logo'
 import { MoneyBackground } from '../components/MoneyBackground'
-<<<<<<< HEAD
 import { CursorEffects } from '../components/CursorEffects'
 import { FinancialTicker } from '../components/FinancialTicker'
 import { Footer } from '../components/Footer'
