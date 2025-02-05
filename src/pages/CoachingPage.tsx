@@ -76,7 +76,7 @@ export default function CoachingPage() {
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Logo 
               className="hover:opacity-80 transition-opacity cursor-pointer transform-gpu hover:scale-[1.02] duration-300" 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+              onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
             />
             <nav className="flex items-center gap-2 sm:gap-4">
               <Button
@@ -135,7 +135,7 @@ export default function CoachingPage() {
 
           <Button 
             className="group relative bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0 transition-all duration-300"
-            onClick={() => document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           >
             Book Your Coaching Session Now!
             <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -181,12 +181,12 @@ export default function CoachingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60" style={{ height: '60%', bottom: 0 }} />
         <div className="container mx-auto px-4">
           <div className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 mx-auto group">
-            <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute inset-0 rounded-full bg-gradient-to-b from-blue-950/50 to-transparent opacity-50"></div>
             <img
               src="/dom-picx.jpg"
               alt="Dom Carfagno"
-              className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-500 group-hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/20"
+              className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover object-center border-4 border-teal-500/20 group-hover:border-teal-400/50 transition-all duration-300 group-hover:scale-[1.02] hover:shadow-xl hover:shadow-teal-500/20"
               loading="eager"
               draggable="false"
             />
