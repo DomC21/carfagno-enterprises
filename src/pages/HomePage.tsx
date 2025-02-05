@@ -9,7 +9,9 @@ interface MousePosition {
 }
 import { Logo } from '../components/Logo'
 import { MoneyBackground } from '../components/MoneyBackground'
+<<<<<<< HEAD
 import { CursorEffects } from '../components/CursorEffects'
+import { FinancialTicker } from '../components/FinancialTicker'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
@@ -205,10 +207,13 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[65vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/95 via-blue-900/90 to-slate-900/95 pt-12">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 md:py-6">
-          <div className="max-w-4xl mx-auto text-center space-y-2 sm:space-y-3 md:space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 backdrop-blur-sm border border-teal-500/20 animate-float">
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+        <div className="absolute top-0 left-0 right-0">
+          <FinancialTicker />
+        </div>
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+          <div className="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4 md:space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
@@ -259,7 +264,7 @@ export default function HomePage() {
             </div>
 
             <Button 
-              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold tracking-wide border-0 hover:shadow-lg hover:shadow-teal-500/20 animate-fade-in"
+              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 hover:scale-105 transition-transform border-0 animate-fade-in relative overflow-hidden"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Explore Our Projects
