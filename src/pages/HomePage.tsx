@@ -1,33 +1,25 @@
 import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
-import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements'
-import { DataFlow } from '../assets/backgrounds/stock-elements'
-
-interface MousePosition {
-  x: number
-  y: number
-}
-import { Logo } from '../components/Logo'
+import { useNavigate } from 'react-router-dom'
 import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
 import { FinancialTicker } from '../components/FinancialTicker'
+import { Logo } from '../components/Logo'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
-import { useNavigate } from 'react-router-dom'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Input } from '../components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../lib/api'
-import toast from 'react-hot-toast'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
+import toast from 'react-hot-toast'
+
+interface MousePosition {
+  x: number
+  y: number
+}
 
 interface EarlyAccessForm {
   name: string
@@ -129,7 +121,26 @@ export default function HomePage() {
     }
   }
 
-  // Animation keyframes are now defined in tailwind.config.js
+  // Intersection Observer for reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-reveal-up')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   // Parallax scroll effect
   useEffect(() => {
@@ -219,33 +230,7 @@ export default function HomePage() {
 
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Large Branding Text */}
-              {/* Background patterns with increased visibility */}
-              <div className="absolute -z-10 w-full h-full pointer-events-none overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 opacity-20 animate-drift">
-                  <CirclePattern />
-                </div>
-                <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 opacity-20 animate-float">
-                  <GridPattern />
-                </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 animate-shimmer">
-                  <DataFlow />
-                </div>
-              </div>
-
               <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
-                {/* Outer glow layers */}
-                <div className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-teal-500/20 to-blue-500/20 blur-3xl opacity-60 animate-drift"></div>
-                <div className="absolute -inset-2 sm:-inset-4 md:-inset-6 bg-gradient-to-r from-blue-500/20 to-teal-500/20 blur-2xl opacity-50 animate-shimmer"></div>
-                
-                {/* Enhanced glow effect for better contrast */}
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/30 to-blue-500/30 blur-2xl opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
-                
-                {/* Drop shadow for depth */}
-                <div className="absolute inset-0 bg-black/20 blur-3xl"></div>
-                
-                {/* Animated background pattern */}
-                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-blue-500/10 animate-drift opacity-50"></div>
-                
                 <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700">
                   <span className="relative inline-block animate-slide-up">
                     <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
@@ -270,7 +255,7 @@ export default function HomePage() {
             </div>
 
             <Button 
-              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 hover:scale-105 transition-transform border-0 animate-fade-in relative overflow-hidden"
+              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 transform-gpu hover:scale-[1.02] transition-all duration-300 border-0 animate-fade-in relative overflow-hidden"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Explore Our Projects
@@ -296,7 +281,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             {/* Neural Networks Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20 reveal-on-scroll">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Neural Networks and Data Pipeline
@@ -357,7 +342,7 @@ export default function HomePage() {
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-4 sm:mb-6">
+            <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
                 <span className="text-teal-400 text-sm font-medium">Early Access</span>
               </div>
@@ -372,7 +357,7 @@ export default function HomePage() {
             </div>
 
             <div className="relative">
-              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10">
+              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 reveal-on-scroll">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <Form {...earlyAccessForm}>
@@ -494,7 +479,7 @@ export default function HomePage() {
       <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-4 sm:mb-6">
+            <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400" />
                 <span className="text-teal-400 text-sm font-medium">Get in Touch</span>
