@@ -38,6 +38,19 @@ export default function HomePage() {
         50% { opacity: 0.6; }
         100% { opacity: 0.4; }
       }
+      @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      @keyframes revealUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .animate-reveal-up {
+        opacity: 0;
+        animation: revealUp 0.8s ease-out forwards;
+      }
       .animate-fade-in {
         animation: fadeIn 0.8s ease-out forwards;
       }
@@ -49,6 +62,10 @@ export default function HomePage() {
       }
       .animate-pulse-slow {
         animation: pulse 4s ease-in-out infinite;
+      }
+      .animate-gradient-flow {
+        animation: gradientFlow 15s ease infinite;
+        background-size: 200% 200%;
       }
     `
     document.head.appendChild(style)
@@ -75,6 +92,27 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Intersection Observer for reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-reveal-up')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       {/* Hero Section */}
@@ -84,21 +122,21 @@ export default function HomePage() {
           <nav className="hidden sm:flex items-center gap-2 md:gap-4">
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 hover:scale-105"
               onClick={() => navigate('/coaching')}
             >
               Coaching
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 hover:scale-105"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Projects
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4"
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 hover:scale-105"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Contact
@@ -131,18 +169,20 @@ export default function HomePage() {
       </header>
 
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-950 animate-gradient-flow opacity-90"></div>
+        <div className="absolute inset-0 backdrop-blur-sm"></div>
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-teal-500/20 mb-8 animate-float backdrop-blur-md reveal-on-scroll">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-3 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 max-w-[340px] sm:max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-3 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight reveal-on-scroll px-4 max-w-[340px] sm:max-w-2xl mx-auto">
               Shaping the Future of Financial Innovation
             </h2>
 
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed reveal-on-scroll px-4">
               Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
             </p>
 
@@ -160,19 +200,19 @@ export default function HomePage() {
       {/* Projects Section */}
       <section id="projects" className="relative py-24 sm:py-32 overflow-hidden">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 sm:mb-20 parallax" data-speed="0.1">
+          <div className="text-center mb-16 sm:mb-20 parallax reveal-on-scroll" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
               <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
             </div>
             
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent reveal-on-scroll">
               Cutting-Edge Projects
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8">
             {/* Neural Networks Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-4 sm:p-6 md:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
+            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-4 sm:p-6 md:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10 hover:translate-y-[-4px] reveal-on-scroll">
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
                 Neural Networks and Data Pipeline
               </h3>
@@ -189,7 +229,7 @@ export default function HomePage() {
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
+            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10 hover:translate-y-[-4px] reveal-on-scroll">
               <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
                 Lukz
               </h3>
@@ -206,7 +246,7 @@ export default function HomePage() {
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10">
+            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10 hover:translate-y-[-4px] reveal-on-scroll">
               <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
                 Zom AI
               </h3>
@@ -229,7 +269,7 @@ export default function HomePage() {
       <section className="relative py-12 sm:py-24 overflow-hidden">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-16">
+            <div className="text-center mb-8 sm:mb-16 reveal-on-scroll">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
                 Get Early Access to Our Tools
               </h2>
@@ -240,7 +280,7 @@ export default function HomePage() {
             </div>
 
             <div className="relative">
-              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10">
+              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10 reveal-on-scroll">
                 <form className="space-y-6 relative z-50">
                   <div className="space-y-4 relative">
                     <Input 
@@ -340,7 +380,7 @@ export default function HomePage() {
                 DominicCarfagno@carfagnoenterprises.com
               </a>
             </div>
-            <form className="relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20">
+            <form className="relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20 reveal-on-scroll">
               <div className="relative space-y-4">
                 <Input 
                   placeholder="Name" 
