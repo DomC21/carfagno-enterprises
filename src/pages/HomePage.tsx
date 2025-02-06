@@ -165,7 +165,7 @@ export default function HomePage() {
       <MoneyBackground />
       {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm border-b border-teal-500/20">
+      <header className="absolute top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Logo className="hover:opacity-80 transition-all duration-300 cursor-pointer transform-gpu hover:scale-[1.02]" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
           <nav className="hidden sm:flex items-center gap-2 md:gap-4">
@@ -217,11 +217,11 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+      <section className="relative min-h-screen pt-16 flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
         <div className="absolute top-0 left-0 right-0 z-0">
           <FinancialTicker />
         </div>
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3 md:py-4 z-10">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 md:py-40 z-10">
           <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3 relative z-20">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
@@ -231,10 +231,10 @@ export default function HomePage() {
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Large Branding Text */}
               <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
-                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700 z-20">
+                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-black tracking-tight bg-gradient-to-r from-teal-300 via-blue-300 to-blue-400 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700 z-20">
                   <span className="relative inline-block animate-slide-up">
-                    <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
-                    <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_15px_rgba(45,212,191,0.2)]">
+                    <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/50 via-blue-400/50 to-blue-500/50 blur-2xl opacity-90 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
+                    <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_35px_rgba(45,212,191,0.5)]">
                       Carfagno Enterprises
                     </span>
                   </span>

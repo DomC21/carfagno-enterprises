@@ -67,7 +67,7 @@ export function MoneyBackground() {
       aria-hidden="true"
     >
       {/* Background gradient with subtle animation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80 animate-shimmer" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/60 via-blue-900/50 to-slate-900/60 animate-shimmer" />
 
       {/* Financial elements */}
       {visibleElements.map(({ Component, positions }, elementIndex) => (
