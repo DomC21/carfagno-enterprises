@@ -232,14 +232,21 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="relative inline-block px-4 py-2">
+              <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
+                {/* Outer glow layers */}
+                <div className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-teal-500/20 to-blue-500/20 blur-3xl opacity-60 animate-drift"></div>
+                <div className="absolute -inset-2 sm:-inset-4 md:-inset-6 bg-gradient-to-r from-blue-500/20 to-teal-500/20 blur-2xl opacity-50 animate-shimmer"></div>
+                
                 {/* Enhanced glow effect for better contrast */}
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-500/30 to-blue-500/30 blur-2xl opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
                 
                 {/* Drop shadow for depth */}
                 <div className="absolute inset-0 bg-black/20 blur-3xl"></div>
                 
-                <h1 className="relative text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight group">
+                {/* Animated background pattern */}
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-blue-500/10 animate-drift opacity-50"></div>
+                
+                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700">
                   <span className="relative inline-block animate-slide-up">
                     <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
                     <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_15px_rgba(45,212,191,0.2)]">
