@@ -94,7 +94,7 @@ export default function CoachingPage() {
       </header>
 
       {/* Hero Section with Dynamic Background */}
-      <div className={`relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-br ${colorClasses.gradient.background}`}>
+      <div className={`relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-br ${colorClasses.gradient.background}`}>
         <div className="absolute inset-0">
           <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.section.primary} parallax`} data-speed="0.1" />
           <div className={`absolute inset-0 bg-gradient-to-r ${colorClasses.gradient.glow} animate-pulse parallax`} data-speed="0.2" />
@@ -176,8 +176,8 @@ export default function CoachingPage() {
       </div>
 
       {/* Dom's Photo Section */}
-      <div className="relative py-16 sm:py-20 md:py-24 mb-16 sm:mb-20 z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/40 to-blue-950/60"></div>
+      <div className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/30 to-blue-950/50"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60" style={{ height: '60%', bottom: 0 }} />
         <div className="container mx-auto px-4">
           <div className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 mx-auto group">
