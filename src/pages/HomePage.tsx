@@ -1,6 +1,15 @@
+// React and core dependencies
 import { useEffect, useState } from 'react'
-import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+
+// Third-party libraries
+import { ChevronRight, Sparkles, User } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import toast from 'react-hot-toast'
+
+// Local components and utilities
 import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
 import { FinancialTicker } from '../components/FinancialTicker'
@@ -9,25 +18,21 @@ import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Input } from '../components/ui/input'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { api } from '../lib/api'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
-import toast from 'react-hot-toast'
+import { api } from '../lib/api'
 
 interface MousePosition {
   x: number
   y: number
 }
 
-interface EarlyAccessForm {
+type EarlyAccessForm = {
   name: string
   email: string
   interest: string
 }
 
-interface ContactForm {
+type ContactForm = {
   name: string
   email: string
   message: string
@@ -99,7 +104,7 @@ export default function HomePage() {
     )
   })
 
-  const onEarlyAccessSubmit = async (data: EarlyAccessForm) => {
+  const onEarlyAccessSubmit = async (data: EarlyAccessForm): Promise<void> => {
     try {
       await api.post('/api/early-access', data)
       toast.success('Thank you for your interest! We will be in touch soon.')
