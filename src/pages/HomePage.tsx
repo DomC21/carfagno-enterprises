@@ -1,6 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
+import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements'
+import { DataFlow } from '../assets/backgrounds/stock-elements'
+
+interface MousePosition {
+  x: number
+  y: number
+}
 import { Logo } from '../components/Logo'
+import { MoneyBackground } from '../components/MoneyBackground'
+import { CursorEffects } from '../components/CursorEffects'
+import { FinancialTicker } from '../components/FinancialTicker'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { useNavigate } from 'react-router-dom'
@@ -12,67 +22,114 @@ import {
   SelectValue,
 } from '../components/ui/select'
 import { Input } from '../components/ui/input'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { api } from '../lib/api'
+import toast from 'react-hot-toast'
+import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
+
+interface EarlyAccessForm {
+  name: string
+  email: string
+  interest: string
+}
+
+interface ContactForm {
+  name: string
+  email: string
+  message: string
+}
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const [mousePos, setMousePos] = useState<MousePosition>({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
 
-  // Add custom animations to index.css
+  // Mouse tracking with requestAnimationFrame for performance
   useEffect(() => {
-    const style = document.createElement('style')
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-      @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
-      }
-      @keyframes pulse {
-        0% { opacity: 0.4; }
-        50% { opacity: 0.6; }
-        100% { opacity: 0.4; }
-      }
-      @keyframes gradientFlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-      @keyframes revealUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-      .animate-reveal-up {
-        opacity: 0;
-        animation: revealUp 0.8s ease-out forwards;
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-      }
-      .animate-slide-up {
-        animation: slideUp 0.8s ease-out forwards;
-      }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      .animate-pulse-slow {
-        animation: pulse 4s ease-in-out infinite;
-      }
-      .animate-gradient-flow {
-        animation: gradientFlow 15s ease infinite;
-        background-size: 200% 200%;
-      }
-    `
-    document.head.appendChild(style)
-    return () => {
-      document.head.removeChild(style)
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
     }
-  }, [])
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    if (!isMobile) {
+      let rafId: number
+      const handleMouseMove = (e: MouseEvent) => {
+        rafId = requestAnimationFrame(() => {
+          setMousePos({ x: e.clientX, y: e.clientY })
+        })
+      }
+
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        if (rafId) cancelAnimationFrame(rafId)
+      }
+    }
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [isMobile])
+  
+  const earlyAccessForm = useForm<EarlyAccessForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      interest: ''
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        interest: z.enum(['neural-networks', 'lukz', 'zom-ai'], {
+          required_error: 'Please select your interest'
+        })
+      })
+    )
+  })
+  
+  const contactForm = useForm<ContactForm>({
+    defaultValues: {
+      name: '',
+      email: '',
+      message: ''
+    },
+    mode: 'onBlur',
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Please enter a valid email'),
+        message: z.string().min(10, 'Message must be at least 10 characters')
+      })
+    )
+  })
+
+  const onEarlyAccessSubmit = async (data: EarlyAccessForm) => {
+    try {
+      await api.post('/api/early-access', data)
+      toast.success('Thank you for your interest! We will be in touch soon.')
+      earlyAccessForm.reset()
+    } catch (error) {
+      toast.error('Something went wrong. Please try again later.')
+      console.error('Early access submission error:', error)
+    }
+  }
+
+  const onContactSubmit = async (data: ContactForm) => {
+    try {
+      await api.post('/api/contact', data)
+      toast.success('Message sent successfully! We will get back to you soon.')
+      contactForm.reset()
+    } catch (error) {
+      toast.error('Something went wrong. Please try again later.')
+      console.error('Contact form submission error:', error)
+    }
+  }
+
+  // Animation keyframes are now defined in tailwind.config.js
 
   // Parallax scroll effect
   useEffect(() => {
@@ -92,52 +149,33 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Intersection Observer for reveal animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-reveal-up')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
-      observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <>
+      <MoneyBackground />
+      {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm border-b border-teal-500/20">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Logo className="hover:opacity-80 transition-opacity cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <Logo className="hover:opacity-80 transition-all duration-300 cursor-pointer transform-gpu hover:scale-[1.02]" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
           <nav className="hidden sm:flex items-center gap-2 md:gap-4">
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 hover:scale-105"
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
               onClick={() => navigate('/coaching')}
             >
               Coaching
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 hover:scale-105"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Projects
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 hover:scale-105"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Contact
             </Button>
@@ -159,8 +197,8 @@ export default function HomePage() {
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
               buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
-              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
-              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); nav.remove(); };
+              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
             }}
           >
             ☰
@@ -168,27 +206,72 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-950 animate-gradient-flow opacity-90"></div>
-        <div className="absolute inset-0 backdrop-blur-sm"></div>
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-teal-500/20 mb-8 animate-float backdrop-blur-md reveal-on-scroll">
+      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+        <div className="absolute top-0 left-0 right-0">
+          <FinancialTicker />
+        </div>
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3 md:py-4">
+          <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
               <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-3 sm:mb-6 md:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight reveal-on-scroll px-4 max-w-[340px] sm:max-w-2xl mx-auto">
-              Shaping the Future of Financial Innovation
-            </h2>
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
+              {/* Large Branding Text */}
+              {/* Background patterns with increased visibility */}
+              <div className="absolute -z-10 w-full h-full pointer-events-none overflow-hidden">
+                <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 opacity-20 animate-drift">
+                  <CirclePattern />
+                </div>
+                <div className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 opacity-20 animate-float">
+                  <GridPattern />
+                </div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 animate-shimmer">
+                  <DataFlow />
+                </div>
+              </div>
 
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-12 max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed reveal-on-scroll px-4">
-              Carfagno Enterprises empowers investors with cutting-edge solutions for trading, analysis, and insights.
-            </p>
+              <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
+                {/* Outer glow layers */}
+                <div className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-teal-500/20 to-blue-500/20 blur-3xl opacity-60 animate-drift"></div>
+                <div className="absolute -inset-2 sm:-inset-4 md:-inset-6 bg-gradient-to-r from-blue-500/20 to-teal-500/20 blur-2xl opacity-50 animate-shimmer"></div>
+                
+                {/* Enhanced glow effect for better contrast */}
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/30 to-blue-500/30 blur-2xl opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
+                
+                {/* Drop shadow for depth */}
+                <div className="absolute inset-0 bg-black/20 blur-3xl"></div>
+                
+                {/* Animated background pattern */}
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-blue-500/10 animate-drift opacity-50"></div>
+                
+                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700">
+                  <span className="relative inline-block animate-slide-up">
+                    <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
+                    <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_15px_rgba(45,212,191,0.2)]">
+                      Carfagno Enterprises
+                    </span>
+                  </span>
+                </h1>
+              </div>
+
+              {/* Subheading */}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 group">
+                <span className="relative">
+                  <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
+                  <span className="relative">The Future of AI-Driven Financial Intelligence Starts Here</span>
+                </span>
+              </h2>
+
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
+                Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
+              </p>
+            </div>
 
             <Button 
-              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold tracking-wide border-0 hover:shadow-lg hover:shadow-teal-500/20 animate-fade-in"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 hover:scale-105 transition-transform border-0 animate-fade-in relative overflow-hidden"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Explore Our Projects
               <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
@@ -198,67 +281,71 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-24 sm:py-32 overflow-hidden">
+      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 sm:mb-20 parallax reveal-on-scroll" data-speed="0.1">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-blue-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
+          <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
               <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
             </div>
             
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent reveal-on-scroll">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
               Cutting-Edge Projects
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             {/* Neural Networks Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-4 sm:p-6 md:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10 hover:translate-y-[-4px] reveal-on-scroll">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Neural Networks and Data Pipeline
               </h3>
-              <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 max-w-xs mx-auto">
+              <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
                 A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.
               </p>
               <Button 
-                className="w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
+                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
                 onClick={() => navigate('/projects/neural-networks')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
               </Button>
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10 hover:translate-y-[-4px] reveal-on-scroll">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Lukz
               </h3>
-              <p className="text-gray-300 text-base sm:text-lg mb-4">
+              <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
                 A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.
               </p>
               <Button 
-                className="w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
+                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
                 onClick={() => navigate('/projects/lukz')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
               </Button>
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10 hover:translate-y-[-4px] reveal-on-scroll">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-500 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
                 Zom AI
               </h3>
-              <p className="text-gray-300 text-base sm:text-lg mb-4">
+              <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
                 A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
               </p>
               <Button 
-                className="w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300"
+                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
                 onClick={() => navigate('/projects/zom-ai')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
               </Button>
             </div>
           </div>
@@ -266,11 +353,16 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative py-12 sm:py-24 overflow-hidden">
+      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-16 reveal-on-scroll">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+            <div className="text-center mb-4 sm:mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
+                <span className="text-teal-400 text-sm font-medium">Early Access</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4 sm:mb-6 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
                 Get Early Access to Our Tools
               </h2>
               
@@ -280,35 +372,75 @@ export default function HomePage() {
             </div>
 
             <div className="relative">
-              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10 reveal-on-scroll">
-                <form className="space-y-6 relative z-50">
-                  <div className="space-y-4 relative">
-                    <Input 
-                      placeholder="Name" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
-                    />
-                    <Input 
-                      placeholder="Email" 
-                      type="email" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
-                    />
-                    <Select>
-                      <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
-                        <SelectValue placeholder="Select your interest" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-blue-950 border-teal-500/20">
-                        <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
-                        <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
-                        <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+              <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <Form {...earlyAccessForm}>
+                    <form onSubmit={earlyAccessForm.handleSubmit(onEarlyAccessSubmit)} className="space-y-6 relative z-50">
+                      <div className="space-y-4 relative">
+                        <FormField
+                          control={earlyAccessForm.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Name" 
+                                  className="relative z-50 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={earlyAccessForm.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Email" 
+                                  type="email" 
+                                  className="relative z-50 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={earlyAccessForm.control}
+                          name="interest"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <SelectTrigger className="relative z-50 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                                    <SelectValue placeholder="Select your interest" />
+                                  </SelectTrigger>
+                                  <SelectContent className="bg-blue-950/90 backdrop-blur-sm border-teal-500/20">
+                                    <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
+                                    <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
+                                    <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                  <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
-                    Get Early Access
-                    <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
-                  </Button>
-                </form>
+                      <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0">
+                        Get Early Access
+                        <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </Button>
+                    </form>
+                  </Form>
+                </div>
               </div>
             </div>
           </div>
@@ -316,11 +448,11 @@ export default function HomePage() {
       </section>
 
       {/* About Me Section */}
-      <section className="relative py-12 sm:py-24 overflow-hidden">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 border border-teal-500/20 mb-8 animate-float">
+      <section className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center overflow-hidden z-20 bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
+          <div className="max-w-6xl mx-auto animate-fade-in">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-teal-500/20 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400 animate-pulse" />
                 <span className="text-teal-400 text-sm font-medium">About Me</span>
               </div>
@@ -329,15 +461,15 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center px-4 sm:px-6 md:px-8">
               {/* Left Column - Photo */}
               <div className="relative group mx-auto max-w-[280px] sm:max-w-md">
-                <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-500">
+                <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative aspect-square overflow-hidden rounded-2xl border-2 border-teal-500/20 group-hover:border-teal-400/40 transition-colors duration-300">
                   <img
                     src="/dom-picx.jpg"
                     alt="Dom Carfagno"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-300 transform-gpu group-hover:scale-[1.02]"
                     loading="eager"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
 
@@ -350,14 +482,7 @@ export default function HomePage() {
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
                     Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
                   </p>
-                  <Button
-                    className="w-full sm:w-auto group bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg hover:shadow-lg hover:shadow-teal-500/20 border-0 transition-all duration-500 hover:scale-[1.02]"
-                    onClick={() => navigate('/about')}
-                    data-devinid="learn-more-button"
-                  >
-                    Learn More About Me
-                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </Button>
+
                 </div>
               </div>
             </div>
@@ -366,41 +491,92 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
-        <div className="relative container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-8 sm:mb-12 md:mb-16 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent text-center">
-            Contact Us
-          </h2>
-          <div className="max-w-sm sm:max-w-md md:max-w-xl mx-auto">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 md:mb-10 group text-center sm:text-left">
-              <a 
-                href="mailto:DominicCarfagno@carfagnoenterprises.com" 
-                className="text-base sm:text-lg md:text-xl lg:text-2xl text-teal-400 hover:text-blue-400 transition-all duration-300 transform-gpu hover:scale-[1.02] group font-medium break-all sm:break-normal"
-              >
-                DominicCarfagno@carfagnoenterprises.com
-              </a>
-            </div>
-            <form className="relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20 reveal-on-scroll">
-              <div className="relative space-y-4">
-                <Input 
-                  placeholder="Name" 
-                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
-                />
-                <Input 
-                  placeholder="Email" 
-                  type="email" 
-                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
-                />
-                <textarea 
-                  placeholder="Message"
-                  className="relative z-50 w-full h-28 sm:h-32 md:h-40 bg-blue-900/30 border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
-                />
-                <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl border-0">
-                  Send Message
-                  <ChevronRight className="ml-2 w-5 h-5 transition-all duration-500 ease-out group-hover:scale-110" />
-                </Button>
+      <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-4 sm:mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
+                <User className="w-5 h-5 text-teal-400" />
+                <span className="text-teal-400 text-sm font-medium">Get in Touch</span>
               </div>
-            </form>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4 sm:mb-6 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                Contact Us
+              </h2>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 group text-center sm:text-left">
+                <a 
+                  href="mailto:DominicCarfagno@carfagnoenterprises.com" 
+                  className="text-base sm:text-lg md:text-xl text-teal-400 hover:text-blue-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:brightness-110 group font-medium break-all sm:break-normal"
+                >
+                  DominicCarfagno@carfagnoenterprises.com
+                </a>
+              </div>
+            </div>
+
+            <div className="relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 group">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Form {...contactForm}>
+                <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-6 relative z-10">
+                  <div className="space-y-4">
+                    <FormField
+                      control={contactForm.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input 
+                              placeholder="Name" 
+                              className="relative z-10 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={contactForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input 
+                              placeholder="Email" 
+                              type="email"
+                              className="relative z-10 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={contactForm.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <textarea 
+                              placeholder="Message"
+                              className="relative z-10 w-full h-32 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 border-0">
+                    Send Message
+                    <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </form>
+              </Form>
+            </div>
           </div>
         </div>
       </section>
