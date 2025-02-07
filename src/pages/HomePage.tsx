@@ -224,17 +224,17 @@ export default function HomePage() {
         </div>
         <div className="relative w-full max-w-[980px] mx-auto px-6 py-12 sm:py-16 md:py-20 z-20">
           <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3 relative z-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
-              <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
-              <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
+              <Sparkles className="w-5 h-5 text-white/70" />
+              <span className="text-white/70 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
-            <div className="space-y-4 sm:space-y-6 md:space-y-8">
+            <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {/* Large Branding Text */}
-              <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
-                <h1 className="relative text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white leading-[0.9] group">
+              <div className="relative inline-block">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-white leading-[1.1]">
                   <span className="relative inline-block">
-                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 via-blue-400/20 to-blue-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
+                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/10 via-blue-400/10 to-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
                     <span className="relative inline-block">
                       Carfagno Enterprises
                     </span>
@@ -243,11 +243,11 @@ export default function HomePage() {
               </div>
 
               {/* Subheading */}
-              <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-medium text-white/90">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/80">
                 The Future of AI-Driven Financial Intelligence
               </h2>
 
-              <p className="mt-6 text-lg sm:text-xl md:text-2xl max-w-[600px] mx-auto text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/60 leading-relaxed">
                 Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
               </p>
             </div>
