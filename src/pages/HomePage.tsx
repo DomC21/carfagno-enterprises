@@ -217,25 +217,24 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/90 to-slate-900/90"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent mix-blend-overlay"></div>
-        <div className="absolute top-0 left-0 right-0 z-10 opacity-50 hover:opacity-80 transition-opacity duration-500">
+      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay"></div>
+        <div className="absolute top-0 left-0 right-0 z-30">
           <FinancialTicker />
         </div>
         <div className="relative w-full max-w-[980px] mx-auto px-6 py-12 sm:py-16 md:py-20 z-20">
           <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3 relative z-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
-              <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
-              <span className="text-teal-400 text-sm font-medium">Innovating Financial Technology</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
+              <Sparkles className="w-5 h-5 text-white/70" />
+              <span className="text-white/70 text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
-            <div className="space-y-4 sm:space-y-6 md:space-y-8">
+            <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {/* Large Branding Text */}
-              <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
-                <h1 className="relative text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white leading-[0.9] group">
+              <div className="relative inline-block">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-white leading-[1.1]">
                   <span className="relative inline-block">
-                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 via-blue-400/20 to-blue-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
+                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/10 via-blue-400/10 to-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
                     <span className="relative inline-block">
                       Carfagno Enterprises
                     </span>
@@ -244,11 +243,11 @@ export default function HomePage() {
               </div>
 
               {/* Subheading */}
-              <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-medium text-white/90">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/80">
                 The Future of AI-Driven Financial Intelligence
               </h2>
 
-              <p className="mt-6 text-lg sm:text-xl md:text-2xl max-w-[600px] mx-auto text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/60 leading-relaxed">
                 Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
               </p>
             </div>
@@ -265,23 +264,22 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10 bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80">
+      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40"></div>
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-blue-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
           <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
-              <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 sm:mb-8">
+              <span className="text-white/70 text-sm font-medium">Our Solutions</span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 text-white">
               Cutting-Edge Projects
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Neural Networks Card */}
-            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Neural Networks and Data Pipeline
               </h3>
@@ -298,8 +296,7 @@ export default function HomePage() {
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Lukz
               </h3>
@@ -316,15 +313,14 @@ export default function HomePage() {
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Zom AI
               </h3>
               <p className="text-white/70 mb-6">
                 A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
               </p>
-              <Button 
+              <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/projects/zom-ai')}
               >

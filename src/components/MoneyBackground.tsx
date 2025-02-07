@@ -61,15 +61,14 @@ export function MoneyBackground() {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 w-full h-full overflow-hidden -z-10",
+        "fixed top-0 left-0 w-full h-full overflow-hidden -z-20",
         "pointer-events-none select-none"
       )}
       aria-hidden="true"
     >
-      {/* Background gradient with subtle animation */}
+      {/* Base background */}
       <div className="absolute inset-0 bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 to-slate-900/50 mix-blend-overlay"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay"></div>
       </div>
 
       {/* Financial elements */}
