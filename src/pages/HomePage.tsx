@@ -165,27 +165,27 @@ export default function HomePage() {
       <MoneyBackground />
       {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm border-b border-teal-500/20">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Logo className="hover:opacity-80 transition-all duration-300 cursor-pointer transform-gpu hover:scale-[1.02]" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
-          <nav className="hidden sm:flex items-center gap-2 md:gap-4">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-[980px] mx-auto px-6 py-3 flex items-center justify-between">
+          <Logo className="w-32 hover:opacity-80 transition-all duration-300 cursor-pointer" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
+          <nav className="hidden sm:flex items-center gap-6">
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              className="text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => navigate('/coaching')}
             >
               Coaching
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              className="text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Projects
             </Button>
             <Button 
               variant="ghost" 
-              className="text-teal-400 hover:text-teal-300 px-2 md:px-4 transition-all duration-300 transform-gpu hover:scale-[1.02]"
+              className="text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Contact
@@ -217,12 +217,13 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative min-h-screen pt-20 flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-950/60 via-blue-900/50 to-slate-900/60">
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 animate-shimmer"></div>
-        <div className="absolute top-0 left-0 right-0 z-0">
+      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/90 to-slate-900/90"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent mix-blend-overlay"></div>
+        <div className="absolute top-0 left-0 right-0 z-10 opacity-50 hover:opacity-80 transition-opacity duration-500">
           <FinancialTicker />
         </div>
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 md:py-40 z-10">
+        <div className="relative w-full max-w-[980px] mx-auto px-6 py-12 sm:py-16 md:py-20 z-20">
           <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3 relative z-20">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 animate-float">
               <Sparkles className="w-5 h-5 text-teal-400 animate-pulse" />
@@ -232,10 +233,10 @@ export default function HomePage() {
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Large Branding Text */}
               <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
-                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] font-black tracking-tight bg-gradient-to-r from-teal-300 via-blue-300 to-blue-400 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700 z-20">
-                  <span className="relative inline-block animate-slide-up">
-                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/60 via-blue-400/60 to-blue-500/60 blur-3xl opacity-90 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
-                    <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_50px_rgba(45,212,191,0.6)]">
+                <h1 className="relative text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white leading-[0.9] group">
+                  <span className="relative inline-block">
+                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/20 via-blue-400/20 to-blue-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
+                    <span className="relative inline-block">
                       Carfagno Enterprises
                     </span>
                   </span>
@@ -243,14 +244,11 @@ export default function HomePage() {
               </div>
 
               {/* Subheading */}
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent leading-tight animate-slide-up px-4 group">
-                <span className="relative">
-                  <span className="absolute -inset-1 bg-gradient-to-r from-teal-500/40 to-blue-500/40 blur-xl opacity-75 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
-                  <span className="relative">The Future of AI-Driven Financial Intelligence Starts Here</span>
-                </span>
+              <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-medium text-white/90">
+                The Future of AI-Driven Financial Intelligence
               </h2>
 
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-[300px] sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-gray-300 leading-relaxed animate-slide-up px-4">
+              <p className="mt-6 text-lg sm:text-xl md:text-2xl max-w-[600px] mx-auto text-white/70 leading-relaxed">
                 Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
               </p>
             </div>
@@ -280,54 +278,54 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Neural Networks Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20 reveal-on-scroll">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+              <h3 className="text-2xl font-semibold text-white mb-4">
                 Neural Networks and Data Pipeline
               </h3>
-              <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
+              <p className="text-white/70 mb-6">
                 A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.
               </p>
               <Button 
-                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/projects/neural-networks')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+              <h3 className="text-2xl font-semibold text-white mb-4">
                 Lukz
               </h3>
-              <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
+              <p className="text-white/70 mb-6">
                 A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.
               </p>
               <Button 
-                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/projects/lukz')}
               >
                 Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 transition-all duration-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <h3 className="relative z-10 text-xl sm:text-2xl font-bold mb-4 text-teal-400 tracking-tight transition-all duration-300 group-hover:text-blue-400">
+            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+              <h3 className="text-2xl font-semibold text-white mb-4">
                 Zom AI
               </h3>
-              <p className="relative z-10 text-gray-300 text-base sm:text-lg mb-6 max-w-xs">
+              <p className="text-white/70 mb-6">
                 A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
               </p>
               <Button 
-                className="relative z-10 w-full group/button bg-blue-900/50 border border-teal-500/20 hover:border-teal-400/50 text-teal-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20"
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/projects/zom-ai')}
               >
                 Learn More
