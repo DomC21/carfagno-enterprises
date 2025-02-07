@@ -232,7 +232,7 @@ export default function HomePage() {
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Large Branding Text */}
               <div className="relative inline-block px-4 py-8 sm:py-12 md:py-16">
-                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] font-black tracking-tight bg-gradient-to-r from-teal-300 via-blue-300 to-blue-400 bg-clip-text text-transparent leading-tight group transform-gpu hover:scale-[1.01] transition-transform duration-700 z-20">
+                <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] font-black tracking-tight bg-gradient-to-r from-teal-300 via-blue-300 to-blue-400 bg-clip-text text-transparent leading-[0.9] group transform-gpu hover:scale-[1.01] transition-transform duration-700 z-30">
                   <span className="relative inline-block animate-slide-up">
                     <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/60 via-blue-400/60 to-blue-500/60 blur-3xl opacity-90 group-hover:opacity-100 transition-all duration-300 animate-pulse"></span>
                     <span className="relative inline-block animate-glitch hover:animate-none transform-gpu hover:scale-[1.02] transition-transform duration-300 drop-shadow-[0_0_50px_rgba(45,212,191,0.6)]">
