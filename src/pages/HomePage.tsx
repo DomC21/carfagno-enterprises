@@ -217,10 +217,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/90 to-slate-900/90"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/10 via-transparent to-transparent mix-blend-overlay"></div>
-        <div className="absolute top-0 left-0 right-0 z-10 opacity-50 hover:opacity-80 transition-opacity duration-500">
+      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay"></div>
+        <div className="absolute top-0 left-0 right-0 z-30">
           <FinancialTicker />
         </div>
         <div className="relative w-full max-w-[980px] mx-auto px-6 py-12 sm:py-16 md:py-20 z-20">
