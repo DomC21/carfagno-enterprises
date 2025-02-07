@@ -268,19 +268,18 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40"></div>
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 sm:mb-8 animate-float">
-              <span className="text-teal-400 text-sm font-medium">Our Solutions</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 sm:mb-8">
+              <span className="text-white/70 text-sm font-medium">Our Solutions</span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 text-white">
               Cutting-Edge Projects
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Neural Networks Card */}
-            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Neural Networks and Data Pipeline
               </h3>
@@ -297,8 +296,7 @@ export default function HomePage() {
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Lukz
               </h3>
@@ -315,15 +313,14 @@ export default function HomePage() {
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-gradient-to-b from-white/5 to-white/[0.02] rounded-3xl p-8 hover:from-white/10 hover:to-white/[0.03] transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-3xl"></div>
+            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Zom AI
               </h3>
               <p className="text-white/70 mb-6">
                 A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
               </p>
-              <Button 
+              <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/projects/zom-ai')}
               >
