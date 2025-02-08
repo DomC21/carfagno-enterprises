@@ -56,5 +56,9 @@ export const animationClasses = {
   shimmer: 'animate-shimmer transition-all duration-[8s] ease-in-out infinite',
   ticker: 'animate-ticker transition-all duration-[60s] linear infinite',
   counting: 'animate-counting transition-all duration-[10s] ease-in-out infinite',
-  flow: 'animate-flow transition-all duration-[30s] ease-in-out infinite'
+  flow: 'animate-flow transition-all duration-[30s] ease-in-out infinite',
+  stockTicker: 'animate-stock-ticker transition-all duration-[30s] linear infinite transform-gpu',
+  dataFlow: 'animate-data-flow transition-all duration-[15s] ease-in-out infinite transform-gpu',
+  graphFloat: 'animate-graph-float transition-all duration-[20s] ease-in-out infinite transform-gpu',
+  fadeInScale: 'animate-fade-in-scale transition-all duration-300 ease-out transform-gpu'
 }
