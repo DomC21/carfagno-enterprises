@@ -32,7 +32,12 @@ export function DataFlowAnimation({ maxElements = 20 }: DataFlowProps) {
           }}
         >
           <span className="font-mono text-xs text-white/40 backdrop-blur-sm">
-            {Math.random().toString(16).substring(2, 8)}
+            {i % 3 === 0 ? 
+              `$${(Math.random() * 1000).toFixed(2)}B` :
+              i % 3 === 1 ?
+              `${(Math.random() * 10).toFixed(1)}%` :
+              `Vol ${Math.floor(Math.random() * 1000)}M`
+            }
           </span>
         </div>
       ))}

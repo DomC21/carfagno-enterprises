@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { cn } from '../lib/utils'
 import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
 import { StockMarketAnimation } from '../components/StockMarketAnimation'
@@ -8,6 +9,7 @@ import { DataFlowAnimation } from '../components/DataFlowAnimation'
 import { GraphAnimation } from '../components/GraphAnimation'
 import { Logo } from '../components/Logo'
 import { Footer } from '../components/Footer'
+import { animationClasses } from '../utils/styles'
 import { Button } from '../components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Input } from '../components/ui/input'
@@ -168,30 +170,34 @@ export default function HomePage() {
       {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-[980px] mx-auto px-6 py-3 flex items-center justify-between">
-          <Logo className="w-32 hover:opacity-80 transition-all duration-300 cursor-pointer" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
-          <nav className="hidden sm:flex items-center gap-6">
-            <Button 
-              variant="ghost" 
-              className="text-white/90 hover:text-white px-2 transition-all duration-300"
-              onClick={() => navigate('/coaching')}
-            >
-              Coaching
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="text-white/90 hover:text-white px-2 transition-all duration-300"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            >
-              Projects
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="text-white/90 hover:text-white px-2 transition-all duration-300"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            >
-              Contact
-            </Button>
+        <div className="max-w-[980px] mx-auto px-6 py-3">
+          <div className="flex items-center justify-between">
+            <Logo 
+              className={"w-32 " + animationClasses.fadeInScale + " hover:opacity-80 transition-all duration-300 cursor-pointer"}
+              onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
+            />
+            <nav className="hidden sm:flex items-center gap-6">
+              <Button 
+                variant="ghost" 
+                className="text-white/90 hover:text-white px-2 transition-all duration-300"
+                onClick={() => navigate('/coaching')}
+              >
+                Coaching
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="text-white/90 hover:text-white px-2 transition-all duration-300"
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Projects
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="text-white/90 hover:text-white px-2 transition-all duration-300"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              >
+                Contact
+              </Button>
           </nav>
           <button 
             className="sm:hidden text-teal-400 hover:text-teal-300 p-5 text-2xl flex items-center justify-center"
@@ -216,6 +222,7 @@ export default function HomePage() {
           >
             ☰
           </button>
+          </div>
         </div>
       </header>
 
@@ -259,11 +266,17 @@ export default function HomePage() {
             </div>
 
             <Button 
-              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 transform-gpu hover:scale-[1.02] transition-all duration-300 border-0 animate-fade-in relative overflow-hidden"
+              className={cn(
+                "group bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto",
+                animationClasses.buttonBase,
+                animationClasses.buttonHover,
+                animationClasses.buttonGlow,
+                animationClasses.fadeInScale
+              )}
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Explore Our Projects
-              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
         </div>

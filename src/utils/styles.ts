@@ -60,5 +60,8 @@ export const animationClasses = {
   stockTicker: 'animate-stock-ticker transition-all duration-[30s] linear infinite transform-gpu',
   dataFlow: 'animate-data-flow transition-all duration-[15s] ease-in-out infinite transform-gpu',
   graphFloat: 'animate-graph-float transition-all duration-[20s] ease-in-out infinite transform-gpu',
-  fadeInScale: 'animate-fade-in-scale transition-all duration-300 ease-out transform-gpu'
+  fadeInScale: 'animate-fade-in-scale transition-all duration-300 ease-out transform-gpu',
+  buttonBase: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02]',
+  buttonHover: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]',
+  buttonGlow: `after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/10 after:to-transparent after:translate-x-[-200%] hover:after:translate-x-[200%] after:transition-transform after:duration-1000`
 }
