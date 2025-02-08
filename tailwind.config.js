@@ -12,6 +12,10 @@ module.exports = {
       'animate-ticker',
       'animate-counting',
       'animate-flow',
+      'animate-stock-ticker',
+      'animate-data-flow',
+      'animate-graph-float',
+      'animate-fade-in-scale',
       {
         pattern: /^opacity-/,
         variants: ['hover', 'group-hover']
@@ -100,6 +104,22 @@ module.exports = {
           '60%': { transform: 'translate(-1px, 1px)', filter: 'brightness(1.05)' },
           '80%': { transform: 'translate(1px, -1px)', filter: 'brightness(0.95)' },
           '100%': { transform: 'translate(0)', filter: 'brightness(1)' }
+        },
+        'stock-ticker': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' }
+        },
+        'data-flow': {
+          '0%, 100%': { opacity: '0.3', transform: 'translateY(0)' },
+          '50%': { opacity: '0.7', transform: 'translateY(-10px)' }
+        },
+        'graph-float': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' }
+        },
+        'fade-in-scale': {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' }
         }
   		},
   		animation: {
@@ -114,7 +134,11 @@ module.exports = {
   			'ticker': 'ticker 60s linear infinite',
   			'counting': 'counting 10s ease-in-out infinite',
   			'flow': 'flow 30s ease-in-out infinite',
-        'glitch': 'glitch 3s ease-in-out infinite'
+        'glitch': 'glitch 3s ease-in-out infinite',
+        'stock-ticker': 'stock-ticker 30s linear infinite',
+        'data-flow': 'data-flow 15s ease-in-out infinite',
+        'graph-float': 'graph-float 20s ease-in-out infinite',
+        'fade-in-scale': 'fade-in-scale 0.3s ease-out'
   		}
   	}
   },

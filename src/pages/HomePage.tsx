@@ -3,7 +3,9 @@ import { ChevronRight, Sparkles, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
-import { FinancialTicker } from '../components/FinancialTicker'
+import { StockMarketAnimation } from '../components/StockMarketAnimation'
+import { DataFlowAnimation } from '../components/DataFlowAnimation'
+import { GraphAnimation } from '../components/GraphAnimation'
 import { Logo } from '../components/Logo'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
@@ -218,10 +220,14 @@ export default function HomePage() {
       </header>
 
       <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay"></div>
-        <div className="absolute top-0 left-0 right-0 z-30">
-          <FinancialTicker />
+        <DataFlowAnimation maxElements={15} />
+        <div className="absolute inset-0 z-10">
+          <GraphAnimation />
         </div>
+        <div className="absolute top-0 left-0 right-0 z-30">
+          <StockMarketAnimation />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay"></div>
         <div className="relative w-full max-w-[980px] mx-auto px-6 py-12 sm:py-16 md:py-20 z-20">
           <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3 relative z-20">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
