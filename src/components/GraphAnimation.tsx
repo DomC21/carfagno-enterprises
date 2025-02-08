@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { animationClasses } from '../utils/styles'
 import { useAnimationControl } from '../hooks/use-animation-control'
+import { AnimationProps } from '../types/animation'
+import { cn } from '../lib/utils'
 
 interface Point {
   x: number
   y: number
 }
 
-const GraphAnimationComponent = () => {
+const GraphAnimationComponent = ({ className }: AnimationProps) => {
   const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [points, setPoints] = useState<Point[]>([])
+  
+  if (!isVisible || shouldReduceMotion) return null
 
   useEffect(() => {
     if (!isVisible || shouldReduceMotion) return
@@ -33,9 +37,9 @@ const GraphAnimationComponent = () => {
   }, [])
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+    <div className={cn("absolute inset-0 pointer-events-none", className)} aria-hidden="true">
       <svg
-        className={`w-full h-full opacity-30 ${animationClasses.graphFloat}`}
+        className={cn("w-full h-full opacity-30", animationClasses.graphFloat)}
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
@@ -51,4 +55,4 @@ const GraphAnimationComponent = () => {
   )
 }
 
-export const GraphAnimation = React.memo(GraphAnimationComponent, () => true);
+export const GraphAnimation = memo(GraphAnimationComponent);
