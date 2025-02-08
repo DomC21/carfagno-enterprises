@@ -1,7 +1,8 @@
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useState, memo, useCallback } from 'react'
 import { animationClasses } from '../utils/styles'
 import { StockData, AnimationProps } from '../types/animation'
 import { useAnimationControl } from '../hooks/use-animation-control'
+import { api } from '../lib/api'
 
 const initialStocks: StockData[] = [
   { symbol: 'AAPL', price: 182.63, previousClose: 182.63, change: 0 },
@@ -14,11 +15,29 @@ const initialStocks: StockData[] = [
 const StockMarketAnimationComponent = ({}: AnimationProps) => {
   const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [stocks, setStocks] = useState<StockData[]>(initialStocks)
-  
-  if (!isVisible || shouldReduceMotion) return null
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchStockData = useCallback(async () => {
+    try {
+      const response = await api.get('/api/market-data')
+      const data = response.data
+      setStocks(prevStocks => 
+        prevStocks.map(stock => {
+          const newData = data[stock.symbol]
+          if (!newData) return stock
+          return {
+            ...stock,
+            price: newData.price,
+            previousClose: newData.previousClose,
+            change: ((newData.price - newData.previousClose) / newData.previousClose) * 100
+          }
+        })
+      )
+      setError(null)
+    } catch (err) {
+      console.error('Failed to fetch market data:', err)
+      setError('Unable to fetch real-time market data')
+      // Fallback to simulated data
       setStocks(prev => {
         const newStocks = [...prev]
         newStocks.forEach(stock => {
@@ -27,21 +46,35 @@ const StockMarketAnimationComponent = ({}: AnimationProps) => {
         })
         return newStocks
       })
-    }, 2000)
-    return () => clearInterval(interval)
+    }
   }, [])
+  
+  useEffect(() => {
+    if (!isVisible || shouldReduceMotion) return
+    
+    fetchStockData() // Initial fetch
+    const interval = setInterval(fetchStockData, 10000) // Update every 10 seconds
+    
+    return () => clearInterval(interval)
+  }, [isVisible, shouldReduceMotion, fetchStockData])
+  
+  if (!isVisible || shouldReduceMotion) return null
 
   return (
     <div className="overflow-hidden whitespace-nowrap z-10">
       <div className={animationClasses.stockTicker}>
-        {stocks.map((stock, i) => (
-          <span key={i} className="inline-flex items-center mx-4">
-            <span className="font-mono text-white/80">{stock.symbol}</span>
-            <span className={`ml-2 ${stock.change >= 0 ? 'text-green-400/90' : 'text-red-400/90'}`}>
-              ${stock.price.toFixed(2)} ({stock.change.toFixed(2)}%)
+        {error ? (
+          <span className="text-yellow-400/90">{error}</span>
+        ) : (
+          stocks.map((stock, i) => (
+            <span key={i} className="inline-flex items-center mx-4">
+              <span className="font-mono text-white/80">{stock.symbol}</span>
+              <span className={`ml-2 ${stock.change >= 0 ? 'text-green-400/90' : 'text-red-400/90'}`}>
+                ${stock.price.toFixed(2)} ({stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)}%)
+              </span>
             </span>
-          </span>
-        ))}
+          ))
+        )}
       </div>
     </div>
   )
