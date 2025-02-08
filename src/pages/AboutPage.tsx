@@ -13,7 +13,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-black text-white">
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-[980px] mx-auto px-6 py-3">
-          <Logo className={`w-32 ${animationClasses.fadeInScale} hover:opacity-80 transition-all duration-300 cursor-pointer`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+          <Logo className={"w-32 " + animationClasses.fadeInScale + " hover:opacity-80 transition-all duration-300 cursor-pointer"} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
         </div>
       </header>
 
