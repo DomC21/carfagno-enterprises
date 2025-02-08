@@ -20,7 +20,7 @@ export function DataFlowAnimation({ maxElements = 20 }: DataFlowProps) {
   if (!shouldAnimate) return null
 
   return (
-    <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
       {Array.from({ length: maxElements }).map((_, i) => (
         <div
           key={i}
@@ -31,7 +31,7 @@ export function DataFlowAnimation({ maxElements = 20 }: DataFlowProps) {
             animationDelay: `${Math.random() * 15}s`
           }}
         >
-          <span className="font-mono text-xs text-white/30">
+          <span className="font-mono text-xs text-white/40 backdrop-blur-sm">
             {Math.random().toString(16).substring(2, 8)}
           </span>
         </div>

@@ -61,14 +61,14 @@ export function MoneyBackground() {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 w-full h-full overflow-hidden -z-20",
+        "fixed top-0 left-0 w-full h-full overflow-hidden -z-10",
         "pointer-events-none select-none"
       )}
       aria-hidden="true"
     >
       {/* Base background */}
       <div className="absolute inset-0 bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40 mix-blend-overlay"></div>
       </div>
 
       {/* Financial elements */}
