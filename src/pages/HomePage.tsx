@@ -5,6 +5,7 @@ import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
 import { StockMarketAnimation } from '../components/StockMarketAnimation'
 import { DataFlowAnimation } from '../components/DataFlowAnimation'
+import { GraphAnimation } from '../components/GraphAnimation'
 import { Logo } from '../components/Logo'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
@@ -220,6 +221,9 @@ export default function HomePage() {
 
       <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
         <DataFlowAnimation maxElements={15} />
+        <div className="absolute inset-0 z-10">
+          <GraphAnimation />
+        </div>
         <div className="absolute top-0 left-0 right-0 z-30">
           <StockMarketAnimation />
         </div>
