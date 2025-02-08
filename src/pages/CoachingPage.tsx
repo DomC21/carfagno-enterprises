@@ -6,6 +6,7 @@ import { Input } from '../components/ui/input'
 import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
+import { DataFlowAnimation } from '../components/DataFlowAnimation'
 import { colorClasses, animationClasses } from '../utils/styles'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -71,17 +72,17 @@ export default function CoachingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-md border-b border-teal-500/20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-[980px] mx-auto px-6 py-3">
+          <div className="flex items-center justify-between">
             <Logo 
-              className="hover:opacity-80 transition-opacity cursor-pointer transform-gpu hover:scale-[1.02] duration-300" 
+              className={"w-32 " + animationClasses.fadeInScale + " hover:opacity-80 transition-all duration-300 cursor-pointer"}
               onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
             />
             <nav className="flex items-center gap-2 sm:gap-4">
               <Button
                 variant="ghost"
-                className="relative group bg-gradient-to-r from-blue-900/30 to-blue-950/30 backdrop-blur-sm border border-teal-500/20 text-teal-400 hover:text-teal-300 hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-500/20 transition-all duration-300"
+                className="group bg-white/5 hover:bg-white/10 text-white border-0 transition-all duration-300"
                 onClick={() => navigate('/')}
               >
                 <ChevronLeft className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
@@ -94,16 +95,11 @@ export default function CoachingPage() {
       </header>
 
       {/* Hero Section with Dynamic Background */}
-      <div className={`relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-br ${colorClasses.gradient.background}`}>
-        <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.section.primary} parallax`} data-speed="0.1" />
-          <div className={`absolute inset-0 bg-gradient-to-r ${colorClasses.gradient.glow} animate-pulse parallax`} data-speed="0.2" />
-          <div className="absolute inset-0 opacity-20 parallax" data-speed="0.15">
-            <div className="absolute inset-0" style={{ 
-              backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(45 212 191) 1px, transparent 1px)',
-              backgroundSize: '32px 32px'
-            }} />
-          </div>
+      <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
+        <DataFlowAnimation />
+        <div className="absolute inset-0 bg-black">
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay"></div>
+        </div>
           {/* Additional Financial Elements */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2 animate-drift">
@@ -134,7 +130,7 @@ export default function CoachingPage() {
           </h2>
 
           <Button 
-            className="group relative bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0 transition-all duration-300"
+            className={"group bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] border-0 transition-all duration-300 " + animationClasses.fadeInScale}
             onClick={() => document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           >
             Book Your Coaching Session Now!
@@ -145,30 +141,30 @@ export default function CoachingPage() {
 
       {/* What I Bring to the Table Section */}
       <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20 relative z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/30 to-transparent"></div>
-        <section className={`relative bg-gradient-to-br from-blue-950/80 via-blue-900/70 to-slate-900/80 ${colorClasses.border} ${colorClasses.borderHover} p-8 sm:p-10 md:p-12 rounded-xl mb-12 ${animationClasses.fadeIn}`}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
-          <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6`}>What I Bring to the Table</h2>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent mix-blend-overlay"></div>
+        <section className={"relative bg-white/5 p-8 sm:p-10 md:p-12 rounded-3xl mb-12 hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay rounded-3xl"></div>
+          <h2 className="text-3xl font-semibold text-white mb-6 relative z-10">What I Bring to the Table</h2>
           <div className="space-y-6">
             <div className="flex items-start gap-4">
-              <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+              <div className="w-2 h-2 mt-2 rounded-full bg-white/70 shrink-0" />
               <div>
-                <h3 className="text-xl font-semibold text-teal-400 mb-2">Lukz</h3>
-                <p className={`${colorClasses.secondary} text-lg`}>A financial analytics platform providing real-time flow data, Congressional trades, and alerts.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">Lukz</h3>
+                <p className="text-white/70 text-lg">A financial analytics platform providing real-time flow data, Congressional trades, and alerts.</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+              <div className="w-2 h-2 mt-2 rounded-full bg-white/70 shrink-0" />
               <div>
-                <h3 className="text-xl font-semibold text-teal-400 mb-2">Zom AI</h3>
-                <p className={`${colorClasses.secondary} text-lg`}>AI-powered tool offering advanced metrics, market sentiment, and personalized insights.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">Zom AI</h3>
+                <p className="text-white/70 text-lg">AI-powered tool offering advanced metrics, market sentiment, and personalized insights.</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+              <div className="w-2 h-2 mt-2 rounded-full bg-white/70 shrink-0" />
               <div>
-                <h3 className="text-xl font-semibold text-teal-400 mb-2">Rust</h3>
-                <p className={`${colorClasses.secondary} text-lg`}>A robust investment tracking tool focusing on portfolio optimization.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">Rust</h3>
+                <p className="text-white/70 text-lg">A robust investment tracking tool focusing on portfolio optimization.</p>
               </div>
             </div>
           </div>
@@ -312,46 +308,46 @@ export default function CoachingPage() {
             </div>
 
             {/* Success Stories */}
-            <div className="relative bg-gradient-to-br from-blue-950/80 to-blue-900/30 p-8 sm:p-10 md:p-12 rounded-xl mb-12">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent"></div>
+            <div className={"relative bg-white/5 p-8 sm:p-10 md:p-12 rounded-3xl mb-12 hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay rounded-3xl"></div>
               <div className="absolute top-0 right-0 p-4 z-10">
-                <BarChart className={`w-6 h-6 ${colorClasses.primary} opacity-50`} />
+                <BarChart className="w-6 h-6 text-white/50" />
               </div>
-              <h3 className="text-2xl font-bold text-teal-400 mb-6 relative z-10">Success Stories</h3>
+              <h3 className="text-2xl font-semibold text-white mb-6 relative z-10">Success Stories</h3>
               <div className="relative z-10">
                 <TestimonialCarousel />
               </div>
             </div>
 
             {/* FAQ Section */}
-            <div className="relative bg-gradient-to-br from-blue-950/80 to-blue-900/30 p-8 sm:p-10 md:p-12 rounded-xl mb-12">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent"></div>
+            <div className={"relative bg-white/5 p-8 sm:p-10 md:p-12 rounded-3xl mb-12 hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay rounded-3xl"></div>
               <div className="absolute top-0 right-0 p-4">
-                <BookOpen className={`w-6 h-6 ${colorClasses.primary} opacity-50`} />
+                <BookOpen className="w-6 h-6 text-white/50" />
               </div>
-              <h3 className="text-2xl font-bold text-teal-400 mb-6 relative z-10">Frequently Asked Questions</h3>
+              <h3 className="text-2xl font-semibold text-white mb-6 relative z-10">Frequently Asked Questions</h3>
               <div className="mb-4">
-                <h4 className="font-semibold text-gray-300">What will I get in a coaching session?</h4>
-                <p className="text-gray-400">You'll receive a personalized budget plan, investment guidelines, and ongoing support.</p>
-              </div>
-              <div className="mb-4">
-                <h4 className="font-semibold text-gray-300">How long are the sessions?</h4>
-                <p className="text-gray-400">Each session typically lasts one hour, conducted via video call.</p>
+                <h4 className="font-semibold text-white">What will I get in a coaching session?</h4>
+                <p className="text-white/70">You'll receive a personalized budget plan, investment guidelines, and ongoing support.</p>
               </div>
               <div className="mb-4">
-                <h4 className="font-semibold text-gray-300">What topics are covered?</h4>
-                <p className="text-gray-400">Budgeting, investing, debt management, and more.</p>
+                <h4 className="font-semibold text-white">How long are the sessions?</h4>
+                <p className="text-white/70">Each session typically lasts one hour, conducted via video call.</p>
+              </div>
+              <div className="mb-4">
+                <h4 className="font-semibold text-white">What topics are covered?</h4>
+                <p className="text-white/70">Budgeting, investing, debt management, and more.</p>
               </div>
             </div>
 
             {/* Signup Form */}
-            <div id="signup-form" className={`relative bg-gradient-to-br from-blue-900/30 to-blue-950/80 ${colorClasses.border} ${colorClasses.borderHover} p-8 sm:p-10 md:p-12 rounded-xl ${animationClasses.fadeIn}`}>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/20 to-transparent"></div>
+            <div id="signup-form" className={"relative bg-white/5 p-8 sm:p-10 md:p-12 rounded-3xl hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay rounded-3xl"></div>
               <div className="absolute top-0 right-0 p-4">
-                <Mail className={`w-6 h-6 ${colorClasses.primary} opacity-50`} />
+                <Mail className="w-6 h-6 text-white/50" />
               </div>
-              <h2 className={`text-3xl font-bold ${colorClasses.primary} mb-6 relative z-10`}>Take the first step toward financial freedom</h2>
-              <p className={`text-xl ${colorClasses.secondary} mb-8`}>
+              <h2 className="text-3xl font-semibold text-white mb-6 relative z-10">Take the first step toward financial freedom</h2>
+              <p className="text-xl text-white/70 mb-8">
                 Sign up for a personalized coaching session tailored to your goals.
               </p>
 
@@ -379,7 +375,7 @@ export default function CoachingPage() {
                           <FormControl>
                             <Input 
                               placeholder="Name" 
-                              className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                              className="bg-white/5 border-white/10 placeholder:text-white/50 focus:border-white/20 focus:ring-white/10 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-white/20"
                               {...field}
                             />
                           </FormControl>
@@ -396,7 +392,7 @@ export default function CoachingPage() {
                             <Input 
                               placeholder="Email" 
                               type="email"
-                              className={`bg-blue-900/30 ${colorClasses.border} placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                              className="bg-white/5 border-white/10 placeholder:text-white/50 focus:border-white/20 focus:ring-white/10 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-white/20"
                               {...field}
                             />
                           </FormControl>
@@ -412,7 +408,7 @@ export default function CoachingPage() {
                           <FormControl>
                             <textarea 
                               placeholder="Your Financial Goals"
-                              className={`w-full h-24 bg-blue-900/30 ${colorClasses.border} rounded-md p-3 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}
+                              className="w-full h-24 bg-white/5 border-white/10 rounded-md p-3 placeholder:text-white/50 focus:border-white/20 focus:ring-white/10 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-white/20"
                               {...field}
                             />
                           </FormControl>
@@ -427,13 +423,13 @@ export default function CoachingPage() {
                         <FormItem>
                           <FormControl>
                             <Select onValueChange={field.onChange} defaultValue="morning">
-                              <SelectTrigger className={`bg-blue-900/30 ${colorClasses.border} text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50`}>
+                              <SelectTrigger className="bg-white/5 border-white/10 text-white/70 focus:border-white/20 focus:ring-white/10 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-white/20">
                                 <SelectValue placeholder="Preferred Session Time" />
                               </SelectTrigger>
-                              <SelectContent className="bg-blue-950 border-teal-500/20">
-                                <SelectItem value="morning" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Morning (9AM - 12PM)</SelectItem>
-                                <SelectItem value="afternoon" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Afternoon (1PM - 5PM)</SelectItem>
-                                <SelectItem value="evening" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Evening (6PM - 8PM)</SelectItem>
+                              <SelectContent className="bg-black/90 border-white/10">
+                                <SelectItem value="morning" className="hover:bg-white/5 focus:bg-white/5">Morning (9AM - 12PM)</SelectItem>
+                                <SelectItem value="afternoon" className="hover:bg-white/5 focus:bg-white/5">Afternoon (1PM - 5PM)</SelectItem>
+                                <SelectItem value="evening" className="hover:bg-white/5 focus:bg-white/5">Evening (6PM - 8PM)</SelectItem>
                               </SelectContent>
                             </Select>
                           </FormControl>
@@ -445,13 +441,13 @@ export default function CoachingPage() {
 
                   <Button 
                     type="submit" 
-                    className="w-full group relative bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0 transition-all duration-300"
+                    className={"w-full group bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold hover:scale-[1.02] border-0 transition-all duration-300 " + animationClasses.fadeInScale}
                   >
                     Schedule Your Session
                     <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
 
-                  <p className={`text-sm ${colorClasses.secondary} mt-4`}>
+                  <p className="text-sm text-white/70 mt-4">
                     I'll reach out within 24 hours to confirm your session details.
                   </p>
                 </form>
