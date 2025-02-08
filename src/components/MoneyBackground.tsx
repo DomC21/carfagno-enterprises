@@ -32,7 +32,11 @@ const backgroundElements: BackgroundElement[] = [
   { Component: DataFlow, positions: ['40,40', '60,80', '20,90'], priority: 'low', scale: 0.7, customClass: 'animate-flow' },
 ];
 
-export function MoneyBackground() {
+interface MoneyBackgroundProps {
+  className?: string;
+}
+
+export function MoneyBackground({ className = '' }: MoneyBackgroundProps) {
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -61,8 +65,9 @@ export function MoneyBackground() {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 w-full h-full overflow-hidden -z-10",
-        "pointer-events-none select-none"
+        "absolute inset-0 overflow-hidden",
+        "pointer-events-none select-none",
+        className
       )}
       aria-hidden="true"
     >
