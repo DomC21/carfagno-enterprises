@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { animationClasses } from '../utils/styles'
-
-import { StockData } from '../types/animation'
+import { StockData, AnimationProps } from '../types/animation'
+import { useAnimationControl } from '../hooks/use-animation-control'
 
 const initialStocks: StockData[] = [
   { symbol: 'AAPL', price: 182.63, previousClose: 182.63, change: 0 },
@@ -11,8 +11,11 @@ const initialStocks: StockData[] = [
   { symbol: 'META', price: 149.68, previousClose: 149.68, change: 0 }
 ];
 
-const StockMarketAnimationComponent = () => {
+const StockMarketAnimationComponent = ({}: AnimationProps) => {
+  const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [stocks, setStocks] = useState<StockData[]>(initialStocks)
+  
+  if (!isVisible || shouldReduceMotion) return null
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,4 +47,4 @@ const StockMarketAnimationComponent = () => {
   )
 }
 
-export const StockMarketAnimation = React.memo(StockMarketAnimationComponent, () => true)
+export const StockMarketAnimation = memo(StockMarketAnimationComponent)
