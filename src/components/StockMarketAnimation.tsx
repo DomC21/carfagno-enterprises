@@ -62,15 +62,15 @@ const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
   if (!isVisible || shouldReduceMotion) return null
 
   return (
-    <div className={cn("overflow-hidden whitespace-nowrap", className)}>
-      <div className={animationClasses.stockTicker}>
+    <div className={cn("overflow-hidden whitespace-nowrap fixed top-0 left-0 right-0", className)}>
+      <div className={cn("py-2 px-4 bg-black/50 backdrop-blur-sm", animationClasses.stockTicker)}>
         {error ? (
-          <span className="text-yellow-400/90 px-4">{error}</span>
+          <span className="text-yellow-400/90 px-4 animate-pulse">{error}</span>
         ) : (
           stocks.map((stock, i) => (
-            <span key={i} className="inline-flex items-center mx-4">
-              <span className="font-mono text-white/80">{stock.symbol}</span>
-              <span className={`ml-2 ${stock.change >= 0 ? 'text-green-400/90' : 'text-red-400/90'}`}>
+            <span key={i} className="inline-flex items-center mx-4 hover:scale-105 transition-transform">
+              <span className="font-mono text-white/90">{stock.symbol}</span>
+              <span className={cn("ml-2", stock.change >= 0 ? "text-green-400" : "text-red-400")}>
                 ${stock.price.toFixed(2)} ({stock.change >= 0 ? '+' : ''}{stock.change.toFixed(2)}%)
               </span>
             </span>
