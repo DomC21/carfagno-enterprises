@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { animationClasses } from '../utils/styles'
 import { neuralNetworkMockData } from '../demoData/NeuralNetworksData'
 
@@ -9,8 +9,15 @@ interface StockData {
   change: number
 }
 
+const initialStocks: StockData[] = neuralNetworkMockData.slice(0, 10).map(data => ({
+  symbol: `STOCK${Math.floor(Math.random() * 100)}`,
+  price: data.actualPrice,
+  previousClose: data.actualPrice,
+  change: 0
+}))
+
 export function StockMarketAnimation() {
-  const [stocks, setStocks] = useState<StockData[]>(neuralNetworkMockData.slice(0, 10))
+  const [stocks, setStocks] = useState<StockData[]>(initialStocks)
   
   useEffect(() => {
     const interval = setInterval(() => {
