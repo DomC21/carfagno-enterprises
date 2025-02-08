@@ -39,7 +39,7 @@ export default function AboutPage() {
 
         {/* Vision & Mission */}
         <div className="max-w-4xl mx-auto mb-16">
-          <div className={`bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 ${animationClasses.fadeInScale}`}>
+          <div className={"bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
             <h2 className="text-2xl font-semibold text-white mb-4">Vision & Mission</h2>
             <p className="text-white/70 mb-4">
               My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise to revolutionize how investors interact with market data.
@@ -54,21 +54,21 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto mb-16">
           <h2 className="text-2xl font-bold text-teal-400 mb-8">Key Milestones</h2>
           <div className="space-y-8">
-            <div className={`relative pl-8 pb-8 border-l-2 border-white/10 ${animationClasses.fadeInScale}`}>
+            <div className={"relative pl-8 pb-8 border-l-2 border-white/10 " + animationClasses.fadeInScale}>
               <div className="absolute left-0 top-0 w-4 h-4 -translate-x-1/2 rounded-full bg-white/70"></div>
               <h3 className="text-xl font-semibold text-white mb-2">St. Joe's Investment Competition Winner</h3>
               <p className="text-white/70">
                 Led a team to victory in the St. Joe's Investment Competition, demonstrating exceptional skills in financial analysis and strategic investment planning.
               </p>
             </div>
-            <div className={`relative pl-8 pb-8 border-l-2 border-white/10 ${animationClasses.fadeInScale}`} style={{ animationDelay: '0.2s' }}>
+            <div className={"relative pl-8 pb-8 border-l-2 border-white/10 " + animationClasses.fadeInScale} style={{ animationDelay: '0.2s' }}>
               <div className="absolute left-0 top-0 w-4 h-4 -translate-x-1/2 rounded-full bg-white/70"></div>
               <h3 className="text-xl font-semibold text-white mb-2">Financial Technology Innovation</h3>
               <p className="text-white/70">
                 Developed multiple cutting-edge financial tools, including neural network-based trading systems and advanced data analytics platforms.
               </p>
             </div>
-            <div className={`relative pl-8 border-l-2 border-white/10 ${animationClasses.fadeInScale}`} style={{ animationDelay: '0.4s' }}>
+            <div className={"relative pl-8 border-l-2 border-white/10 " + animationClasses.fadeInScale} style={{ animationDelay: '0.4s' }}>
               <div className="absolute left-0 top-0 w-4 h-4 -translate-x-1/2 rounded-full bg-white/70"></div>
               <h3 className="text-xl font-semibold text-white mb-2">Leadership Excellence</h3>
               <p className="text-white/70">
@@ -80,7 +80,7 @@ export default function AboutPage() {
 
         {/* Call to Action */}
         <div className="max-w-4xl mx-auto text-center">
-          <div className={`bg-white/5 rounded-3xl p-8 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 ${animationClasses.fadeInScale}`}>
+          <div className={"bg-white/5 rounded-3xl p-8 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
             <h2 className="text-2xl font-semibold text-white mb-4">Let's Connect</h2>
             <p className="text-white/70 mb-6">
               Interested in learning more about our innovative financial tools or discussing potential collaborations?
