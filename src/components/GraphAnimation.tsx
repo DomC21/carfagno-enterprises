@@ -33,9 +33,9 @@ export function GraphAnimation() {
   }, [])
 
   return (
-    <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
       <svg
-        className={`w-full h-full opacity-20 ${animationClasses.graphFloat}`}
+        className={`w-full h-full opacity-30 ${animationClasses.graphFloat}`}
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
@@ -43,7 +43,7 @@ export function GraphAnimation() {
           d={`M ${points.map(p => `${p.x},${p.y}`).join(' L ')}`}
           fill="none"
           stroke="currentColor"
-          strokeWidth="0.5"
+          strokeWidth="0.75"
           className="text-teal-400"
         />
       </svg>

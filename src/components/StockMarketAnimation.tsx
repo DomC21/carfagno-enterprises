@@ -34,12 +34,12 @@ export function StockMarketAnimation() {
   }, [])
 
   return (
-    <div className="overflow-hidden whitespace-nowrap">
+    <div className="overflow-hidden whitespace-nowrap z-10">
       <div className={animationClasses.stockTicker}>
         {stocks.map((stock, i) => (
           <span key={i} className="inline-flex items-center mx-4">
-            <span className="font-mono text-white/70">{stock.symbol}</span>
-            <span className={`ml-2 ${stock.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+            <span className="font-mono text-white/80">{stock.symbol}</span>
+            <span className={`ml-2 ${stock.change >= 0 ? 'text-green-400/90' : 'text-red-400/90'}`}>
               ${stock.price.toFixed(2)} ({stock.change.toFixed(2)}%)
             </span>
           </span>
