@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 import { useNavigate } from 'react-router-dom'
+import { cn } from '../lib/utils'
+import { animationClasses } from '../utils/styles'
 import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
 import { StockMarketAnimation } from '../components/StockMarketAnimation'
@@ -220,25 +223,32 @@ export default function HomePage() {
       </header>
 
       <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
-        <DataFlowAnimation maxElements={15} />
-        <div className="absolute inset-0 z-10">
-          <GraphAnimation />
-        </div>
-        <div className="absolute top-0 left-0 right-0 z-30">
-          <StockMarketAnimation />
-        </div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay"></div>
-        <div className="relative w-full max-w-[980px] mx-auto px-6 py-12 sm:py-16 md:py-20 z-20">
-          <div className="max-w-4xl mx-auto text-center space-y-1 sm:space-y-2 md:space-y-3 relative z-20">
+        <ErrorBoundary>
+          <div className="absolute inset-0 z-0">
+            <MoneyBackground />
+          </div>
+          <div className="absolute inset-0 z-10">
+            <DataFlowAnimation maxElements={15} />
+          </div>
+          <div className="absolute inset-0 z-20">
+            <GraphAnimation />
+          </div>
+          <div className="absolute top-0 left-0 right-0 z-30">
+            <StockMarketAnimation />
+          </div>
+        </ErrorBoundary>
+        <div className="absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay pointer-events-none"></div>
+        <div className="relative w-full max-w-[980px] mx-auto px-6 py-16 sm:py-20 md:py-24 z-40">
+          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 md:space-y-8 relative z-40">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
-              <Sparkles className="w-5 h-5 text-white/70" />
-              <span className="text-white/70 text-sm font-medium">Innovating Financial Technology</span>
+              <Sparkles className="w-5 h-5 text-white" />
+              <span className="text-white text-sm font-medium">Innovating Financial Technology</span>
             </div>
 
             <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {/* Large Branding Text */}
-              <div className="relative inline-block">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-white leading-[1.1]">
+              <div className="relative w-full">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-white leading-[1.1] relative z-40">
                   <span className="relative inline-block">
                     <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/10 via-blue-400/10 to-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
                     <span className="relative inline-block">
@@ -249,21 +259,28 @@ export default function HomePage() {
               </div>
 
               {/* Subheading */}
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/80">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white relative z-40">
                 The Future of AI-Driven Financial Intelligence
               </h2>
 
-              <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/60 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/80 leading-relaxed relative z-40">
                 Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
               </p>
             </div>
 
             <Button 
-              className="group w-full sm:w-auto bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-4 text-lg font-bold tracking-wide hover:shadow-lg hover:shadow-teal-500/20 transform-gpu hover:scale-[1.02] transition-all duration-300 border-0 animate-fade-in relative overflow-hidden"
+              className={cn(
+                "group bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto",
+                "relative overflow-hidden",
+                animationClasses.buttonBase,
+                animationClasses.buttonHover,
+                animationClasses.buttonGlow,
+                animationClasses.fadeInScale
+              )}
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Explore Our Projects
-              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform group-hover:translate-x-1" />
+              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
         </div>

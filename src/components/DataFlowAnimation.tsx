@@ -1,23 +1,13 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 import { animationClasses } from '../utils/styles'
+import { useAnimationControl } from '../hooks/use-animation-control'
 
-interface DataFlowProps {
-  maxElements?: number
-}
+import { AnimationProps } from '../types/animation'
 
-export function DataFlowAnimation({ maxElements = 20 }: DataFlowProps) {
-  const [shouldAnimate, setShouldAnimate] = useState(true)
+const DataFlowAnimationComponent = ({ maxElements = 20 }: AnimationProps) => {
+  const { isVisible, shouldReduceMotion } = useAnimationControl()
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setShouldAnimate(!mediaQuery.matches)
-    
-    const listener = (e: MediaQueryListEvent) => setShouldAnimate(!e.matches)
-    mediaQuery.addEventListener('change', listener)
-    return () => mediaQuery.removeEventListener('change', listener)
-  }, [])
-
-  if (!shouldAnimate) return null
+  if (!isVisible || shouldReduceMotion) return null
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
@@ -39,3 +29,7 @@ export function DataFlowAnimation({ maxElements = 20 }: DataFlowProps) {
     </div>
   )
 }
+
+export const DataFlowAnimation = React.memo(DataFlowAnimationComponent, 
+  (prevProps, nextProps) => prevProps.maxElements === nextProps.maxElements
+);

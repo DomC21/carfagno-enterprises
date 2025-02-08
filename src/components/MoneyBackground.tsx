@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from "../lib/utils";
 import { DollarIcon, GraphIcon, ArrowUpIcon, ChartIcon } from '../assets/backgrounds/money-icons';
 import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements';
@@ -6,13 +6,8 @@ import { CandlestickPattern, TrendLines } from '../assets/backgrounds/financial-
 import { StockTicker, CountingNumber, DataFlow } from '../assets/backgrounds/stock-elements';
 
 // Define background element positions
-type BackgroundElement = {
-  Component: React.ComponentType;
-  positions: string[];
-  priority: 'high' | 'low';
-  scale?: number;
-  customClass?: string;
-};
+import { AnimationElement } from '../types/animation'
+type BackgroundElement = AnimationElement;
 
 // Define background elements with mobile-friendly positioning
 const backgroundElements: BackgroundElement[] = [
@@ -32,7 +27,11 @@ const backgroundElements: BackgroundElement[] = [
   { Component: DataFlow, positions: ['40,40', '60,80', '20,90'], priority: 'low', scale: 0.7, customClass: 'animate-flow' },
 ];
 
-export function MoneyBackground() {
+interface MoneyBackgroundProps {
+  className?: string;
+}
+
+export function MoneyBackground({ className = '' }: MoneyBackgroundProps) {
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -61,8 +60,9 @@ export function MoneyBackground() {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 w-full h-full overflow-hidden -z-10",
-        "pointer-events-none select-none"
+        "absolute inset-0 overflow-hidden",
+        "pointer-events-none select-none",
+        className
       )}
       aria-hidden="true"
     >
