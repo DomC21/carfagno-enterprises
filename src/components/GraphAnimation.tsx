@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { animationClasses } from '../utils/styles'
-import { useReducedMotion } from '../hooks/use-reduced-motion'
+import { useAnimationControl } from '../hooks/use-animation-control'
 
 interface Point {
   x: number
   y: number
 }
 
-export function GraphAnimation() {
-  const shouldReduceMotion = useReducedMotion()
+const GraphAnimationComponent = () => {
+  const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [points, setPoints] = useState<Point[]>([])
 
   useEffect(() => {
-    if (shouldReduceMotion) return
+    if (!isVisible || shouldReduceMotion) return
     const generatePoints = () => {
       const newPoints: Point[] = []
       for (let i = 0; i < 50; i++) {
@@ -50,3 +50,5 @@ export function GraphAnimation() {
     </div>
   )
 }
+
+export const GraphAnimation = React.memo(GraphAnimationComponent, () => true);

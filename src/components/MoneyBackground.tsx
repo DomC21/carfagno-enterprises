@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from "../lib/utils";
 import { DollarIcon, GraphIcon, ArrowUpIcon, ChartIcon } from '../assets/backgrounds/money-icons';
 import { CirclePattern, GridPattern } from '../assets/backgrounds/pattern-elements';
@@ -6,13 +6,8 @@ import { CandlestickPattern, TrendLines } from '../assets/backgrounds/financial-
 import { StockTicker, CountingNumber, DataFlow } from '../assets/backgrounds/stock-elements';
 
 // Define background element positions
-type BackgroundElement = {
-  Component: React.ComponentType;
-  positions: string[];
-  priority: 'high' | 'low';
-  scale?: number;
-  customClass?: string;
-};
+import { AnimationElement } from '../types/animation'
+type BackgroundElement = AnimationElement;
 
 // Define background elements with mobile-friendly positioning
 const backgroundElements: BackgroundElement[] = [
