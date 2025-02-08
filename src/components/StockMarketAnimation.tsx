@@ -3,6 +3,7 @@ import { animationClasses } from '../utils/styles'
 import { StockData, AnimationProps } from '../types/animation'
 import { useAnimationControl } from '../hooks/use-animation-control'
 import { api } from '../lib/api'
+import { cn } from '../lib/utils'
 
 const initialStocks: StockData[] = [
   { symbol: 'AAPL', price: 182.63, previousClose: 182.63, change: 0 },
@@ -12,7 +13,7 @@ const initialStocks: StockData[] = [
   { symbol: 'META', price: 149.68, previousClose: 149.68, change: 0 }
 ];
 
-const StockMarketAnimationComponent = ({}: AnimationProps) => {
+const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
   const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [stocks, setStocks] = useState<StockData[]>(initialStocks)
   const [error, setError] = useState<string | null>(null)
@@ -61,10 +62,10 @@ const StockMarketAnimationComponent = ({}: AnimationProps) => {
   if (!isVisible || shouldReduceMotion) return null
 
   return (
-    <div className="overflow-hidden whitespace-nowrap z-10">
+    <div className={cn("overflow-hidden whitespace-nowrap", className)}>
       <div className={animationClasses.stockTicker}>
         {error ? (
-          <span className="text-yellow-400/90">{error}</span>
+          <span className="text-yellow-400/90 px-4">{error}</span>
         ) : (
           stocks.map((stock, i) => (
             <span key={i} className="inline-flex items-center mx-4">

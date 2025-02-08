@@ -2,6 +2,8 @@ export interface AnimationProps {
   maxElements?: number;
   className?: string;
   priority?: 'high' | 'low';
+  style?: React.CSSProperties;
+  'aria-hidden'?: boolean;
 }
 
 export interface StockData {

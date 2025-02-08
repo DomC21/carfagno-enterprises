@@ -167,7 +167,6 @@ export default function HomePage() {
 
   return (
     <>
-      <MoneyBackground />
       {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
@@ -234,8 +233,7 @@ export default function HomePage() {
             <GraphAnimation />
           </div>
           <div className="absolute top-0 left-0 right-0 z-30">
-            <StockMarketAnimation />
-          </div>
+            <StockMarketAnimation /></div>
         </ErrorBoundary>
         <div className="absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay pointer-events-none"></div>
         <div className="relative w-full max-w-[980px] mx-auto px-6 py-16 sm:py-20 md:py-24 z-40">
