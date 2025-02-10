@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useRef, useState, memo } from 'react'
 import { animationClasses } from '../utils/styles'
 import { useAnimationControl } from '../hooks/use-animation-control'
 import { AnimationProps } from '../types/animation'
@@ -12,8 +12,13 @@ interface Point {
 const GraphAnimationComponent = ({ className }: AnimationProps) => {
   const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [points, setPoints] = useState<Point[]>([])
+  const mountedRef = useRef(true)
   
-  if (!isVisible || shouldReduceMotion) return null
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!isVisible || shouldReduceMotion) return
@@ -28,13 +33,17 @@ const GraphAnimationComponent = ({ className }: AnimationProps) => {
       return newPoints
     }
 
-    setPoints(generatePoints())
-    const interval = setInterval(() => {
+    if (mountedRef.current) {
       setPoints(generatePoints())
+    }
+    const interval = setInterval(() => {
+      if (mountedRef.current) {
+        setPoints(generatePoints())
+      }
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isVisible, shouldReduceMotion])
 
   return (
     <div className={cn("absolute inset-0 pointer-events-none", className)} aria-hidden="true">

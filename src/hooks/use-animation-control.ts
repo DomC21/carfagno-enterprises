@@ -1,10 +1,11 @@
 import { useReducedMotion } from './use-reduced-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function useAnimationControl(initialDelay = 0) {
   const shouldReduceMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     setIsInitialized(true);
@@ -12,11 +13,16 @@ export function useAnimationControl(initialDelay = 0) {
       setIsVisible(true);
       return;
     }
-    const timer = setTimeout(() => setIsVisible(true), initialDelay);
+
+    const timer = setTimeout(() => {
+      if (mountedRef.current) {
+        setIsVisible(true);
+      }
+    }, initialDelay);
+
     return () => {
       clearTimeout(timer);
-      setIsVisible(false);
-      setIsInitialized(false);
+      mountedRef.current = false;
     };
   }, [initialDelay, shouldReduceMotion]);
 

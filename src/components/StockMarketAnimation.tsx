@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useCallback } from 'react'
+import { useEffect, useRef, useState, memo, useCallback } from 'react'
 import { animationClasses } from '../utils/styles'
 import { StockData, AnimationProps } from '../types/animation'
 import { useAnimationControl } from '../hooks/use-animation-control'
@@ -17,36 +17,47 @@ const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
   const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [stocks, setStocks] = useState<StockData[]>(initialStocks)
   const [error, setError] = useState<string | null>(null)
+  const mountedRef = useRef(true)
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const fetchStockData = useCallback(async () => {
     try {
       const response = await api.get('/api/market-data')
       const data = response.data
-      setStocks(prevStocks => 
-        prevStocks.map(stock => {
-          const newData = data[stock.symbol]
-          if (!newData) return stock
-          return {
-            ...stock,
-            price: newData.price,
-            previousClose: newData.previousClose,
-            change: ((newData.price - newData.previousClose) / newData.previousClose) * 100
-          }
-        })
-      )
-      setError(null)
+      if (mountedRef.current) {
+        setStocks(prevStocks => 
+          prevStocks.map(stock => {
+            const newData = data[stock.symbol]
+            if (!newData) return stock
+            return {
+              ...stock,
+              price: newData.price,
+              previousClose: newData.previousClose,
+              change: ((newData.price - newData.previousClose) / newData.previousClose) * 100
+            }
+          })
+        )
+        setError(null)
+      }
     } catch (err) {
-      console.error('Failed to fetch market data:', err)
-      setError('Unable to fetch real-time market data')
-      // Fallback to simulated data
-      setStocks(prev => {
-        const newStocks = [...prev]
-        newStocks.forEach(stock => {
-          stock.price *= (1 + (Math.random() - 0.5) * 0.02)
-          stock.change = (stock.price - stock.previousClose) / stock.previousClose * 100
+      if (mountedRef.current) {
+        console.error('Failed to fetch market data:', err)
+        setError('Unable to fetch real-time market data')
+        // Fallback to simulated data
+        setStocks(prev => {
+          const newStocks = [...prev]
+          newStocks.forEach(stock => {
+            stock.price *= (1 + (Math.random() - 0.5) * 0.02)
+            stock.change = (stock.price - stock.previousClose) / stock.previousClose * 100
+          })
+          return newStocks
         })
-        return newStocks
-      })
+      }
     }
   }, [])
   
