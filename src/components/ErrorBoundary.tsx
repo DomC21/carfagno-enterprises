@@ -24,9 +24,12 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return this.props.fallback || null;
+      return this.props.fallback || (
+        <div className="text-yellow-400/90 px-4 py-2 text-sm">
+          Animation temporarily unavailable
+        </div>
+      );
     }
-
     return this.props.children;
   }
 }

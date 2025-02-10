@@ -7,16 +7,18 @@ export function useAnimationControl(initialDelay = 0) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (!isInitialized) {
-      setIsInitialized(true);
-      if (shouldReduceMotion) {
-        setIsVisible(true);
-        return;
-      }
-      const timer = setTimeout(() => setIsVisible(true), initialDelay);
-      return () => clearTimeout(timer);
+    setIsInitialized(true);
+    if (shouldReduceMotion) {
+      setIsVisible(true);
+      return;
     }
-  }, [initialDelay, shouldReduceMotion, isInitialized]);
+    const timer = setTimeout(() => setIsVisible(true), initialDelay);
+    return () => {
+      clearTimeout(timer);
+      setIsVisible(false);
+      setIsInitialized(false);
+    };
+  }, [initialDelay, shouldReduceMotion]);
 
-  return { isVisible, shouldReduceMotion };
+  return { isVisible: isInitialized && isVisible, shouldReduceMotion };
 }
