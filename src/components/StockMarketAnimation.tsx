@@ -62,8 +62,13 @@ const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
   if (!isVisible || shouldReduceMotion) return null
 
   return (
-    <div className={cn("overflow-hidden whitespace-nowrap fixed top-0 left-0 right-0", className)}>
-      <div className={cn("py-2 px-4 bg-black/50 backdrop-blur-sm", animationClasses.stockTicker)}>
+    <div className={cn(
+      "overflow-hidden whitespace-nowrap fixed top-0 left-0 right-0",
+      "bg-black/80 backdrop-blur-md border-b border-white/10",
+      className
+    )}>
+      <div className={cn("py-2 px-4", animationClasses.stockTicker)}>
+
         {error ? (
           <span className="text-yellow-400/90 px-4 animate-pulse">{error}</span>
         ) : (

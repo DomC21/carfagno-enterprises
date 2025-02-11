@@ -223,17 +223,17 @@ export default function HomePage() {
 
       <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
         <ErrorBoundary>
-          <div className="absolute inset-0">
-            <MoneyBackground className="opacity-50" />
+          <div className="absolute inset-0 z-0">
+            <MoneyBackground className="opacity-80" />
           </div>
-          <div className="absolute inset-0">
-            <DataFlowAnimation maxElements={15} className="opacity-70" />
+          <div className="absolute inset-0 z-10">
+            <DataFlowAnimation maxElements={15} className="opacity-90" />
           </div>
-          <div className="absolute inset-0">
-            <GraphAnimation className="opacity-60" />
+          <div className="absolute inset-0 z-20">
+            <GraphAnimation className="opacity-80" />
           </div>
-          <div className="fixed top-0 left-0 right-0 py-2">
-            <StockMarketAnimation className="bg-black/50 backdrop-blur-sm" />
+          <div className="fixed top-0 left-0 right-0 py-2 z-50">
+            <StockMarketAnimation className="bg-black/80 backdrop-blur-md border-b border-white/10" />
           </div>
         </ErrorBoundary>
         <div className="absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay pointer-events-none"></div>

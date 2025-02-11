@@ -67,8 +67,8 @@ export function MoneyBackground({ className = '' }: MoneyBackgroundProps) {
       aria-hidden="true"
     >
       {/* Base background */}
-      <div className="absolute inset-0 bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40 mix-blend-overlay"></div>
+      <div className="absolute inset-0 bg-black z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 to-slate-900/20"></div>
       </div>
 
       {/* Financial elements */}
@@ -83,9 +83,9 @@ export function MoneyBackground({ className = '' }: MoneyBackgroundProps) {
               className={cn(
                 "absolute transform",
                 visibleElements[elementIndex].customClass || (
-                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
-                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
-                  `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`
+                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-50' : 'opacity-60'}` :
+                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-55' : 'opacity-65'}` :
+                  `animate-shimmer ${isMobile ? 'opacity-60' : 'opacity-70'}`
                 ),
                 visibleElements[elementIndex].priority === 'low' ? 'hidden md:block' : '',
                 "transition-all duration-1000",
