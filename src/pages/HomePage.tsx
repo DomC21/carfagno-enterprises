@@ -4,6 +4,7 @@ import { ErrorBoundary } from '../components/ErrorBoundary'
 import { useNavigate } from 'react-router-dom'
 import { cn } from '../lib/utils'
 import { animationClasses } from '../utils/styles'
+import { breakpoints, container, text, spacing, grid } from '../styles/responsive'
 import { MoneyBackground } from '../components/MoneyBackground'
 import { CursorEffects } from '../components/CursorEffects'
 import { StockMarketAnimation } from '../components/StockMarketAnimation'
@@ -286,10 +287,27 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10">
+      <section id="projects" className={cn(
+        "relative flex items-center justify-center overflow-visible z-10",
+        spacing.section.base,
+        spacing.section.sm,
+        spacing.section.md,
+        spacing.section.lg
+      )}>
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40"></div>
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
+        <div className={cn(
+          "relative",
+          container.default,
+          spacing.container.base,
+          spacing.container.sm,
+          spacing.container.lg
+        )}>
+          <div className={cn(
+            "text-center parallax",
+            spacing.section.base,
+            spacing.section.sm,
+            spacing.section.md
+          )} data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 sm:mb-8">
               <span className="text-white/70 text-sm font-medium">Our Solutions</span>
             </div>
@@ -299,7 +317,14 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className={cn(
+            "grid",
+            grid.cols.base,
+            "md:grid-cols-3",
+            grid.gap.base,
+            grid.gap.sm,
+            grid.gap.md
+          )}>
             {/* Neural Networks Card */}
             <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <h3 className="text-2xl font-semibold text-white mb-4">
@@ -450,8 +475,21 @@ export default function HomePage() {
       </section>
 
       {/* About Me Section */}
-      <section className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center overflow-hidden z-20 bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
+      <section className={cn(
+        "relative flex items-center justify-center overflow-hidden z-20",
+        "bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90",
+        spacing.section.base,
+        spacing.section.sm,
+        spacing.section.md,
+        spacing.section.lg
+      )}>
+        <div className={cn(
+          "relative",
+          container.default,
+          spacing.container.base,
+          spacing.container.sm,
+          spacing.container.lg
+        )}>
           <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="text-center mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-teal-500/20 mb-6 animate-float">
@@ -477,11 +515,23 @@ export default function HomePage() {
 
               {/* Right Column - Content */}
               <div className="relative space-y-4 sm:space-y-6">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent max-w-[320px] sm:max-w-none mx-auto md:mx-0">
+                <h2 className={cn(
+                  "font-black tracking-tight bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent",
+                  "max-w-[320px] sm:max-w-none mx-auto md:mx-0",
+                  text.h2.base,
+                  text.h2.sm,
+                  text.h2.md,
+                  text.h2.lg
+                )}>
                   About Dom Carfagno
                 </h2>
                 <div className="space-y-4 sm:space-y-6">
-                  <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
+                  <p className={cn(
+                    "text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0",
+                    text.body.base,
+                    text.body.sm,
+                    text.body.md
+                  )}>
                     Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
                   </p>
 
@@ -493,8 +543,21 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="contact" className={cn(
+        "relative flex items-center justify-center overflow-hidden z-30",
+        "bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80",
+        spacing.section.base,
+        spacing.section.sm,
+        spacing.section.md,
+        spacing.section.lg
+      )}>
+        <div className={cn(
+          "relative",
+          container.default,
+          spacing.container.base,
+          spacing.container.sm,
+          spacing.container.lg
+        )}>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
