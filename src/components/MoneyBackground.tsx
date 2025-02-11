@@ -68,7 +68,7 @@ export function MoneyBackground({ className = '' }: MoneyBackgroundProps) {
     >
       {/* Base background */}
       <div className="absolute inset-0 bg-black">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 to-slate-900/80"></div>
       </div>
 
       {/* Financial elements */}
@@ -83,19 +83,20 @@ export function MoneyBackground({ className = '' }: MoneyBackgroundProps) {
               className={cn(
                 "absolute transform",
                 visibleElements[elementIndex].customClass || (
-                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-5' : 'opacity-10'}` :
-                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-8' : 'opacity-15'}` :
-                  `animate-shimmer ${isMobile ? 'opacity-10' : 'opacity-20'}`
+                  elementIndex % 3 === 0 ? `animate-float ${isMobile ? 'opacity-50' : 'opacity-60'}` :
+                  elementIndex % 3 === 1 ? `animate-drift ${isMobile ? 'opacity-55' : 'opacity-65'}` :
+                  `animate-shimmer ${isMobile ? 'opacity-60' : 'opacity-70'}`
                 ),
                 visibleElements[elementIndex].priority === 'low' ? 'hidden md:block' : '',
                 "transition-all duration-1000",
-                elementIndex % 2 === 0 ? "text-teal-400" : "text-blue-400"
+                elementIndex % 2 === 0 ? "text-teal-400/90" : "text-blue-400/90"
               )}
               style={{
                 left: `${x}%`,
                 top: `${y}%`,
                 animationDelay: `${delay}s`,
                 transform: `scale(${(visibleElements[elementIndex].scale || 1) * (0.9 + Math.random() * 0.2)})`,
+                zIndex: elementIndex + 10
               }}
             >
               <Component />
