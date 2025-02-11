@@ -1,13 +1,19 @@
-import React from 'react'
+import { useEffect, useRef, memo } from 'react'
 import { animationClasses } from '../utils/styles'
 import { useAnimationControl } from '../hooks/use-animation-control'
-
 import { AnimationProps } from '../types/animation'
 
 const DataFlowAnimationComponent = ({ maxElements = 20 }: AnimationProps) => {
-  const { isVisible, shouldReduceMotion } = useAnimationControl()
+  const { isVisible, shouldReduceMotion, isInitialized } = useAnimationControl()
+  const mountedRef = useRef(true)
 
-  if (!isVisible || shouldReduceMotion) return null
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
+
+  if (!isVisible || shouldReduceMotion || !isInitialized) return null
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
@@ -30,6 +36,6 @@ const DataFlowAnimationComponent = ({ maxElements = 20 }: AnimationProps) => {
   )
 }
 
-export const DataFlowAnimation = React.memo(DataFlowAnimationComponent, 
+export const DataFlowAnimation = memo(DataFlowAnimationComponent, 
   (prevProps, nextProps) => prevProps.maxElements === nextProps.maxElements
 );
