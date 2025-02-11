@@ -64,10 +64,10 @@ const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
   return (
     <div className={cn(
       "overflow-hidden whitespace-nowrap fixed top-0 left-0 right-0",
-      "bg-black/80 backdrop-blur-md border-b border-white/10",
+      "bg-black/90 backdrop-blur-md border-b border-white/10 shadow-lg",
       className
     )}>
-      <div className={cn("py-2 px-4", animationClasses.stockTicker)}>
+      <div className={cn("py-2 px-4 bg-gradient-to-r from-black/90 to-black/95", animationClasses.stockTicker)}>
 
         {error ? (
           <span className="text-yellow-400/90 px-4 animate-pulse">{error}</span>
