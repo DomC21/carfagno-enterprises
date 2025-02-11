@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useCallback } from 'react'
+import { useEffect, useState, useRef, memo, useCallback } from 'react'
 import { animationClasses } from '../utils/styles'
 import { StockData, AnimationProps } from '../types/animation'
 import { useAnimationControl } from '../hooks/use-animation-control'
@@ -14,11 +14,13 @@ const initialStocks: StockData[] = [
 ];
 
 const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
-  const { isVisible, shouldReduceMotion } = useAnimationControl()
+  const { isVisible, shouldReduceMotion, isInitialized } = useAnimationControl()
   const [stocks, setStocks] = useState<StockData[]>(initialStocks)
   const [error, setError] = useState<string | null>(null)
+  const mountedRef = useRef(true)
 
   const fetchStockData = useCallback(async () => {
+    if (!mountedRef.current) return
     try {
       const response = await api.get('/api/market-data')
       const data = response.data
@@ -51,15 +53,18 @@ const StockMarketAnimationComponent = ({ className }: AnimationProps) => {
   }, [])
   
   useEffect(() => {
-    if (!isVisible || shouldReduceMotion) return
+    if (!isVisible || shouldReduceMotion || !isInitialized) return
     
     fetchStockData() // Initial fetch
     const interval = setInterval(fetchStockData, 10000) // Update every 10 seconds
     
-    return () => clearInterval(interval)
-  }, [isVisible, shouldReduceMotion, fetchStockData])
+    return () => {
+      clearInterval(interval)
+      mountedRef.current = false
+    }
+  }, [isVisible, shouldReduceMotion, isInitialized, fetchStockData])
   
-  if (!isVisible || shouldReduceMotion) return null
+  if (!isVisible || shouldReduceMotion || !isInitialized) return null
 
   return (
     <div className={cn(

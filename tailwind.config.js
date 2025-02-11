@@ -33,6 +33,21 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+        primary: {
+          DEFAULT: '#000000',
+          accent: '#3B82F6',
+          muted: '#1E293B'
+        },
+        secondary: {
+          DEFAULT: '#0F172A',
+          accent: '#2DD4BF',
+          muted: '#334155'
+        },
+        highlight: {
+          blue: '#60A5FA',
+          teal: '#2DD4BF',
+          gold: '#F59E0B'
+        },
   			sidebar: {
   				DEFAULT: 'hsl(var(--sidebar-background))',
   				foreground: 'hsl(var(--sidebar-foreground))',

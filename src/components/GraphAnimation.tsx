@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useState, useRef, memo } from 'react'
 import { animationClasses } from '../utils/styles'
 import { useAnimationControl } from '../hooks/use-animation-control'
 import { AnimationProps } from '../types/animation'
@@ -10,13 +10,11 @@ interface Point {
 }
 
 const GraphAnimationComponent = ({ className }: AnimationProps) => {
-  const { isVisible, shouldReduceMotion } = useAnimationControl()
+  const { isVisible, shouldReduceMotion, isInitialized } = useAnimationControl()
   const [points, setPoints] = useState<Point[]>([])
-  
-  if (!isVisible || shouldReduceMotion) return null
+  const mountedRef = useRef(true)
 
   useEffect(() => {
-    if (!isVisible || shouldReduceMotion) return
     const generatePoints = () => {
       const newPoints: Point[] = []
       for (let i = 0; i < 50; i++) {
@@ -28,13 +26,25 @@ const GraphAnimationComponent = ({ className }: AnimationProps) => {
       return newPoints
     }
 
-    setPoints(generatePoints())
-    const interval = setInterval(() => {
+    if (!isVisible || shouldReduceMotion || !isInitialized) return
+
+    if (mountedRef.current) {
       setPoints(generatePoints())
+    }
+
+    const interval = setInterval(() => {
+      if (mountedRef.current) {
+        setPoints(generatePoints())
+      }
     }, 5000)
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => {
+      clearInterval(interval)
+      mountedRef.current = false
+    }
+  }, [isVisible, shouldReduceMotion, isInitialized])
+
+  if (!isVisible || shouldReduceMotion) return null
 
   return (
     <div className={cn("absolute inset-0 pointer-events-none", className)} aria-hidden="true">
