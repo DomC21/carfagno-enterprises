@@ -1,4 +1,4 @@
-import React from 'react'
+// No need for explicit React import with JSX transform
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'

@@ -1,4 +1,4 @@
-import React from 'react'
+// No need for explicit React import with JSX transform
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 const generateRandomChartPath = () => {

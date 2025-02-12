@@ -1,4 +1,4 @@
-import React from 'react'
+// No need for explicit React import with JSX transform
 import { Link } from 'react-router-dom'
 import { Card, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
 import { Button } from "../components/ui/button"
