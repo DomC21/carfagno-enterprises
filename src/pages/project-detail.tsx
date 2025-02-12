@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
-import { MetricsCard } from '@/components/ui/metrics-card'
-import { PriceChart } from '@/components/ui/price-chart'
-import { PerformanceChart } from '@/components/ui/performance-chart'
-import { ScrollReveal } from '@/components/ui/scroll-reveal'
+import { MetricsCard } from '../components/ui/metrics-card'
+import { PriceChart } from '../components/ui/price-chart'
+import { PerformanceChart } from '../components/ui/performance-chart'
+import { ScrollReveal } from '../components/ui/scroll-reveal'
 
 interface ProjectData {
   title: string

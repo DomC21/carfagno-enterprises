@@ -42,7 +42,11 @@ module.exports = {
             },
             ticker: {
               '0%': { transform: 'translateX(0)' },
-              '100%': { transform: 'translateX(-50%)' }
+              '100%': { transform: 'translateX(-100%)' }
+            },
+            'ticker-reverse': {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(0)' }
             },
             'glow-pulse': {
               '0%, 100%': { opacity: 1 },
@@ -96,8 +100,8 @@ module.exports = {
           animation: {
             'accordion-down': 'accordion-down 0.2s ease-out',
             'accordion-up': 'accordion-up 0.2s ease-out',
-            'ticker': 'ticker 30s linear infinite',
-            'ticker2': 'ticker 30s linear infinite 15s',
+            'ticker': 'ticker 45s linear infinite',
+            'ticker-clone': 'ticker 45s linear infinite',
             'glow': 'glow-pulse 2s ease-in-out infinite',
             'float': 'float 3s ease-in-out infinite',
             'fade-in': 'fade-in-up 0.5s ease-out forwards',
