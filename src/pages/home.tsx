@@ -13,8 +13,8 @@ export function Home() {
     <div className="overflow-hidden">
       {/* Stock Ticker */}
       <div className="fixed top-0 w-full overflow-hidden whitespace-nowrap py-2 bg-background/30 backdrop-blur-sm z-50">
-        <div className="flex">
-          <div className="animate-ticker inline-block min-w-full px-2">
+        <div className="flex relative">
+          <div className="animate-ticker inline-block min-w-full px-2 absolute left-0">
             <span className="mx-4 text-primary font-medium">AAPL +2.3%</span>
             <span className="mx-4 text-accent font-medium">TSLA +5.1%</span>
             <span className="mx-4 text-accent-gold font-medium">GOOGL -0.8%</span>
@@ -22,7 +22,7 @@ export function Home() {
             <span className="mx-4 text-accent font-medium">NVDA +3.2%</span>
             <span className="mx-4 text-primary font-medium">META +2.1%</span>
           </div>
-          <div className="animate-ticker-clone inline-block min-w-full px-2">
+          <div className="animate-ticker-clone inline-block min-w-full px-2 absolute left-full">
             <span className="mx-4 text-primary font-medium">AAPL +2.3%</span>
             <span className="mx-4 text-accent font-medium">TSLA +5.1%</span>
             <span className="mx-4 text-accent-gold font-medium">GOOGL -0.8%</span>
