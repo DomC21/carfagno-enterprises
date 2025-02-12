@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-background text-white antialiased min-h-screen;
+    overflow-x: hidden;
+  }
+
+  /* Smooth scrolling for Safari */
+  @supports (-webkit-overflow-scrolling: touch) {
+    html {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  html {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-section-sm sm:py-section px-4;
+  }
+
+  .container-width {
+    @apply container mx-auto max-w-7xl;
+  }
+}
