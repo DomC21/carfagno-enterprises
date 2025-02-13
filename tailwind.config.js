@@ -9,8 +9,8 @@ module.exports = {
   	extend: {
       colors: {
         background: {
-          DEFAULT: '#030711', // Deep black with slight blue tint
-          secondary: '#0A1324', // Deep navy
+          DEFAULT: '#000000', // Pure black
+          secondary: '#000000', // Pure black
         },
         primary: {
           DEFAULT: '#3B82F6', // Neon blue

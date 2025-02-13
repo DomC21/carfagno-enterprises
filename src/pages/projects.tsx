@@ -43,7 +43,7 @@ export function Projects() {
                 to={`/projects/${project.id}`}
                 className="block"
               >
-                <Card className="bg-background-secondary/50 border-border hover:border-primary transition-all hover:transform hover:scale-105 duration-300 animate-float group h-full">
+                <Card className="bg-black border-border hover:border-primary transition-all hover:transform hover:scale-105 duration-300 animate-float hover:animate-bounce-hover group h-full">
                   <CardHeader className="p-4 sm:p-6">
                     <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary mb-4 group-hover:animate-glow" />
                     <CardTitle className="text-lg sm:text-xl">{project.title}</CardTitle>

@@ -10,10 +10,10 @@ import { MarketDataStream } from '@/components/ui/market-data-stream'
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-background-secondary text-white relative">
+    <div className="min-h-screen bg-black text-white relative">
       <MarketDataStream />
       {/* Navigation */}
-      <nav className="fixed w-full bg-background/80 backdrop-blur-sm border-b border-border z-50">
+      <nav className="fixed w-full bg-black/80 backdrop-blur-sm border-b border-border z-50">
         <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <Link to="/" className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent animate-glow">
             Carfagno Enterprises
@@ -32,7 +32,7 @@ export function Layout({ children }: LayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-background border-t border-border py-8 sm:py-12 relative overflow-hidden">
+      <footer className="bg-black border-t border-border py-8 sm:py-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(59,130,246,0.05)_25%,transparent_25%,transparent_50%,rgba(59,130,246,0.05)_50%,rgba(59,130,246,0.05)_75%,transparent_75%,transparent)] bg-[length:32px_32px] sm:bg-[length:64px_64px] animate-shine opacity-30"></div>
         <div className="container mx-auto px-4 relative">
           <div className="text-center animate-fade-in">
