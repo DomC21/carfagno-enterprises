@@ -169,7 +169,7 @@ export default function HomePage() {
     <>
       {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-white/10">
         <div className="max-w-[980px] mx-auto px-6 py-3 flex items-center justify-between">
           <Logo className="w-32 hover:opacity-80 transition-all duration-300 cursor-pointer" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
           <nav className="hidden sm:flex items-center gap-6">
@@ -221,7 +221,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
         <ErrorBoundary>
           <div className="absolute inset-0 z-0">
             <MoneyBackground className="opacity-90" />
@@ -233,7 +233,7 @@ export default function HomePage() {
             <GraphAnimation className="opacity-90" />
           </div>
           <div className="fixed top-0 left-0 right-0 py-2 z-50">
-            <StockMarketAnimation className="bg-black/90 backdrop-blur-md border-b border-white/10" />
+            <StockMarketAnimation className="bg-black backdrop-blur-md border-b border-white/10" />
           </div>
         </ErrorBoundary>
         <div className="absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay pointer-events-none"></div>
@@ -263,7 +263,7 @@ export default function HomePage() {
               </h2>
 
               <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/80 leading-relaxed relative z-40">
-                Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
+                Your competitive edge in the market. We combine cutting-edge AI technology with deep financial expertise to provide unparalleled investment insights.
               </p>
             </div>
 
@@ -286,8 +286,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40"></div>
+      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 sm:mb-8">
@@ -355,7 +354,7 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-black">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
@@ -450,7 +449,7 @@ export default function HomePage() {
       </section>
 
       {/* About Me Section */}
-      <section className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center overflow-hidden z-20 bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+      <section className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center overflow-hidden z-20 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
           <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="text-center mb-6">
@@ -493,7 +492,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80">
+      <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
