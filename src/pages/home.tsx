@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { MarketDataStream } from '@/components/ui/market-data-stream'
 import { FinancialPatterns } from '@/components/ui/financial-patterns'
 

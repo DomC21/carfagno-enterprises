@@ -19,7 +19,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../lib/api'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
-import toast from 'react-hot-toast'
+const toast = {
+  success: (msg: string) => console.log('Success:', msg),
+  error: (msg: string) => console.error('Error:', msg)
+}
 
 interface MousePosition {
   x: number

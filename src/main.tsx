@@ -1,22 +1,22 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import './styles/fonts.css'
 import './styles/globals.css'
-import { Home } from './pages/home'
+import HomePage from './pages/HomePage'
 import { Projects } from './pages/projects'
-import { ProjectDetail } from './pages/project-detail'
-import { Coaching } from './pages/coaching'
-import { Layout } from './components/layout'
+import CoachingPage from './pages/CoachingPage'
+import { ProjectDetail } from './pages/ProjectDetail'
+import { Layout } from './components/layout/layout'
 
 const App = () => (
   <Routes>
-    <Route element={<Layout><Outlet /></Layout>}>
-      <Route path="/" element={<Home />} />
+    <Route element={<Layout />}>
+      <Route path="/" element={<HomePage />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/projects/:id" element={<ProjectDetail />} />
-      <Route path="/coaching" element={<Coaching />} />
+      <Route path="/coaching" element={<CoachingPage />} />
     </Route>
   </Routes>
 )
