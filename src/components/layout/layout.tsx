@@ -1,14 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Github, Linkedin, Twitter } from 'lucide-react'
 
-interface LayoutProps {
-  children: React.ReactNode
-}
-
 import { MarketDataStream } from '@/components/ui/market-data-stream'
 
-export function Layout({ children }: LayoutProps) {
+export function Layout() {
   return (
     <div className="min-h-screen bg-black text-white relative">
       <MarketDataStream />
@@ -28,7 +24,7 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Main Content */}
       <main className="pt-20">
-        {children}
+        <Outlet />
       </main>
 
       {/* Footer */}
