@@ -9,19 +9,34 @@ const projects = [
     id: 'neural-networks',
     title: 'Neural Networks',
     description: 'A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.',
-    icon: Brain
+    icon: Brain,
+    features: [
+      'Advanced pattern recognition',
+      'Real-time market data processing',
+      'Automated trading signals'
+    ]
   },
   {
     id: 'lukz',
     title: 'Lukz',
     description: 'A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.',
-    icon: LineChart
+    icon: LineChart,
+    features: [
+      'Options flow analysis',
+      'Congressional trade tracking',
+      'Market sentiment analysis'
+    ]
   },
   {
     id: 'zom-ai',
     title: 'Zom AI',
     description: 'A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.',
-    icon: Bot
+    icon: Bot,
+    features: [
+      'AI-powered market analysis',
+      'Real-time stock screening',
+      'Natural language processing'
+    ]
   }
 ]
 
@@ -44,13 +59,24 @@ export function Projects() {
                 to={`/projects/${project.id}`}
                 className="block"
               >
-                <Card className="bg-black border-border hover:border-primary transition-all hover:transform hover:scale-105 duration-300 animate-float hover:animate-bounce-hover group h-full">
+                <Card className="bg-black border-border hover:border-primary transition-all hover:transform hover:scale-105 duration-300 animate-float group h-full overflow-hidden">
                   <CardHeader className="p-4 sm:p-6">
                     <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary mb-4 group-hover:animate-glow" />
-                    <CardTitle className="text-lg sm:text-xl">{project.title}</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                      {project.title}
+                    </CardTitle>
                     <CardDescription className="text-sm sm:text-base text-gray-400 group-hover:text-gray-300 transition-colors">
                       {project.description}
                     </CardDescription>
+                    <div className="mt-6 space-y-2 border-t border-border pt-4">
+                      <p className="text-sm font-medium text-primary">Key Features:</p>
+                      {project.features.map((feature, i) => (
+                        <p key={i} className="text-sm text-gray-500 group-hover:text-gray-400 flex items-center">
+                          <span className="text-primary mr-2">•</span>
+                          {feature}
+                        </p>
+                      ))}
+                    </div>
                   </CardHeader>
                 </Card>
               </Link>
