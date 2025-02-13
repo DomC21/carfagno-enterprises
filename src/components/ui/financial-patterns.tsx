@@ -1,4 +1,4 @@
-import React from 'react'
+// Removed unused React import since we're using the new JSX transform
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 export function FinancialPatterns() {
