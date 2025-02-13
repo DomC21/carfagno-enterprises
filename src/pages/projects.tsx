@@ -1,8 +1,8 @@
 
 import { Link } from 'react-router-dom'
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Brain, LineChart, Bot } from "lucide-react"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import { FeatureCard } from "@/components/ui/feature-card"
 
 const projects = [
   {
@@ -59,15 +59,22 @@ export function Projects() {
                 to={`/projects/${project.id}`}
                 className="block"
               >
-                <Card className="bg-black border-border hover:border-primary transition-all hover:transform hover:scale-105 duration-300 animate-float group h-full overflow-hidden">
-                  <CardHeader className="p-4 sm:p-6">
+                <FeatureCard
+                  className="h-full group"
+                  glowColor={
+                    project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
+                    project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
+                    "rgba(234, 179, 8, 0.5)"
+                  }
+                >
+                  <div className="p-4 sm:p-6">
                     <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary mb-4 group-hover:animate-glow" />
-                    <CardTitle className="text-lg sm:text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    <h3 className="text-lg sm:text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
                       {project.title}
-                    </CardTitle>
-                    <CardDescription className="text-sm sm:text-base text-gray-400 group-hover:text-gray-300 transition-colors">
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-400 group-hover:text-gray-300 transition-colors mt-2">
                       {project.description}
-                    </CardDescription>
+                    </p>
                     <div className="mt-6 space-y-2 border-t border-border pt-4">
                       <p className="text-sm font-medium text-primary">Key Features:</p>
                       {project.features.map((feature, i) => (
@@ -77,8 +84,8 @@ export function Projects() {
                         </p>
                       ))}
                     </div>
-                  </CardHeader>
-                </Card>
+                  </div>
+                </FeatureCard>
               </Link>
             </ScrollReveal>
           )
