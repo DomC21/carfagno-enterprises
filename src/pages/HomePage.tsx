@@ -19,7 +19,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../lib/api'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
-import toast from 'react-hot-toast'
+const toast = {
+  success: (msg: string) => console.log('Success:', msg),
+  error: (msg: string) => console.error('Error:', msg)
+}
 
 interface MousePosition {
   x: number
@@ -169,7 +172,7 @@ export default function HomePage() {
     <>
       {!isMobile && <CursorEffects mousePos={mousePos} />}
       {/* Hero Section */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-white/10">
         <div className="max-w-[980px] mx-auto px-6 py-3 flex items-center justify-between">
           <Logo className="w-32 hover:opacity-80 transition-all duration-300 cursor-pointer" onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} />
           <nav className="hidden sm:flex items-center gap-6">
@@ -221,7 +224,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
         <ErrorBoundary>
           <div className="absolute inset-0 z-0">
             <MoneyBackground className="opacity-90" />
@@ -233,7 +236,7 @@ export default function HomePage() {
             <GraphAnimation className="opacity-90" />
           </div>
           <div className="fixed top-0 left-0 right-0 py-2 z-50">
-            <StockMarketAnimation className="bg-black/90 backdrop-blur-md border-b border-white/10" />
+            <StockMarketAnimation className="bg-black backdrop-blur-md border-b border-white/10" />
           </div>
         </ErrorBoundary>
         <div className="absolute inset-0 z-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-500/5 via-transparent to-transparent mix-blend-overlay pointer-events-none"></div>
@@ -263,7 +266,7 @@ export default function HomePage() {
               </h2>
 
               <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/80 leading-relaxed relative z-40">
-                Carfagno Enterprises harnesses AI-driven analytics, cutting-edge investment strategies, and proprietary tools to revolutionize financial decision-making.
+                Your competitive edge in the market. We combine cutting-edge AI technology with deep financial expertise to provide unparalleled investment insights.
               </p>
             </div>
 
@@ -286,8 +289,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-slate-900/40"></div>
+      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 sm:mb-8">
@@ -301,7 +303,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Neural Networks Card */}
-            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Neural Networks and Data Pipeline
               </h3>
@@ -318,7 +320,7 @@ export default function HomePage() {
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Lukz
               </h3>
@@ -335,7 +337,7 @@ export default function HomePage() {
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Zom AI
               </h3>
@@ -355,7 +357,7 @@ export default function HomePage() {
       </section>
 
       {/* Demo Access & Subscription */}
-      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-gradient-to-br from-blue-900/60 via-blue-950/70 to-slate-900/60">
+      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-black">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
@@ -420,10 +422,10 @@ export default function HomePage() {
                             <FormItem>
                               <FormControl>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <SelectTrigger className="relative z-50 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                                  <SelectTrigger className="relative z-50 bg-black backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
                                     <SelectValue placeholder="Select your interest" />
                                   </SelectTrigger>
-                                  <SelectContent className="bg-blue-950/90 backdrop-blur-sm border-teal-500/20">
+                                  <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
                                     <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
                                     <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
                                     <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
@@ -450,7 +452,7 @@ export default function HomePage() {
       </section>
 
       {/* About Me Section */}
-      <section className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center overflow-hidden z-20 bg-gradient-to-br from-blue-950/90 via-blue-900/80 to-slate-900/90">
+      <section className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center overflow-hidden z-20 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
           <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="text-center mb-6">
@@ -493,7 +495,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-gradient-to-br from-blue-900/80 via-blue-950/90 to-slate-900/80">
+      <section id="contact" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden z-30 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
@@ -516,7 +518,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 group">
+            <div className="relative bg-black backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 group">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <Form {...contactForm}>
                 <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-6 relative z-10">
@@ -529,7 +531,7 @@ export default function HomePage() {
                           <FormControl>
                             <Input 
                               placeholder="Name" 
-                              className="relative z-10 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              className="relative z-10 bg-black backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                               {...field}
                             />
                           </FormControl>
@@ -546,7 +548,7 @@ export default function HomePage() {
                             <Input 
                               placeholder="Email" 
                               type="email"
-                              className="relative z-10 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              className="relative z-10 bg-black backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                               {...field}
                             />
                           </FormControl>
@@ -562,7 +564,7 @@ export default function HomePage() {
                           <FormControl>
                             <textarea 
                               placeholder="Message"
-                              className="relative z-10 w-full h-32 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              className="relative z-10 w-full h-32 bg-black backdrop-blur-sm border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                               {...field}
                             />
                           </FormControl>
