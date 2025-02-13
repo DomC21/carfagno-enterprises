@@ -300,7 +300,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Neural Networks Card */}
-            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Neural Networks and Data Pipeline
               </h3>
@@ -317,7 +317,7 @@ export default function HomePage() {
             </div>
 
             {/* Lukz Card */}
-            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Lukz
               </h3>
@@ -334,7 +334,7 @@ export default function HomePage() {
             </div>
 
             {/* Zom AI Card */}
-            <div className="group relative bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Zom AI
               </h3>
@@ -419,10 +419,10 @@ export default function HomePage() {
                             <FormItem>
                               <FormControl>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <SelectTrigger className="relative z-50 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                                  <SelectTrigger className="relative z-50 bg-black backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
                                     <SelectValue placeholder="Select your interest" />
                                   </SelectTrigger>
-                                  <SelectContent className="bg-blue-950/90 backdrop-blur-sm border-teal-500/20">
+                                  <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
                                     <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
                                     <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
                                     <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
@@ -515,7 +515,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative bg-gradient-to-br from-blue-950/50 to-blue-900/30 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 group">
+            <div className="relative bg-black backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 group">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <Form {...contactForm}>
                 <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-6 relative z-10">
@@ -528,7 +528,7 @@ export default function HomePage() {
                           <FormControl>
                             <Input 
                               placeholder="Name" 
-                              className="relative z-10 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              className="relative z-10 bg-black backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                               {...field}
                             />
                           </FormControl>
@@ -545,7 +545,7 @@ export default function HomePage() {
                             <Input 
                               placeholder="Email" 
                               type="email"
-                              className="relative z-10 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              className="relative z-10 bg-black backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                               {...field}
                             />
                           </FormControl>
@@ -561,7 +561,7 @@ export default function HomePage() {
                           <FormControl>
                             <textarea 
                               placeholder="Message"
-                              className="relative z-10 w-full h-32 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                              className="relative z-10 w-full h-32 bg-black backdrop-blur-sm border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
                               {...field}
                             />
                           </FormControl>
