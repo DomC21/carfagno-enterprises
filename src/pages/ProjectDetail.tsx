@@ -1,8 +1,16 @@
 
+import * as React from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { Card } from '../components/ui/card'
 import { projectDetails } from '../data/projectDetails'
 import { ScrollReveal } from '../components/ui/scroll-reveal'
+import { NeuralNetworksDemo, LukzDemo, ZomAIDemo } from '../components/demos'
+
+const demoComponents = {
+  'neural-networks': NeuralNetworksDemo,
+  'lukz': LukzDemo,
+  'zom-ai': ZomAIDemo
+}
 
 export function ProjectDetail() {
   const { id } = useParams()
@@ -68,6 +76,16 @@ export function ProjectDetail() {
           </Card>
         </ScrollReveal>
       </div>
+
+      {/* Project Demo */}
+      <ScrollReveal delay={0.4}>
+        <Card className="bg-black border-border p-6 mt-6">
+          <h2 className="text-xl font-semibold mb-6 text-primary">Interactive Demo</h2>
+          {id && demoComponents[id as keyof typeof demoComponents] && (
+            React.createElement(demoComponents[id as keyof typeof demoComponents])
+          )}
+        </Card>
+      </ScrollReveal>
     </div>
   )
 }
