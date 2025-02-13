@@ -49,6 +49,10 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
         },
+        'bounce': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' }
+        },
         'ticker': {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-100%)' }
@@ -104,7 +108,9 @@ module.exports = {
         'shine': 'background-shine 8s linear infinite',
         'data-stream': 'data-flow 20s linear infinite',
         'glow-effect': 'pulse-glow 3s ease-in-out infinite',
-        'glow-text': 'glow-text 3s ease-in-out infinite'
+        'glow-text': 'glow-text 3s ease-in-out infinite',
+        'bounce': 'bounce 2s ease-in-out infinite',
+        'bounce-hover': 'bounce 0.5s ease-out'
       }
   	}
   },

@@ -323,6 +323,7 @@ function App() {
                 key={project.id}
                 className={`group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 
                   transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10
+                  hover:animate-bounce-hover cursor-pointer
                   ${animationClasses.fadeIn}`}
                 style={{ animationDelay: `${0.2 * (index + 1)}s` }}
               >
