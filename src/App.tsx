@@ -1,8 +1,10 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Brain, LineChart, Bot, Mail, ChevronRight, Sparkles, Code, Network } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { FinancialPatterns } from '@/components/ui/financial-patterns'
+import { MarketDataStream } from '@/components/ui/market-data-stream'
 
 function App() {
   // Define consistent color and animation classes for reuse
@@ -104,6 +106,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <MarketDataStream />
+      <FinancialPatterns />
       {/* Navigation */}
       <header className="sticky top-0 z-50 bg-blue-950/95 backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between p-4 md:p-6 lg:p-8 space-y-4 md:space-y-0">
