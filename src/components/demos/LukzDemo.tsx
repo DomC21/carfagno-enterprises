@@ -1,6 +1,5 @@
-import * as React from 'react'
 import { useState, useEffect } from 'react'
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 

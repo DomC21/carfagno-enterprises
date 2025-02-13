@@ -40,7 +40,7 @@ export interface MarketSentiment {
 
 // Generators
 export const generateStockData = (count: number): StockData[] => {
-  const basePrice = faker.number.float({ min: 100, max: 200, precision: 0.01 });
+  const basePrice = faker.number.float({ min: 100, max: 200 });
   const volatility = 0.02;
 
   return Array.from({ length: count }, (_, i) => {
@@ -50,8 +50,8 @@ export const generateStockData = (count: number): StockData[] => {
     const volume = faker.number.int({ min: 1000, max: 100000 });
 
     const pattern = faker.number.int({ min: 1, max: 10 }) > 8 ? {
-      type: price > basePrice ? 'bullish' : 'bearish' as const,
-      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+      type: price > basePrice ? 'bullish' as const : 'bearish' as const,
+      confidence: faker.number.float({ min: 0.6, max: 0.95 })
     } : undefined;
 
     return { timestamp, price, volume, pattern };
@@ -59,17 +59,17 @@ export const generateStockData = (count: number): StockData[] => {
 };
 
 export const generateOptionsData = (count: number): OptionsData[] => {
-  const basePrice = faker.number.float({ min: 100, max: 200, precision: 0.01 });
+  const basePrice = faker.number.float({ min: 100, max: 200 });
   
   return Array.from({ length: count }, () => ({
-    strike: basePrice + faker.number.float({ min: -20, max: 20, precision: 0.5 }),
+    strike: basePrice + faker.number.float({ min: -20, max: 20 }),
     expiry: faker.date.future().toISOString().split('T')[0],
     volume: faker.number.int({ min: 100, max: 5000 }),
     greeks: {
-      delta: faker.number.float({ min: -1, max: 1, precision: 0.001 }),
-      gamma: faker.number.float({ min: 0, max: 0.2, precision: 0.001 }),
-      theta: faker.number.float({ min: -1, max: 0, precision: 0.001 }),
-      vega: faker.number.float({ min: 0, max: 1, precision: 0.001 })
+      delta: faker.number.float({ min: -1, max: 1 }),
+      gamma: faker.number.float({ min: 0, max: 0.2 }),
+      theta: faker.number.float({ min: -1, max: 0 }),
+      vega: faker.number.float({ min: 0, max: 1 })
     }
   }));
 };
@@ -111,7 +111,7 @@ export const generateMarketSentiment = (count: number): MarketSentiment[] => {
 };
 
 // AI Response Generator
-export const generateAIResponse = (query: string): string => {
+export const generateAIResponse = (_query: string): string => {
   const responses = [
     'Based on recent market analysis, the stock shows bullish momentum with strong technical indicators.',
     'Market sentiment is currently bearish, with increased selling pressure and weakening fundamentals.',

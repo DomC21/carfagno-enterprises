@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { generateStockData, type StockData } from '../../utils/fakeData'
