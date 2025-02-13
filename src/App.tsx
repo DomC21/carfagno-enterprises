@@ -109,7 +109,7 @@ function App() {
       <MarketDataStream />
       <FinancialPatterns />
       {/* Navigation */}
-      <header className="sticky top-0 z-50 bg-blue-950/95 backdrop-blur-sm border-b border-teal-500/20">
+      <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-sm border-b border-teal-500/20">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between p-4 md:p-6 lg:p-8 space-y-4 md:space-y-0">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight transition-all duration-300">
             <span className={`bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent`}>Carfagno</span>
@@ -124,7 +124,7 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className={`relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br ${colorClasses.gradient.background} text-white py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden`}>
+      <section id="home" className="relative min-h-screen flex flex-col justify-center items-center bg-black text-white py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
         {/* Dynamic Background with Parallax */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Technology-themed pattern overlay */}
@@ -189,7 +189,7 @@ function App() {
       <section className="relative py-24 sm:py-32 overflow-hidden">
         {/* Dynamic Background with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-black parallax" data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
           
           {/* Collaborative Pattern with Parallax */}
@@ -234,7 +234,7 @@ function App() {
       <section className="relative py-24 sm:py-32 overflow-hidden">
         {/* Dynamic Background with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-black parallax" data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
           
           {/* Pattern Overlay */}
@@ -295,7 +295,7 @@ function App() {
       <section id="projects" className="relative py-24 sm:py-32 overflow-hidden">
         {/* Parallax Background */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-black parallax" data-speed="0.1" />
           <div className="absolute inset-0 opacity-5 parallax" data-speed="0.15">
             <Network className="w-full h-full text-teal-400 animate-pulse-slow" />
           </div>
@@ -321,7 +321,7 @@ function App() {
             {projects.map((project, index) => (
               <div 
                 key={project.id}
-                className={`group relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 
+                className={`group relative bg-black backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 
                   transition-all duration-500 hover:border-teal-400/50 hover:shadow-2xl hover:shadow-teal-500/10
                   hover:animate-bounce-hover cursor-pointer
                   ${animationClasses.fadeIn}`}
@@ -384,7 +384,7 @@ function App() {
       <section className="relative py-12 sm:py-24 overflow-hidden">
         {/* Dynamic Background with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-black parallax" data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
           <div className="absolute inset-0 opacity-10 parallax" data-speed="0.15">
             <div className="absolute inset-0" style={{ 
@@ -458,7 +458,7 @@ function App() {
       <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
         {/* Dynamic Background with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-black parallax" data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
           
           {/* Floating Elements */}
@@ -510,7 +510,7 @@ function App() {
       <footer className="relative py-24 border-t border-teal-500/20 overflow-hidden">
         {/* Background Pattern with Parallax */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient.background} parallax`} data-speed="0.1" />
+          <div className="absolute inset-0 bg-black parallax" data-speed="0.1" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow parallax" data-speed="0.2" />
           
           {/* Pattern Overlay */}
