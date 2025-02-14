@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import Particles from 'react-tsparticles'
-import { Engine } from 'tsparticles-engine'
-import { loadFull } from 'tsparticles'
+import { Particles } from '@tsparticles/react'
+import { Container, Engine } from '@tsparticles/engine'
+import { loadSlim } from '@tsparticles/slim'
 
 const particleConfig = {
   fpsLimit: 60,
