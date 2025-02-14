@@ -136,3 +136,19 @@ export const generateCongressionalTrades = (count: number): CongressionalTrade[]
     performance: faker.number.float({ min: -15, max: 15, fractionDigits: 1 })
   }));
 };
+
+export const generateMarketSentiment = (count: number): MarketSentiment[] => {
+  return Array.from({ length: count }, (_, i) => {
+    const total = 100;
+    const bullish = faker.number.int({ min: 20, max: 60 });
+    const bearish = faker.number.int({ min: 20, max: 60 });
+    const neutral = total - bullish - bearish;
+
+    return {
+      bullish,
+      bearish,
+      neutral,
+      timestamp: Date.now() - (count - i - 1) * 3600000
+    };
+  });
+};
