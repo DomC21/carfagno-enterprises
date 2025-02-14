@@ -68,6 +68,21 @@
     animation: glow-pulse 2s ease-in-out infinite;
   }
 
+  .glow-text-animated {
+    animation: text-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes text-glow {
+    from {
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.5),
+                   0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    to {
+      text-shadow: 0 0 15px rgba(59, 130, 246, 0.8),
+                   0 0 30px rgba(59, 130, 246, 0.5);
+    }
+  }
+
   @keyframes float {
     0%, 100% {
       transform: translateY(0) translateX(0);

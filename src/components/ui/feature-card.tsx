@@ -14,13 +14,23 @@ export function FeatureCard({ children, className, glowColor = "rgba(59, 130, 24
       initial={{ scale: 1, rotateY: 0, z: 0 }}
       whileHover={{ 
         scale: 1.05,
-        rotateY: 10,
-        z: 100,
+        rotateY: 15,
+        z: 150,
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 25,
+          mass: 1.2
+        }
       }}
-      transition={{ 
-        type: "spring",
-        stiffness: 400,
-        damping: 30
+      whileTap={{
+        scale: 0.98,
+        rotateY: 5,
+        transition: {
+          type: "spring",
+          stiffness: 500,
+          damping: 20
+        }
       }}
       style={{
         transformStyle: "preserve-3d",
