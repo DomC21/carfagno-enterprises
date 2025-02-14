@@ -79,7 +79,7 @@ export function NeuralNetworksDemo() {
         </Card>
       </motion.div>
 
-      {/* Pattern Recognition */}
+      {/* Pattern Recognition and Trading Signals */}
       <div className="grid md:grid-cols-2 gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -114,25 +114,26 @@ export function NeuralNetworksDemo() {
                         : 'bg-red-950/20 border border-red-500/20'
                     }`}
                   >
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400">
-                      {new Date(d.timestamp).toLocaleTimeString()}
-                    </span>
-                    <span className={`text-sm font-medium ${
-                      d.pattern?.type === 'bullish' ? 'text-green-400' : 'text-red-400'
-                    }`}>
-                      {d.pattern?.type.toUpperCase()}
-                    </span>
-                  </div>
-                  <div className="mt-2">
-                    <span className="text-sm text-gray-300">
-                      Confidence: {(d.pattern?.confidence ?? 0) * 100}%
-                    </span>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </Card>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-400">
+                        {new Date(d.timestamp).toLocaleTimeString()}
+                      </span>
+                      <span className={`text-sm font-medium ${
+                        d.pattern?.type === 'bullish' ? 'text-green-400' : 'text-red-400'
+                      }`}>
+                        {d.pattern?.type.toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="mt-2">
+                      <span className="text-sm text-gray-300">
+                        Confidence: {(d.pattern?.confidence ?? 0) * 100}%
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+            </div>
+          </Card>
+        </motion.div>
 
         {/* Trading Signals */}
         <motion.div
