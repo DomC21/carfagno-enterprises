@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell } from 'recharts'
-import { generateAIResponse } from '../../utils/fakeData'
+import React, { useState, useEffect } from 'react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
-import { Send, FileText, TrendingUp, Brain } from 'lucide-react'
+import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 interface Message {
@@ -19,13 +18,6 @@ interface Message {
   }
 }
 
-interface SentimentTrend {
-  timestamp: number
-  positive: number
-  negative: number
-  neutral: number
-}
-
 interface ModelMetrics {
   accuracy: number
   confidence: number
@@ -33,44 +25,37 @@ interface ModelMetrics {
   timestamp: number
 }
 
+const generateAIResponse = (): string => {
+  const responses = [
+    'Based on our analysis, market sentiment remains cautiously optimistic with a bullish bias.',
+    'Technical indicators suggest potential upside momentum in the near term.',
+    'Market conditions indicate increased volatility with mixed signals.',
+    'Recent price action shows strong support levels and improving momentum.',
+    'Analysis suggests a consolidation phase with potential breakout opportunities.'
+  ]
+  return responses[Math.floor(Math.random() * responses.length)]
+}
+
 export function ZomAIDemo() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [sentimentTrends, setSentimentTrends] = useState<SentimentTrend[]>([])
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics[]>([])
   const [selectedTimeframe, setSelectedTimeframe] = useState('1H')
+  // Removed unused sentiment trends state
 
   useEffect(() => {
-    // Initialize sentiment trends
-    const trends = Array.from({ length: 24 }, (_, i) => ({
-      timestamp: Date.now() - (24 - i - 1) * 3600000,
-      positive: Math.random() * 40 + 20,
-      negative: Math.random() * 30 + 10,
-      neutral: Math.random() * 30 + 10
-    }));
-    setSentimentTrends(trends);
-
     // Initialize model metrics
     const metrics = Array.from({ length: 24 }, (_, i) => ({
       timestamp: Date.now() - (24 - i - 1) * 3600000,
       accuracy: Math.random() * 0.15 + 0.8, // 80-95% accuracy
       confidence: Math.random() * 0.2 + 0.75, // 75-95% confidence
       predictions: Math.floor(Math.random() * 1000 + 500)
-    }));
-    setModelMetrics(metrics);
+    }))
+    setModelMetrics(metrics)
 
     // Update data every 30 seconds
     const interval = setInterval(() => {
-      setSentimentTrends(prev => [
-        ...prev.slice(1),
-        {
-          timestamp: Date.now(),
-          positive: Math.random() * 40 + 20,
-          negative: Math.random() * 30 + 10,
-          neutral: Math.random() * 30 + 10
-        }
-      ]);
 
       setModelMetrics(prev => [
         ...prev.slice(1),
@@ -80,11 +65,11 @@ export function ZomAIDemo() {
           confidence: Math.random() * 0.2 + 0.75,
           predictions: Math.floor(Math.random() * 1000 + 500)
         }
-      ]);
-    }, 30000);
+      ])
+    }, 30000)
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -117,7 +102,7 @@ export function ZomAIDemo() {
 
       const aiResponse: Message = {
         type: 'ai',
-        content: generateAIResponse(input),
+        content: generateAIResponse(),
         timestamp: Date.now(),
         confidence: Math.random() * 0.2 + 0.8, // 80-100% confidence
         sentiment: {
@@ -131,6 +116,7 @@ export function ZomAIDemo() {
     }, 1000)
   }
 
+  const timeframes = ['1H', '4H', '1D', '1W']
   const screeningResults = [
     { symbol: 'AAPL', score: 85, volume: 12500000 },
     { symbol: 'MSFT', score: 82, volume: 10200000 },
@@ -138,8 +124,6 @@ export function ZomAIDemo() {
     { symbol: 'AMZN', score: 75, volume: 7500000 },
     { symbol: 'META', score: 72, volume: 6800000 }
   ]
-
-  const timeframes = ['1H', '4H', '1D', '1W']
 
   return (
     <div className="space-y-6">
@@ -172,6 +156,7 @@ export function ZomAIDemo() {
               ))}
             </div>
           </div>
+
           <div className="grid md:grid-cols-2 gap-6">
             <div className="h-[200px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -248,6 +233,7 @@ export function ZomAIDemo() {
               </ResponsiveContainer>
             </div>
           </div>
+
           <div className="grid grid-cols-3 gap-4 mt-4">
             {modelMetrics.length > 0 && (
               <>
@@ -289,102 +275,103 @@ export function ZomAIDemo() {
         <Card className="p-4 bg-black border-border">
           <h3 className="text-lg font-semibold mb-4 text-primary">AI Analysis</h3>
           <div className="h-[300px] overflow-y-auto mb-4 space-y-4">
-          {messages.map((message, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: message.type === 'user' ? 20 : -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 20
-              }}
-              className={`p-3 rounded-lg ${
-                message.type === 'user'
-                  ? 'bg-blue-950/20 border border-blue-500/20 ml-12'
-                  : 'bg-teal-950/20 border border-teal-500/20 mr-12'
-              }`}
-            >
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-primary">
-                  {message.type === 'user' ? 'You' : 'AI Assistant'}
-                </span>
-                <div className="flex items-center gap-2">
-                  {message.type === 'ai' && message.confidence && (
-                    <span className="text-xs px-2 py-1 rounded-full bg-blue-950/30 border border-blue-500/30">
-                      {(message.confidence * 100).toFixed(1)}% confidence
-                    </span>
-                  )}
-                  <span className="text-xs text-gray-400">
-                    {new Date(message.timestamp).toLocaleTimeString()}
+            {messages.map((message, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: message.type === 'user' ? 20 : -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20
+                }}
+                className={`p-3 rounded-lg ${
+                  message.type === 'user'
+                    ? 'bg-blue-950/20 border border-blue-500/20 ml-12'
+                    : 'bg-teal-950/20 border border-teal-500/20 mr-12'
+                }`}
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-primary">
+                    {message.type === 'user' ? 'You' : 'AI Assistant'}
                   </span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-300">{message.content}</p>
-              {message.type === 'ai' && message.sentiment && (
-                <div className="mt-3 pt-3 border-t border-gray-800">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs text-gray-400">Sentiment Analysis</span>
-                    <span className={`text-xs font-medium ${
-                      message.sentiment.label === 'positive' ? 'text-green-400' :
-                      message.sentiment.label === 'negative' ? 'text-red-400' :
-                      'text-gray-400'
-                    }`}>
-                      {message.sentiment.label.charAt(0).toUpperCase() + message.sentiment.label.slice(1)}
+                  <div className="flex items-center gap-2">
+                    {message.type === 'ai' && message.confidence && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-blue-950/30 border border-blue-500/30">
+                        {(message.confidence * 100).toFixed(1)}% confidence
+                      </span>
+                    )}
+                    <span className="text-xs text-gray-400">
+                      {new Date(message.timestamp).toLocaleTimeString()}
                     </span>
                   </div>
-                  <div className="w-full bg-gray-800 rounded-full h-1.5">
-                    <motion.div
-                      className={`h-1.5 rounded-full ${
-                        message.sentiment.label === 'positive' ? 'bg-green-400' :
-                        message.sentiment.label === 'negative' ? 'bg-red-400' :
-                        'bg-gray-400'
-                      }`}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${message.sentiment.score * 100}%` }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
-                      }}
-                    />
-                  </div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {message.sentiment.keywords.map((keyword, j) => (
-                      <span
-                        key={j}
-                        className="text-xs px-2 py-1 rounded-full bg-blue-950/20 border border-blue-500/20"
-                      >
-                        {keyword}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-              )}
-            </motion.div>
-          ))}
-          {loading && (
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-primary"></div>
-            </div>
-          )}
-        </div>
-        <form onSubmit={handleSubmit} className="flex gap-2">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about market trends, stock analysis, or trading strategies..."
-            className="flex-1 bg-black border-border focus:border-primary"
-          />
-          <Button
-            type="submit"
-            disabled={loading}
-            className="bg-primary hover:bg-primary/90"
-          >
-            <Send className="w-4 h-4" />
-          </Button>
-        </form>
-      </Card>
+                <p className="text-sm text-gray-300">{message.content}</p>
+                {message.type === 'ai' && message.sentiment && (
+                  <div className="mt-3 pt-3 border-t border-gray-800">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs text-gray-400">Sentiment Analysis</span>
+                      <span className={`text-xs font-medium ${
+                        message.sentiment.label === 'positive' ? 'text-green-400' :
+                        message.sentiment.label === 'negative' ? 'text-red-400' :
+                        'text-gray-400'
+                      }`}>
+                        {message.sentiment.label.charAt(0).toUpperCase() + message.sentiment.label.slice(1)}
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-800 rounded-full h-1.5">
+                      <motion.div
+                        className={`h-1.5 rounded-full ${
+                          message.sentiment.label === 'positive' ? 'bg-green-400' :
+                          message.sentiment.label === 'negative' ? 'bg-red-400' :
+                          'bg-gray-400'
+                        }`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${message.sentiment.score * 100}%` }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 20
+                        }}
+                      />
+                    </div>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {message.sentiment.keywords.map((keyword, j) => (
+                        <span
+                          key={j}
+                          className="text-xs px-2 py-1 rounded-full bg-blue-950/20 border border-blue-500/20"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+            {loading && (
+              <div className="flex justify-center">
+                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-primary"></div>
+              </div>
+            )}
+          </div>
+          <form onSubmit={handleSubmit} className="flex gap-2">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask about market trends, stock analysis, or trading strategies..."
+              className="flex-1 bg-black border-border focus:border-primary"
+            />
+            <Button
+              type="submit"
+              disabled={loading}
+              className="bg-primary hover:bg-primary/90"
+            >
+              <Send className="w-4 h-4" />
+            </Button>
+          </form>
+        </Card>
+      </motion.div>
 
       {/* Stock Screening Results */}
       <motion.div

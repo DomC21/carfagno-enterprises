@@ -96,6 +96,7 @@ export const generateOptionsData = (count: number): OptionsData[] => {
       vega: faker.number.float({ min: 0, max: 1 })
     }
   }));
+};
 
 export const generateCongressionalTrades = (count: number): CongressionalTrade[] => {
   const politicians = [
