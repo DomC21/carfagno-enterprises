@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import { Particles } from '@tsparticles/react'
-import { type Container, type Engine, type ISourceOptions } from '@tsparticles/engine'
-import { loadSlim } from '@tsparticles/slim'
+import Particles from 'react-tsparticles'
+import { Engine } from 'tsparticles-engine'
+import { loadFull } from 'tsparticles'
 
-const particleConfig: ISourceOptions = {
+const particleConfig = {
   fpsLimit: 60,
   particles: {
     number: {
