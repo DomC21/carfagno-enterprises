@@ -7,7 +7,7 @@ const particleConfig: ISourceOptions = {
   particles: {
     number: { 
       value: 50, 
-      density: { enable: true, value_area: 800 } 
+      density: { enable: true, area: 800 } 
     },
     color: { value: "#3b82f6" },
     shape: { type: "circle" },
@@ -17,7 +17,7 @@ const particleConfig: ISourceOptions = {
       animation: { 
         enable: true, 
         speed: 1, 
-        minimumValue: 0.1 
+        min: 0.1 
       }
     },
     size: {
@@ -26,7 +26,7 @@ const particleConfig: ISourceOptions = {
       animation: { 
         enable: true, 
         speed: 2, 
-        minimumValue: 0.3 
+        min: 0.3 
       }
     },
     move: {
@@ -83,11 +83,16 @@ export function ParticleBackground() {
     await loadSlim(engine)
   }, [])
 
+  const particlesLoaded = useCallback(async () => {
+    console.log('Particles loaded')
+  }, [])
+
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Particles
+        id="tsparticles"
         className="h-full"
-        init={particlesInit}
+        particlesLoaded={particlesInit}
         options={particleConfig}
       />
     </div>
