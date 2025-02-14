@@ -11,6 +11,14 @@ export interface StockData {
   };
 }
 
+export interface GreekMetrics {
+  timestamp: number;
+  delta: number;
+  gamma: number;
+  theta: number;
+  vega: number;
+}
+
 export interface OptionsData {
   strike: number;
   expiry: string;
@@ -125,35 +133,6 @@ export const generateCongressionalTrades = (count: number): CongressionalTrade[]
     committee: faker.helpers.arrayElement(committees),
     shares: faker.number.int({ min: 100, max: 10000 }),
     sector: faker.helpers.arrayElement(sectors),
-    performance: faker.number.float({ min: -15, max: 15, precision: 0.1 })
+    performance: faker.number.float({ min: -15, max: 15, fractionDigits: 1 })
   }));
-};
-
-export const generateMarketSentiment = (count: number): MarketSentiment[] => {
-  return Array.from({ length: count }, (_, i) => {
-    const total = 100;
-    const bullish = faker.number.int({ min: 20, max: 60 });
-    const bearish = faker.number.int({ min: 20, max: 60 });
-    const neutral = total - bullish - bearish;
-
-    return {
-      bullish,
-      bearish,
-      neutral,
-      timestamp: Date.now() - (count - i - 1) * 3600000
-    };
-  });
-};
-
-// AI Response Generator
-export const generateAIResponse = (_query: string): string => {
-  const responses = [
-    'Based on recent market analysis, the stock shows bullish momentum with strong technical indicators.',
-    'Market sentiment is currently bearish, with increased selling pressure and weakening fundamentals.',
-    'The stock is trading sideways with mixed signals. Consider waiting for a clear breakout pattern.',
-    'Recent institutional buying suggests strong confidence in the company\'s growth prospects.',
-    'Technical analysis indicates a potential reversal pattern forming on the daily chart.'
-  ];
-
-  return faker.helpers.arrayElement(responses);
 };
