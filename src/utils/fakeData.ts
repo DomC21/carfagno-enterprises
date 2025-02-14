@@ -135,21 +135,50 @@ export const generateOrderBook = (basePrice: number): OrderBook => {
   };
 };
 
+/**
+ * Generates realistic trading data with proper OHLC (Open, High, Low, Close) prices
+ * and volume data that follows typical market patterns:
+ * 
+ * - Base price follows a random walk with drift
+ * - High/Low prices respect natural price barriers
+ * - Volume increases during high volatility periods
+ * - Technical indicators follow realistic patterns:
+ *   - RSI (Relative Strength Index): 0-100 scale measuring momentum
+ *   - MACD (Moving Average Convergence Divergence): Trend following momentum indicator
+ * 
+ * @param count Number of data points to generate
+ * @returns Array of StockData with OHLC prices and indicators
+ */
 export const generateStockData = (count: number): StockData[] => {
   const basePrice = faker.number.float({ min: 100, max: 200 });
   const volatility = 0.02;
+  let prevClose = basePrice;
   let prevRSI = 50;
   let prevMACD = 0;
   let prevSignal = 0;
+  let trend = faker.number.float({ min: -0.0001, max: 0.0001 }); // Slight drift
 
   return Array.from({ length: count }, (_, i) => {
     const timestamp = Date.now() - (count - i - 1) * 60000;
-    const randomChange = faker.number.float({ min: -volatility, max: volatility });
-    const open = basePrice * (1 + randomChange);
-    const high = open * (1 + faker.number.float({ min: 0, max: 0.01 }));
-    const low = open * (1 - faker.number.float({ min: 0, max: 0.01 }));
+    
+    // Update trend with mean reversion
+    trend += faker.number.float({ min: -0.0002, max: 0.0002 });
+    trend *= 0.95; // Mean reversion
+    
+    // Generate OHLC prices with realistic relationships
+    const dailyVolatility = volatility * (1 + Math.abs(trend) * 10);
+    const open = prevClose * (1 + faker.number.float({ min: -dailyVolatility, max: dailyVolatility }) + trend);
+    const direction = faker.number.float() > 0.5 ? 1 : -1;
+    const range = Math.abs(faker.number.float({ min: 0.001, max: dailyVolatility * 2 }));
+    const high = Math.max(open * (1 + range), open);
+    const low = Math.min(open * (1 - range), open);
     const close = faker.number.float({ min: low, max: high });
-    const volume = faker.number.int({ min: 1000, max: 100000 });
+    
+    // Volume increases with volatility and range
+    const volumeBase = faker.number.int({ min: 1000, max: 100000 });
+    const volumeMultiplier = 1 + (Math.abs(close - open) / open) * 10;
+    const volume = Math.floor(volumeBase * volumeMultiplier);
+    
     const orderBook = generateOrderBook(close);
 
     // Generate realistic technical indicators
