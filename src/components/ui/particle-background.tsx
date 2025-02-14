@@ -9,9 +9,12 @@ export function ParticleBackground() {
 
     const createParticle = () => {
       const particle = document.createElement('div')
-      particle.className = 'absolute w-1 h-1 rounded-full bg-primary/30 animate-float'
+      particle.className = 'absolute w-1 h-1 rounded-full bg-gradient-to-r from-primary to-accent animate-float transform-gpu'
       particle.style.left = `${Math.random() * 100}%`
       particle.style.top = `${Math.random() * 100}%`
+      particle.style.opacity = '0.4'
+      particle.style.filter = 'blur(1px)'
+      particle.style.transform = `scale(${Math.random() * 0.5 + 0.5})`
       particle.style.animationDelay = `${Math.random() * 5}s`
       container.appendChild(particle)
 
