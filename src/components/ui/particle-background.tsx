@@ -1,105 +1,45 @@
-import { useCallback } from 'react'
-import { Particles } from '@tsparticles/react'
-import { type Container, type Engine } from '@tsparticles/engine'
-import { loadSlim } from '@tsparticles/slim'
-
-const particleConfig = {
-  fpsLimit: 60,
-  particles: {
-    number: {
-      value: 50,
-      density: {
-        enable: true,
-        value_area: 800
-      }
-    },
-    color: {
-      value: "#3b82f6"
-    },
-    shape: {
-      type: "circle"
-    },
-    opacity: {
-      value: 0.5,
-      anim: {
-        enable: true,
-        speed: 1,
-        opacity_min: 0.1,
-        sync: false
-      }
-    },
-    size: {
-      value: 3,
-      anim: {
-        enable: true,
-        speed: 2,
-        size_min: 0.3,
-        sync: false
-      }
-    },
-    move: {
-      enable: true,
-      speed: 1,
-      direction: "none",
-      random: false,
-      straight: false,
-      outModes: {
-        default: "out"
-      }
-    }
-  },
-  interactivity: {
-    detectsOn: "window",
-    events: {
-      onHover: {
-        enable: true,
-        mode: "grab"
-      },
-      onClick: {
-        enable: true,
-        mode: "push"
-      }
-    },
-    modes: {
-      grab: {
-        distance: 140,
-        links: {
-          opacity: 0.4
-        }
-      },
-      push: {
-        quantity: 4
-      }
-    }
-  },
-  background: {
-    color: "#000000"
-  },
-  fullScreen: {
-    enable: false,
-    zIndex: -1
-  },
-  detectRetina: true
-}
+import { useEffect, useRef } from 'react'
 
 export function ParticleBackground() {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine)
-  }, [])
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleParticlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log('Particles loaded', container)
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const createParticle = () => {
+      const particle = document.createElement('div')
+      particle.className = 'absolute w-1 h-1 rounded-full bg-primary/30 animate-float'
+      particle.style.left = `${Math.random() * 100}%`
+      particle.style.top = `${Math.random() * 100}%`
+      particle.style.animationDelay = `${Math.random() * 5}s`
+      container.appendChild(particle)
+
+      setTimeout(() => {
+        particle.remove()
+      }, 6000)
+    }
+
+    const interval = setInterval(() => {
+      if (container.children.length < 50) {
+        createParticle()
+      }
+    }, 200)
+
+    // Create initial particles
+    for (let i = 0; i < 50; i++) {
+      createParticle()
+    }
+
+    return () => {
+      clearInterval(interval)
+    }
   }, [])
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <Particles
-        id="tsparticles"
-        className="h-full"
-        options={particleConfig}
-        init={particlesInit}
-        loaded={handleParticlesLoaded}
-      />
-    </div>
+    <div 
+      ref={containerRef}
+      className="absolute inset-0 pointer-events-none overflow-hidden bg-black"
+    />
   )
 }
