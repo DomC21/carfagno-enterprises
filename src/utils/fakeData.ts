@@ -69,6 +69,13 @@ export interface OrderBook {
   spread: number;
 }
 
+export interface TechnicalIndicators {
+  rsi: number;
+  macd: number;
+  signal: number;
+  histogram: number;
+}
+
 export interface StockData {
   timestamp: number;
   open: number;
@@ -77,6 +84,7 @@ export interface StockData {
   close: number;
   volume: number;
   orderBook?: OrderBook;
+  technicalIndicators?: TechnicalIndicators;
   pattern?: {
     type: 'bullish' | 'bearish';
     confidence: number;
@@ -130,6 +138,9 @@ export const generateOrderBook = (basePrice: number): OrderBook => {
 export const generateStockData = (count: number): StockData[] => {
   const basePrice = faker.number.float({ min: 100, max: 200 });
   const volatility = 0.02;
+  let prevRSI = 50;
+  let prevMACD = 0;
+  let prevSignal = 0;
 
   return Array.from({ length: count }, (_, i) => {
     const timestamp = Date.now() - (count - i - 1) * 60000;
@@ -141,12 +152,37 @@ export const generateStockData = (count: number): StockData[] => {
     const volume = faker.number.int({ min: 1000, max: 100000 });
     const orderBook = generateOrderBook(close);
 
+    // Generate realistic technical indicators
+    const rsi = Math.max(0, Math.min(100, prevRSI + faker.number.float({ min: -5, max: 5 })));
+    const macd = prevMACD + faker.number.float({ min: -0.5, max: 0.5 });
+    const signal = prevSignal + faker.number.float({ min: -0.3, max: 0.3 });
+    const histogram = macd - signal;
+
+    prevRSI = rsi;
+    prevMACD = macd;
+    prevSignal = signal;
+
     const pattern = faker.number.int({ min: 1, max: 10 }) > 8 ? {
       type: close > open ? 'bullish' as const : 'bearish' as const,
       confidence: faker.number.float({ min: 0.6, max: 0.95 })
     } : undefined;
 
-    return { timestamp, open, high, low, close, volume, orderBook, pattern };
+    return { 
+      timestamp, 
+      open, 
+      high, 
+      low, 
+      close, 
+      volume, 
+      orderBook, 
+      pattern,
+      technicalIndicators: {
+        rsi,
+        macd,
+        signal,
+        histogram
+      }
+    };
   });
 };
 
