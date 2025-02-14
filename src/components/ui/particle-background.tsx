@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import { Particles } from '@tsparticles/react'
-import { Container, Engine } from '@tsparticles/engine'
-import { loadSlim } from '@tsparticles/slim'
+import Particles from 'react-tsparticles'
+import { Container, Engine } from 'tsparticles-engine'
+import { loadFull } from 'tsparticles'
 
 const particleConfig = {
   fpsLimit: 60,
@@ -84,7 +84,7 @@ const particleConfig = {
 
 export function ParticleBackground() {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine)
+    await loadSlim(engine)
   }, [])
 
   const handleParticlesLoaded = useCallback(async (container: Container | undefined) => {
