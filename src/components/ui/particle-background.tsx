@@ -3,7 +3,7 @@ import Particles from 'react-tsparticles'
 import { Container, Engine } from 'tsparticles-engine'
 import { loadFull } from 'tsparticles'
 
-const particleConfig = {
+const particleConfig: any = {
   fpsLimit: 60,
   particles: {
     number: {
@@ -84,7 +84,7 @@ const particleConfig = {
 
 export function ParticleBackground() {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine)
+    await loadFull(engine)
   }, [])
 
   const handleParticlesLoaded = useCallback(async (container: Container | undefined) => {
