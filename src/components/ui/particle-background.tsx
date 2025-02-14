@@ -1,16 +1,16 @@
 import { useCallback } from 'react'
 import { Particles } from '@tsparticles/react'
-import type { Container, Engine } from '@tsparticles/engine'
+import { type Container, type Engine, type ISourceOptions } from '@tsparticles/engine'
 import { loadSlim } from '@tsparticles/slim'
 
-const particleConfig: any = {
+const particleConfig: ISourceOptions = {
   fpsLimit: 60,
   particles: {
     number: {
       value: 50,
       density: {
         enable: true,
-        value_area: 800
+        area: 800
       }
     },
     color: {
@@ -21,21 +21,21 @@ const particleConfig: any = {
     },
     opacity: {
       value: 0.5,
-      random: false,
       animation: {
         enable: true,
         speed: 1,
-        minimumValue: 0.1,
+        startValue: "max",
+        destroy: "min",
         sync: false
       }
     },
     size: {
       value: 3,
-      random: false,
       animation: {
         enable: true,
         speed: 2,
-        minimumValue: 0.3,
+        startValue: "max",
+        destroy: "min",
         sync: false
       }
     },
@@ -99,8 +99,8 @@ export function ParticleBackground() {
         id="tsparticles"
         className="h-full"
         options={particleConfig}
-        init={particlesInit}
-        loaded={handleParticlesLoaded}
+        particlesInit={particlesInit}
+        particlesLoaded={handleParticlesLoaded}
       />
     </div>
   )
