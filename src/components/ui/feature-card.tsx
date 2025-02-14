@@ -13,24 +13,25 @@ export function FeatureCard({ children, className, glowColor = "rgba(59, 130, 24
       className={`relative bg-black border border-primary/20 rounded-lg p-6 ${className}`}
       initial={{ scale: 1, rotateY: 0, z: 0 }}
       whileHover={{ 
-        scale: 1.02,
-        rotateY: 5,
-        z: 50,
+        scale: 1.05,
+        rotateY: 10,
+        z: 100,
       }}
       transition={{ 
         type: "spring",
-        stiffness: 300,
-        damping: 20
+        stiffness: 400,
+        damping: 30
       }}
       style={{
         transformStyle: "preserve-3d",
-        perspective: "1000px"
+        perspective: "1000px",
+        boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)"
       }}
     >
       <motion.div
-        className="absolute inset-0 rounded-lg opacity-0 transition-opacity"
+        className="absolute inset-0 rounded-lg opacity-0 transition-opacity blur-xl"
         initial={{ opacity: 0 }}
-        whileHover={{ opacity: 0.2 }}
+        whileHover={{ opacity: 0.4 }}
         style={{
           background: `radial-gradient(circle at 50% 50%, ${glowColor}, transparent 70%)`
         }}
@@ -38,7 +39,11 @@ export function FeatureCard({ children, className, glowColor = "rgba(59, 130, 24
       <motion.div
         className="relative z-10"
         style={{
-          transform: "translateZ(20px)"
+          transform: "translateZ(40px)"
+        }}
+        whileHover={{
+          scale: 1.02,
+          transition: { duration: 0.2 }
         }}
       >
         {children}
