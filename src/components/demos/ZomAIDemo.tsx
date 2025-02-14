@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, ComposedChart } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, ComposedChart, ReferenceLine } from 'recharts'
+import { generateStockData, type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
@@ -13,8 +14,8 @@ interface Message {
   timestamp: number
   confidence?: number
   sentiment?: {
-    score: number
     label: 'positive' | 'negative' | 'neutral'
+    score: number
     keywords: string[]
   }
 }
@@ -40,6 +41,19 @@ const generateAIResponse = (): string => {
 export function ZomAIDemo() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
+  const [data, setData] = useState<StockData[]>([])
+
+  useEffect(() => {
+    // Initialize with some data
+    setData(generateStockData(50))
+
+    // Update data periodically
+    const interval = setInterval(() => {
+      setData(prev => [...prev.slice(1), ...generateStockData(1)])
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
   const [loading, setLoading] = useState(false)
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics[]>([])
   const [selectedTimeframe, setSelectedTimeframe] = useState('1H')

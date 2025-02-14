@@ -17,13 +17,6 @@ interface HeatMapProps {
 
 export function HeatMap({ data, colors }: HeatMapProps) {
   const maxScore = Math.max(...data.map(d => d.score));
-  const minScore = Math.min(...data.map(d => d.score));
-
-  const getColor = (sentiment: 'positive' | 'negative' | 'neutral', score: number) => {
-    const normalizedScore = (score - minScore) / (maxScore - minScore);
-    const color = colors[sentiment];
-    return `${color}${Math.round(normalizedScore * 100)}`;
-  };
 
   return (
     <div className="space-y-2">

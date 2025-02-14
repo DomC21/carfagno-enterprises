@@ -1,16 +1,6 @@
 import { faker } from '@faker-js/faker';
 
 // Types
-export interface StockData {
-  timestamp: number;
-  price: number;
-  volume: number;
-  pattern?: {
-    type: 'bullish' | 'bearish';
-    confidence: number;
-  };
-}
-
 export interface GreekMetrics {
   timestamp: number;
   delta: number;
@@ -78,6 +68,7 @@ export interface TechnicalIndicators {
 
 export interface StockData {
   timestamp: number;
+  price: number;  // Current price for backward compatibility
   open: number;
   high: number;
   low: number;
@@ -168,7 +159,6 @@ export const generateStockData = (count: number): StockData[] => {
     // Generate OHLC prices with realistic relationships
     const dailyVolatility = volatility * (1 + Math.abs(trend) * 10);
     const open = prevClose * (1 + faker.number.float({ min: -dailyVolatility, max: dailyVolatility }) + trend);
-    const direction = faker.number.float() > 0.5 ? 1 : -1;
     const range = Math.abs(faker.number.float({ min: 0.001, max: dailyVolatility * 2 }));
     const high = Math.max(open * (1 + range), open);
     const low = Math.min(open * (1 - range), open);
@@ -196,8 +186,11 @@ export const generateStockData = (count: number): StockData[] => {
       confidence: faker.number.float({ min: 0.6, max: 0.95 })
     } : undefined;
 
+    prevClose = close;
+
     return { 
       timestamp, 
+      price: close, // Set current price to close price
       open, 
       high, 
       low, 

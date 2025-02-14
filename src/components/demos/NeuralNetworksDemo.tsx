@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, ReferenceLine, Candlestick } from 'recharts'
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts'
 import { generateStockData, type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { motion } from 'framer-motion'
@@ -188,11 +188,15 @@ export function NeuralNetworksDemo() {
                   yAxisId={1}
                 />
                 <ReferenceLine y={0} stroke="#1e293b" />
-                <Candlestick
+                <Bar
+                  dataKey="open"
                   fill="#10b981"
+                  stroke="#10b981"
+                />
+                <Bar
+                  dataKey="close"
+                  fill="#ef4444"
                   stroke="#ef4444"
-                  wickStroke="#64748b"
-                  yAccessor={d => [d.open, d.high, d.low, d.close]}
                 />
               </ComposedChart>
             </ResponsiveContainer>
