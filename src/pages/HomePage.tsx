@@ -178,21 +178,21 @@ export default function HomePage() {
           <nav className="hidden sm:flex items-center gap-6">
             <Button 
               variant="ghost" 
-              className="text-white/90 hover:text-white px-2 transition-all duration-300"
+              className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => navigate('/coaching')}
             >
               Coaching
             </Button>
             <Button 
               variant="ghost" 
-              className="text-white/90 hover:text-white px-2 transition-all duration-300"
+              className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Projects
             </Button>
             <Button 
               variant="ghost" 
-              className="text-white/90 hover:text-white px-2 transition-all duration-300"
+              className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Contact
