@@ -151,28 +151,50 @@ export function LukzDemo() {
         <Card className="p-4 bg-black border-border">
           <h3 className="text-lg font-semibold mb-4 text-primary">Options Flow</h3>
           <div className="h-[400px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={optionsData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis 
-                  dataKey="strike" 
-                  stroke="#64748b"
-                  tickFormatter={(value) => `$${value}`}
-                />
-                <YAxis stroke="#64748b" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#0f172a',
-                    border: '1px solid #1e293b',
-                    borderRadius: '0.375rem'
-                  }}
-                  labelStyle={{ color: '#94a3b8' }}
-                  itemStyle={{ color: '#e2e8f0' }}
-                />
-                <Bar dataKey="callVolume" name="Calls" fill="#10b981" stackId="a" />
-                <Bar dataKey="putVolume" name="Puts" fill="#ef4444" stackId="a" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="overflow-x-auto">
+              <div className="min-w-[800px]">
+                <div className="grid grid-cols-7 gap-2 text-xs mb-2">
+                  <div className="font-medium text-primary">Strike</div>
+                  <div className="text-center font-medium text-primary">Bid</div>
+                  <div className="text-center font-medium text-primary">Ask</div>
+                  <div className="text-center font-medium text-primary">Last</div>
+                  <div className="text-center font-medium text-primary">Volume</div>
+                  <div className="text-center font-medium text-primary">IV</div>
+                  <div className="text-center font-medium text-primary">Greeks</div>
+                </div>
+                <div className="space-y-1">
+                  {optionsData.map((option) => (
+                    <div key={option.strike} className="grid grid-cols-7 gap-2 text-xs py-2 px-2 rounded-lg hover:bg-blue-950/20 transition-colors">
+                      <div className="font-medium text-primary">${option.strike.toFixed(2)}</div>
+                      <div className="text-center text-red-400">${option.bid.toFixed(2)}</div>
+                      <div className="text-center text-green-400">${option.ask.toFixed(2)}</div>
+                      <div className="text-center text-primary">${option.last.toFixed(2)}</div>
+                      <div className="text-center text-gray-400">{(option.callVolume + option.putVolume).toLocaleString()}</div>
+                      <div className="text-center text-primary">{option.iv.toFixed(1)}%</div>
+                      <div className="text-center">
+                        <div className="group relative inline-block">
+                          <span className="cursor-help text-primary">Greeks</span>
+                          <div className="invisible group-hover:visible absolute z-10 w-48 p-2 mt-1 text-xs rounded-lg bg-black border border-border -translate-x-1/2 left-1/2">
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="text-gray-400">Delta (Δ):</div>
+                              <div className="text-right text-primary">{option.greeks.delta.toFixed(3)}</div>
+                              <div className="text-gray-400">Gamma (Γ):</div>
+                              <div className="text-right text-primary">{option.greeks.gamma.toFixed(3)}</div>
+                              <div className="text-gray-400">Theta (Θ):</div>
+                              <div className="text-right text-primary">{option.greeks.theta.toFixed(3)}</div>
+                              <div className="text-gray-400">Vega (ν):</div>
+                              <div className="text-right text-primary">{option.greeks.vega.toFixed(3)}</div>
+                              <div className="text-gray-400">Rho (ρ):</div>
+                              <div className="text-right text-primary">{option.greeks.rho.toFixed(3)}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="mt-4 flex justify-between items-center">
             <div className="flex items-center gap-4">

@@ -22,13 +22,18 @@ export interface GreekMetrics {
 export interface OptionsData {
   strike: number;
   expiry: string;
+  bid: number;
+  ask: number;
+  last: number;
   putVolume: number;
   callVolume: number;
+  iv: number;
   greeks: {
     delta: number;
     gamma: number;
     theta: number;
     vega: number;
+    rho: number;
   };
 }
 
@@ -158,18 +163,29 @@ export const generateGreekMetrics = (count: number): GreekMetrics[] => {
 export const generateOptionsData = (count: number): OptionsData[] => {
   const basePrice = faker.number.float({ min: 100, max: 200 });
   
-  return Array.from({ length: count }, () => ({
-    strike: basePrice + faker.number.float({ min: -20, max: 20 }),
-    expiry: faker.date.future().toISOString().split('T')[0],
-    putVolume: faker.number.int({ min: 100, max: 5000 }),
-    callVolume: faker.number.int({ min: 100, max: 5000 }),
-    greeks: {
-      delta: faker.number.float({ min: -1, max: 1 }),
-      gamma: faker.number.float({ min: 0, max: 0.2 }),
-      theta: faker.number.float({ min: -1, max: 0 }),
-      vega: faker.number.float({ min: 0, max: 1 })
-    }
-  }));
+  return Array.from({ length: count }, () => {
+    const strike = basePrice + faker.number.float({ min: -20, max: 20 });
+    const last = faker.number.float({ min: 0.1, max: 10 });
+    const spread = faker.number.float({ min: 0.05, max: 0.2 });
+    
+    return {
+      strike,
+      expiry: faker.date.future().toISOString().split('T')[0],
+      bid: last - spread / 2,
+      ask: last + spread / 2,
+      last,
+      putVolume: faker.number.int({ min: 100, max: 5000 }),
+      callVolume: faker.number.int({ min: 100, max: 5000 }),
+      iv: faker.number.float({ min: 20, max: 80 }),
+      greeks: {
+        delta: faker.number.float({ min: -1, max: 1 }),
+        gamma: faker.number.float({ min: 0, max: 0.2 }),
+        theta: faker.number.float({ min: -1, max: 0 }),
+        vega: faker.number.float({ min: 0, max: 1 }),
+        rho: faker.number.float({ min: -0.5, max: 0.5 })
+      }
+    };
+  });
 };
 
 export const generateCongressionalTrades = (count: number): CongressionalTrade[] => {
