@@ -11,10 +11,19 @@ export interface StockData {
   };
 }
 
+export interface GreekMetrics {
+  timestamp: number;
+  delta: number;
+  gamma: number;
+  theta: number;
+  vega: number;
+}
+
 export interface OptionsData {
   strike: number;
   expiry: string;
-  volume: number;
+  putVolume: number;
+  callVolume: number;
   greeks: {
     delta: number;
     gamma: number;
@@ -29,6 +38,10 @@ export interface CongressionalTrade {
   date: string;
   amount: number;
   type: 'buy' | 'sell';
+  committee: string;
+  shares: number;
+  sector: string;
+  performance: number;
 }
 
 export interface MarketSentiment {
@@ -58,13 +71,24 @@ export const generateStockData = (count: number): StockData[] => {
   });
 };
 
+export const generateGreekMetrics = (count: number): GreekMetrics[] => {
+  return Array.from({ length: count }, (_, i) => ({
+    timestamp: Date.now() - (count - i - 1) * 60000,
+    delta: faker.number.float({ min: -1, max: 1 }),
+    gamma: faker.number.float({ min: 0, max: 0.2 }),
+    theta: faker.number.float({ min: -1, max: 0 }),
+    vega: faker.number.float({ min: 0, max: 1 })
+  }));
+};
+
 export const generateOptionsData = (count: number): OptionsData[] => {
   const basePrice = faker.number.float({ min: 100, max: 200 });
   
   return Array.from({ length: count }, () => ({
     strike: basePrice + faker.number.float({ min: -20, max: 20 }),
     expiry: faker.date.future().toISOString().split('T')[0],
-    volume: faker.number.int({ min: 100, max: 5000 }),
+    putVolume: faker.number.int({ min: 100, max: 5000 }),
+    callVolume: faker.number.int({ min: 100, max: 5000 }),
     greeks: {
       delta: faker.number.float({ min: -1, max: 1 }),
       gamma: faker.number.float({ min: 0, max: 0.2 }),
@@ -83,6 +107,22 @@ export const generateCongressionalTrades = (count: number): CongressionalTrade[]
     'Sen. Robert Wilson'
   ];
 
+  const committees = [
+    'Finance Committee',
+    'Banking Committee',
+    'Budget Committee',
+    'Ways and Means Committee',
+    'Economic Committee'
+  ];
+
+  const sectors = [
+    'Technology',
+    'Healthcare',
+    'Finance',
+    'Energy',
+    'Consumer Goods'
+  ];
+
   const stocks = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'NVDA', 'TSLA'];
 
   return Array.from({ length: count }, () => ({
@@ -90,7 +130,11 @@ export const generateCongressionalTrades = (count: number): CongressionalTrade[]
     stock: faker.helpers.arrayElement(stocks),
     date: faker.date.recent({ days: 30 }).toISOString().split('T')[0],
     amount: faker.number.int({ min: 10000, max: 1000000 }),
-    type: faker.helpers.arrayElement(['buy', 'sell']) as 'buy' | 'sell'
+    type: faker.helpers.arrayElement(['buy', 'sell']) as 'buy' | 'sell',
+    committee: faker.helpers.arrayElement(committees),
+    shares: faker.number.int({ min: 100, max: 10000 }),
+    sector: faker.helpers.arrayElement(sectors),
+    performance: faker.number.float({ min: -15, max: 15, fractionDigits: 1 })
   }));
 };
 
@@ -108,17 +152,4 @@ export const generateMarketSentiment = (count: number): MarketSentiment[] => {
       timestamp: Date.now() - (count - i - 1) * 3600000
     };
   });
-};
-
-// AI Response Generator
-export const generateAIResponse = (_query: string): string => {
-  const responses = [
-    'Based on recent market analysis, the stock shows bullish momentum with strong technical indicators.',
-    'Market sentiment is currently bearish, with increased selling pressure and weakening fundamentals.',
-    'The stock is trading sideways with mixed signals. Consider waiting for a clear breakout pattern.',
-    'Recent institutional buying suggests strong confidence in the company\'s growth prospects.',
-    'Technical analysis indicates a potential reversal pattern forming on the daily chart.'
-  ];
-
-  return faker.helpers.arrayElement(responses);
 };

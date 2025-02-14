@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage'
 import { Projects } from './pages/projects'
 import CoachingPage from './pages/CoachingPage'
 import { ProjectDetail } from './pages/ProjectDetail'
-import { Layout } from './components/layout/layout'
+import { Layout } from './components/layout'
 
 const App = () => (
   <Routes>
