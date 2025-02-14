@@ -1,51 +1,57 @@
 import { useCallback } from 'react'
 import { Particles } from '@tsparticles/react'
-import type { Engine, ISourceOptions } from '@tsparticles/engine'
+import type { Container, Engine } from '@tsparticles/engine'
 import { loadSlim } from '@tsparticles/slim'
 
-const particleConfig: ISourceOptions = {
+const particleConfig: any = {
+  fpsLimit: 60,
   particles: {
-    number: { 
-      value: 50, 
-      density: { enable: true, area: 800 } 
+    number: {
+      value: 50,
+      density: {
+        enable: true,
+        value_area: 800
+      }
     },
-    color: { value: "#3b82f6" },
-    shape: { type: "circle" },
+    color: {
+      value: "#3b82f6"
+    },
+    shape: {
+      type: "circle"
+    },
     opacity: {
       value: 0.5,
-      random: true,
-      animation: { 
-        enable: true, 
-        speed: 1, 
-        min: 0.1 
+      random: false,
+      animation: {
+        enable: true,
+        speed: 1,
+        minimumValue: 0.1,
+        sync: false
       }
     },
     size: {
       value: 3,
-      random: true,
-      animation: { 
-        enable: true, 
-        speed: 2, 
-        min: 0.3 
+      random: false,
+      animation: {
+        enable: true,
+        speed: 2,
+        minimumValue: 0.3,
+        sync: false
       }
     },
     move: {
       enable: true,
       speed: 1,
       direction: "none",
-      random: true,
+      random: false,
       straight: false,
-      outModes: { default: "out" }
-    },
-    links: {
-      enable: true,
-      distance: 150,
-      color: "#3b82f6",
-      opacity: 0.2,
-      width: 1
+      outModes: {
+        default: "out"
+      }
     }
   },
   interactivity: {
+    detectsOn: "window",
     events: {
       onHover: {
         enable: true,
@@ -75,7 +81,8 @@ const particleConfig: ISourceOptions = {
     enable: false,
     zIndex: -1
   },
-  detectRetina: true
+  detectRetina: true,
+  fpsLimit: 60
 }
 
 export function ParticleBackground() {
@@ -83,8 +90,8 @@ export function ParticleBackground() {
     await loadSlim(engine)
   }, [])
 
-  const particlesLoaded = useCallback(async () => {
-    console.log('Particles loaded')
+  const handleParticlesLoaded = useCallback(async (container: Container | undefined) => {
+    console.log('Particles loaded', container)
   }, [])
 
   return (
@@ -92,8 +99,9 @@ export function ParticleBackground() {
       <Particles
         id="tsparticles"
         className="h-full"
-        particlesLoaded={particlesInit}
         options={particleConfig}
+        particlesInit={particlesInit}
+        particlesLoaded={handleParticlesLoaded}
       />
     </div>
   )
