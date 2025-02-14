@@ -18,16 +18,16 @@ const LoadingFallback = () => (
 
 export default function App() {
   return (
-    <Layout>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
+    <Suspense fallback={<LoadingFallback />}>
+      <Routes>
+        <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/coaching" element={<CoachingPage />} />
           <Route path="/projects/neural-networks" element={<NeuralNetworks />} />
           <Route path="/projects/lukz" element={<Lukz />} />
           <Route path="/projects/zom-ai" element={<ZomAI />} />
-        </Routes>
-      </Suspense>
-    </Layout>
+        </Route>
+      </Routes>
+    </Suspense>
   )
 }
