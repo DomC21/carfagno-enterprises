@@ -81,8 +81,7 @@ const particleConfig: any = {
     enable: false,
     zIndex: -1
   },
-  detectRetina: true,
-  fpsLimit: 60
+  detectRetina: true
 }
 
 export function ParticleBackground() {
@@ -100,8 +99,8 @@ export function ParticleBackground() {
         id="tsparticles"
         className="h-full"
         options={particleConfig}
-        particlesInit={particlesInit}
-        particlesLoaded={handleParticlesLoaded}
+        init={particlesInit}
+        loaded={handleParticlesLoaded}
       />
     </div>
   )
