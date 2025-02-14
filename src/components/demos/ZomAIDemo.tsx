@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, ComposedChart } from 'recharts'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
 import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { HeatMap } from '../../components/ui/heat-map'
 
 interface Message {
   type: 'user' | 'ai'
@@ -562,6 +563,79 @@ export function ZomAIDemo() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+
+      {/* Market Sentiment Analysis */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          delay: 0.3
+        }}
+      >
+        <Card className="p-4 bg-black border-border">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Market Sentiment Analysis</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <HeatMap
+              data={messages
+                .filter(m => m.type === 'ai' && m.sentiment)
+                .map(m => ({
+                  timestamp: m.timestamp,
+                  sentiment: m.sentiment!.label,
+                  score: m.sentiment!.score,
+                  keywords: m.sentiment!.keywords
+                }))}
+              colors={{
+                positive: '#10b981',
+                neutral: '#64748b',
+                negative: '#ef4444'
+              }}
+            />
+            <div className="space-y-4">
+              <div className="text-sm text-gray-400 mb-4">
+                Real-time sentiment analysis based on market data, news, and social media trends
+              </div>
+              {messages
+                .filter(m => m.type === 'ai' && m.sentiment)
+                .slice(-3)
+                .map((message, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 20,
+                      delay: i * 0.1
+                    }}
+                    className={`p-3 rounded-lg ${
+                      message.sentiment?.label === 'positive' ? 'bg-green-950/20 border border-green-500/20' :
+                      message.sentiment?.label === 'negative' ? 'bg-red-950/20 border border-red-500/20' :
+                      'bg-blue-950/20 border border-blue-500/20'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-gray-400">
+                        {new Date(message.timestamp).toLocaleTimeString()}
+                      </span>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        message.sentiment?.label === 'positive' ? 'bg-green-950/30 text-green-400' :
+                        message.sentiment?.label === 'negative' ? 'bg-red-950/30 text-red-400' :
+                        'bg-blue-950/30 text-blue-400'
+                      }`}>
+                        {message.sentiment?.label.toUpperCase()}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-300">{message.content}</p>
+                  </motion.div>
+                ))}
             </div>
           </div>
         </Card>
