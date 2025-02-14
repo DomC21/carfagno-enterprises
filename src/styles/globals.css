@@ -31,4 +31,49 @@
     animation: ticker 30s linear infinite;
     animation-delay: -15s;
   }
+
+  .glow-effect {
+    position: relative;
+  }
+
+  .glow-effect::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(
+      35deg,
+      rgba(59, 130, 246, 0.5),
+      rgba(147, 51, 234, 0.5)
+    );
+    border-radius: inherit;
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .glow-effect:hover::before {
+    opacity: 1;
+  }
+
+  .glow-text {
+    position: relative;
+    color: transparent;
+    background: linear-gradient(
+      to right,
+      #FFD700,
+      #FFA500
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+    }
+    50% {
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+    }
+  }
 }
