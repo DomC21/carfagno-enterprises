@@ -1,28 +1,47 @@
-// Types for Lukz data
-type GreekFlowData = {
+import { faker } from '@faker-js/faker'
+
+export interface GreekFlowData {
+  id: string
   timestamp: string
   symbol: string
   delta: number // Stock price sensitivity
   gamma: number // Delta change rate
   theta: number // Time decay
   vega: number // Volatility sensitivity
+  rho: number // Interest rate sensitivity
   volume: number
+  openInterest: number
+  impliedVolatility: number
+  historicalVolatility: number
   sentiment: 'bullish' | 'bearish' | 'neutral'
   confidence: number
+  sector: string
+  marketCap: number
+  beta: number
+  correlations: Record<string, number>
 }
 
-type CongressionalTrade = {
+export interface CongressionalTrade {
+  id: string
   date: string
   representative: string
   symbol: string
   type: 'BUY' | 'SELL'
   amount: string
   sector: string
-  committee?: string
-  disclosure_date?: string
+  committee: string
+  disclosure_date: string
+  party: 'D' | 'R' | 'I'
+  state: string
+  historicalTrades: number
+  successRate: number
+  avgHoldingPeriod: number
+  relatedBills: string[]
+  confidence: number
 }
 
-type EarningsReport = {
+export interface EarningsReport {
+  id: string
   symbol: string
   date: string
   timeOfDay: 'pre-market' | 'after-hours'
@@ -32,9 +51,32 @@ type EarningsReport = {
   priceChange: number
   volume: number
   sector: string
+  revenue: {
+    expected: number
+    actual: number
+    growth: number
+  }
+  guidance: {
+    eps: { low: number; high: number }
+    revenue: { low: number; high: number }
+  }
+  metrics: {
+    grossMargin: number
+    operatingMargin: number
+    netMargin: number
+    fcf: number
+  }
+  callTranscript?: string
+  analystRatings: {
+    buy: number
+    hold: number
+    sell: number
+  }
+  confidence: number
 }
 
-export type InsiderTrade = {
+export interface InsiderTrade {
+  id: string
   date: string
   symbol: string
   insider_name: string
@@ -44,191 +86,348 @@ export type InsiderTrade = {
   price_per_share: number
   total_value: number
   sector: string
+  historicalTrades: {
+    date: string
+    type: 'BUY' | 'SELL'
+    shares: number
+    price: number
+  }[]
+  relationToEarnings: number // days before/after earnings
+  stockPerformance: {
+    oneDay: number
+    oneWeek: number
+    oneMonth: number
+  }
+  confidence: number
 }
 
-type PremiumFlowData = {
+export interface PremiumFlowData {
+  id: string
   timestamp: string
   symbol: string
   sector: string
-  call_volume: number
-  put_volume: number
-  call_premium: number
-  put_premium: number
-  premium_ratio: number
+  expiry: string
+  strike: number
+  type: 'call' | 'put'
+  volume: number
+  openInterest: number
+  premium: number
+  impliedVolatility: number
+  greeks: {
+    delta: number
+    gamma: number
+    theta: number
+    vega: number
+    rho: number
+  }
+  unusualActivity: boolean
+  historicalVolume: number[]
+  priceAction: {
+    current: number
+    open: number
+    high: number
+    low: number
+  }
   sentiment: 'bullish' | 'bearish' | 'neutral'
+  confidence: number
 }
 
-type ChatGPTInsight = {
+export interface ChatGPTInsight {
+  id: string
+  timestamp: string
+  symbol: string
   insight: string
-  confidence: number
   type: 'technical' | 'fundamental' | 'sentiment'
+  confidence: number
+  sources: string[]
+  relatedSymbols: string[]
+  metrics: {
+    sentiment: number
+    momentum: number
+    volatility: number
+  }
+  historicalAccuracy: number
+  validUntil: string
+  tags: string[]
 }
 
 // Generate mock Greek flow data
-const generateGreekFlowData = (): GreekFlowData[] => {
+export const generateGreekFlowData = (count: number = 5): GreekFlowData[] => {
   const symbols = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'NVDA']
-  return symbols.map(symbol => {
-    const delta = Number((Math.random() * 2 - 1).toFixed(3))
+  const sectors = ['Technology', 'Technology', 'Technology', 'Consumer', 'Technology']
+  
+  return Array.from({ length: count }, (_, i) => {
+    const index = i % symbols.length
+    const delta = faker.number.float({ min: -1, max: 1, precision: 0.001 })
     const sentiment = delta > 0.3 ? 'bullish' : delta < -0.3 ? 'bearish' : 'neutral'
+    
     return {
-      timestamp: new Date().toLocaleTimeString(),
-      symbol,
+      id: faker.string.uuid(),
+      timestamp: new Date().toISOString(),
+      symbol: symbols[index],
       delta,
-      gamma: Number((Math.random() * 0.1).toFixed(4)),
-      theta: Number((-Math.random() * 0.5).toFixed(3)),
-      vega: Number((Math.random() * 0.3).toFixed(3)),
-      volume: Math.floor(1000 + Math.random() * 9000),
+      gamma: faker.number.float({ min: 0, max: 0.2, precision: 0.0001 }),
+      theta: faker.number.float({ min: -1, max: 0, precision: 0.001 }),
+      vega: faker.number.float({ min: 0, max: 1, precision: 0.001 }),
+      rho: faker.number.float({ min: -0.5, max: 0.5, precision: 0.001 }),
+      volume: faker.number.int({ min: 1000, max: 100000 }),
+      openInterest: faker.number.int({ min: 5000, max: 500000 }),
+      impliedVolatility: faker.number.float({ min: 0.1, max: 1, precision: 0.001 }),
+      historicalVolatility: faker.number.float({ min: 0.1, max: 1, precision: 0.001 }),
       sentiment,
-      confidence: Number((0.7 + Math.random() * 0.3).toFixed(2))
+      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 }),
+      sector: sectors[index],
+      marketCap: faker.number.int({ min: 1e8, max: 1e12 }),
+      beta: faker.number.float({ min: 0.5, max: 2, precision: 0.01 }),
+      correlations: symbols.reduce((acc, sym) => ({
+        ...acc,
+        [sym]: faker.number.float({ min: -1, max: 1, precision: 0.01 })
+      }), {})
     }
   })
 }
 
 // Generate mock Congressional trade data
-const generateCongressionalTrades = (): CongressionalTrade[] => {
-  const trades: CongressionalTrade[] = [
-    {
-      date: '2024-01-15',
-      representative: 'Rep. Smith',
-      symbol: 'AAPL',
-      type: 'BUY',
-      amount: '$50,000-$100,000',
-      sector: 'Technology'
-    },
-    {
-      date: '2024-01-18',
-      representative: 'Sen. Johnson',
-      symbol: 'XOM',
-      type: 'SELL',
-      amount: '$100,000-$250,000',
-      sector: 'Energy'
-    },
-    {
-      date: '2024-01-22',
-      representative: 'Rep. Davis',
-      symbol: 'PFE',
-      type: 'BUY',
-      amount: '$15,000-$50,000',
-      sector: 'Healthcare'
-    },
-    {
-      date: '2024-01-25',
-      representative: 'Sen. Wilson',
-      symbol: 'MSFT',
-      type: 'BUY',
-      amount: '$250,000-$500,000',
-      sector: 'Technology'
-    }
+export const generateCongressionalTrades = (count: number = 10): CongressionalTrade[] => {
+  const committees = [
+    'Finance Committee',
+    'Banking Committee',
+    'Budget Committee',
+    'Ways and Means Committee'
   ]
-  return trades
-}
+  const states = ['CA', 'NY', 'TX', 'FL', 'IL', 'MA']
+  const parties = ['D', 'R', 'I'] as const
 
-// Generate mock earnings report data
-const generateEarningsReports = (): EarningsReport[] => {
-  return [
-    {
-      symbol: 'AAPL',
-      date: '2024-01-25',
-      timeOfDay: 'after-hours',
-      expectedEPS: 2.10,
-      actualEPS: 2.18,
-      surprise: 3.81,
-      priceChange: 4.2,
-      volume: 1250000,
-      sector: 'Technology'
-    },
-    {
-      symbol: 'MSFT',
-      date: '2024-01-24',
-      timeOfDay: 'after-hours',
-      expectedEPS: 2.65,
-      actualEPS: 2.93,
-      surprise: 10.57,
-      priceChange: 6.8,
-      volume: 980000,
-      sector: 'Technology'
-    }
-  ]
-}
-
-// Generate mock insider trading data
-const generateInsiderTrades = (): InsiderTrade[] => {
-  return [
-    {
-      date: '2024-01-20',
-      symbol: 'TSLA',
-      insider_name: 'John Smith',
-      title: 'Director',
-      type: 'BUY',
-      shares: 5000,
-      price_per_share: 218.75,
-      total_value: 1093750,
-      sector: 'Automotive'
-    },
-    {
-      date: '2024-01-21',
-      symbol: 'NVDA',
-      insider_name: 'Sarah Johnson',
-      title: 'CFO',
-      type: 'SELL',
-      shares: 2500,
-      price_per_share: 547.90,
-      total_value: 1369750,
-      sector: 'Technology'
-    }
-  ]
-}
-
-// Generate mock premium flow data
-const generatePremiumFlow = (): PremiumFlowData[] => {
-  const symbols = ['SPY', 'QQQ', 'AAPL', 'MSFT']
-  const sectors = ['ETF', 'ETF', 'Technology', 'Technology']
-  
-  return symbols.map((symbol, index) => ({
-    timestamp: new Date().toLocaleTimeString(),
-    symbol,
-    sector: sectors[index],
-    call_volume: Math.floor(5000 + Math.random() * 15000),
-    put_volume: Math.floor(3000 + Math.random() * 12000),
-    call_premium: Math.floor(1000000 + Math.random() * 3000000),
-    put_premium: Math.floor(800000 + Math.random() * 2500000),
-    premium_ratio: 1.2 + Math.random() * 0.5,
-    sentiment: Math.random() > 0.5 ? 'bullish' : 'bearish'
+  return Array.from({ length: count }, () => ({
+    id: faker.string.uuid(),
+    date: faker.date.recent().toISOString(),
+    representative: faker.person.fullName(),
+    symbol: faker.finance.symbol(),
+    type: faker.helpers.arrayElement(['BUY', 'SELL']),
+    amount: `$${faker.number.int({ min: 10000, max: 1000000 }).toLocaleString()}-${faker.number.int({ min: 1000000, max: 5000000 }).toLocaleString()}`,
+    sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
+    committee: faker.helpers.arrayElement(committees),
+    disclosure_date: faker.date.recent().toISOString(),
+    party: faker.helpers.arrayElement(parties),
+    state: faker.helpers.arrayElement(states),
+    historicalTrades: faker.number.int({ min: 0, max: 50 }),
+    successRate: faker.number.float({ min: 0.3, max: 0.9, precision: 0.01 }),
+    avgHoldingPeriod: faker.number.int({ min: 30, max: 365 }),
+    relatedBills: Array.from({ length: faker.number.int({ min: 0, max: 3 }) }, () =>
+      faker.lorem.sentence()
+    ),
+    confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
   }))
 }
 
-// Generate mock insights
-const generateMockInsights = (): Record<string, ChatGPTInsight> => ({
-  greekFlow: {
-    insight: "Delta values indicate strong bullish momentum in tech sector, particularly in AAPL and MSFT. Gamma exposure suggests potential for accelerated moves.",
-    confidence: 0.92,
-    type: 'technical'
-  },
-  congress: {
-    insight: "Recent congressional trading activity shows increased interest in technology sector, with multiple representatives initiating large positions in MSFT.",
-    confidence: 0.88,
-    type: 'fundamental'
-  },
-  earnings: {
-    insight: "Companies reporting positive earnings surprises are seeing stronger after-hours price movements compared to previous quarter.",
-    confidence: 0.85,
-    type: 'technical'
-  },
-  insider: {
-    insight: "Notable increase in insider buying within the technology sector, particularly among C-level executives, suggesting strong internal confidence.",
-    confidence: 0.90,
-    type: 'fundamental'
-  },
-  premiumFlow: {
-    insight: "Unusual call option activity in technology sector with premium ratios significantly above historical averages.",
-    confidence: 0.87,
-    type: 'sentiment'
-  }
-})
+// Generate mock earnings report data
+export const generateEarningsReports = (count: number = 5): EarningsReport[] => {
+  return Array.from({ length: count }, () => {
+    const expectedEPS = faker.number.float({ min: 0.5, max: 5, precision: 0.01 })
+    const actualEPS = expectedEPS * faker.number.float({ min: 0.8, max: 1.2, precision: 0.01 })
+    const expectedRevenue = faker.number.int({ min: 1e8, max: 1e10 })
+    const actualRevenue = expectedRevenue * faker.number.float({ min: 0.8, max: 1.2, precision: 0.01 })
+    
+    return {
+      id: faker.string.uuid(),
+      symbol: faker.finance.symbol(),
+      date: faker.date.recent().toISOString(),
+      timeOfDay: faker.helpers.arrayElement(['pre-market', 'after-hours']),
+      expectedEPS,
+      actualEPS,
+      surprise: ((actualEPS - expectedEPS) / expectedEPS) * 100,
+      priceChange: faker.number.float({ min: -10, max: 10, precision: 0.1 }),
+      volume: faker.number.int({ min: 1e5, max: 1e7 }),
+      sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
+      revenue: {
+        expected: expectedRevenue,
+        actual: actualRevenue,
+        growth: faker.number.float({ min: -20, max: 50, precision: 0.1 })
+      },
+      guidance: {
+        eps: {
+          low: actualEPS * 0.9,
+          high: actualEPS * 1.1
+        },
+        revenue: {
+          low: actualRevenue * 0.9,
+          high: actualRevenue * 1.1
+        }
+      },
+      metrics: {
+        grossMargin: faker.number.float({ min: 0.2, max: 0.8, precision: 0.01 }),
+        operatingMargin: faker.number.float({ min: 0.1, max: 0.4, precision: 0.01 }),
+        netMargin: faker.number.float({ min: 0.05, max: 0.3, precision: 0.01 }),
+        fcf: faker.number.int({ min: 1e7, max: 1e9 })
+      },
+      callTranscript: faker.lorem.paragraphs(3),
+      analystRatings: {
+        buy: faker.number.int({ min: 5, max: 30 }),
+        hold: faker.number.int({ min: 2, max: 15 }),
+        sell: faker.number.int({ min: 0, max: 10 })
+      },
+      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+    }
+  })
+}
 
-export const greekFlowMockData = generateGreekFlowData()
-export const congressionalTradeMockData = generateCongressionalTrades()
-export const earningsReportMockData = generateEarningsReports()
-export const insiderTradeMockData = generateInsiderTrades()
-export const premiumFlowMockData = generatePremiumFlow()
-export const mockInsights = generateMockInsights()
+// Generate mock insider trading data
+export const generateInsiderTrades = (count: number = 5): InsiderTrade[] => {
+  return Array.from({ length: count }, () => {
+    const shares = faker.number.int({ min: 1000, max: 100000 })
+    const price = faker.number.float({ min: 10, max: 1000, precision: 0.01 })
+    const type = faker.helpers.arrayElement(['BUY', 'SELL'])
+    
+    return {
+      id: faker.string.uuid(),
+      date: faker.date.recent().toISOString(),
+      symbol: faker.finance.symbol(),
+      insider_name: faker.person.fullName(),
+      title: faker.helpers.arrayElement(['CEO', 'CFO', 'CTO', 'Director', 'VP']),
+      type,
+      shares,
+      price_per_share: price,
+      total_value: shares * price,
+      sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
+      historicalTrades: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }, () => ({
+        date: faker.date.past().toISOString(),
+        type: faker.helpers.arrayElement(['BUY', 'SELL']),
+        shares: faker.number.int({ min: 1000, max: 100000 }),
+        price: faker.number.float({ min: 10, max: 1000, precision: 0.01 })
+      })),
+      relationToEarnings: faker.number.int({ min: -30, max: 30 }),
+      stockPerformance: {
+        oneDay: faker.number.float({ min: -5, max: 5, precision: 0.1 }),
+        oneWeek: faker.number.float({ min: -10, max: 10, precision: 0.1 }),
+        oneMonth: faker.number.float({ min: -20, max: 20, precision: 0.1 })
+      },
+      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+    }
+  })
+}
+
+// Generate mock premium flow data
+export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
+  return Array.from({ length: count }, () => {
+    const basePrice = faker.number.float({ min: 50, max: 500, precision: 0.01 })
+    const type = faker.helpers.arrayElement(['call', 'put'])
+    const volume = faker.number.int({ min: 100, max: 10000 })
+    const historicalVolume = Array.from({ length: 10 }, () => 
+      faker.number.int({ min: 50, max: 15000 })
+    )
+    
+    return {
+      id: faker.string.uuid(),
+      timestamp: new Date().toISOString(),
+      symbol: faker.finance.symbol(),
+      sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
+      expiry: faker.date.future().toISOString(),
+      strike: basePrice * faker.number.float({ min: 0.8, max: 1.2 }),
+      type,
+      volume,
+      openInterest: faker.number.int({ min: 1000, max: 50000 }),
+      premium: faker.number.float({ min: 0.5, max: 10, precision: 0.01 }),
+      impliedVolatility: faker.number.float({ min: 0.1, max: 1, precision: 0.01 }),
+      greeks: {
+        delta: type === 'call'
+          ? faker.number.float({ min: 0, max: 1, precision: 0.01 })
+          : faker.number.float({ min: -1, max: 0, precision: 0.01 }),
+        gamma: faker.number.float({ min: 0, max: 0.2, precision: 0.001 }),
+        theta: faker.number.float({ min: -1, max: 0, precision: 0.01 }),
+        vega: faker.number.float({ min: 0, max: 1, precision: 0.01 }),
+        rho: faker.number.float({ min: -0.5, max: 0.5, precision: 0.01 })
+      },
+      unusualActivity: volume > Math.max(...historicalVolume) * 1.5,
+      historicalVolume,
+      priceAction: {
+        current: basePrice,
+        open: basePrice * faker.number.float({ min: 0.98, max: 1.02 }),
+        high: basePrice * faker.number.float({ min: 1.02, max: 1.05 }),
+        low: basePrice * faker.number.float({ min: 0.95, max: 0.98 })
+      },
+      sentiment: faker.helpers.arrayElement(['bullish', 'bearish', 'neutral']),
+      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+    }
+  })
+}
+
+// Generate mock insights
+export const generateChatGPTInsights = (count: number = 5): ChatGPTInsight[] => {
+  const technicalInsights = [
+    'Strong bullish momentum with increasing volume',
+    'Potential double bottom pattern forming',
+    'RSI indicates oversold conditions',
+    'MACD showing bullish crossover'
+  ]
+
+  const fundamentalInsights = [
+    'Strong earnings growth expected next quarter',
+    'Recent insider buying activity',
+    'Positive analyst coverage with price target upgrades',
+    'Expanding market share in key segments'
+  ]
+
+  const sentimentInsights = [
+    'Social media sentiment trending positive',
+    'Institutional investors increasing positions',
+    'Growing retail investor interest',
+    'Positive news coverage momentum'
+  ]
+
+  return Array.from({ length: count }, () => {
+    const type = faker.helpers.arrayElement(['technical', 'fundamental', 'sentiment'])
+    const insights = type === 'technical'
+      ? technicalInsights
+      : type === 'fundamental'
+      ? fundamentalInsights
+      : sentimentInsights
+
+    return {
+      id: faker.string.uuid(),
+      timestamp: faker.date.recent().toISOString(),
+      symbol: faker.finance.symbol(),
+      insight: faker.helpers.arrayElement(insights),
+      type,
+      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 }),
+      sources: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () =>
+        faker.helpers.arrayElement([
+          'Market Data',
+          'SEC Filings',
+          'News Articles',
+          'Social Media',
+          'Technical Analysis'
+        ])
+      ),
+      relatedSymbols: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () =>
+        faker.finance.symbol()
+      ),
+      metrics: {
+        sentiment: faker.number.float({ min: -1, max: 1, precision: 0.01 }),
+        momentum: faker.number.float({ min: -1, max: 1, precision: 0.01 }),
+        volatility: faker.number.float({ min: 0, max: 1, precision: 0.01 })
+      },
+      historicalAccuracy: faker.number.float({ min: 0.6, max: 0.9, precision: 0.01 }),
+      validUntil: faker.date.future().toISOString(),
+      tags: Array.from({ length: faker.number.int({ min: 1, max: 4 }) }, () =>
+        faker.helpers.arrayElement([
+          'Momentum',
+          'Value',
+          'Growth',
+          'Technical',
+          'Fundamental',
+          'Sentiment',
+          'Options Flow',
+          'Insider Activity'
+        ])
+      )
+    }
+  })
+}
+
+// Export initial mock data
+export const greekFlowMockData = generateGreekFlowData(5)
+export const congressionalTradeMockData = generateCongressionalTrades(10)
+export const earningsReportMockData = generateEarningsReports(5)
+export const insiderTradeMockData = generateInsiderTrades(5)
+export const premiumFlowMockData = generatePremiumFlow(10)
+export const mockInsights = generateChatGPTInsights(5)
