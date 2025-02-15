@@ -110,12 +110,30 @@ export function LukzDemo() {
                 <YAxis stroke="#64748b" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    border: '1px solid #1e293b',
-                    borderRadius: '0.375rem'
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(30, 41, 59, 0.5)',
+                    borderRadius: '0.375rem',
+                    boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
                   }}
                   labelStyle={{ color: '#94a3b8' }}
                   itemStyle={{ color: '#e2e8f0' }}
+                  formatter={(value: any, name: string) => {
+                    const explanations: Record<string, string> = {
+                      delta: 'Rate of change in option price relative to underlying asset (Δ)',
+                      gamma: 'Rate of change in delta, indicating hedging needs (Γ)',
+                      theta: 'Time decay of option value per day (Θ)',
+                      vega: 'Option sensitivity to volatility changes (ν)',
+                      rho: 'Option sensitivity to interest rate changes (ρ)',
+                      iv: 'Implied Volatility - Market\'s forecast of price movement',
+                      volume: 'Total trading volume indicating market liquidity'
+                    }
+                    const key = name.toLowerCase()
+                    return [
+                      typeof value === 'number' ? value.toFixed(4) : value,
+                      `${name}: ${key in explanations ? explanations[key] : ''}`
+                    ]
+                  }}
                 />
                 <Line type="monotone" dataKey="delta" stroke="#3b82f6" name="Delta" dot={false} />
                 <Line type="monotone" dataKey="gamma" stroke="#10b981" name="Gamma" dot={false} />
@@ -329,12 +347,27 @@ export function LukzDemo() {
                     </Pie>
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: '1px solid #1e293b',
-                        borderRadius: '0.375rem'
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(30, 41, 59, 0.5)',
+                        borderRadius: '0.375rem',
+                        boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
                       }}
                       labelStyle={{ color: '#94a3b8' }}
                       itemStyle={{ color: '#e2e8f0' }}
+                      formatter={(value: any, name: string) => {
+                        const explanations: Record<string, string> = {
+                          bullish: 'Positive market sentiment indicating potential upward price movement',
+                          bearish: 'Negative market sentiment suggesting potential downward price movement',
+                          neutral: 'Balanced market sentiment with no strong directional bias',
+                          value: 'Percentage of market participants with this sentiment'
+                        }
+                        const key = name.toLowerCase()
+                        return [
+                          typeof value === 'number' ? `${value}%` : value,
+                          `${name}: ${key in explanations ? explanations[key] : ''}`
+                        ]
+                      }}
                     />
                   </PieChart>
                 </ResponsiveContainer>

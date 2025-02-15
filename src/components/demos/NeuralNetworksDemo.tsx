@@ -170,16 +170,32 @@ export function NeuralNetworksDemo() {
                 <YAxis stroke="#64748b" domain={['auto', 'auto']} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    border: '1px solid #1e293b',
-                    borderRadius: '0.375rem'
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(30, 41, 59, 0.5)',
+                    borderRadius: '0.375rem',
+                    boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
                   }}
                   labelStyle={{ color: '#94a3b8' }}
                   itemStyle={{ color: '#e2e8f0' }}
-                  formatter={(value: any, name: string) => [
-                    typeof value === 'number' ? value.toFixed(2) : value,
-                    name.charAt(0).toUpperCase() + name.slice(1)
-                  ]}
+                  formatter={(value: any, name: string) => {
+                    const explanations: Record<string, string> = {
+                      volume: 'Trading volume indicates market activity and liquidity',
+                      open: 'Opening price at the start of the trading period',
+                      close: 'Closing price at the end of the trading period',
+                      high: 'Highest price reached during the period',
+                      low: 'Lowest price reached during the period',
+                      confidence: 'AI model prediction confidence based on pattern analysis',
+                      learningRate: 'Speed at which the model adapts to new patterns',
+                      epochs: 'Number of training iterations for pattern recognition',
+                      layers: 'Neural network depth for complex pattern analysis'
+                    }
+                    const key = name.toLowerCase()
+                    return [
+                      typeof value === 'number' ? value.toFixed(2) : value,
+                      `${name.charAt(0).toUpperCase() + name.slice(1)}: ${key in explanations ? explanations[key] : ''}`
+                    ]
+                  }}
                 />
                 <Bar
                   dataKey="volume"
