@@ -66,7 +66,7 @@ export interface TechnicalIndicators {
   histogram: number;
 }
 
-import { TradingPattern } from './tradingPatterns';
+import { TradingPattern, generateTradingPattern } from './tradingPatterns';
 
 export interface StockData {
   timestamp: number;

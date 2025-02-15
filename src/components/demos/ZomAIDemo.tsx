@@ -47,9 +47,17 @@ export function ZomAIDemo() {
     // Initialize with some data
     setData(generateStockData(50))
 
-    // Update data periodically
+    // Update data periodically with smooth transitions
     const interval = setInterval(() => {
-      setData(prev => [...prev.slice(1), ...generateStockData(1)])
+      setData(prev => {
+        const newData = [...prev.slice(1), ...generateStockData(1)]
+        // Ensure smooth transition by maintaining data structure
+        return newData.map((item, i) => ({
+          ...item,
+          // Add GPU-accelerated transition class
+          className: 'transform-gpu transition-all duration-300 ease-out'
+        }))
+      })
     }, 5000)
 
     return () => clearInterval(interval)
@@ -69,18 +77,33 @@ export function ZomAIDemo() {
     }))
     setModelMetrics(metrics)
 
-    // Update data every 30 seconds
+    // Update data every 30 seconds with smooth transitions
     const interval = setInterval(() => {
-
-      setModelMetrics(prev => [
-        ...prev.slice(1),
-        {
-          timestamp: Date.now(),
-          accuracy: Math.random() * 0.15 + 0.8,
-          confidence: Math.random() * 0.2 + 0.75,
-          predictions: Math.floor(Math.random() * 1000 + 500)
-        }
-      ])
+      setModelMetrics(prev => {
+        const newMetrics = [
+          ...prev.slice(1),
+          {
+            timestamp: Date.now(),
+            accuracy: Math.random() * 0.15 + 0.8,
+            confidence: Math.random() * 0.2 + 0.75,
+            predictions: Math.floor(Math.random() * 1000 + 500)
+          }
+        ]
+        return newMetrics.map((metric, i) => ({
+          ...metric,
+          className: 'transform-gpu transition-all duration-500 ease-out',
+          animate: {
+            opacity: [0, 1],
+            y: [20, 0],
+            transition: {
+              type: 'spring',
+              stiffness: 300,
+              damping: 20,
+              delay: i * 0.05
+            }
+          }
+        }))
+      })
     }, 30000)
 
     return () => clearInterval(interval)
@@ -189,13 +212,21 @@ export function ZomAIDemo() {
                   />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#0f172a',
-                      border: '1px solid #1e293b',
-                      borderRadius: '0.375rem'
+                      backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(30, 41, 59, 0.5)',
+                      borderRadius: '0.375rem',
+                      boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)',
+                      transform: 'translateZ(0)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                     }}
                     labelStyle={{ color: '#94a3b8' }}
                     itemStyle={{ color: '#e2e8f0' }}
-                    formatter={(value: number) => `${(value * 100).toFixed(1)}%`}
+                    formatter={(value: number) => [
+                      `${(value * 100).toFixed(1)}%`,
+                      'Model accuracy indicates prediction success rate'
+                    ]}
+                    wrapperStyle={{ transform: 'translateZ(0)' }}
                   />
                   <Line 
                     type="monotone" 
