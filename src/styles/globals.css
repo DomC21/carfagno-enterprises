@@ -21,19 +21,47 @@
 @layer components {
   .animate-float {
     animation: float 6s ease-in-out infinite;
+    transform-gpu: translate3d(0, 0, 0);
   }
 
   .animate-ticker {
     animation: ticker 30s linear infinite;
+    transform-gpu: translate3d(0, 0, 0);
   }
 
   .animate-ticker-clone {
     animation: ticker 30s linear infinite;
     animation-delay: -15s;
+    transform-gpu: translate3d(0, 0, 0);
+  }
+
+  .glassmorphism {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-gpu: translate3d(0, 0, 0);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5),
+                0 0 20px rgba(59, 130, 246, 0.3),
+                0 0 30px rgba(59, 130, 246, 0.2);
+    transition: box-shadow 0.3s ease;
+    transform-gpu: translate3d(0, 0, 0);
+  }
+
+  .neon-glow:hover {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.8),
+                0 0 30px rgba(59, 130, 246, 0.5),
+                0 0 45px rgba(59, 130, 246, 0.3);
   }
 
   .glow-effect {
     position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-gpu: translate3d(0, 0, 0);
   }
 
   .glow-effect::before {
@@ -43,12 +71,13 @@
     background: linear-gradient(
       35deg,
       rgba(59, 130, 246, 0.5),
-      rgba(147, 51, 234, 0.5)
+      rgba(16, 185, 129, 0.5)
     );
     border-radius: inherit;
-    filter: blur(12px);
+    filter: blur(15px);
     opacity: 0;
     transition: opacity 0.3s ease;
+    transform-gpu: translate3d(0, 0, 0);
   }
 
   .glow-effect:hover::before {
@@ -147,5 +176,47 @@
     50% {
       filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
     }
+  }
+
+  @keyframes data-stream {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-20px) translateX(10px);
+      opacity: 0;
+    }
+  }
+
+  .data-stream {
+    animation: data-stream 2s ease-in-out infinite;
+    transform-gpu: translate3d(0, 0, 0);
+  }
+
+  .glowing-border {
+    position: relative;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    transition: border-color 0.3s ease;
+  }
+
+  .glowing-border:hover {
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .scale-hover {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-gpu: translate3d(0, 0, 0);
+  }
+
+  .scale-hover:hover {
+    transform: scale(1.02);
   }
 }
