@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, ReferenceLine } from 'recharts'
 import { generateStockData, type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { motion } from 'framer-motion'
@@ -160,33 +160,80 @@ export function NeuralNetworksDemo() {
           <h3 className="text-lg font-semibold mb-4 text-primary">Price Analysis</h3>
           <div className="h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data}>
+              <ComposedChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis 
                   dataKey="timestamp" 
                   tickFormatter={(value) => new Date(value).toLocaleTimeString()}
                   stroke="#64748b"
                 />
-                <YAxis stroke="#64748b" />
+                <YAxis stroke="#64748b" domain={['auto', 'auto']} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    border: '1px solid #1e293b',
-                    borderRadius: '0.375rem'
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(30, 41, 59, 0.5)',
+                    borderRadius: '0.375rem',
+                    boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
                   }}
                   labelStyle={{ color: '#94a3b8' }}
                   itemStyle={{ color: '#e2e8f0' }}
+                  formatter={(value: any, name: string) => {
+                    const explanations: Record<string, string> = {
+                      volume: 'Trading volume indicates market activity and liquidity',
+                      open: 'Opening price at the start of the trading period',
+                      close: 'Closing price at the end of the trading period',
+                      high: 'Highest price reached during the period',
+                      low: 'Lowest price reached during the period',
+                      confidence: 'AI model prediction confidence based on pattern analysis',
+                      learningRate: 'Speed at which the model adapts to new patterns',
+                      epochs: 'Number of training iterations for pattern recognition',
+                      layers: 'Neural network depth for complex pattern analysis'
+                    }
+                    const key = name.toLowerCase()
+                    return [
+                      typeof value === 'number' ? value.toFixed(2) : value,
+                      `${name.charAt(0).toUpperCase() + name.slice(1)}: ${key in explanations ? explanations[key] : ''}`
+                    ]
+                  }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="price" 
-                  stroke="#3b82f6"
-                  strokeWidth={2}
-                  dot={false}
-                  activeDot={{ r: 6, fill: '#3b82f6' }}
+                <Bar
+                  dataKey="volume"
+                  fill="#3b82f6"
+                  opacity={0.3}
+                  yAxisId={1}
                 />
-              </LineChart>
+                <ReferenceLine y={0} stroke="#1e293b" />
+                <Bar
+                  dataKey="open"
+                  fill="#10b981"
+                  stroke="#10b981"
+                />
+                <Bar
+                  dataKey="close"
+                  fill="#ef4444"
+                  stroke="#ef4444"
+                />
+              </ComposedChart>
             </ResponsiveContainer>
+            <div className="mt-2 grid grid-cols-4 gap-4 text-xs">
+              <div className="text-center">
+                <span className="text-gray-400 block">Open</span>
+                <span className="text-primary font-medium">${data[data.length - 1]?.open.toFixed(2)}</span>
+              </div>
+              <div className="text-center">
+                <span className="text-gray-400 block">High</span>
+                <span className="text-green-400 font-medium">${data[data.length - 1]?.high.toFixed(2)}</span>
+              </div>
+              <div className="text-center">
+                <span className="text-gray-400 block">Low</span>
+                <span className="text-red-400 font-medium">${data[data.length - 1]?.low.toFixed(2)}</span>
+              </div>
+              <div className="text-center">
+                <span className="text-gray-400 block">Close</span>
+                <span className="text-primary font-medium">${data[data.length - 1]?.close.toFixed(2)}</span>
+              </div>
+            </div>
           </div>
           <div className="mt-6">
             <h4 className="text-md font-semibold mb-2 text-primary">Model Confidence</h4>
@@ -231,6 +278,61 @@ export function NeuralNetworksDemo() {
         </Card>
       </motion.div>
 
+      {/* Order Book */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          delay: 0.2
+        }}
+      >
+        <Card className="p-4 bg-black border-border">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-primary">Order Book</h3>
+            <div className="text-sm text-gray-400">
+              Spread: ${data[data.length - 1]?.orderBook?.spread.toFixed(2)}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {/* Asks */}
+            <div className="space-y-1">
+              <div className="text-sm font-medium text-gray-400 mb-2">Asks</div>
+              {data[data.length - 1]?.orderBook?.asks.map((level, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex justify-between items-center text-xs bg-red-950/20 border border-red-500/20 rounded px-2 py-1"
+                >
+                  <span className="text-red-400">${level.price.toFixed(2)}</span>
+                  <span className="text-gray-400">{level.size.toLocaleString()}</span>
+                </motion.div>
+              ))}
+            </div>
+            {/* Bids */}
+            <div className="space-y-1">
+              <div className="text-sm font-medium text-gray-400 mb-2">Bids</div>
+              {data[data.length - 1]?.orderBook?.bids.map((level, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex justify-between items-center text-xs bg-green-950/20 border border-green-500/20 rounded px-2 py-1"
+                >
+                  <span className="text-green-400">${level.price.toFixed(2)}</span>
+                  <span className="text-gray-400">{level.size.toLocaleString()}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+
       {/* Pattern Recognition and Trading Signals */}
       <div className="grid md:grid-cols-2 gap-6">
         <motion.div
@@ -261,7 +363,7 @@ export function NeuralNetworksDemo() {
                       delay: i * 0.1 + 0.3
                     }}
                     className={`p-3 rounded-lg ${
-                      d.pattern?.type === 'bullish' 
+                      d.pattern?.type === 'double-bottom' || d.pattern?.type === 'triangle'
                         ? 'bg-green-950/20 border border-green-500/20' 
                         : 'bg-red-950/20 border border-red-500/20'
                     }`}
@@ -271,9 +373,12 @@ export function NeuralNetworksDemo() {
                         {new Date(d.timestamp).toLocaleTimeString()}
                       </span>
                       <span className={`text-sm font-medium ${
-                        d.pattern?.type === 'bullish' ? 'text-green-400' : 'text-red-400'
+                        d.pattern?.type === 'double-bottom' || d.pattern?.type === 'triangle'
+                          ? 'text-green-400' : 'text-red-400'
                       }`}>
-                        {d.pattern?.type.toUpperCase()}
+                        {d.pattern?.type.split('-').map(word => 
+                          word.charAt(0).toUpperCase() + word.slice(1)
+                        ).join(' ')}
                       </span>
                     </div>
                     <div className="mt-2">

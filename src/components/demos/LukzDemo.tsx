@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts'
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { motion } from 'framer-motion'
@@ -110,12 +110,30 @@ export function LukzDemo() {
                 <YAxis stroke="#64748b" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    border: '1px solid #1e293b',
-                    borderRadius: '0.375rem'
+                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(30, 41, 59, 0.5)',
+                    borderRadius: '0.375rem',
+                    boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
                   }}
                   labelStyle={{ color: '#94a3b8' }}
                   itemStyle={{ color: '#e2e8f0' }}
+                  formatter={(value: any, name: string) => {
+                    const explanations: Record<string, string> = {
+                      delta: 'Rate of change in option price relative to underlying asset (Δ)',
+                      gamma: 'Rate of change in delta, indicating hedging needs (Γ)',
+                      theta: 'Time decay of option value per day (Θ)',
+                      vega: 'Option sensitivity to volatility changes (ν)',
+                      rho: 'Option sensitivity to interest rate changes (ρ)',
+                      iv: 'Implied Volatility - Market\'s forecast of price movement',
+                      volume: 'Total trading volume indicating market liquidity'
+                    }
+                    const key = name.toLowerCase()
+                    return [
+                      typeof value === 'number' ? value.toFixed(4) : value,
+                      `${name}: ${key in explanations ? explanations[key] : ''}`
+                    ]
+                  }}
                 />
                 <Line type="monotone" dataKey="delta" stroke="#3b82f6" name="Delta" dot={false} />
                 <Line type="monotone" dataKey="gamma" stroke="#10b981" name="Gamma" dot={false} />
@@ -151,28 +169,50 @@ export function LukzDemo() {
         <Card className="p-4 bg-black border-border">
           <h3 className="text-lg font-semibold mb-4 text-primary">Options Flow</h3>
           <div className="h-[400px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={optionsData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis 
-                  dataKey="strike" 
-                  stroke="#64748b"
-                  tickFormatter={(value) => `$${value}`}
-                />
-                <YAxis stroke="#64748b" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#0f172a',
-                    border: '1px solid #1e293b',
-                    borderRadius: '0.375rem'
-                  }}
-                  labelStyle={{ color: '#94a3b8' }}
-                  itemStyle={{ color: '#e2e8f0' }}
-                />
-                <Bar dataKey="callVolume" name="Calls" fill="#10b981" stackId="a" />
-                <Bar dataKey="putVolume" name="Puts" fill="#ef4444" stackId="a" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="overflow-x-auto">
+              <div className="min-w-[800px]">
+                <div className="grid grid-cols-7 gap-2 text-xs mb-2">
+                  <div className="font-medium text-primary">Strike</div>
+                  <div className="text-center font-medium text-primary">Bid</div>
+                  <div className="text-center font-medium text-primary">Ask</div>
+                  <div className="text-center font-medium text-primary">Last</div>
+                  <div className="text-center font-medium text-primary">Volume</div>
+                  <div className="text-center font-medium text-primary">IV</div>
+                  <div className="text-center font-medium text-primary">Greeks</div>
+                </div>
+                <div className="space-y-1">
+                  {optionsData.map((option) => (
+                    <div key={option.strike} className="grid grid-cols-7 gap-2 text-xs py-2 px-2 rounded-lg hover:bg-blue-950/20 transition-colors">
+                      <div className="font-medium text-primary">${option.strike.toFixed(2)}</div>
+                      <div className="text-center text-red-400">${option.bid.toFixed(2)}</div>
+                      <div className="text-center text-green-400">${option.ask.toFixed(2)}</div>
+                      <div className="text-center text-primary">${option.last.toFixed(2)}</div>
+                      <div className="text-center text-gray-400">{(option.callVolume + option.putVolume).toLocaleString()}</div>
+                      <div className="text-center text-primary">{option.iv.toFixed(1)}%</div>
+                      <div className="text-center">
+                        <div className="group relative inline-block">
+                          <span className="cursor-help text-primary">Greeks</span>
+                          <div className="invisible group-hover:visible absolute z-10 w-48 p-2 mt-1 text-xs rounded-lg bg-black border border-border -translate-x-1/2 left-1/2">
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="text-gray-400">Delta (Δ):</div>
+                              <div className="text-right text-primary">{option.greeks.delta.toFixed(3)}</div>
+                              <div className="text-gray-400">Gamma (Γ):</div>
+                              <div className="text-right text-primary">{option.greeks.gamma.toFixed(3)}</div>
+                              <div className="text-gray-400">Theta (Θ):</div>
+                              <div className="text-right text-primary">{option.greeks.theta.toFixed(3)}</div>
+                              <div className="text-gray-400">Vega (ν):</div>
+                              <div className="text-right text-primary">{option.greeks.vega.toFixed(3)}</div>
+                              <div className="text-gray-400">Rho (ρ):</div>
+                              <div className="text-right text-primary">{option.greeks.rho.toFixed(3)}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="mt-4 flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -307,12 +347,27 @@ export function LukzDemo() {
                     </Pie>
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: '1px solid #1e293b',
-                        borderRadius: '0.375rem'
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(30, 41, 59, 0.5)',
+                        borderRadius: '0.375rem',
+                        boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
                       }}
                       labelStyle={{ color: '#94a3b8' }}
                       itemStyle={{ color: '#e2e8f0' }}
+                      formatter={(value: any, name: string) => {
+                        const explanations: Record<string, string> = {
+                          bullish: 'Positive market sentiment indicating potential upward price movement',
+                          bearish: 'Negative market sentiment suggesting potential downward price movement',
+                          neutral: 'Balanced market sentiment with no strong directional bias',
+                          value: 'Percentage of market participants with this sentiment'
+                        }
+                        const key = name.toLowerCase()
+                        return [
+                          typeof value === 'number' ? `${value}%` : value,
+                          `${name}: ${key in explanations ? explanations[key] : ''}`
+                        ]
+                      }}
                     />
                   </PieChart>
                 </ResponsiveContainer>

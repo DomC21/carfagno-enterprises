@@ -34,10 +34,10 @@ export const colorClasses = {
     placeholder: 'placeholder:text-gray-400'
   },
   card: {
-    background: 'bg-blue-950/50',
-    hover: 'hover:bg-blue-900/50',
-    border: 'border-teal-500/20',
-    borderHover: 'hover:border-teal-400/50'
+    background: 'bg-black',
+    hover: 'hover:bg-blue-950/20 hover:shadow-[0_0_25px_rgba(59,130,246,0.2)]',
+    border: 'border-primary/20',
+    borderHover: 'hover:border-primary/50 hover:scale-[1.02] transform-gpu transition-all duration-300 ease-out'
   },
   heading: {
     gradient: 'bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent'
@@ -47,11 +47,11 @@ export const colorClasses = {
 export const animationClasses = {
   fadeIn: 'animate-fade-in',
   slideUp: 'animate-slide-up',
-  hover: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02]',
-  button: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-md',
-  icon: 'transition-all duration-300 ease-out transform-gpu group-hover:scale-[1.03]',
+  hover: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20',
+  button: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]',
+  icon: 'transition-all duration-300 ease-out transform-gpu group-hover:scale-[1.03] group-hover:shadow-lg group-hover:shadow-primary/20',
   parallax: 'transition-transform duration-500 ease-out transform-gpu',
-  glow: 'animate-glow transition-all duration-700 hover:shadow-md hover:shadow-teal-500/10',
+  glow: 'animate-glow transition-all duration-700 hover:shadow-[0_0_25px_rgba(59,130,246,0.2)] hover:scale-[1.02]',
   drift: 'animate-drift transition-all duration-[12s] ease-in-out infinite',
   shimmer: 'animate-shimmer transition-all duration-[8s] ease-in-out infinite',
   ticker: 'animate-ticker transition-all duration-[60s] linear infinite',
@@ -61,7 +61,8 @@ export const animationClasses = {
   dataFlow: 'animate-data-flow transition-all duration-[15s] ease-in-out infinite transform-gpu',
   graphFloat: 'animate-graph-float transition-all duration-[20s] ease-in-out infinite transform-gpu',
   fadeInScale: 'animate-fade-in-scale transition-all duration-300 ease-out transform-gpu',
-  buttonBase: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02]',
-  buttonHover: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]',
-  buttonGlow: `after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/10 after:to-transparent after:translate-x-[-200%] hover:after:translate-x-[200%] after:transition-transform after:duration-1000`
+  buttonBase: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20',
+  buttonHover: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-primary/50',
+  buttonGlow: `after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-primary/20 after:to-transparent after:translate-x-[-200%] hover:after:translate-x-[200%] after:transition-transform after:duration-1000`,
+  cardHover: 'transition-all duration-300 ease-out transform-gpu hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(59,130,246,0.2)] hover:border-primary/40'
 }

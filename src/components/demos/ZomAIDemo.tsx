@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, ComposedChart, ReferenceLine } from 'recharts'
+import { generateStockData, type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
 import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { HeatMap } from '../../components/ui/heat-map'
 
 interface Message {
   type: 'user' | 'ai'
@@ -12,8 +14,8 @@ interface Message {
   timestamp: number
   confidence?: number
   sentiment?: {
-    score: number
     label: 'positive' | 'negative' | 'neutral'
+    score: number
     keywords: string[]
   }
 }
@@ -39,6 +41,27 @@ const generateAIResponse = (): string => {
 export function ZomAIDemo() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
+  const [data, setData] = useState<StockData[]>([])
+
+  useEffect(() => {
+    // Initialize with some data
+    setData(generateStockData(50))
+
+    // Update data periodically with smooth transitions
+    const interval = setInterval(() => {
+      setData(prev => {
+        const newData = [...prev.slice(1), ...generateStockData(1)]
+        // Ensure smooth transition by maintaining data structure
+        return newData.map(item => ({
+          ...item,
+          // Add GPU-accelerated transition class
+          className: 'transform-gpu transition-all duration-300 ease-out'
+        }))
+      })
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
   const [loading, setLoading] = useState(false)
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics[]>([])
   const [selectedTimeframe, setSelectedTimeframe] = useState('1H')
@@ -54,18 +77,33 @@ export function ZomAIDemo() {
     }))
     setModelMetrics(metrics)
 
-    // Update data every 30 seconds
+    // Update data every 30 seconds with smooth transitions
     const interval = setInterval(() => {
-
-      setModelMetrics(prev => [
-        ...prev.slice(1),
-        {
-          timestamp: Date.now(),
-          accuracy: Math.random() * 0.15 + 0.8,
-          confidence: Math.random() * 0.2 + 0.75,
-          predictions: Math.floor(Math.random() * 1000 + 500)
-        }
-      ])
+      setModelMetrics(prev => {
+        const newMetrics = [
+          ...prev.slice(1),
+          {
+            timestamp: Date.now(),
+            accuracy: Math.random() * 0.15 + 0.8,
+            confidence: Math.random() * 0.2 + 0.75,
+            predictions: Math.floor(Math.random() * 1000 + 500)
+          }
+        ]
+        return newMetrics.map((metric, i) => ({
+          ...metric,
+          className: 'transform-gpu transition-all duration-500 ease-out',
+          animate: {
+            opacity: [0, 1],
+            y: [20, 0],
+            transition: {
+              type: 'spring',
+              stiffness: 300,
+              damping: 20,
+              delay: i * 0.05
+            }
+          }
+        }))
+      })
     }, 30000)
 
     return () => clearInterval(interval)
@@ -174,13 +212,21 @@ export function ZomAIDemo() {
                   />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#0f172a',
-                      border: '1px solid #1e293b',
-                      borderRadius: '0.375rem'
+                      backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(30, 41, 59, 0.5)',
+                      borderRadius: '0.375rem',
+                      boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)',
+                      transform: 'translateZ(0)',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                     }}
                     labelStyle={{ color: '#94a3b8' }}
                     itemStyle={{ color: '#e2e8f0' }}
-                    formatter={(value: number) => `${(value * 100).toFixed(1)}%`}
+                    formatter={(value: number) => [
+                      `${(value * 100).toFixed(1)}%`,
+                      'Model accuracy indicates prediction success rate'
+                    ]}
+                    wrapperStyle={{ transform: 'translateZ(0)' }}
                   />
                   <Line 
                     type="monotone" 
@@ -373,6 +419,111 @@ export function ZomAIDemo() {
         </Card>
       </motion.div>
 
+      {/* Technical Indicators */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          delay: 0.2
+        }}
+      >
+        <Card className="p-4 bg-black border-border">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Technical Analysis</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h4 className="text-sm font-medium text-primary mb-2">RSI</h4>
+              <div className="h-[150px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                    <XAxis 
+                      dataKey="timestamp" 
+                      tickFormatter={(value) => new Date(value).toLocaleTimeString()}
+                      stroke="#64748b"
+                    />
+                    <YAxis 
+                      domain={[0, 100]} 
+                      stroke="#64748b"
+                      ticks={[0, 30, 70, 100]}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: '#0f172a',
+                        border: '1px solid #1e293b',
+                        borderRadius: '0.375rem'
+                      }}
+                      labelStyle={{ color: '#94a3b8' }}
+                      itemStyle={{ color: '#e2e8f0' }}
+                      formatter={(value: number) => `${value.toFixed(2)}`}
+                    />
+                    <ReferenceLine y={70} stroke="#ef4444" strokeDasharray="3 3" />
+                    <ReferenceLine y={30} stroke="#10b981" strokeDasharray="3 3" />
+                    <Line 
+                      type="monotone" 
+                      dataKey="technicalIndicators.rsi" 
+                      stroke="#8b5cf6"
+                      dot={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-2 text-xs text-gray-400">
+                RSI measures momentum on a scale of 0 to 100. Values above 70 indicate overbought conditions, while values below 30 suggest oversold conditions.
+              </div>
+            </div>
+            <div>
+              <h4 className="text-sm font-medium text-primary mb-2">MACD</h4>
+              <div className="h-[150px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <ComposedChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                    <XAxis 
+                      dataKey="timestamp" 
+                      tickFormatter={(value) => new Date(value).toLocaleTimeString()}
+                      stroke="#64748b"
+                    />
+                    <YAxis stroke="#64748b" />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: '#0f172a',
+                        border: '1px solid #1e293b',
+                        borderRadius: '0.375rem'
+                      }}
+                      labelStyle={{ color: '#94a3b8' }}
+                      itemStyle={{ color: '#e2e8f0' }}
+                      formatter={(value: number) => `${value.toFixed(4)}`}
+                    />
+                    <Bar 
+                      dataKey="technicalIndicators.histogram" 
+                      fill="#8b5cf6"
+                      opacity={0.5}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="technicalIndicators.signal" 
+                      stroke="#ef4444"
+                      dot={false}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="technicalIndicators.macd" 
+                      stroke="#10b981"
+                      dot={false}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-2 text-xs text-gray-400">
+                MACD helps identify trend direction and momentum. The histogram shows the difference between MACD and its signal line.
+              </div>
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+
       {/* Stock Screening Results */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -457,6 +608,79 @@ export function ZomAIDemo() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+
+      {/* Market Sentiment Analysis */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          delay: 0.3
+        }}
+      >
+        <Card className="p-4 bg-black border-border">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Market Sentiment Analysis</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <HeatMap
+              data={messages
+                .filter(m => m.type === 'ai' && m.sentiment)
+                .map(m => ({
+                  timestamp: m.timestamp,
+                  sentiment: m.sentiment!.label,
+                  score: m.sentiment!.score,
+                  keywords: m.sentiment!.keywords
+                }))}
+              colors={{
+                positive: '#10b981',
+                neutral: '#64748b',
+                negative: '#ef4444'
+              }}
+            />
+            <div className="space-y-4">
+              <div className="text-sm text-gray-400 mb-4">
+                Real-time sentiment analysis based on market data, news, and social media trends
+              </div>
+              {messages
+                .filter(m => m.type === 'ai' && m.sentiment)
+                .slice(-3)
+                .map((message, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 20,
+                      delay: i * 0.1
+                    }}
+                    className={`p-3 rounded-lg ${
+                      message.sentiment?.label === 'positive' ? 'bg-green-950/20 border border-green-500/20' :
+                      message.sentiment?.label === 'negative' ? 'bg-red-950/20 border border-red-500/20' :
+                      'bg-blue-950/20 border border-blue-500/20'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-gray-400">
+                        {new Date(message.timestamp).toLocaleTimeString()}
+                      </span>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        message.sentiment?.label === 'positive' ? 'bg-green-950/30 text-green-400' :
+                        message.sentiment?.label === 'negative' ? 'bg-red-950/30 text-red-400' :
+                        'bg-blue-950/30 text-blue-400'
+                      }`}>
+                        {message.sentiment?.label.toUpperCase()}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-300">{message.content}</p>
+                  </motion.div>
+                ))}
             </div>
           </div>
         </Card>
