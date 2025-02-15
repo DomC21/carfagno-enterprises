@@ -424,8 +424,8 @@ function Lukz() {
                     if (!acc[flow.sector]) {
                       acc[flow.sector] = { callVolume: 0, putVolume: 0, ratio: 0 }
                     }
-                    acc[flow.sector].callVolume += flow.call_volume
-                    acc[flow.sector].putVolume += flow.put_volume
+                    acc[flow.sector].callVolume += flow.callVolume
+                    acc[flow.sector].putVolume += flow.putVolume
                     acc[flow.sector].ratio = acc[flow.sector].callVolume / acc[flow.sector].putVolume
                     return acc
                   }, {} as Record<string, { callVolume: number; putVolume: number; ratio: number }>)).map(([sector, data]) => {
@@ -468,13 +468,13 @@ function Lukz() {
                       <Legend />
                       <Line 
                         type="monotone" 
-                        dataKey="call_premium" 
+                        dataKey="callPremium" 
                         stroke="#14b8a6" 
                         name="Call Premium"
                       />
                       <Line 
                         type="monotone" 
-                        dataKey="put_premium" 
+                        dataKey="putPremium" 
                         stroke="#f59e0b" 
                         name="Put Premium"
                       />

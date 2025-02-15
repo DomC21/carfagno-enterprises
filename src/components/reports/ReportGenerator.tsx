@@ -147,7 +147,7 @@ export function ReportGenerator() {
               body: data.map(Object.values),
               margin: { top: 20 }
             })
-            yOffset = doc.lastAutoTable.finalY + 20
+            yOffset = (doc as any).lastAutoTable.finalY + 20 // TODO: Add proper type definition for jsPDF with autotable
             break
             
           case 'summary':

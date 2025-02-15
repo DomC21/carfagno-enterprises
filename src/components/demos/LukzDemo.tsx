@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
-import { Card } from '../../components/ui/card'
 import { motion } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
 import { DashboardLayout } from '../../components/ui/dashboard-layout'
@@ -33,7 +32,7 @@ export function LukzDemo() {
   // State
   const [selectedTimeframe, setSelectedTimeframe] = useState('1D')
   const timeframes = ['1H', '1D', '1W', '1M']
-  const [dashboardLayout, setDashboardLayout] = useState<any[]>([])
+  // No need to track dashboard layout state since it's handled by DashboardLayout component
 
   // Constants
   const SENTIMENT_COLORS = {
@@ -413,7 +412,7 @@ export function LukzDemo() {
     <div className="w-full">
       <DashboardLayout
         items={dashboardItems}
-        onLayoutChange={(newLayout) => setDashboardLayout(newLayout)}
+        onLayoutChange={() => {}}
         className="w-full"
       />
     </div>

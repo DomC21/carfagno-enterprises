@@ -1,4 +1,4 @@
-import * as React from 'react'
+// Component uses JSX which implicitly imports React
 import { motion } from 'framer-motion'
 import { Card } from '../ui/card'
 import { generateTradingPattern } from '../../utils/tradingPatterns'

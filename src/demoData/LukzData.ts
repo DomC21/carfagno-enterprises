@@ -110,7 +110,8 @@ export interface PremiumFlowData {
   expiry: string
   strike: number
   type: 'call' | 'put'
-  volume: number
+  callVolume: number
+  putVolume: number
   openInterest: number
   premium: number
   impliedVolatility: number
@@ -312,7 +313,8 @@ export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
   return Array.from({ length: count }, () => {
     const basePrice = faker.number.float({ min: 50, max: 500, fractionDigits: 2 })
     const type = faker.helpers.arrayElement(['call', 'put'])
-    const volume = faker.number.int({ min: 100, max: 10000 })
+    const callVolume = faker.number.int({ min: 100, max: 10000 })
+    const putVolume = faker.number.int({ min: 100, max: 10000 })
     const historicalVolume = Array.from({ length: 10 }, () => 
       faker.number.int({ min: 50, max: 15000 })
     )
@@ -325,7 +327,8 @@ export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
       expiry: faker.date.future().toISOString(),
       strike: basePrice * faker.number.float({ min: 0.8, max: 1.2 }),
       type,
-      volume,
+      callVolume,
+      putVolume,
       openInterest: faker.number.int({ min: 1000, max: 50000 }),
       premium: faker.number.float({ min: 0.5, max: 10, fractionDigits: 2 }),
       impliedVolatility: faker.number.float({ min: 0.1, max: 1, fractionDigits: 2 }),
@@ -338,7 +341,7 @@ export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
         vega: faker.number.float({ min: 0, max: 1, fractionDigits: 2 }),
         rho: faker.number.float({ min: -0.5, max: 0.5, fractionDigits: 2 })
       },
-      unusualActivity: volume > Math.max(...historicalVolume) * 1.5,
+      unusualActivity: (callVolume + putVolume) > Math.max(...historicalVolume) * 1.5,
       historicalVolume,
       priceAction: {
         current: basePrice,
@@ -429,4 +432,10 @@ export const congressionalTradeMockData = generateCongressionalTrades(10)
 export const earningsReportMockData = generateEarningsReports(5)
 export const insiderTradeMockData = generateInsiderTrades(5)
 export const premiumFlowMockData = generatePremiumFlow(10)
-export const mockInsights = generateChatGPTInsights(5)
+export const mockInsights = {
+  greekFlow: generateChatGPTInsights(1)[0],
+  congress: generateChatGPTInsights(1)[0],
+  earnings: generateChatGPTInsights(1)[0],
+  insider: generateChatGPTInsights(1)[0],
+  premiumFlow: generateChatGPTInsights(1)[0]
+}

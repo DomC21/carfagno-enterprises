@@ -1,4 +1,4 @@
-import * as React from 'react'
+// Component uses JSX which implicitly imports React
 import { motion } from 'framer-motion'
 import { Card } from '../ui/card'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
@@ -7,10 +7,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 interface PatternRecognitionProps {
   symbol?: string
-  initialPrice?: number
 }
 
-export function PatternRecognition({ symbol = 'AAPL', initialPrice = 180.0 }: PatternRecognitionProps) {
+export function PatternRecognition({ symbol = 'AAPL' }: PatternRecognitionProps) {
   const { data: stockData, isLoading } = useRealtimeData<StockData[]>(
     () => generateStockData(50),
     { interval: 1000 }
