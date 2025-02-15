@@ -363,7 +363,7 @@ export function NeuralNetworksDemo() {
                       delay: i * 0.1 + 0.3
                     }}
                     className={`p-3 rounded-lg ${
-                      d.pattern?.type === 'bullish' 
+                      d.pattern?.type === 'double-bottom' || d.pattern?.type === 'triangle'
                         ? 'bg-green-950/20 border border-green-500/20' 
                         : 'bg-red-950/20 border border-red-500/20'
                     }`}
@@ -373,9 +373,12 @@ export function NeuralNetworksDemo() {
                         {new Date(d.timestamp).toLocaleTimeString()}
                       </span>
                       <span className={`text-sm font-medium ${
-                        d.pattern?.type === 'bullish' ? 'text-green-400' : 'text-red-400'
+                        d.pattern?.type === 'double-bottom' || d.pattern?.type === 'triangle'
+                          ? 'text-green-400' : 'text-red-400'
                       }`}>
-                        {d.pattern?.type.toUpperCase()}
+                        {d.pattern?.type.split('-').map(word => 
+                          word.charAt(0).toUpperCase() + word.slice(1)
+                        ).join(' ')}
                       </span>
                     </div>
                     <div className="mt-2">
