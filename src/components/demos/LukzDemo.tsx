@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
-import { motion } from 'framer-motion'
-// Removed unused Slider import
+import { motion, AnimatePresence } from 'framer-motion'
+import { useRealtimeData } from '../../hooks/useRealtimeData'
 
 interface GreekMetrics {
   delta: number
@@ -13,47 +13,111 @@ interface GreekMetrics {
 }
 
 export function LukzDemo() {
-  const [optionsData, setOptionsData] = useState(generateOptionsData(10))
-  const [trades, setTrades] = useState(generateCongressionalTrades(5))
-  const [sentiment, setSentiment] = useState(generateMarketSentiment(1)[0])
-  const [greekMetrics, setGreekMetrics] = useState<GreekMetrics[]>(generateGreekMetrics(24))
   const [selectedTimeframe, setSelectedTimeframe] = useState('1D')
-  const [loading, setLoading] = useState(true)
-
   const timeframes = ['1H', '1D', '1W', '1M']
 
-  useEffect(() => {
-    // Initial data load
-    setOptionsData(generateOptionsData(10))
-    setTrades(generateCongressionalTrades(5))
-    setSentiment(generateMarketSentiment(1)[0])
-    setGreekMetrics(generateGreekMetrics(24))
-    setLoading(false)
+  const {
+    data: optionsData,
+    error: optionsError,
+    isLoading: optionsLoading,
+    lastUpdated: optionsLastUpdated
+  } = useRealtimeData(() => generateOptionsData(10), {
+    interval: 2000,
+    retryAttempts: 3
+  })
 
-    // Update data every 10 seconds
-    const interval = setInterval(() => {
-      setOptionsData(generateOptionsData(10))
-      setTrades(generateCongressionalTrades(5))
-      setSentiment(generateMarketSentiment(1)[0])
-      setGreekMetrics(generateGreekMetrics(24))
-    }, 10000)
+  const {
+    data: trades,
+    error: tradesError,
+    isLoading: tradesLoading,
+    lastUpdated: tradesLastUpdated
+  } = useRealtimeData(() => generateCongressionalTrades(5), {
+    interval: 5000,
+    retryAttempts: 3
+  })
 
-    return () => clearInterval(interval)
-  }, [])
+  const {
+    data: sentiment,
+    error: sentimentError,
+    isLoading: sentimentLoading,
+    lastUpdated: sentimentLastUpdated
+  } = useRealtimeData(() => generateMarketSentiment(1)[0], {
+    interval: 3000,
+    retryAttempts: 3
+  })
+
+  const {
+    data: greekMetrics,
+    error: greekMetricsError,
+    isLoading: greekMetricsLoading,
+    lastUpdated: greekMetricsLastUpdated
+  } = useRealtimeData(
+    () => generateGreekMetrics(
+      selectedTimeframe === '1H' ? 24 : 
+      selectedTimeframe === '1D' ? 48 : 
+      selectedTimeframe === '1W' ? 168 : 720
+    ),
+    {
+      interval: 1000,
+      retryAttempts: 3
+    }
+  )
 
   const handleTimeframeChange = (timeframe: string) => {
     setSelectedTimeframe(timeframe)
-    // Update Greek metrics based on timeframe
-    setGreekMetrics(generateGreekMetrics(timeframe === '1H' ? 24 : timeframe === '1D' ? 48 : timeframe === '1W' ? 168 : 720))
   }
 
-  if (loading) {
+  // Show loading state if any data stream is loading
+  if (optionsLoading || tradesLoading || sentimentLoading || greekMetricsLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+          <div className="text-sm text-gray-400">Loading real-time data...</div>
+        </div>
       </div>
     )
   }
+
+  // Show error state if any data stream has an error
+  if (optionsError || tradesError || sentimentError || greekMetricsError) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center gap-4 text-red-400">
+          <div className="text-lg font-medium">Error loading data</div>
+          <div className="text-sm">
+            {optionsError?.message || tradesError?.message || sentimentError?.message || greekMetricsError?.message}
+          </div>
+          <button 
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-950/20 border border-red-500/20 rounded-lg hover:bg-red-900/20 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Ensure all data is available
+  if (!optionsData || !trades || !sentiment || !greekMetrics) {
+    return null
+  }
+
+  // Data streaming status indicators
+  const DataStreamIndicator = ({ lastUpdated, isLoading }: { lastUpdated: Date | null, isLoading: boolean }) => (
+    <div className="flex items-center gap-2">
+      <div className={`w-2 h-2 rounded-full ${
+        isLoading ? 'bg-blue-500 animate-pulse' : 
+        lastUpdated ? 'bg-green-500' : 'bg-red-500'
+      }`} />
+      <span className="text-xs text-gray-400">
+        {isLoading ? 'Updating...' : 
+         lastUpdated ? `Updated ${new Date(lastUpdated).toLocaleTimeString()}` : 
+         'Waiting for data...'}
+      </span>
+    </div>
+  )
 
   const SENTIMENT_COLORS = {
     bullish: '#22c55e',
@@ -61,11 +125,11 @@ export function LukzDemo() {
     neutral: '#64748b'
   }
 
-  const sentimentData = [
+  const sentimentData = sentiment ? [
     { name: 'Bullish', value: sentiment.bullish },
     { name: 'Bearish', value: sentiment.bearish },
     { name: 'Neutral', value: sentiment.neutral }
-  ]
+  ] : []
 
   return (
     <div className="space-y-6">
@@ -80,23 +144,29 @@ export function LukzDemo() {
         }}
       >
         <Card className="p-4 bg-black border-border">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-primary">Greek Metrics</h3>
-            <div className="flex gap-2">
-              {timeframes.map((tf) => (
-                <button
-                  key={tf}
-                  onClick={() => handleTimeframeChange(tf)}
-                  className={`px-3 py-1 rounded-md text-sm ${
-                    selectedTimeframe === tf
-                      ? 'bg-primary text-white'
-                      : 'bg-blue-950/20 text-gray-400 hover:bg-blue-900/30'
-                  }`}
-                >
-                  {tf}
-                </button>
-              ))}
+          <div className="flex flex-col gap-2 mb-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-primary">Greek Metrics</h3>
+              <div className="flex gap-2">
+                {timeframes.map((tf) => (
+                  <button
+                    key={tf}
+                    onClick={() => handleTimeframeChange(tf)}
+                    className={`px-3 py-1 rounded-md text-sm ${
+                      selectedTimeframe === tf
+                        ? 'bg-primary text-white'
+                        : 'bg-blue-950/20 text-gray-400 hover:bg-blue-900/30'
+                    }`}
+                  >
+                    {tf}
+                  </button>
+                ))}
+              </div>
             </div>
+            <DataStreamIndicator 
+              lastUpdated={greekMetricsLastUpdated} 
+              isLoading={greekMetricsLoading} 
+            />
           </div>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -167,7 +237,15 @@ export function LukzDemo() {
         }}
       >
         <Card className="p-4 bg-black border-border">
-          <h3 className="text-lg font-semibold mb-4 text-primary">Options Flow</h3>
+          <div className="flex flex-col gap-2 mb-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-primary">Options Flow</h3>
+              <DataStreamIndicator 
+                lastUpdated={optionsLastUpdated} 
+                isLoading={optionsLoading} 
+              />
+            </div>
+          </div>
           <div className="h-[400px]">
             <div className="overflow-x-auto">
               <div className="min-w-[800px]">
@@ -246,10 +324,18 @@ export function LukzDemo() {
           }}
         >
           <Card className="p-4 bg-black border-border">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-primary">Congressional Trades</h3>
-              <div className="text-sm text-gray-400">
-                Last {trades.length} Transactions
+            <div className="flex flex-col gap-2 mb-4">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold text-primary">Congressional Trades</h3>
+                <div className="flex items-center gap-4">
+                  <div className="text-sm text-gray-400">
+                    Last {trades.length} Transactions
+                  </div>
+                  <DataStreamIndicator 
+                    lastUpdated={tradesLastUpdated} 
+                    isLoading={tradesLoading} 
+                  />
+                </div>
               </div>
             </div>
             <div className="space-y-4">
@@ -324,7 +410,15 @@ export function LukzDemo() {
           }}
         >
           <Card className="p-4 bg-black border-border">
-            <h3 className="text-lg font-semibold mb-4 text-primary">Market Sentiment</h3>
+            <div className="flex flex-col gap-2 mb-4">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold text-primary">Market Sentiment</h3>
+                <DataStreamIndicator 
+                  lastUpdated={sentimentLastUpdated} 
+                  isLoading={sentimentLoading} 
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-6">
               <div className="h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
