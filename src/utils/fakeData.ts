@@ -66,6 +66,8 @@ export interface TechnicalIndicators {
   histogram: number;
 }
 
+import { TradingPattern } from './tradingPatterns';
+
 export interface StockData {
   timestamp: number;
   price: number;  // Current price for backward compatibility
@@ -74,12 +76,13 @@ export interface StockData {
   low: number;
   close: number;
   volume: number;
+  averageVolume: number;
   orderBook?: OrderBook;
   technicalIndicators?: TechnicalIndicators;
-  pattern?: {
-    type: 'bullish' | 'bearish';
-    confidence: number;
-  };
+  pattern?: TradingPattern;
+  priceTarget?: number;
+  supportLevels?: number[];
+  resistanceLevels?: number[];
 }
 
 export const generateOrderBook = (basePrice: number): OrderBook => {
@@ -181,10 +184,13 @@ export const generateStockData = (count: number): StockData[] => {
     prevMACD = macd;
     prevSignal = signal;
 
-    const pattern = faker.number.int({ min: 1, max: 10 }) > 8 ? {
-      type: close > open ? 'bullish' as const : 'bearish' as const,
-      confidence: faker.number.float({ min: 0.6, max: 0.95 })
-    } : undefined;
+    // Generate trading pattern with 20% probability
+    const pattern = faker.number.int({ min: 1, max: 10 }) > 8 
+      ? generateTradingPattern(close)
+      : undefined;
+
+    // Calculate average volume for volume profile analysis
+    const averageVolume = volumeBase * 1.5;
 
     prevClose = close;
 
@@ -195,9 +201,13 @@ export const generateStockData = (count: number): StockData[] => {
       high, 
       low, 
       close, 
-      volume, 
+      volume,
+      averageVolume,
       orderBook, 
       pattern,
+      priceTarget: pattern?.priceTarget,
+      supportLevels: pattern?.supportLevels,
+      resistanceLevels: pattern?.resistanceLevels,
       technicalIndicators: {
         rsi,
         macd,
