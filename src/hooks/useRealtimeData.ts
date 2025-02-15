@@ -20,12 +20,12 @@ interface UseRealtimeDataResult<T> {
 export function useRealtimeData<T>(
   generator: () => T | Promise<T>,
   {
-    interval = 5000,
+    interval = 100, // Default to 100ms updates for real-time data
     onError,
     onUpdate,
     initialDelay = 0,
     retryAttempts = 3,
-    retryDelay = 1000
+    retryDelay = 50 // Faster retry for real-time data
   }: UseRealtimeDataOptions = {}
 ): UseRealtimeDataResult<T> {
   const [data, setData] = useState<T | null>(null)
@@ -38,41 +38,89 @@ export function useRealtimeData<T>(
     try {
       setIsLoading(true)
       const result = await (generator instanceof Promise ? generator : generator())
+      
+      // Use requestAnimationFrame for smoother state updates
+      requestAnimationFrame(() => {
+        setData(result)
+        setError(null)
+        setLastUpdated(new Date())
+        setUpdateCount(prev => prev + 1)
+        onUpdate?.(result)
+        setIsLoading(false)
+      })
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Unknown error occurred')
+      if (attempt < retryAttempts) {
+        // Use requestAnimationFrame for retry scheduling
+        requestAnimationFrame(() => {
+          setTimeout(() => fetchData(attempt + 1), retryDelay)
+        })
+      } else {
+        requestAnimationFrame(() => {
+          setError(error)
+          onError?.(error)
+          setIsLoading(false)
+        })
+      }
+    }
+  }, [generator, onError, onUpdate, retryAttempts, retryDelay])
+
+  // Memoize state updates for better performance
+  const updateState = useCallback((result: T) => {
+    requestAnimationFrame(() => {
       setData(result)
       setError(null)
       setLastUpdated(new Date())
       setUpdateCount(prev => prev + 1)
       onUpdate?.(result)
-    } catch (err) {
-      const error = err instanceof Error ? err : new Error('Unknown error occurred')
-      if (attempt < retryAttempts) {
-        setTimeout(() => fetchData(attempt + 1), retryDelay)
-      } else {
-        setError(error)
-        onError?.(error)
-      }
-    } finally {
       setIsLoading(false)
-    }
-  }, [generator, onError, onUpdate, retryAttempts, retryDelay])
+    })
+  }, [onUpdate])
 
   useEffect(() => {
-    // Initial data load with optional delay
-    const initialLoadTimeout = setTimeout(() => {
-      fetchData()
+    let mounted = true
+    let frameId: number
+    let timeoutId: NodeJS.Timeout
+    let intervalId: NodeJS.Timeout
+
+    const update = async () => {
+      if (!mounted) return
+      
+      try {
+        setIsLoading(true)
+        const result = await (generator instanceof Promise ? generator : generator())
+        if (mounted) {
+          updateState(result)
+        }
+      } catch (err) {
+        if (!mounted) return
+        const error = err instanceof Error ? err : new Error('Unknown error occurred')
+        setError(error)
+        onError?.(error)
+        setIsLoading(false)
+      }
+    }
+
+    // Initial load with delay
+    timeoutId = setTimeout(() => {
+      update()
     }, initialDelay)
 
-    // Update data at specified interval
-    const intervalId = setInterval(() => {
-      fetchData()
+    // High-performance interval updates
+    intervalId = setInterval(() => {
+      frameId = requestAnimationFrame(() => {
+        update()
+      })
     }, interval)
 
-    // Cleanup on unmount
+    // Cleanup
     return () => {
-      clearTimeout(initialLoadTimeout)
+      mounted = false
+      clearTimeout(timeoutId)
       clearInterval(intervalId)
+      cancelAnimationFrame(frameId)
     }
-  }, [fetchData, interval, initialDelay])
+  }, [generator, interval, initialDelay, updateState, onError])
 
   return {
     data,
