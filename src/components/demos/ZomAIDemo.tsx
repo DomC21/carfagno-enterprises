@@ -52,7 +52,7 @@ export function ZomAIDemo() {
       setData(prev => {
         const newData = [...prev.slice(1), ...generateStockData(1)]
         // Ensure smooth transition by maintaining data structure
-        return newData.map((item, i) => ({
+        return newData.map(item => ({
           ...item,
           // Add GPU-accelerated transition class
           className: 'transform-gpu transition-all duration-300 ease-out'
