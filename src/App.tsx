@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import { Layout } from './components/layout'
+import { KeyboardProvider } from './providers/KeyboardProvider'
+import { AccessibilityProvider } from './providers/AccessibilityProvider'
 import { AlertProvider } from './contexts/AlertContext'
 
 // Lazy load route components
@@ -19,18 +21,22 @@ const LoadingFallback = () => (
 
 export default function App() {
   return (
-    <AlertProvider>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/coaching" element={<CoachingPage />} />
-            <Route path="/projects/neural-networks" element={<NeuralNetworks />} />
-            <Route path="/projects/lukz" element={<Lukz />} />
-            <Route path="/projects/zom-ai" element={<ZomAI />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </AlertProvider>
+    <AccessibilityProvider>
+      <KeyboardProvider>
+        <AlertProvider>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/coaching" element={<CoachingPage />} />
+                <Route path="/projects/neural-networks" element={<NeuralNetworks />} />
+                <Route path="/projects/lukz" element={<Lukz />} />
+                <Route path="/projects/zom-ai" element={<ZomAI />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </AlertProvider>
+      </KeyboardProvider>
+    </AccessibilityProvider>
   )
 }
