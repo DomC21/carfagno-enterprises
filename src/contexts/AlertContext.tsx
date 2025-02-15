@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Alert, AlertManager } from '../components/ui/alert-manager'
 import { useAlerts } from '../hooks/useAlerts'
 
-const { createContext, useContext, useCallback } = React
+const { createContext, useContext } = React
 type ReactNode = React.ReactNode
 
 interface AlertContextValue {
