@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { generateRandomSymbol, generateRelatedSymbols } from '../utils/symbolGenerator'
 
 export interface GreekFlowData {
   id: string
@@ -158,7 +159,7 @@ export const generateGreekFlowData = (count: number = 5): GreekFlowData[] => {
   
   return Array.from({ length: count }, (_, i) => {
     const index = i % symbols.length
-    const delta = faker.number.float({ min: -1, max: 1, precision: 0.001 })
+    const delta = faker.number.float({ min: -1, max: 1, fractionDigits: 3 })
     const sentiment = delta > 0.3 ? 'bullish' : delta < -0.3 ? 'bearish' : 'neutral'
     
     return {
@@ -166,22 +167,22 @@ export const generateGreekFlowData = (count: number = 5): GreekFlowData[] => {
       timestamp: new Date().toISOString(),
       symbol: symbols[index],
       delta,
-      gamma: faker.number.float({ min: 0, max: 0.2, precision: 0.0001 }),
-      theta: faker.number.float({ min: -1, max: 0, precision: 0.001 }),
-      vega: faker.number.float({ min: 0, max: 1, precision: 0.001 }),
-      rho: faker.number.float({ min: -0.5, max: 0.5, precision: 0.001 }),
+      gamma: faker.number.float({ min: 0, max: 0.2, fractionDigits: 4 }),
+      theta: faker.number.float({ min: -1, max: 0, fractionDigits: 3 }),
+      vega: faker.number.float({ min: 0, max: 1, fractionDigits: 3 }),
+      rho: faker.number.float({ min: -0.5, max: 0.5, fractionDigits: 3 }),
       volume: faker.number.int({ min: 1000, max: 100000 }),
       openInterest: faker.number.int({ min: 5000, max: 500000 }),
-      impliedVolatility: faker.number.float({ min: 0.1, max: 1, precision: 0.001 }),
-      historicalVolatility: faker.number.float({ min: 0.1, max: 1, precision: 0.001 }),
+      impliedVolatility: faker.number.float({ min: 0.1, max: 1, fractionDigits: 3 }),
+      historicalVolatility: faker.number.float({ min: 0.1, max: 1, fractionDigits: 3 }),
       sentiment,
-      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 }),
+      confidence: faker.number.float({ min: 0.6, max: 0.95, fractionDigits: 2 }),
       sector: sectors[index],
       marketCap: faker.number.int({ min: 1e8, max: 1e12 }),
-      beta: faker.number.float({ min: 0.5, max: 2, precision: 0.01 }),
+      beta: faker.number.float({ min: 0.5, max: 2, fractionDigits: 2 }),
       correlations: symbols.reduce((acc, sym) => ({
         ...acc,
-        [sym]: faker.number.float({ min: -1, max: 1, precision: 0.01 })
+        [sym]: faker.number.float({ min: -1, max: 1, fractionDigits: 2 })
       }), {})
     }
   })
@@ -202,7 +203,7 @@ export const generateCongressionalTrades = (count: number = 10): CongressionalTr
     id: faker.string.uuid(),
     date: faker.date.recent().toISOString(),
     representative: faker.person.fullName(),
-    symbol: faker.finance.symbol(),
+    symbol: generateRandomSymbol(),
     type: faker.helpers.arrayElement(['BUY', 'SELL']),
     amount: `$${faker.number.int({ min: 10000, max: 1000000 }).toLocaleString()}-${faker.number.int({ min: 1000000, max: 5000000 }).toLocaleString()}`,
     sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
@@ -211,38 +212,38 @@ export const generateCongressionalTrades = (count: number = 10): CongressionalTr
     party: faker.helpers.arrayElement(parties),
     state: faker.helpers.arrayElement(states),
     historicalTrades: faker.number.int({ min: 0, max: 50 }),
-    successRate: faker.number.float({ min: 0.3, max: 0.9, precision: 0.01 }),
+    successRate: faker.number.float({ min: 0.3, max: 0.9, fractionDigits: 2 }),
     avgHoldingPeriod: faker.number.int({ min: 30, max: 365 }),
     relatedBills: Array.from({ length: faker.number.int({ min: 0, max: 3 }) }, () =>
       faker.lorem.sentence()
     ),
-    confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+    confidence: faker.number.float({ min: 0.6, max: 0.95, fractionDigits: 2 })
   }))
 }
 
 // Generate mock earnings report data
 export const generateEarningsReports = (count: number = 5): EarningsReport[] => {
   return Array.from({ length: count }, () => {
-    const expectedEPS = faker.number.float({ min: 0.5, max: 5, precision: 0.01 })
-    const actualEPS = expectedEPS * faker.number.float({ min: 0.8, max: 1.2, precision: 0.01 })
+    const expectedEPS = faker.number.float({ min: 0.5, max: 5, fractionDigits: 2 })
+    const actualEPS = expectedEPS * faker.number.float({ min: 0.8, max: 1.2, fractionDigits: 2 })
     const expectedRevenue = faker.number.int({ min: 1e8, max: 1e10 })
-    const actualRevenue = expectedRevenue * faker.number.float({ min: 0.8, max: 1.2, precision: 0.01 })
+    const actualRevenue = expectedRevenue * faker.number.float({ min: 0.8, max: 1.2, fractionDigits: 2 })
     
     return {
       id: faker.string.uuid(),
-      symbol: faker.finance.symbol(),
+      symbol: generateRandomSymbol(),
       date: faker.date.recent().toISOString(),
       timeOfDay: faker.helpers.arrayElement(['pre-market', 'after-hours']),
       expectedEPS,
       actualEPS,
       surprise: ((actualEPS - expectedEPS) / expectedEPS) * 100,
-      priceChange: faker.number.float({ min: -10, max: 10, precision: 0.1 }),
+      priceChange: faker.number.float({ min: -10, max: 10, fractionDigits: 1 }),
       volume: faker.number.int({ min: 1e5, max: 1e7 }),
       sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
       revenue: {
         expected: expectedRevenue,
         actual: actualRevenue,
-        growth: faker.number.float({ min: -20, max: 50, precision: 0.1 })
+        growth: faker.number.float({ min: -20, max: 50, fractionDigits: 1 })
       },
       guidance: {
         eps: {
@@ -255,9 +256,9 @@ export const generateEarningsReports = (count: number = 5): EarningsReport[] => 
         }
       },
       metrics: {
-        grossMargin: faker.number.float({ min: 0.2, max: 0.8, precision: 0.01 }),
-        operatingMargin: faker.number.float({ min: 0.1, max: 0.4, precision: 0.01 }),
-        netMargin: faker.number.float({ min: 0.05, max: 0.3, precision: 0.01 }),
+        grossMargin: faker.number.float({ min: 0.2, max: 0.8, fractionDigits: 2 }),
+        operatingMargin: faker.number.float({ min: 0.1, max: 0.4, fractionDigits: 2 }),
+        netMargin: faker.number.float({ min: 0.05, max: 0.3, fractionDigits: 2 }),
         fcf: faker.number.int({ min: 1e7, max: 1e9 })
       },
       callTranscript: faker.lorem.paragraphs(3),
@@ -266,7 +267,7 @@ export const generateEarningsReports = (count: number = 5): EarningsReport[] => 
         hold: faker.number.int({ min: 2, max: 15 }),
         sell: faker.number.int({ min: 0, max: 10 })
       },
-      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+      confidence: faker.number.float({ min: 0.6, max: 0.95, fractionDigits: 2 })
     }
   })
 }
@@ -275,13 +276,13 @@ export const generateEarningsReports = (count: number = 5): EarningsReport[] => 
 export const generateInsiderTrades = (count: number = 5): InsiderTrade[] => {
   return Array.from({ length: count }, () => {
     const shares = faker.number.int({ min: 1000, max: 100000 })
-    const price = faker.number.float({ min: 10, max: 1000, precision: 0.01 })
+    const price = faker.number.float({ min: 10, max: 1000, fractionDigits: 2 })
     const type = faker.helpers.arrayElement(['BUY', 'SELL'])
     
     return {
       id: faker.string.uuid(),
       date: faker.date.recent().toISOString(),
-      symbol: faker.finance.symbol(),
+      symbol: generateRandomSymbol(),
       insider_name: faker.person.fullName(),
       title: faker.helpers.arrayElement(['CEO', 'CFO', 'CTO', 'Director', 'VP']),
       type,
@@ -293,15 +294,15 @@ export const generateInsiderTrades = (count: number = 5): InsiderTrade[] => {
         date: faker.date.past().toISOString(),
         type: faker.helpers.arrayElement(['BUY', 'SELL']),
         shares: faker.number.int({ min: 1000, max: 100000 }),
-        price: faker.number.float({ min: 10, max: 1000, precision: 0.01 })
+        price: faker.number.float({ min: 10, max: 1000, fractionDigits: 2 })
       })),
       relationToEarnings: faker.number.int({ min: -30, max: 30 }),
       stockPerformance: {
-        oneDay: faker.number.float({ min: -5, max: 5, precision: 0.1 }),
-        oneWeek: faker.number.float({ min: -10, max: 10, precision: 0.1 }),
-        oneMonth: faker.number.float({ min: -20, max: 20, precision: 0.1 })
+        oneDay: faker.number.float({ min: -5, max: 5, fractionDigits: 1 }),
+        oneWeek: faker.number.float({ min: -10, max: 10, fractionDigits: 1 }),
+        oneMonth: faker.number.float({ min: -20, max: 20, fractionDigits: 1 })
       },
-      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+      confidence: faker.number.float({ min: 0.6, max: 0.95, fractionDigits: 2 })
     }
   })
 }
@@ -309,7 +310,7 @@ export const generateInsiderTrades = (count: number = 5): InsiderTrade[] => {
 // Generate mock premium flow data
 export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
   return Array.from({ length: count }, () => {
-    const basePrice = faker.number.float({ min: 50, max: 500, precision: 0.01 })
+    const basePrice = faker.number.float({ min: 50, max: 500, fractionDigits: 2 })
     const type = faker.helpers.arrayElement(['call', 'put'])
     const volume = faker.number.int({ min: 100, max: 10000 })
     const historicalVolume = Array.from({ length: 10 }, () => 
@@ -319,23 +320,23 @@ export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
     return {
       id: faker.string.uuid(),
       timestamp: new Date().toISOString(),
-      symbol: faker.finance.symbol(),
+      symbol: generateRandomSymbol(),
       sector: faker.helpers.arrayElement(['Technology', 'Healthcare', 'Finance', 'Energy']),
       expiry: faker.date.future().toISOString(),
       strike: basePrice * faker.number.float({ min: 0.8, max: 1.2 }),
       type,
       volume,
       openInterest: faker.number.int({ min: 1000, max: 50000 }),
-      premium: faker.number.float({ min: 0.5, max: 10, precision: 0.01 }),
-      impliedVolatility: faker.number.float({ min: 0.1, max: 1, precision: 0.01 }),
+      premium: faker.number.float({ min: 0.5, max: 10, fractionDigits: 2 }),
+      impliedVolatility: faker.number.float({ min: 0.1, max: 1, fractionDigits: 2 }),
       greeks: {
         delta: type === 'call'
-          ? faker.number.float({ min: 0, max: 1, precision: 0.01 })
-          : faker.number.float({ min: -1, max: 0, precision: 0.01 }),
-        gamma: faker.number.float({ min: 0, max: 0.2, precision: 0.001 }),
-        theta: faker.number.float({ min: -1, max: 0, precision: 0.01 }),
-        vega: faker.number.float({ min: 0, max: 1, precision: 0.01 }),
-        rho: faker.number.float({ min: -0.5, max: 0.5, precision: 0.01 })
+          ? faker.number.float({ min: 0, max: 1, fractionDigits: 2 })
+          : faker.number.float({ min: -1, max: 0, fractionDigits: 2 }),
+        gamma: faker.number.float({ min: 0, max: 0.2, fractionDigits: 3 }),
+        theta: faker.number.float({ min: -1, max: 0, fractionDigits: 2 }),
+        vega: faker.number.float({ min: 0, max: 1, fractionDigits: 2 }),
+        rho: faker.number.float({ min: -0.5, max: 0.5, fractionDigits: 2 })
       },
       unusualActivity: volume > Math.max(...historicalVolume) * 1.5,
       historicalVolume,
@@ -346,7 +347,7 @@ export const generatePremiumFlow = (count: number = 10): PremiumFlowData[] => {
         low: basePrice * faker.number.float({ min: 0.95, max: 0.98 })
       },
       sentiment: faker.helpers.arrayElement(['bullish', 'bearish', 'neutral']),
-      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 })
+      confidence: faker.number.float({ min: 0.6, max: 0.95, fractionDigits: 2 })
     }
   })
 }
@@ -385,10 +386,10 @@ export const generateChatGPTInsights = (count: number = 5): ChatGPTInsight[] => 
     return {
       id: faker.string.uuid(),
       timestamp: faker.date.recent().toISOString(),
-      symbol: faker.finance.symbol(),
+      symbol: generateRandomSymbol(),
       insight: faker.helpers.arrayElement(insights),
       type,
-      confidence: faker.number.float({ min: 0.6, max: 0.95, precision: 0.01 }),
+      confidence: faker.number.float({ min: 0.6, max: 0.95, fractionDigits: 2 }),
       sources: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () =>
         faker.helpers.arrayElement([
           'Market Data',
@@ -398,15 +399,13 @@ export const generateChatGPTInsights = (count: number = 5): ChatGPTInsight[] => 
           'Technical Analysis'
         ])
       ),
-      relatedSymbols: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () =>
-        faker.finance.symbol()
-      ),
+      relatedSymbols: generateRelatedSymbols(faker.number.int({ min: 1, max: 3 })),
       metrics: {
-        sentiment: faker.number.float({ min: -1, max: 1, precision: 0.01 }),
-        momentum: faker.number.float({ min: -1, max: 1, precision: 0.01 }),
-        volatility: faker.number.float({ min: 0, max: 1, precision: 0.01 })
+        sentiment: faker.number.float({ min: -1, max: 1, fractionDigits: 2 }),
+        momentum: faker.number.float({ min: -1, max: 1, fractionDigits: 2 }),
+        volatility: faker.number.float({ min: 0, max: 1, fractionDigits: 2 })
       },
-      historicalAccuracy: faker.number.float({ min: 0.6, max: 0.9, precision: 0.01 }),
+      historicalAccuracy: faker.number.float({ min: 0.6, max: 0.9, fractionDigits: 2 }),
       validUntil: faker.date.future().toISOString(),
       tags: Array.from({ length: faker.number.int({ min: 1, max: 4 }) }, () =>
         faker.helpers.arrayElement([
