@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
 
-interface GreekMetrics {
+// Types for Greek metrics data
+type GreekMetricsData = {
   delta: number
   gamma: number
   theta: number
@@ -51,7 +52,7 @@ export function LukzDemo() {
     error: greekMetricsError,
     isLoading: greekMetricsLoading,
     lastUpdated: greekMetricsLastUpdated
-  } = useRealtimeData(
+  } = useRealtimeData<GreekMetricsData[]>(
     () => generateGreekMetrics(
       selectedTimeframe === '1H' ? 24 : 
       selectedTimeframe === '1D' ? 48 : 
