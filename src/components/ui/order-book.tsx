@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { motion } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
 import { cn } from '../../utils/styles'
