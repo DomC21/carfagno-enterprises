@@ -109,32 +109,40 @@ export default function Projects() {
                         "rgba(234, 179, 8, 0.5)"
                       }
                     >
-                    <div className="p-8 sm:p-10">
-                      <div className={`w-20 h-20 rounded-2xl mb-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} shadow-xl transform-gpu transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}>
-                        <Icon className="w-10 h-10 text-white transform-gpu transition-transform duration-300 group-hover:rotate-3" />
+                      <div className="p-8 sm:p-10">
+                        <div className={`w-20 h-20 rounded-2xl mb-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} shadow-xl transform-gpu transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}>
+                          <Icon className="w-10 h-10 text-white transform-gpu transition-transform duration-300 group-hover:rotate-3" />
+                        </div>
+                        
+                        <h3 className="text-2xl sm:text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold mb-6 tracking-tight">
+                          {project.title}
+                        </h3>
+                        
+                        <p className="text-lg sm:text-xl text-gray-300 group-hover:text-white transition-colors duration-300 mb-10 leading-relaxed">
+                          {project.description}
+                        </p>
+                        
+                        <div className="space-y-5">
+                          <h4 className="text-xl font-bold text-primary tracking-tight">Key Features</h4>
+                          {project.features.map((feature, i) => (
+                            <EnhancedTooltip
+                              key={i}
+                              content="Feature Detail"
+                              description={feature}
+                              side="right"
+                            >
+                              <div 
+                                className="flex items-center gap-4 text-gray-400 group-hover:text-gray-200 transition-all duration-300 transform-gpu hover:translate-x-2"
+                              >
+                                <div className="w-3 h-3 rounded-full bg-primary transform-gpu transition-transform duration-300 group-hover:scale-125" />
+                                <span className="text-lg">{feature}</span>
+                              </div>
+                            </EnhancedTooltip>
+                          ))}
+                        </div>
                       </div>
-                      
-                      <h3 className="text-2xl sm:text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold mb-6 tracking-tight">
-                        {project.title}
-                      </h3>
-                      
-                      <p className="text-lg sm:text-xl text-gray-300 group-hover:text-white transition-colors duration-300 mb-10 leading-relaxed">
-                        {project.description}
-                      </p>
-                      
-                      <div className="space-y-5">
-                        <h4 className="text-xl font-bold text-primary tracking-tight">Key Features</h4>
-                        {project.features.map((feature, i) => (
-                          <div 
-                            key={i}
-                            className="flex items-center gap-4 text-gray-400 group-hover:text-gray-200 transition-all duration-300 transform-gpu hover:translate-x-2"
-                          >
-                            <div className="w-3 h-3 rounded-full bg-primary transform-gpu transition-transform duration-300 group-hover:scale-125" />
-                            <span className="text-lg">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    </FeatureCard>
+                  </EnhancedTooltip>
                   </FeatureCard>
                 </Link>
               </motion.div>
