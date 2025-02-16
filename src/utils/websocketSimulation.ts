@@ -107,6 +107,7 @@ export function aggregateMarketData(messages: WebSocketMessage[]): StockData {
     bidSize: latestQuote.bidSize,
     askSize: latestQuote.askSize,
     depth: latestDepth || { bids: [], asks: [] },
+    averageVolume: Math.floor(trades.reduce((sum, t) => sum + t.data.volume, 0) / trades.length),
     technicalIndicators: {
       rsi: 50 + (Math.random() - 0.5) * 20,
       macd: (Math.random() - 0.5) * 0.5,
