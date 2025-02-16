@@ -61,6 +61,10 @@ module.exports = {
   				from: { opacity: '0' },
   				to: { opacity: '1' }
   			},
+        'ripple': {
+          '0%': { transform: 'scale(0) translate(-50%, -50%)', opacity: '0.5' },
+          '100%': { transform: 'scale(4) translate(-12.5%, -12.5%)', opacity: '0' }
+        },
   			'slide-up': {
   				from: { transform: 'translateY(20px)', opacity: '0' },
   				to: { transform: 'translateY(0)', opacity: '1' }
@@ -138,6 +142,7 @@ module.exports = {
   			'ticker': 'ticker 60s linear infinite',
   			'counting': 'counting 10s ease-in-out infinite',
   			'flow': 'flow 30s ease-in-out infinite',
+        'ripple': 'ripple 1s ease-out forwards',
         'glitch': 'glitch 3s ease-in-out infinite',
         'stock-ticker': 'stock-ticker 30s linear infinite',
         'data-flow': 'data-flow 15s ease-in-out infinite',
