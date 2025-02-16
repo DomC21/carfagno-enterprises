@@ -4,7 +4,7 @@ import { type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
-import { Send, FileText, TrendingUp, Brain, Zap, ChartBar } from 'lucide-react'
+import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion, AnimatePresence, useAnimation } from 'framer-motion'
 import { HeatMap } from '../../components/ui/heat-map'
 import { MarketStatus } from '../../components/ui/market-status'
@@ -14,8 +14,7 @@ import { simulateWebSocket, aggregateMarketData, type WebSocketMessage } from '.
 import { CustomTooltip } from '../../components/ui/custom-tooltip'
 import { ParticleBackground } from '../ui/particle-background'
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts'
-import { DepthChart } from '../ui/depth-chart'
-import { generateFakeDepthData } from '../../utils/fakeData'
+import { DepthChart, type DepthData } from '../ui/depth-chart'
 
 interface Message {
   type: 'user' | 'ai'
@@ -215,8 +214,17 @@ export function ZomAIDemo() {
 
     // Detect patterns in current market data
     const latestData = data[data.length - 1]
-    const hasPattern = latestData?.technicalIndicators?.rsi > 70 || latestData?.technicalIndicators?.rsi < 30
+    const rsi = latestData?.technicalIndicators?.rsi ?? 50
+    const hasPattern = rsi > 70 || rsi < 30
     setPatternDetected(hasPattern)
+
+    // Add visual feedback for AI processing
+    const processingCard = document.querySelector('.glassmorphism')
+    if (processingCard && aiProcessing) {
+      processingCard.classList.add('ai-processing')
+    } else if (processingCard) {
+      processingCard.classList.remove('ai-processing')
+    }
 
     // Simulate AI response delay with enhanced processing
     setTimeout(() => {
