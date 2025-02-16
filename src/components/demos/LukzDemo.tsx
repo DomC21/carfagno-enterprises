@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
 import { DashboardLayout } from '@/components/ui/dashboard-layout'
+import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts'
+import { OptionsFlow3D } from '../ui/options-flow-3d'
+import { HeatMap } from '../ui/heat-map'
+import { EnhancedTooltip } from '../ui/enhanced-tooltip'
 
 // Types for Greek metrics data
 type GreekMetricsData = {
@@ -31,8 +35,23 @@ const DataStreamIndicator = ({ lastUpdated, isLoading }: { lastUpdated: Date | n
 export function LukzDemo() {
   // State
   const [selectedTimeframe, setSelectedTimeframe] = useState('1D')
+  const [selectedView, setSelectedView] = useState<'2d' | '3d'>('2d')
+  const [showShortcuts, setShowShortcuts] = useState(false)
   const timeframes = ['1H', '1D', '1W', '1M']
-  // No need to track dashboard layout state since it's handled by DashboardLayout component
+  const controls = useAnimation()
+
+  // Keyboard shortcuts
+  const shortcuts = {
+    'ctrl+t': () => setSelectedTimeframe(prev => {
+      const currentIndex = timeframes.indexOf(prev)
+      return timeframes[(currentIndex + 1) % timeframes.length]
+    }),
+    'ctrl+v': () => setSelectedView(prev => prev === '2d' ? '3d' : '2d'),
+    'ctrl+h': () => setShowShortcuts(prev => !prev),
+    'ctrl+r': () => window.location.reload()
+  }
+
+  useKeyboardShortcuts(shortcuts)
 
   // Constants
   const SENTIMENT_COLORS = {
@@ -263,87 +282,84 @@ export function LukzDemo() {
       defaultSize: { w: 3, h: 2 },
       content: (
         <div className="w-full h-full">
-          <DataStreamIndicator 
-            lastUpdated={optionsLastUpdated} 
-            isLoading={optionsLoading} 
-          />
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center justify-between mb-4">
+            <DataStreamIndicator 
+              lastUpdated={optionsLastUpdated} 
+              isLoading={optionsLoading} 
+            />
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-400">Filter by:</span>
-              <select 
-                className="px-3 py-1 rounded-md text-sm bg-blue-950/20 text-gray-400 border border-primary/20 focus:border-primary/40 outline-none"
-                onChange={(e) => {
-                  // Filter logic would go here in a real implementation
-                  console.log('Filter by:', e.target.value)
-                }}
+              <button
+                onClick={() => setSelectedView(prev => prev === '2d' ? '3d' : '2d')}
+                className={`px-3 py-1 rounded-md text-sm ${
+                  selectedView === '3d'
+                    ? 'bg-primary text-white'
+                    : 'bg-blue-950/20 text-gray-400 hover:bg-blue-900/30'
+                }`}
               >
-                <option value="all">All Options</option>
-                <option value="itm">In the Money</option>
-                <option value="otm">Out of the Money</option>
-                <option value="high_volume">High Volume</option>
-                <option value="high_iv">High IV</option>
-              </select>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-400">Sort by:</span>
-              <select 
-                className="px-3 py-1 rounded-md text-sm bg-blue-950/20 text-gray-400 border border-primary/20 focus:border-primary/40 outline-none"
-                onChange={(e) => {
-                  // Sort logic would go here in a real implementation
-                  console.log('Sort by:', e.target.value)
-                }}
+                {selectedView === '3d' ? '3D View' : '2D View'}
+              </button>
+              <EnhancedTooltip
+                content="Keyboard Shortcuts"
+                description="Press Ctrl+V to toggle view"
               >
-                <option value="strike">Strike Price</option>
-                <option value="volume">Volume</option>
-                <option value="iv">Implied Volatility</option>
-                <option value="delta">Delta</option>
-              </select>
+                {null}
+              </EnhancedTooltip>
             </div>
           </div>
-          <div className="h-[400px] overflow-x-auto">
-            <div className="min-w-[800px]">
-              <div className="grid grid-cols-7 gap-2 text-xs mb-2 bg-blue-950/20 p-2 rounded-lg">
-                <div className="font-medium text-primary">Strike</div>
-                <div className="text-center font-medium text-primary">Bid</div>
-                <div className="text-center font-medium text-primary">Ask</div>
-                <div className="text-center font-medium text-primary">Last</div>
-                <div className="text-center font-medium text-primary">Volume</div>
-                <div className="text-center font-medium text-primary">IV</div>
-                <div className="text-center font-medium text-primary">Greeks</div>
-              </div>
-              <div className="space-y-1">
-                {optionsData.map((option) => (
-                  <div key={option.strike} className="grid grid-cols-7 gap-2 text-xs py-2 px-2 rounded-lg hover:bg-blue-950/20 transition-colors">
-                    <div className="font-medium text-primary">${option.strike.toFixed(2)}</div>
-                    <div className="text-center text-red-400">${option.bid.toFixed(2)}</div>
-                    <div className="text-center text-green-400">${option.ask.toFixed(2)}</div>
-                    <div className="text-center text-primary">${option.last.toFixed(2)}</div>
-                    <div className="text-center text-gray-400">{(option.callVolume + option.putVolume).toLocaleString()}</div>
-                    <div className="text-center text-primary">{option.iv.toFixed(1)}%</div>
-                    <div className="text-center">
-                      <div className="group relative inline-block">
-                        <span className="cursor-help text-primary">Greeks</span>
-                        <div className="invisible group-hover:visible absolute z-10 w-48 p-2 mt-1 text-xs rounded-lg bg-black border border-border -translate-x-1/2 left-1/2">
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="text-gray-400">Delta (Δ):</div>
-                            <div className="text-right text-primary">{option.greeks.delta.toFixed(3)}</div>
-                            <div className="text-gray-400">Gamma (Γ):</div>
-                            <div className="text-right text-primary">{option.greeks.gamma.toFixed(3)}</div>
-                            <div className="text-gray-400">Theta (Θ):</div>
-                            <div className="text-right text-primary">{option.greeks.theta.toFixed(3)}</div>
-                            <div className="text-gray-400">Vega (ν):</div>
-                            <div className="text-right text-primary">{option.greeks.vega.toFixed(3)}</div>
-                            <div className="text-gray-400">Rho (ρ):</div>
-                            <div className="text-right text-primary">{option.greeks.rho.toFixed(3)}</div>
-                          </div>
-                        </div>
+          {selectedView === '3d' ? (
+            <OptionsFlow3D data={optionsData} className="mb-4" />
+          ) : (
+            <div className="h-[400px] overflow-x-auto">
+              <div className="min-w-[800px]">
+                <div className="grid grid-cols-7 gap-2 text-xs mb-2 bg-blue-950/20 p-2 rounded-lg">
+                  <div className="font-medium text-primary">Strike</div>
+                  <div className="text-center font-medium text-primary">Bid</div>
+                  <div className="text-center font-medium text-primary">Ask</div>
+                  <div className="text-center font-medium text-primary">Last</div>
+                  <div className="text-center font-medium text-primary">Volume</div>
+                  <div className="text-center font-medium text-primary">IV</div>
+                  <div className="text-center font-medium text-primary">Greeks</div>
+                </div>
+                <div className="space-y-1">
+                  {optionsData.map((option) => (
+                    <motion.div
+                      key={option.strike}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }}
+                      className="grid grid-cols-7 gap-2 text-xs py-2 px-2 rounded-lg hover:bg-blue-950/20 transition-colors transform-gpu hover:scale-[1.02]"
+                    >
+                      <div className="font-medium text-primary">${option.strike.toFixed(2)}</div>
+                      <div className="text-center text-red-400">${option.bid.toFixed(2)}</div>
+                      <div className="text-center text-green-400">${option.ask.toFixed(2)}</div>
+                      <div className="text-center text-primary">${option.last.toFixed(2)}</div>
+                      <div className="text-center text-gray-400">{(option.callVolume + option.putVolume).toLocaleString()}</div>
+                      <div className="text-center text-primary">{option.iv.toFixed(1)}%</div>
+                      <div className="text-center">
+                        <EnhancedTooltip
+                          content="Option Greeks"
+                          description="Key metrics for options sensitivity"
+                          insights={[
+                            { label: 'Delta (Δ)', value: option.greeks.delta.toFixed(3) },
+                            { label: 'Gamma (Γ)', value: option.greeks.gamma.toFixed(3) },
+                            { label: 'Theta (Θ)', value: option.greeks.theta.toFixed(3) },
+                            { label: 'Vega (ν)', value: option.greeks.vega.toFixed(3) },
+                            { label: 'Rho (ρ)', value: option.greeks.rho.toFixed(3) }
+                          ]}
+                        >
+                          {null}
+                        </EnhancedTooltip>
                       </div>
-                    </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )
     },
