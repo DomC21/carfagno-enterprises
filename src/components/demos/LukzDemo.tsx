@@ -3,7 +3,7 @@ import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, L
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
 import { motion } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
-import { DashboardLayout } from '../../components/ui/dashboard-layout'
+import { DashboardLayout } from '@/components/ui/dashboard-layout'
 
 // Types for Greek metrics data
 type GreekMetricsData = {
@@ -409,12 +409,20 @@ export function LukzDemo() {
   ]
 
   return (
-    <div className="w-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: "easeOut"
+      }}
+      className="w-full transform-gpu"
+    >
       <DashboardLayout
         items={dashboardItems}
         onLayoutChange={() => {}}
         className="w-full"
       />
-    </div>
+    </motion.div>
   )
 }

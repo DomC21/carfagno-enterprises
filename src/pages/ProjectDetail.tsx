@@ -1,5 +1,6 @@
 
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { Card } from '../components/ui/card'
 import { projectDetails } from '../data/projectDetails'
@@ -12,14 +13,48 @@ const demoComponents = {
   'zom-ai': ZomAIDemo
 }
 
-export function ProjectDetail() {
+export default function ProjectDetail() {
   const { id } = useParams()
   
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [id])
+
   if (!id || !projectDetails[id]) {
     return <Navigate to="/projects" replace />
   }
 
   const project = projectDetails[id]
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto py-section-sm sm:py-section px-4">
+        <Card className="bg-black border-border p-6 mb-6">
+          <div className="h-8 w-3/4 bg-gray-800 rounded-lg animate-pulse mb-4" />
+          <div className="h-6 w-1/2 bg-gray-800 rounded-lg animate-pulse mb-8" />
+          <div className="h-24 w-full bg-gray-800 rounded-lg animate-pulse" />
+        </Card>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3].map((i) => (
+            <Card key={i} className="bg-black border-border p-6">
+              <div className="h-6 w-1/3 bg-gray-800 rounded-lg animate-pulse mb-4" />
+              <div className="space-y-2">
+                {[1, 2, 3].map((j) => (
+                  <div key={j} className="h-4 w-full bg-gray-800 rounded-lg animate-pulse" />
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="container mx-auto py-section-sm sm:py-section px-4">
