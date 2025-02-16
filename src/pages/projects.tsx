@@ -1,11 +1,21 @@
 
 import { Link } from 'react-router-dom'
 import { Brain, LineChart, Bot } from "lucide-react"
-import { FeatureCard } from "@/components/ui/feature-card"
+import { FeatureCard } from "../components/ui/feature-card"
 import { motion } from "framer-motion"
-import { EnhancedTooltip } from "@/components/ui/enhanced-tooltip"
+import { EnhancedTooltip } from "../components/ui/enhanced-tooltip"
+import { type LucideIcon } from 'lucide-react'
 
-const projects = [
+interface Project {
+  id: string
+  title: string
+  description: string
+  icon: LucideIcon
+  features: string[]
+  gradient: string
+}
+
+const projects: Project[] = [
   {
     id: 'neural-networks',
     title: 'Neural Networks',

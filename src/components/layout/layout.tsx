@@ -1,11 +1,12 @@
 import { ParticleBackground } from '../ui/particle-background'
 import { Outlet } from 'react-router-dom'
 import { type ReactNode } from 'react'
-import { PreferencesDialog } from '@/components/ui/preferences-dialog'
-import { usePreferences } from '@/providers/PreferencesProvider'
+import { PreferencesDialog } from '../ui/preferences-dialog'
+import { usePreferences } from '../../providers/PreferencesProvider'
 import { Button } from '../ui/button'
 import { useState } from 'react'
 import { EnhancedTooltip } from '../ui/enhanced-tooltip'
+import { cn } from '../../utils/styles'
 
 interface LayoutProps {
   children?: ReactNode
@@ -16,9 +17,13 @@ export function Layout({ children }: LayoutProps) {
   const { preferences } = usePreferences()
 
   return (
-    <div className={`min-h-screen bg-black relative text-${preferences.fontSize}`}>
+    <div className={cn("min-h-screen bg-black relative", {
+        "text-sm": preferences.fontSize === "sm",
+        "text-base": preferences.fontSize === "base",
+        "text-lg": preferences.fontSize === "lg"
+      })}>
       <ParticleBackground />
-      <div className="relative z-10">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-8">
         {children || <Outlet />}
       </div>
       <EnhancedTooltip
@@ -27,14 +32,14 @@ export function Layout({ children }: LayoutProps) {
         side="left"
       >
         <Button
-          className="fixed bottom-4 right-4 z-50"
+          className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6"
           onClick={() => setShowPreferences(true)}
         >
-          <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 mr-2 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          Settings
+          <span className="hidden sm:inline">Settings</span>
         </Button>
       </EnhancedTooltip>
       <PreferencesDialog
