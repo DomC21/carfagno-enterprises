@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Brain, LineChart, Bot } from "lucide-react"
 import { FeatureCard } from "@/components/ui/feature-card"
 import { motion } from "framer-motion"
+import { EnhancedTooltip } from "@/components/ui/enhanced-tooltip"
 
 const projects = [
   {
@@ -95,14 +96,19 @@ export default function Projects() {
                   to={`/projects/${project.id}`}
                   className="block h-full"
                 >
-                  <FeatureCard
-                    className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
-                    glowColor={
-                      project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
-                      project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
-                      "rgba(234, 179, 8, 0.5)"
-                    }
+                  <EnhancedTooltip
+                    content={project.title}
+                    description="Click to explore detailed features and live demo"
+                    side="top"
                   >
+                    <FeatureCard
+                      className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
+                      glowColor={
+                        project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
+                        project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
+                        "rgba(234, 179, 8, 0.5)"
+                      }
+                    >
                     <div className="p-8 sm:p-10">
                       <div className={`w-20 h-20 rounded-2xl mb-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} shadow-xl transform-gpu transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}>
                         <Icon className="w-10 h-10 text-white transform-gpu transition-transform duration-300 group-hover:rotate-3" />
