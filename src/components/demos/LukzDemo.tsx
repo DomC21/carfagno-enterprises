@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts'
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
-import { motion, useAnimation } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
 import { DashboardLayout } from '@/components/ui/dashboard-layout'
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts'
 import { OptionsFlow3D } from '../ui/options-flow-3d'
-import { HeatMap } from '../ui/heat-map'
 import { EnhancedTooltip } from '../ui/enhanced-tooltip'
 
 // Types for Greek metrics data
@@ -38,7 +37,6 @@ export function LukzDemo() {
   const [selectedView, setSelectedView] = useState<'2d' | '3d'>('2d')
   const [showShortcuts, setShowShortcuts] = useState(false)
   const timeframes = ['1H', '1D', '1W', '1M']
-  const controls = useAnimation()
 
   // Keyboard shortcuts
   const shortcuts = {
@@ -50,6 +48,14 @@ export function LukzDemo() {
     'ctrl+h': () => setShowShortcuts(prev => !prev),
     'ctrl+r': () => window.location.reload()
   }
+
+  // Add keyboard shortcuts help overlay
+  const shortcutsList = [
+    { key: 'Ctrl+T', description: 'Change timeframe' },
+    { key: 'Ctrl+V', description: 'Toggle 2D/3D view' },
+    { key: 'Ctrl+H', description: 'Show/hide shortcuts' },
+    { key: 'Ctrl+R', description: 'Refresh data' }
+  ]
 
   useKeyboardShortcuts(shortcuts)
 
@@ -301,8 +307,9 @@ export function LukzDemo() {
               <EnhancedTooltip
                 content="Keyboard Shortcuts"
                 description="Press Ctrl+V to toggle view"
+                side="right"
               >
-                {null}
+                <div className="text-xs text-gray-400">?</div>
               </EnhancedTooltip>
             </div>
           </div>
@@ -340,19 +347,15 @@ export function LukzDemo() {
                       <div className="text-center text-gray-400">{(option.callVolume + option.putVolume).toLocaleString()}</div>
                       <div className="text-center text-primary">{option.iv.toFixed(1)}%</div>
                       <div className="text-center">
-                        <EnhancedTooltip
-                          content="Option Greeks"
-                          description="Key metrics for options sensitivity"
-                          insights={[
-                            { label: 'Delta (Δ)', value: option.greeks.delta.toFixed(3) },
-                            { label: 'Gamma (Γ)', value: option.greeks.gamma.toFixed(3) },
-                            { label: 'Theta (Θ)', value: option.greeks.theta.toFixed(3) },
-                            { label: 'Vega (ν)', value: option.greeks.vega.toFixed(3) },
-                            { label: 'Rho (ρ)', value: option.greeks.rho.toFixed(3) }
-                          ]}
-                        >
-                          {null}
-                        </EnhancedTooltip>
+                        <div className="cursor-help">
+                          <EnhancedTooltip
+                            content="Option Greeks"
+                            description="Key metrics for options sensitivity"
+                            side="right"
+                          >
+                            <div className="text-sm text-primary">Greeks</div>
+                          </EnhancedTooltip>
+                        </div>
                       </div>
                     </motion.div>
                   ))}
@@ -579,6 +582,24 @@ export function LukzDemo() {
       }}
       className="w-full transform-gpu"
     >
+      {showShortcuts && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed top-4 right-4 z-50 p-4 rounded-lg bg-black/90 border border-primary/20 backdrop-blur-sm"
+        >
+          <h4 className="text-sm font-medium text-primary mb-2">Keyboard Shortcuts</h4>
+          <div className="space-y-2">
+            {shortcutsList.map((shortcut, i) => (
+              <div key={i} className="flex items-center gap-2 text-sm">
+                <span className="px-2 py-1 rounded bg-blue-950/20 text-primary">{shortcut.key}</span>
+                <span className="text-gray-400">{shortcut.description}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
       <DashboardLayout
         items={dashboardItems}
         onLayoutChange={() => {}}
