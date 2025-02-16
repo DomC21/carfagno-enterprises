@@ -10,7 +10,8 @@ import { HeatMap } from '../../components/ui/heat-map'
 import { MarketStatus } from '../../components/ui/market-status'
 import { AILoading } from '../../components/ui/ai-loading'
 import { cn } from '../../utils/styles'
-import { simulateWebSocket, aggregateMarketData } from '../../utils/websocketSimulation'
+import { simulateWebSocket, aggregateMarketData, type WebSocketMessage } from '../../utils/websocketSimulation'
+import { CustomTooltip } from '../../components/ui/custom-tooltip'
 
 interface Message {
   type: 'user' | 'ai'
@@ -467,91 +468,116 @@ export function ZomAIDemo() {
           <h3 className="text-lg font-semibold mb-4 text-primary">Technical Analysis</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h4 className="text-sm font-medium text-primary mb-2">RSI</h4>
-              <div className="h-[150px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                    <XAxis 
-                      dataKey="timestamp" 
-                      tickFormatter={(value) => new Date(value).toLocaleTimeString()}
-                      stroke="#64748b"
-                    />
-                    <YAxis 
-                      domain={[0, 100]} 
-                      stroke="#64748b"
-                      ticks={[0, 30, 70, 100]}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: '1px solid #1e293b',
-                        borderRadius: '0.375rem'
-                      }}
-                      labelStyle={{ color: '#94a3b8' }}
-                      itemStyle={{ color: '#e2e8f0' }}
-                      formatter={(value: number) => `${value.toFixed(2)}`}
-                    />
-                    <ReferenceLine y={70} stroke="#ef4444" strokeDasharray="3 3" />
-                    <ReferenceLine y={30} stroke="#10b981" strokeDasharray="3 3" />
-                    <Line 
-                      type="monotone" 
-                      dataKey="technicalIndicators.rsi" 
-                      stroke="#8b5cf6"
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-2 text-xs text-gray-400">
-                RSI measures momentum on a scale of 0 to 100. Values above 70 indicate overbought conditions, while values below 30 suggest oversold conditions.
-              </div>
+              <CustomTooltip
+                title="Relative Strength Index (RSI)"
+                description="A momentum oscillator that measures the speed and magnitude of recent price changes to evaluate overbought or oversold conditions."
+                insights={[
+                  { label: 'Overbought', value: '> 70' },
+                  { label: 'Neutral', value: '30-70' },
+                  { label: 'Oversold', value: '< 30' }
+                ]}
+              >
+                <div>
+                  <h4 className="text-sm font-medium text-primary mb-2">RSI</h4>
+                  <div className="h-[150px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis 
+                          dataKey="timestamp" 
+                          tickFormatter={(value) => new Date(value).toLocaleTimeString()}
+                          stroke="#64748b"
+                        />
+                        <YAxis 
+                          domain={[0, 100]} 
+                          stroke="#64748b"
+                          ticks={[0, 30, 70, 100]}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            backdropFilter: 'blur(10px)',
+                            border: '1px solid rgba(30, 41, 59, 0.5)',
+                            borderRadius: '0.375rem',
+                            boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
+                          }}
+                          labelStyle={{ color: '#94a3b8' }}
+                          itemStyle={{ color: '#e2e8f0' }}
+                          formatter={(value: number) => `${value.toFixed(2)}`}
+                        />
+                        <ReferenceLine y={70} stroke="#ef4444" strokeDasharray="3 3" />
+                        <ReferenceLine y={30} stroke="#10b981" strokeDasharray="3 3" />
+                        <Line 
+                          type="monotone" 
+                          dataKey="technicalIndicators.rsi" 
+                          stroke="#8b5cf6"
+                          dot={false}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </CustomTooltip>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-primary mb-2">MACD</h4>
-              <div className="h-[150px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                    <XAxis 
-                      dataKey="timestamp" 
-                      tickFormatter={(value) => new Date(value).toLocaleTimeString()}
-                      stroke="#64748b"
-                    />
-                    <YAxis stroke="#64748b" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: '1px solid #1e293b',
-                        borderRadius: '0.375rem'
-                      }}
-                      labelStyle={{ color: '#94a3b8' }}
-                      itemStyle={{ color: '#e2e8f0' }}
-                      formatter={(value: number) => `${value.toFixed(4)}`}
-                    />
-                    <Bar 
-                      dataKey="technicalIndicators.histogram" 
-                      fill="#8b5cf6"
-                      opacity={0.5}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="technicalIndicators.signal" 
-                      stroke="#ef4444"
-                      dot={false}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="technicalIndicators.macd" 
-                      stroke="#10b981"
-                      dot={false}
-                    />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-2 text-xs text-gray-400">
-                MACD helps identify trend direction and momentum. The histogram shows the difference between MACD and its signal line.
-              </div>
+              <CustomTooltip
+                title="Moving Average Convergence Divergence (MACD)"
+                description="A trend-following momentum indicator that shows the relationship between two moving averages of an asset's price."
+                insights={[
+                  { label: 'MACD Line', value: 'Difference between 12 and 26-day EMAs' },
+                  { label: 'Signal Line', value: '9-day EMA of MACD line' },
+                  { label: 'Histogram', value: 'MACD line minus signal line' },
+                  { label: 'Bullish Signal', value: 'MACD crosses above signal line' },
+                  { label: 'Bearish Signal', value: 'MACD crosses below signal line' }
+                ]}
+              >
+                <div>
+                  <h4 className="text-sm font-medium text-primary mb-2">MACD</h4>
+                  <div className="h-[150px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ComposedChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis 
+                          dataKey="timestamp" 
+                          tickFormatter={(value) => new Date(value).toLocaleTimeString()}
+                          stroke="#64748b"
+                        />
+                        <YAxis stroke="#64748b" />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            backdropFilter: 'blur(10px)',
+                            border: '1px solid rgba(30, 41, 59, 0.5)',
+                            borderRadius: '0.375rem',
+                            boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
+                          }}
+                          labelStyle={{ color: '#94a3b8' }}
+                          itemStyle={{ color: '#e2e8f0' }}
+                          formatter={(value: number) => `${value.toFixed(4)}`}
+                        />
+                        <Bar 
+                          dataKey="technicalIndicators.histogram" 
+                          fill="#8b5cf6"
+                          opacity={0.5}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="technicalIndicators.signal" 
+                          stroke="#ef4444"
+                          dot={false}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="technicalIndicators.macd" 
+                          stroke="#10b981"
+                          dot={false}
+                        />
+                        <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </CustomTooltip>
             </div>
           </div>
         </Card>
