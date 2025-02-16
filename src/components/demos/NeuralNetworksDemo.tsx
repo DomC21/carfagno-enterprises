@@ -162,9 +162,19 @@ export function NeuralNetworksDemo() {
           <h3 className="text-lg font-semibold mb-4 text-primary">Model Architecture</h3>
           <NetworkVisualization3D
             layers={[4, ...Array(params.layers).fill(6), 3]}
-            connections={generateNetworkConnections([4, ...Array(params.layers).fill(6), 3])}
+            connections={connections}
             className="mb-4"
           />
+          <div className="mt-4 text-sm text-gray-400">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span>Active Connections: {connections.length}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-400" />
+              <span>Network Training: {params.epochs} epochs</span>
+            </div>
+          </div>
           <div className="mt-6 grid grid-cols-3 gap-4">
             <div className="p-3 rounded-lg bg-blue-950/20 border border-blue-500/20">
               <div className="text-sm text-gray-400 mb-1">Model Confidence</div>
