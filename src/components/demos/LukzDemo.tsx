@@ -183,10 +183,74 @@ export function LukzDemo() {
                   labelStyle={{ color: '#94a3b8' }}
                   itemStyle={{ color: '#e2e8f0' }}
                 />
-                <Line type="monotone" dataKey="delta" stroke="#3b82f6" name="Delta" dot={false} />
-                <Line type="monotone" dataKey="gamma" stroke="#10b981" name="Gamma" dot={false} />
-                <Line type="monotone" dataKey="theta" stroke="#f59e0b" name="Theta" dot={false} />
-                <Line type="monotone" dataKey="vega" stroke="#8b5cf6" name="Vega" dot={false} />
+                <Line 
+                  type="monotone" 
+                  dataKey="delta" 
+                  stroke="#FFD700" 
+                  name="Delta (Δ)" 
+                  dot={false}
+                  strokeWidth={2}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="gamma" 
+                  stroke="#10b981" 
+                  name="Gamma (Γ)" 
+                  dot={false}
+                  strokeWidth={2}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="theta" 
+                  stroke="#f59e0b" 
+                  name="Theta (Θ)" 
+                  dot={false}
+                  strokeWidth={2}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="vega" 
+                  stroke="#8b5cf6" 
+                  name="Vega (ν)" 
+                  dot={false}
+                  strokeWidth={2}
+                />
+                <Tooltip
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="p-4 rounded-lg bg-black/90 border border-primary/20 backdrop-blur-sm">
+                          <div className="text-xs text-gray-400 mb-2">
+                            {new Date(payload[0].payload.timestamp).toLocaleTimeString()}
+                          </div>
+                          {payload.map((entry, index) => (
+                            <div key={index} className="flex flex-col gap-1">
+                              <div className="flex items-center gap-2">
+                                <div 
+                                  className="w-2 h-2 rounded-full"
+                                  style={{ backgroundColor: entry.color }}
+                                />
+                                <span className="text-sm font-medium text-primary">
+                                  {entry.name}
+                                </span>
+                                <span className="text-sm text-gray-300">
+                                  {typeof entry.value === 'number' ? entry.value.toFixed(4) : entry.value}
+                                </span>
+                              </div>
+                              <div className="text-xs text-gray-400 ml-4">
+                                {entry.name === 'Delta (Δ)' && 'Rate of change in option price relative to underlying'}
+                                {entry.name === 'Gamma (Γ)' && 'Rate of change in delta relative to underlying'}
+                                {entry.name === 'Theta (Θ)' && 'Time decay of option value'}
+                                {entry.name === 'Vega (ν)' && 'Sensitivity to volatility changes'}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )
+                    }
+                    return null
+                  }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -203,9 +267,42 @@ export function LukzDemo() {
             lastUpdated={optionsLastUpdated} 
             isLoading={optionsLoading} 
           />
-          <div className="h-[400px] mt-4 overflow-x-auto">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-400">Filter by:</span>
+              <select 
+                className="px-3 py-1 rounded-md text-sm bg-blue-950/20 text-gray-400 border border-primary/20 focus:border-primary/40 outline-none"
+                onChange={(e) => {
+                  // Filter logic would go here in a real implementation
+                  console.log('Filter by:', e.target.value)
+                }}
+              >
+                <option value="all">All Options</option>
+                <option value="itm">In the Money</option>
+                <option value="otm">Out of the Money</option>
+                <option value="high_volume">High Volume</option>
+                <option value="high_iv">High IV</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-400">Sort by:</span>
+              <select 
+                className="px-3 py-1 rounded-md text-sm bg-blue-950/20 text-gray-400 border border-primary/20 focus:border-primary/40 outline-none"
+                onChange={(e) => {
+                  // Sort logic would go here in a real implementation
+                  console.log('Sort by:', e.target.value)
+                }}
+              >
+                <option value="strike">Strike Price</option>
+                <option value="volume">Volume</option>
+                <option value="iv">Implied Volatility</option>
+                <option value="delta">Delta</option>
+              </select>
+            </div>
+          </div>
+          <div className="h-[400px] overflow-x-auto">
             <div className="min-w-[800px]">
-              <div className="grid grid-cols-7 gap-2 text-xs mb-2">
+              <div className="grid grid-cols-7 gap-2 text-xs mb-2 bg-blue-950/20 p-2 rounded-lg">
                 <div className="font-medium text-primary">Strike</div>
                 <div className="text-center font-medium text-primary">Bid</div>
                 <div className="text-center font-medium text-primary">Ask</div>
@@ -279,44 +376,92 @@ export function LukzDemo() {
                 }}
                 className={`p-4 rounded-lg ${
                   trade.type === 'buy' 
-                    ? 'bg-green-950/20 border border-green-500/20' 
-                    : 'bg-red-950/20 border border-red-500/20'
-                }`}
+                    ? 'bg-green-950/20 border border-green-500/20 hover:bg-green-950/30' 
+                    : 'bg-red-950/20 border border-red-500/20 hover:bg-red-950/30'
+                } transition-all duration-300 transform-gpu hover:scale-[1.02]`}
               >
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-400">{trade.date}</span>
                   <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${
+                      trade.type === 'buy' ? 'bg-green-400' : 'bg-red-400'
+                    }`} />
                     <span className={`text-sm font-medium ${
                       trade.type === 'buy' ? 'text-green-400' : 'text-red-400'
                     }`}>
                       {trade.type.toUpperCase()}
                     </span>
-                    <div className={`w-2 h-2 rounded-full ${
-                      trade.type === 'buy' ? 'bg-green-400' : 'bg-red-400'
-                    }`} />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-400">{trade.date}</span>
+                    <div className="flex items-center gap-1">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        trade.sentiment === 'bullish' ? 'bg-green-950/20 border border-green-500/20 text-green-400' :
+                        trade.sentiment === 'bearish' ? 'bg-red-950/20 border border-red-500/20 text-red-400' :
+                        'bg-blue-950/20 border border-blue-500/20 text-blue-400'
+                      }`}>
+                        {trade.sentiment.charAt(0).toUpperCase() + trade.sentiment.slice(1)}
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div className="mt-3 space-y-2">
-                  <div className="flex justify-between items-center">
+                <div className="mt-3 space-y-3">
+                  <div className="flex justify-between items-start">
                     <div>
                       <span className="text-sm font-medium text-primary block">{trade.politician}</span>
-                      <span className="text-xs text-gray-500">{trade.committee}</span>
+                      <span className="text-xs text-gray-500 block">{trade.committee}</span>
+                      <div className="mt-2 flex items-center gap-2">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-950/20 border border-blue-500/20 text-blue-400">
+                          {trade.accuracy}% accuracy
+                        </span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-purple-950/20 border border-purple-500/20 text-purple-400">
+                          {trade.frequency} trades/month
+                        </span>
+                      </div>
                     </div>
                     <div className="text-right">
                       <span className="text-sm font-medium text-primary block">${trade.amount.toLocaleString()}</span>
-                      <span className="text-xs text-gray-500">{trade.shares} shares</span>
+                      <span className="text-xs text-gray-500 block">{trade.shares.toLocaleString()} shares</span>
+                      <span className={`text-xs block mt-2 ${
+                        trade.performance > 0 ? 'text-green-400' : 'text-red-400'
+                      }`}>
+                        {trade.performance > 0 ? '+' : ''}{trade.performance}% since trade
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center pt-2 border-t border-gray-800">
-                    <div>
-                      <span className="text-sm text-gray-300 block">{trade.stock}</span>
-                      <span className="text-xs text-gray-500">{trade.sector}</span>
+                  <div className="pt-3 border-t border-gray-800 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="text-sm text-primary font-medium block">{trade.stock}</span>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-xs text-gray-500">{trade.sector}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-blue-950/20 border border-blue-500/20">
+                            Market Cap: ${(trade.marketCap / 1e9).toFixed(1)}B
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <span className={`text-xs ${
-                      trade.performance > 0 ? 'text-green-400' : 'text-red-400'
-                    }`}>
-                      {trade.performance > 0 ? '+' : ''}{trade.performance}% since trade
-                    </span>
+                    <div className="w-full bg-gray-800 rounded-full h-1">
+                      <motion.div
+                        className={`h-1 rounded-full ${
+                          trade.performance > 0 ? 'bg-green-400' : 'bg-red-400'
+                        }`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${Math.min(Math.abs(trade.performance), 100)}%` }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 20
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-950/20 border border-blue-500/20">
+                        Volume: {(trade.volume / 1e6).toFixed(1)}M
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-950/20 border border-blue-500/20">
+                        P/E: {trade.pe.toFixed(1)}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
