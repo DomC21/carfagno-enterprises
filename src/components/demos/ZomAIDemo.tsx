@@ -7,6 +7,8 @@ import { Button } from '../../components/ui/button'
 import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { HeatMap } from '../../components/ui/heat-map'
+import { MarketStatus } from '../../components/ui/market-status'
+import { cn } from '../../utils/styles'
 
 interface Message {
   type: 'user' | 'ai'
@@ -318,9 +320,12 @@ export function ZomAIDemo() {
           delay: 0.1
         }}
       >
-        <Card className="p-4 bg-black border-border">
-          <h3 className="text-lg font-semibold mb-4 text-primary">AI Analysis</h3>
-          <div className="h-[300px] overflow-y-auto mb-4 space-y-4">
+        <div className="glassmorphism p-6 space-y-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-primary">AI Analysis</h3>
+            <MarketStatus />
+          </div>
+          <div className="h-[300px] overflow-y-auto mb-4 space-y-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
             {messages.map((message, i) => (
               <motion.div
                 key={i}
@@ -331,11 +336,12 @@ export function ZomAIDemo() {
                   stiffness: 300,
                   damping: 20
                 }}
-                className={`p-3 rounded-lg ${
+                className={cn(
+                  "p-4 rounded-lg glassmorphism transform-gpu transition-all duration-300",
                   message.type === 'user'
-                    ? 'bg-blue-950/20 border border-blue-500/20 ml-12'
-                    : 'bg-teal-950/20 border border-teal-500/20 mr-12'
-                }`}
+                    ? "ml-12 border-blue-500/20 hover:border-blue-500/40"
+                    : "mr-12 border-teal-500/20 hover:border-teal-500/40"
+                )}
               >
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium text-primary">
@@ -396,9 +402,53 @@ export function ZomAIDemo() {
               </motion.div>
             ))}
             {loading && (
-              <div className="flex justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-primary"></div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex justify-center items-center gap-2 p-4"
+              >
+                <div className="flex items-center gap-2">
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [1, 0.7, 1]
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="w-2 h-2 rounded-full bg-primary"
+                  />
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [1, 0.7, 1]
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.2
+                    }}
+                    className="w-2 h-2 rounded-full bg-primary"
+                  />
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [1, 0.7, 1]
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.4
+                    }}
+                    className="w-2 h-2 rounded-full bg-primary"
+                  />
+                </div>
+                <span className="text-sm text-gray-400">AI is analyzing...</span>
+              </motion.div>
             )}
           </div>
           <form onSubmit={handleSubmit} className="flex gap-2">
@@ -406,12 +456,22 @@ export function ZomAIDemo() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about market trends, stock analysis, or trading strategies..."
-              className="flex-1 bg-black border-border focus:border-primary"
+              className={cn(
+                "flex-1 glassmorphism border-primary/20 focus:border-primary/40",
+                "transition-all duration-300 ease-out transform-gpu",
+                "placeholder:text-gray-500"
+              )}
+              disabled={loading}
             />
             <Button
               type="submit"
               disabled={loading}
-              className="bg-primary hover:bg-primary/90"
+              className={cn(
+                "bg-primary/20 hover:bg-primary/30",
+                "border border-primary/40 hover:border-primary/60",
+                "text-primary transition-all duration-300",
+                "transform-gpu hover:scale-105"
+              )}
             >
               <Send className="w-4 h-4" />
             </Button>
