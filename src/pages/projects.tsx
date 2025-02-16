@@ -143,13 +143,12 @@ export default function Projects() {
                       </div>
                     </FeatureCard>
                   </EnhancedTooltip>
-                  </FeatureCard>
                 </Link>
               </motion.div>
-            )
-          })}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
