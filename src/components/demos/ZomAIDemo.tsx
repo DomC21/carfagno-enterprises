@@ -4,8 +4,8 @@ import { type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
-import { Send, FileText, TrendingUp } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Send, FileText, TrendingUp, Brain, Zap, ChartBar } from 'lucide-react'
+import { motion, AnimatePresence, useAnimation } from 'framer-motion'
 import { HeatMap } from '../../components/ui/heat-map'
 import { MarketStatus } from '../../components/ui/market-status'
 import { AILoading } from '../../components/ui/ai-loading'
@@ -14,6 +14,8 @@ import { simulateWebSocket, aggregateMarketData, type WebSocketMessage } from '.
 import { CustomTooltip } from '../../components/ui/custom-tooltip'
 import { ParticleBackground } from '../ui/particle-background'
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts'
+import { DepthChart } from '../ui/depth-chart'
+import { generateFakeDepthData } from '../../utils/fakeData'
 
 interface Message {
   type: 'user' | 'ai'
@@ -50,12 +52,53 @@ export function ZomAIDemo() {
   const [input, setInput] = useState('')
   const [data, setData] = useState<StockData[]>([])
   const [showCommandHelp, setShowCommandHelp] = useState(false)
+  const [depthData, setDepthData] = useState<DepthData[]>([])
+  const controls = useAnimation()
+  const [patternDetected, setPatternDetected] = useState(false)
+  const [aiProcessing, setAiProcessing] = useState(false)
 
   const shortcuts = {
     'ctrl+enter': () => handleSubmit(new Event('submit') as any),
     'ctrl+k': () => setInput(''),
-    'ctrl+h': () => setShowCommandHelp(prev => !prev)
+    'ctrl+h': () => setShowCommandHelp(prev => !prev),
+    'ctrl+p': () => setPatternDetected(prev => !prev)
   }
+
+  useEffect(() => {
+    if (patternDetected) {
+      controls.start({
+        scale: [1, 1.05, 1],
+        borderColor: ['rgba(59, 130, 246, 0.2)', 'rgba(59, 130, 246, 0.6)', 'rgba(59, 130, 246, 0.2)'],
+        transition: {
+          duration: 2,
+          repeat: Infinity,
+          ease: 'easeInOut'
+        }
+      })
+    } else {
+      controls.stop()
+      controls.set({ scale: 1, borderColor: 'rgba(59, 130, 246, 0.2)' })
+    }
+  }, [patternDetected, controls])
+
+  useEffect(() => {
+    // Update depth data whenever price changes
+    if (data.length > 0) {
+      const currentPrice = data[data.length - 1].price
+      const newDepthData = Array.from({ length: 20 }, (_, i) => {
+        const price = currentPrice - 5 + (i * 0.5)
+        const distanceFromBase = Math.abs(price - currentPrice)
+        const volumeMultiplier = Math.exp(-distanceFromBase / 2)
+        
+        return {
+          price,
+          bidVolume: price < currentPrice ? Math.random() * 10000 * volumeMultiplier : 0,
+          askVolume: price >= currentPrice ? Math.random() * 10000 * volumeMultiplier : 0
+        }
+      })
+      setDepthData(newDepthData)
+    }
+  }, [data])
 
   useKeyboardShortcuts(shortcuts)
 
@@ -157,8 +200,25 @@ export function ZomAIDemo() {
     setMessages(prev => [...prev, userMessage])
     setInput('')
     setLoading(true)
+    setAiProcessing(true)
 
-    // Simulate AI response delay
+    // Animate AI processing
+    controls.start({
+      scale: [1, 1.05, 1],
+      opacity: [0.8, 1, 0.8],
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        ease: 'easeInOut'
+      }
+    })
+
+    // Detect patterns in current market data
+    const latestData = data[data.length - 1]
+    const hasPattern = latestData?.technicalIndicators?.rsi > 70 || latestData?.technicalIndicators?.rsi < 30
+    setPatternDetected(hasPattern)
+
+    // Simulate AI response delay with enhanced processing
     setTimeout(() => {
       const sentiment = Math.random() > 0.5 ? 'positive' : Math.random() > 0.5 ? 'negative' : 'neutral'
       const sentimentScore = sentiment === 'positive' ? Math.random() * 0.3 + 0.7 :
@@ -170,8 +230,11 @@ export function ZomAIDemo() {
         'technical analysis',
         'trading volume',
         'price action',
-        'support levels'
-      ].slice(0, Math.floor(Math.random() * 3) + 2)
+        'support levels',
+        'momentum indicators',
+        'volatility patterns',
+        'market sentiment'
+      ].slice(0, Math.floor(Math.random() * 4) + 3)
 
       const aiResponse: Message = {
         type: 'ai',
@@ -184,9 +247,13 @@ export function ZomAIDemo() {
           keywords
         }
       }
+
       setMessages(prev => [...prev, aiResponse])
       setLoading(false)
-    }, 1000)
+      setAiProcessing(false)
+      controls.stop()
+      controls.set({ scale: 1, opacity: 1 })
+    }, 1500)
   }
 
   const timeframes = ['1H', '4H', '1D', '1W']
@@ -521,6 +588,85 @@ export function ZomAIDemo() {
             </Button>
           </form>
         </div>
+      </motion.div>
+
+      {/* Order Book Depth */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          delay: 0.2
+        }}
+      >
+        <Card className="p-4 bg-black border-border">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-primary">Order Book Depth</h3>
+            <div className="flex items-center gap-2">
+              <span className="text-xs px-2 py-1 rounded-full bg-green-950/20 border border-green-500/20 text-green-400">
+                Bids
+              </span>
+              <span className="text-xs px-2 py-1 rounded-full bg-red-950/20 border border-red-500/20 text-red-400">
+                Asks
+              </span>
+            </div>
+          </div>
+          <DepthChart data={depthData} className="mb-4" />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium text-primary">Bid Side</h4>
+              <div className="space-y-1">
+                {depthData
+                  .filter(d => d.bidVolume > 0)
+                  .slice(0, 5)
+                  .map((level, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                        delay: i * 0.1
+                      }}
+                      className="flex justify-between items-center p-2 rounded bg-green-950/10"
+                    >
+                      <span className="text-sm text-gray-300">${level.price.toFixed(2)}</span>
+                      <span className="text-sm text-gray-400">{level.bidVolume.toLocaleString()}</span>
+                    </motion.div>
+                  ))}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium text-primary">Ask Side</h4>
+              <div className="space-y-1">
+                {depthData
+                  .filter(d => d.askVolume > 0)
+                  .slice(0, 5)
+                  .map((level, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                        delay: i * 0.1
+                      }}
+                      className="flex justify-between items-center p-2 rounded bg-red-950/10"
+                    >
+                      <span className="text-sm text-gray-300">${level.price.toFixed(2)}</span>
+                      <span className="text-sm text-gray-400">{level.askVolume.toLocaleString()}</span>
+                    </motion.div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </Card>
       </motion.div>
 
       {/* Technical Indicators */}
