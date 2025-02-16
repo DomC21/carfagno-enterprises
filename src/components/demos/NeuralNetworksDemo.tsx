@@ -4,6 +4,8 @@ import { generateStockData, type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { motion } from 'framer-motion'
 import { Slider } from '../../components/ui/slider'
+import { NetworkVisualization3D } from '../../components/ui/network-visualization-3d'
+import { generateNetworkConnections, updateNetworkWeights } from '../../utils/networkUtils'
 
 interface ModelParams {
   learningRate: number
@@ -12,15 +14,36 @@ interface ModelParams {
   confidence: number
 }
 
+interface NetworkConnection {
+  from: { layer: number; node: number }
+  to: { layer: number; node: number }
+  weight: number
+}
+
 export function NeuralNetworksDemo() {
   const [data, setData] = useState<StockData[]>([])
   const [loading, setLoading] = useState(true)
+  const [connections, setConnections] = useState<NetworkConnection[]>([])
   const [params, setParams] = useState<ModelParams>({
     learningRate: 0.001,
     epochs: 100,
     layers: 3,
     confidence: 0.85
   })
+
+  // Update network connections when layers change
+  useEffect(() => {
+    const layerSizes = [4, ...Array(params.layers).fill(6), 3]
+    setConnections(generateNetworkConnections(layerSizes))
+  }, [params.layers])
+
+  // Update network weights periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setConnections(prev => updateNetworkWeights(prev, params.learningRate))
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [params.learningRate])
 
   useEffect(() => {
     // Initial data load
@@ -137,138 +160,11 @@ export function NeuralNetworksDemo() {
       >
         <Card className="p-4 bg-black border-border">
           <h3 className="text-lg font-semibold mb-4 text-primary">Model Architecture</h3>
-          <div className="relative h-[300px] w-full">
-            {/* Input Layer */}
-            <div className="absolute left-[5%] top-1/2 transform -translate-y-1/2">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <motion.div
-                  key={`input-${i}`}
-                  className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 border border-blue-400 mb-4 relative"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 20,
-                    delay: i * 0.1
-                  }}
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-full bg-blue-400"
-                    initial={{ scale: 0.6, opacity: 0.4 }}
-                    animate={{ scale: [0.6, 1, 0.6], opacity: [0.4, 0.8, 0.4] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <span className="absolute -left-16 top-1/2 transform -translate-y-1/2 text-xs text-gray-400">
-                    {['Price', 'Volume', 'RSI', 'MACD'][i]}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Hidden Layers */}
-            {Array.from({ length: params.layers }).map((_, layerIndex) => (
-              <div
-                key={`layer-${layerIndex}`}
-                className="absolute top-1/2 transform -translate-y-1/2"
-                style={{
-                  left: `${25 + (layerIndex * 50 / params.layers)}%`,
-                }}
-              >
-                {Array.from({ length: 6 - layerIndex }).map((_, nodeIndex) => (
-                  <motion.div
-                    key={`node-${layerIndex}-${nodeIndex}`}
-                    className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-yellow-600 border border-primary mb-4 relative"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20,
-                      delay: layerIndex * 0.2 + nodeIndex * 0.1
-                    }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 rounded-full bg-primary"
-                      initial={{ scale: 0.6, opacity: 0.4 }}
-                      animate={{ scale: [0.6, 1, 0.6], opacity: [0.4, 0.8, 0.4] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: layerIndex * 0.2
-                      }}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            ))}
-
-            {/* Output Layer */}
-            <div className="absolute right-[5%] top-1/2 transform -translate-y-1/2">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <motion.div
-                  key={`output-${i}`}
-                  className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-green-600 border border-green-400 mb-4 relative"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 20,
-                    delay: params.layers * 0.2 + i * 0.1
-                  }}
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-full bg-green-400"
-                    initial={{ scale: 0.6, opacity: 0.4 }}
-                    animate={{ scale: [0.6, 1, 0.6], opacity: [0.4, 0.8, 0.4] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: params.layers * 0.2
-                    }}
-                  />
-                  <span className="absolute -right-20 top-1/2 transform -translate-y-1/2 text-xs text-gray-400">
-                    {['Buy', 'Hold', 'Sell'][i]}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Neural Connections */}
-            <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
-              <defs>
-                <linearGradient id="connection-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style={{ stopColor: '#3b82f6', stopOpacity: 0.2 }} />
-                  <stop offset="50%" style={{ stopColor: '#ffd700', stopOpacity: 0.3 }} />
-                  <stop offset="100%" style={{ stopColor: '#22c55e', stopOpacity: 0.2 }} />
-                </linearGradient>
-              </defs>
-              <g className="connections">
-                {/* Connection lines will be drawn here */}
-                <path
-                  d="M100,150 C200,150 300,150 400,150"
-                  stroke="url(#connection-gradient)"
-                  strokeWidth="1"
-                  fill="none"
-                  strokeDasharray="4,4"
-                >
-                  <animate
-                    attributeName="stroke-dashoffset"
-                    values="0;8"
-                    dur="1s"
-                    repeatCount="indefinite"
-                  />
-                </path>
-              </g>
-            </svg>
-          </div>
+          <NetworkVisualization3D
+            layers={[4, ...Array(params.layers).fill(6), 3]}
+            connections={generateNetworkConnections([4, ...Array(params.layers).fill(6), 3])}
+            className="mb-4"
+          />
           <div className="mt-6 grid grid-cols-3 gap-4">
             <div className="p-3 rounded-lg bg-blue-950/20 border border-blue-500/20">
               <div className="text-sm text-gray-400 mb-1">Model Confidence</div>
