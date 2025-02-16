@@ -1,8 +1,8 @@
 import { ParticleBackground } from '../ui/particle-background'
 import { Outlet } from 'react-router-dom'
 import { type ReactNode } from 'react'
-import { PreferencesDialog } from '../ui/preferences-dialog'
-import { usePreferences } from '../../providers/PreferencesProvider'
+import { PreferencesDialog } from '@/components/ui/preferences-dialog'
+import { usePreferences } from '@/providers/PreferencesProvider'
 import { Button } from '../ui/button'
 import { useState } from 'react'
 

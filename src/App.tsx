@@ -1,45 +1,42 @@
 import { Routes, Route } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
-import { Layout } from './components/layout'
-import { KeyboardProvider } from './providers/KeyboardProvider'
-import { AccessibilityProvider } from './providers/AccessibilityProvider'
-import { AlertProvider } from './contexts/AlertContext'
-import { PreferencesProvider } from './providers/PreferencesProvider'
+import { Layout } from '@/components/layout'
+import { KeyboardProvider } from '@/providers/KeyboardProvider'
+import { AccessibilityProvider } from '@/providers/AccessibilityProvider'
+import { AlertProvider } from '@/contexts/AlertContext'
+import { PreferencesProvider } from '@/providers/PreferencesProvider'
 
-// Lazy load route components
-const HomePage = lazy(() => import('./pages/HomePage'))
-const CoachingPage = lazy(() => import('./pages/CoachingPage'))
-const NeuralNetworks = lazy(() => import('./projects/NeuralNetworks'))
-const Lukz = lazy(() => import('./projects/Lukz'))
-const ZomAI = lazy(() => import('./projects/ZomAI'))
+// Lazy load route components with proper default exports
+const HomePage = lazy(() => import('@/pages/HomePage'))
+const Projects = lazy(() => import('@/pages/projects'))
+const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
+const CoachingPage = lazy(() => import('@/pages/CoachingPage'))
 
-// Loading fallback component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[400px]">
-    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary transform-gpu"></div>
+    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
   </div>
 )
 
 export default function App() {
   return (
     <AlertProvider>
-      <AccessibilityProvider>
-        <KeyboardProvider>
-          <PreferencesProvider>
+      <PreferencesProvider>
+        <AccessibilityProvider>
+          <KeyboardProvider>
             <Suspense fallback={<LoadingFallback />}>
               <Routes>
                 <Route element={<Layout />}>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/projects/:id" element={<ProjectDetail />} />
                   <Route path="/coaching" element={<CoachingPage />} />
-                  <Route path="/projects/neural-networks" element={<NeuralNetworks />} />
-                  <Route path="/projects/lukz" element={<Lukz />} />
-                  <Route path="/projects/zom-ai" element={<ZomAI />} />
                 </Route>
               </Routes>
             </Suspense>
-          </PreferencesProvider>
-        </KeyboardProvider>
-      </AccessibilityProvider>
+          </KeyboardProvider>
+        </AccessibilityProvider>
+      </PreferencesProvider>
     </AlertProvider>
   )
 }

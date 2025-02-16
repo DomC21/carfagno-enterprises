@@ -1,15 +1,15 @@
-import * as React from 'react'
+import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
 import { Alert, AlertManager } from '../components/ui/alert-manager'
-import { useAlerts } from '../hooks/useAlerts'
-
-const { createContext, useContext } = React
-type ReactNode = React.ReactNode
 
 interface AlertContextValue {
   alerts: Alert[]
   addAlert: (alert: Omit<Alert, 'id' | 'timestamp'>) => void
   dismissAlert: (id: string) => void
   clearAlerts: () => void
+  showSuccess: (message: string, duration?: number) => void
+  showError: (message: string, duration?: number) => void
+  showWarning: (message: string, duration?: number) => void
+  showInfo: (message: string, duration?: number) => void
 }
 
 const AlertContext = createContext<AlertContextValue | undefined>(undefined)
@@ -19,10 +19,54 @@ interface AlertProviderProps {
 }
 
 export function AlertProvider({ children }: AlertProviderProps) {
-  const { alerts, addAlert, dismissAlert, clearAlerts } = useAlerts()
+  const [alerts, setAlerts] = useState<Alert[]>([])
+
+  const addAlert = useCallback((alert: Omit<Alert, 'id' | 'timestamp'>) => {
+    const id = Math.random().toString(36).substring(7)
+    const timestamp = new Date()
+    const newAlert = { ...alert, id, timestamp }
+    setAlerts(prev => [...prev, newAlert])
+
+    if (alert.duration) {
+      setTimeout(() => dismissAlert(id), alert.duration)
+    }
+  }, [])
+
+  const dismissAlert = useCallback((id: string) => {
+    setAlerts(prev => prev.filter(alert => alert.id !== id))
+  }, [])
+
+  const clearAlerts = useCallback(() => {
+    setAlerts([])
+  }, [])
+
+  const showSuccess = useCallback((message: string, duration = 5000) => {
+    addAlert({ type: 'success', message, duration })
+  }, [addAlert])
+
+  const showError = useCallback((message: string, duration = 5000) => {
+    addAlert({ type: 'error', message, duration })
+  }, [addAlert])
+
+  const showWarning = useCallback((message: string, duration = 5000) => {
+    addAlert({ type: 'warning', message, duration })
+  }, [addAlert])
+
+  const showInfo = useCallback((message: string, duration = 5000) => {
+    addAlert({ type: 'info', message, duration })
+  }, [addAlert])
 
   return (
-    <AlertContext.Provider value={{ alerts, addAlert, dismissAlert, clearAlerts }}>
+    <AlertContext.Provider value={{ 
+      alerts, 
+      addAlert, 
+      dismissAlert, 
+      clearAlerts,
+      showSuccess,
+      showError,
+      showWarning,
+      showInfo
+    }}>
       {children}
       <AlertManager alerts={alerts} onDismiss={dismissAlert} />
     </AlertContext.Provider>
@@ -35,37 +79,4 @@ export function useAlert() {
     throw new Error('useAlert must be used within an AlertProvider')
   }
   return context
-}
-
-// Helper functions for common alert types
-export const showSuccess = (message: string, duration = 5000) => {
-  useAlert().addAlert({
-    type: 'success',
-    message,
-    duration
-  })
-}
-
-export const showError = (message: string, duration = 5000) => {
-  useAlert().addAlert({
-    type: 'error',
-    message,
-    duration
-  })
-}
-
-export const showWarning = (message: string, duration = 5000) => {
-  useAlert().addAlert({
-    type: 'warning',
-    message,
-    duration
-  })
-}
-
-export const showInfo = (message: string, duration = 5000) => {
-  useAlert().addAlert({
-    type: 'info',
-    message,
-    duration
-  })
 }

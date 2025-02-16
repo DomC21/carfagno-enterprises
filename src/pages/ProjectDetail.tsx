@@ -12,7 +12,7 @@ const demoComponents = {
   'zom-ai': ZomAIDemo
 }
 
-export function ProjectDetail() {
+export default function ProjectDetail() {
   const { id } = useParams()
   
   if (!id || !projectDetails[id]) {
