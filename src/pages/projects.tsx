@@ -83,8 +83,8 @@ export default function Projects() {
           animate="show"
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
-          {projects.map(project => {
-            const Icon = project.icon
+          {projects.map((project) => {
+            const Icon = project.icon;
             return (
               <motion.div
                 key={project.id}
@@ -145,10 +145,10 @@ export default function Projects() {
                   </EnhancedTooltip>
                 </Link>
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
+            );
+          })}
+        </motion.div>
       </div>
-    </motion.div>
-  )
+    </div>
+  );
 }
