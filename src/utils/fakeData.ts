@@ -77,6 +77,14 @@ export interface StockData {
   close: number;
   volume: number;
   averageVolume: number;
+  bid?: number;
+  ask?: number;
+  bidSize?: number;
+  askSize?: number;
+  depth?: {
+    bids: { price: number; size: number }[];
+    asks: { price: number; size: number }[];
+  };
   orderBook?: OrderBook;
   technicalIndicators?: TechnicalIndicators;
   pattern?: TradingPattern;

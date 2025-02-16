@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, ComposedChart, ReferenceLine } from 'recharts'
-import { generateStockData, type StockData } from '../../utils/fakeData'
+import { type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
@@ -10,6 +10,7 @@ import { HeatMap } from '../../components/ui/heat-map'
 import { MarketStatus } from '../../components/ui/market-status'
 import { AILoading } from '../../components/ui/ai-loading'
 import { cn } from '../../utils/styles'
+import { simulateWebSocket, aggregateMarketData } from '../../utils/websocketSimulation'
 
 interface Message {
   type: 'user' | 'ai'
@@ -47,23 +48,42 @@ export function ZomAIDemo() {
   const [data, setData] = useState<StockData[]>([])
 
   useEffect(() => {
+    const messages: WebSocketMessage[] = []
+    let mounted = true
+
     // Initialize with some data
-    setData(generateStockData(50))
+    const cleanup = simulateWebSocket((message) => {
+      if (!mounted) return
 
-    // Update data periodically with smooth transitions
-    const interval = setInterval(() => {
-      setData(prev => {
-        const newData = [...prev.slice(1), ...generateStockData(1)]
-        // Ensure smooth transition by maintaining data structure
-        return newData.map(item => ({
-          ...item,
-          // Add GPU-accelerated transition class
-          className: 'transform-gpu transition-all duration-300 ease-out'
-        }))
-      })
-    }, 5000)
+      messages.push(message)
+      // Keep last 50 messages for performance
+      if (messages.length > 50) {
+        messages.shift()
+      }
 
-    return () => clearInterval(interval)
+      try {
+        const aggregated = aggregateMarketData(messages)
+        // Use requestAnimationFrame for smooth updates
+        requestAnimationFrame(() => {
+          if (mounted) {
+            setData(prev => {
+              const newData = [...(prev || []).slice(1), aggregated]
+              return newData.map(item => ({
+                ...item,
+                className: 'transform-gpu transition-all duration-300 ease-out'
+              }))
+            })
+          }
+        })
+      } catch (error) {
+        console.error('Error aggregating market data:', error)
+      }
+    }, 100) // Update every 100ms for smooth real-time feel
+
+    return () => {
+      mounted = false
+      cleanup()
+    }
   }, [])
   const [loading, setLoading] = useState(false)
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics[]>([])
