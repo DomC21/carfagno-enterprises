@@ -3,7 +3,7 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'rec
 import { motion } from 'framer-motion'
 import { CustomTooltip } from './custom-tooltip'
 
-interface DepthData {
+export interface DepthData {
   price: number
   bidVolume: number
   askVolume: number
