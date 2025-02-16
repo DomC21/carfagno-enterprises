@@ -3,7 +3,7 @@ import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, L
 import { generateOptionsData, generateCongressionalTrades, generateMarketSentiment, generateGreekMetrics } from '../../utils/fakeData'
 import { motion } from 'framer-motion'
 import { useRealtimeData } from '../../hooks/useRealtimeData'
-import { DashboardLayout } from '@/components/ui/dashboard-layout'
+import { DashboardLayout } from '../../components/ui/dashboard-layout'
 
 // Types for Greek metrics data
 type GreekMetricsData = {
