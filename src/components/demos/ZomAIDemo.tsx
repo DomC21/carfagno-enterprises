@@ -8,6 +8,7 @@ import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { HeatMap } from '../../components/ui/heat-map'
 import { MarketStatus } from '../../components/ui/market-status'
+import { AILoading } from '../../components/ui/ai-loading'
 import { cn } from '../../utils/styles'
 
 interface Message {
@@ -401,55 +402,7 @@ export function ZomAIDemo() {
                 )}
               </motion.div>
             ))}
-            {loading && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex justify-center items-center gap-2 p-4"
-              >
-                <div className="flex items-center gap-2">
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [1, 0.7, 1]
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="w-2 h-2 rounded-full bg-primary"
-                  />
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [1, 0.7, 1]
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 0.2
-                    }}
-                    className="w-2 h-2 rounded-full bg-primary"
-                  />
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [1, 0.7, 1]
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 0.4
-                    }}
-                    className="w-2 h-2 rounded-full bg-primary"
-                  />
-                </div>
-                <span className="text-sm text-gray-400">AI is analyzing...</span>
-              </motion.div>
-            )}
+            {loading && <AILoading />}
           </div>
           <form onSubmit={handleSubmit} className="flex gap-2">
             <Input
@@ -476,7 +429,7 @@ export function ZomAIDemo() {
               <Send className="w-4 h-4" />
             </Button>
           </form>
-        </Card>
+        </div>
       </motion.div>
 
       {/* Technical Indicators */}
