@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area, ComposedChart, ReferenceLine } from 'recharts'
-import { generateStockData, type StockData } from '../../utils/fakeData'
+import { type StockData } from '../../utils/fakeData'
 import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
 import { Send, FileText, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { HeatMap } from '../../components/ui/heat-map'
+import { MarketStatus } from '../../components/ui/market-status'
+import { AILoading } from '../../components/ui/ai-loading'
+import { cn } from '../../utils/styles'
+import { simulateWebSocket, aggregateMarketData, type WebSocketMessage } from '../../utils/websocketSimulation'
+import { CustomTooltip } from '../../components/ui/custom-tooltip'
 
 interface Message {
   type: 'user' | 'ai'
@@ -44,23 +49,42 @@ export function ZomAIDemo() {
   const [data, setData] = useState<StockData[]>([])
 
   useEffect(() => {
+    const messages: WebSocketMessage[] = []
+    let mounted = true
+
     // Initialize with some data
-    setData(generateStockData(50))
+    const cleanup = simulateWebSocket((message) => {
+      if (!mounted) return
 
-    // Update data periodically with smooth transitions
-    const interval = setInterval(() => {
-      setData(prev => {
-        const newData = [...prev.slice(1), ...generateStockData(1)]
-        // Ensure smooth transition by maintaining data structure
-        return newData.map(item => ({
-          ...item,
-          // Add GPU-accelerated transition class
-          className: 'transform-gpu transition-all duration-300 ease-out'
-        }))
-      })
-    }, 5000)
+      messages.push(message)
+      // Keep last 50 messages for performance
+      if (messages.length > 50) {
+        messages.shift()
+      }
 
-    return () => clearInterval(interval)
+      try {
+        const aggregated = aggregateMarketData(messages)
+        // Use requestAnimationFrame for smooth updates
+        requestAnimationFrame(() => {
+          if (mounted) {
+            setData(prev => {
+              const newData = [...(prev || []).slice(1), aggregated]
+              return newData.map(item => ({
+                ...item,
+                className: 'transform-gpu transition-all duration-300 ease-out'
+              }))
+            })
+          }
+        })
+      } catch (error) {
+        console.error('Error aggregating market data:', error)
+      }
+    }, 100) // Update every 100ms for smooth real-time feel
+
+    return () => {
+      mounted = false
+      cleanup()
+    }
   }, [])
   const [loading, setLoading] = useState(false)
   const [modelMetrics, setModelMetrics] = useState<ModelMetrics[]>([])
@@ -318,9 +342,12 @@ export function ZomAIDemo() {
           delay: 0.1
         }}
       >
-        <Card className="p-4 bg-black border-border">
-          <h3 className="text-lg font-semibold mb-4 text-primary">AI Analysis</h3>
-          <div className="h-[300px] overflow-y-auto mb-4 space-y-4">
+        <div className="glassmorphism p-6 space-y-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-primary">AI Analysis</h3>
+            <MarketStatus />
+          </div>
+          <div className="h-[300px] overflow-y-auto mb-4 space-y-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
             {messages.map((message, i) => (
               <motion.div
                 key={i}
@@ -331,11 +358,12 @@ export function ZomAIDemo() {
                   stiffness: 300,
                   damping: 20
                 }}
-                className={`p-3 rounded-lg ${
+                className={cn(
+                  "p-4 rounded-lg glassmorphism transform-gpu transition-all duration-300",
                   message.type === 'user'
-                    ? 'bg-blue-950/20 border border-blue-500/20 ml-12'
-                    : 'bg-teal-950/20 border border-teal-500/20 mr-12'
-                }`}
+                    ? "ml-12 border-blue-500/20 hover:border-blue-500/40"
+                    : "mr-12 border-teal-500/20 hover:border-teal-500/40"
+                )}
               >
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm font-medium text-primary">
@@ -395,28 +423,34 @@ export function ZomAIDemo() {
                 )}
               </motion.div>
             ))}
-            {loading && (
-              <div className="flex justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-primary"></div>
-              </div>
-            )}
+            {loading && <AILoading />}
           </div>
           <form onSubmit={handleSubmit} className="flex gap-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about market trends, stock analysis, or trading strategies..."
-              className="flex-1 bg-black border-border focus:border-primary"
+              className={cn(
+                "flex-1 glassmorphism border-primary/20 focus:border-primary/40",
+                "transition-all duration-300 ease-out transform-gpu",
+                "placeholder:text-gray-500"
+              )}
+              disabled={loading}
             />
             <Button
               type="submit"
               disabled={loading}
-              className="bg-primary hover:bg-primary/90"
+              className={cn(
+                "bg-primary/20 hover:bg-primary/30",
+                "border border-primary/40 hover:border-primary/60",
+                "text-primary transition-all duration-300",
+                "transform-gpu hover:scale-105"
+              )}
             >
               <Send className="w-4 h-4" />
             </Button>
           </form>
-        </Card>
+        </div>
       </motion.div>
 
       {/* Technical Indicators */}
@@ -434,91 +468,116 @@ export function ZomAIDemo() {
           <h3 className="text-lg font-semibold mb-4 text-primary">Technical Analysis</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h4 className="text-sm font-medium text-primary mb-2">RSI</h4>
-              <div className="h-[150px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                    <XAxis 
-                      dataKey="timestamp" 
-                      tickFormatter={(value) => new Date(value).toLocaleTimeString()}
-                      stroke="#64748b"
-                    />
-                    <YAxis 
-                      domain={[0, 100]} 
-                      stroke="#64748b"
-                      ticks={[0, 30, 70, 100]}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: '1px solid #1e293b',
-                        borderRadius: '0.375rem'
-                      }}
-                      labelStyle={{ color: '#94a3b8' }}
-                      itemStyle={{ color: '#e2e8f0' }}
-                      formatter={(value: number) => `${value.toFixed(2)}`}
-                    />
-                    <ReferenceLine y={70} stroke="#ef4444" strokeDasharray="3 3" />
-                    <ReferenceLine y={30} stroke="#10b981" strokeDasharray="3 3" />
-                    <Line 
-                      type="monotone" 
-                      dataKey="technicalIndicators.rsi" 
-                      stroke="#8b5cf6"
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-2 text-xs text-gray-400">
-                RSI measures momentum on a scale of 0 to 100. Values above 70 indicate overbought conditions, while values below 30 suggest oversold conditions.
-              </div>
+              <CustomTooltip
+                title="Relative Strength Index (RSI)"
+                description="A momentum oscillator that measures the speed and magnitude of recent price changes to evaluate overbought or oversold conditions."
+                insights={[
+                  { label: 'Overbought', value: '> 70' },
+                  { label: 'Neutral', value: '30-70' },
+                  { label: 'Oversold', value: '< 30' }
+                ]}
+              >
+                <div>
+                  <h4 className="text-sm font-medium text-primary mb-2">RSI</h4>
+                  <div className="h-[150px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis 
+                          dataKey="timestamp" 
+                          tickFormatter={(value) => new Date(value).toLocaleTimeString()}
+                          stroke="#64748b"
+                        />
+                        <YAxis 
+                          domain={[0, 100]} 
+                          stroke="#64748b"
+                          ticks={[0, 30, 70, 100]}
+                        />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            backdropFilter: 'blur(10px)',
+                            border: '1px solid rgba(30, 41, 59, 0.5)',
+                            borderRadius: '0.375rem',
+                            boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
+                          }}
+                          labelStyle={{ color: '#94a3b8' }}
+                          itemStyle={{ color: '#e2e8f0' }}
+                          formatter={(value: number) => `${value.toFixed(2)}`}
+                        />
+                        <ReferenceLine y={70} stroke="#ef4444" strokeDasharray="3 3" />
+                        <ReferenceLine y={30} stroke="#10b981" strokeDasharray="3 3" />
+                        <Line 
+                          type="monotone" 
+                          dataKey="technicalIndicators.rsi" 
+                          stroke="#8b5cf6"
+                          dot={false}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </CustomTooltip>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-primary mb-2">MACD</h4>
-              <div className="h-[150px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                    <XAxis 
-                      dataKey="timestamp" 
-                      tickFormatter={(value) => new Date(value).toLocaleTimeString()}
-                      stroke="#64748b"
-                    />
-                    <YAxis stroke="#64748b" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: '1px solid #1e293b',
-                        borderRadius: '0.375rem'
-                      }}
-                      labelStyle={{ color: '#94a3b8' }}
-                      itemStyle={{ color: '#e2e8f0' }}
-                      formatter={(value: number) => `${value.toFixed(4)}`}
-                    />
-                    <Bar 
-                      dataKey="technicalIndicators.histogram" 
-                      fill="#8b5cf6"
-                      opacity={0.5}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="technicalIndicators.signal" 
-                      stroke="#ef4444"
-                      dot={false}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="technicalIndicators.macd" 
-                      stroke="#10b981"
-                      dot={false}
-                    />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-2 text-xs text-gray-400">
-                MACD helps identify trend direction and momentum. The histogram shows the difference between MACD and its signal line.
-              </div>
+              <CustomTooltip
+                title="Moving Average Convergence Divergence (MACD)"
+                description="A trend-following momentum indicator that shows the relationship between two moving averages of an asset's price."
+                insights={[
+                  { label: 'MACD Line', value: 'Difference between 12 and 26-day EMAs' },
+                  { label: 'Signal Line', value: '9-day EMA of MACD line' },
+                  { label: 'Histogram', value: 'MACD line minus signal line' },
+                  { label: 'Bullish Signal', value: 'MACD crosses above signal line' },
+                  { label: 'Bearish Signal', value: 'MACD crosses below signal line' }
+                ]}
+              >
+                <div>
+                  <h4 className="text-sm font-medium text-primary mb-2">MACD</h4>
+                  <div className="h-[150px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ComposedChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis 
+                          dataKey="timestamp" 
+                          tickFormatter={(value) => new Date(value).toLocaleTimeString()}
+                          stroke="#64748b"
+                        />
+                        <YAxis stroke="#64748b" />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            backdropFilter: 'blur(10px)',
+                            border: '1px solid rgba(30, 41, 59, 0.5)',
+                            borderRadius: '0.375rem',
+                            boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
+                          }}
+                          labelStyle={{ color: '#94a3b8' }}
+                          itemStyle={{ color: '#e2e8f0' }}
+                          formatter={(value: number) => `${value.toFixed(4)}`}
+                        />
+                        <Bar 
+                          dataKey="technicalIndicators.histogram" 
+                          fill="#8b5cf6"
+                          opacity={0.5}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="technicalIndicators.signal" 
+                          stroke="#ef4444"
+                          dot={false}
+                        />
+                        <Line 
+                          type="monotone" 
+                          dataKey="technicalIndicators.macd" 
+                          stroke="#10b981"
+                          dot={false}
+                        />
+                        <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </CustomTooltip>
             </div>
           </div>
         </Card>

@@ -6,11 +6,18 @@
   :root {
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 51 100% 50%;
+    --primary-foreground: 0 0% 0%;
     --accent: 199 89% 48%;
     --accent-foreground: 210 40% 98%;
-    --border: 215 27.9% 16.9%;
+    --border: 51 100% 50%;
+    --gold: 51 100% 50%;
+    --gold-hover: 51 100% 60%;
+    --gold-focus: 51 100% 40%;
+    --navy: 220 60% 20%;
+    --navy-dark: 220 60% 10%;
+    --teal: 180 100% 30%;
+    --neon-blue: 210 100% 50%;
   }
 
   body {
@@ -38,22 +45,54 @@
   .glassmorphism {
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+    border-radius: 0.5rem;
     transform-gpu: translate3d(0, 0, 0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glassmorphism:hover {
+    border-color: rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
   }
 
   .neon-glow {
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5),
-                0 0 20px rgba(59, 130, 246, 0.3),
-                0 0 30px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
+                0 0 20px rgba(255, 215, 0, 0.3),
+                0 0 30px rgba(255, 215, 0, 0.2);
     transition: box-shadow 0.3s ease;
     transform-gpu: translate3d(0, 0, 0);
   }
 
   .neon-glow:hover {
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.8),
-                0 0 30px rgba(59, 130, 246, 0.5),
-                0 0 45px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8),
+                0 0 30px rgba(255, 215, 0, 0.5),
+                0 0 45px rgba(255, 215, 0, 0.3);
+  }
+
+  .market-data-stream {
+    animation: market-data 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    transform-gpu: translate3d(0, 0, 0);
+  }
+
+  @keyframes market-data {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    80% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
   }
 
   .glow-effect {
@@ -70,8 +109,8 @@
     inset: -1px;
     background: linear-gradient(
       35deg,
-      rgba(59, 130, 246, 0.5),
-      rgba(16, 185, 129, 0.5)
+      rgba(255, 215, 0, 0.5),
+      rgba(255, 165, 0, 0.5)
     );
     border-radius: inherit;
     filter: blur(15px);
@@ -82,6 +121,21 @@
 
   .glow-effect:hover::before {
     opacity: 1;
+  }
+
+  .market-status-indicator {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: .5;
+      transform: scale(0.95);
+    }
   }
 
   .glow-text {
