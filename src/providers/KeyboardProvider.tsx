@@ -64,11 +64,25 @@ export function KeyboardProvider({ children }: KeyboardProviderProps) {
     if (matchingShortcut) {
       event.preventDefault()
       matchingShortcut.action()
+      
+      // Enhanced visual feedback
+      const shortcutText = `${matchingShortcut.description} (${
+        matchingShortcut.modifier ? `${matchingShortcut.modifier}+${matchingShortcut.key}` : matchingShortcut.key
+      })`
+      
       addAlert({
         type: 'info',
-        message: `Shortcut: ${matchingShortcut.description}`,
+        message: shortcutText,
         duration: 2000
       })
+
+      // Add ripple effect at center of viewport
+      const ripple = document.createElement('div')
+      ripple.className = 'fixed w-4 h-4 bg-primary/20 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-ripple pointer-events-none'
+      ripple.style.left = '50%'
+      ripple.style.top = '50%'
+      document.body.appendChild(ripple)
+      setTimeout(() => ripple.remove(), 1000)
     }
   }, [shortcuts, isModalOpen, addAlert])
 
