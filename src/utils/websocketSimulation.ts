@@ -1,6 +1,6 @@
 import { StockData } from './fakeData'
 
-interface WebSocketMessage {
+export interface WebSocketMessage {
   type: 'trade' | 'quote' | 'depth'
   data: any
   timestamp: number
