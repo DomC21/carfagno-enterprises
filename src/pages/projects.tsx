@@ -1,10 +1,21 @@
 
 import { Link } from 'react-router-dom'
 import { Brain, LineChart, Bot } from "lucide-react"
-import { FeatureCard } from "@/components/ui/feature-card"
+import { FeatureCard } from "../components/ui/feature-card"
 import { motion } from "framer-motion"
+import { EnhancedTooltip } from "../components/ui/enhanced-tooltip"
+import { type LucideIcon } from 'lucide-react'
 
-const projects = [
+interface Project {
+  id: string
+  title: string
+  description: string
+  icon: LucideIcon
+  features: string[]
+  gradient: string
+}
+
+const projects: Project[] = [
   {
     id: 'neural-networks',
     title: 'Neural Networks',
@@ -82,8 +93,8 @@ export default function Projects() {
           animate="show"
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
-          {projects.map(project => {
-            const Icon = project.icon
+          {projects.map((project) => {
+            const Icon = project.icon;
             return (
               <motion.div
                 key={project.id}
@@ -95,47 +106,59 @@ export default function Projects() {
                   to={`/projects/${project.id}`}
                   className="block h-full"
                 >
-                  <FeatureCard
-                    className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
-                    glowColor={
-                      project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
-                      project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
-                      "rgba(234, 179, 8, 0.5)"
-                    }
+                  <EnhancedTooltip
+                    content={project.title}
+                    description="Click to explore detailed features and live demo"
+                    side="top"
                   >
-                    <div className="p-8 sm:p-10">
-                      <div className={`w-20 h-20 rounded-2xl mb-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} shadow-xl transform-gpu transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}>
-                        <Icon className="w-10 h-10 text-white transform-gpu transition-transform duration-300 group-hover:rotate-3" />
+                    <FeatureCard
+                      className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
+                      glowColor={
+                        project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
+                        project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
+                        "rgba(234, 179, 8, 0.5)"
+                      }
+                    >
+                      <div className="p-8 sm:p-10">
+                        <div className={`w-20 h-20 rounded-2xl mb-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} shadow-xl transform-gpu transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}>
+                          <Icon className="w-10 h-10 text-white transform-gpu transition-transform duration-300 group-hover:rotate-3" />
+                        </div>
+                        
+                        <h3 className="text-2xl sm:text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold mb-6 tracking-tight">
+                          {project.title}
+                        </h3>
+                        
+                        <p className="text-lg sm:text-xl text-gray-300 group-hover:text-white transition-colors duration-300 mb-10 leading-relaxed">
+                          {project.description}
+                        </p>
+                        
+                        <div className="space-y-5">
+                          <h4 className="text-xl font-bold text-primary tracking-tight">Key Features</h4>
+                          {project.features.map((feature, i) => (
+                            <EnhancedTooltip
+                              key={i}
+                              content="Feature Detail"
+                              description={feature}
+                              side="right"
+                            >
+                              <div 
+                                className="flex items-center gap-4 text-gray-400 group-hover:text-gray-200 transition-all duration-300 transform-gpu hover:translate-x-2"
+                              >
+                                <div className="w-3 h-3 rounded-full bg-primary transform-gpu transition-transform duration-300 group-hover:scale-125" />
+                                <span className="text-lg">{feature}</span>
+                              </div>
+                            </EnhancedTooltip>
+                          ))}
+                        </div>
                       </div>
-                      
-                      <h3 className="text-2xl sm:text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold mb-6 tracking-tight">
-                        {project.title}
-                      </h3>
-                      
-                      <p className="text-lg sm:text-xl text-gray-300 group-hover:text-white transition-colors duration-300 mb-10 leading-relaxed">
-                        {project.description}
-                      </p>
-                      
-                      <div className="space-y-5">
-                        <h4 className="text-xl font-bold text-primary tracking-tight">Key Features</h4>
-                        {project.features.map((feature, i) => (
-                          <div 
-                            key={i}
-                            className="flex items-center gap-4 text-gray-400 group-hover:text-gray-200 transition-all duration-300 transform-gpu hover:translate-x-2"
-                          >
-                            <div className="w-3 h-3 rounded-full bg-primary transform-gpu transition-transform duration-300 group-hover:scale-125" />
-                            <span className="text-lg">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </FeatureCard>
+                    </FeatureCard>
+                  </EnhancedTooltip>
                 </Link>
               </motion.div>
-            )
+            );
           })}
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

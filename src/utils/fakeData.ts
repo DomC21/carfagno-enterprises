@@ -37,6 +37,12 @@ export interface CongressionalTrade {
   shares: number;
   sector: string;
   performance: number;
+  accuracy: number;
+  frequency: number;
+  marketCap: number;
+  volume: number;
+  pe: number;
+  sentiment: 'bullish' | 'bearish' | 'neutral';
 }
 
 export interface MarketSentiment {
@@ -300,7 +306,13 @@ export const generateCongressionalTrades = (count: number): CongressionalTrade[]
     committee: faker.helpers.arrayElement(committees),
     shares: faker.number.int({ min: 100, max: 10000 }),
     sector: faker.helpers.arrayElement(sectors),
-    performance: faker.number.float({ min: -15, max: 15, fractionDigits: 1 })
+    performance: faker.number.float({ min: -15, max: 15, fractionDigits: 1 }),
+    accuracy: faker.number.float({ min: 60, max: 95, fractionDigits: 1 }),
+    frequency: faker.number.float({ min: 1, max: 10, fractionDigits: 1 }),
+    marketCap: faker.number.int({ min: 1e9, max: 1e12 }),
+    volume: faker.number.int({ min: 1e5, max: 1e7 }),
+    pe: faker.number.float({ min: 5, max: 50, fractionDigits: 1 }),
+    sentiment: faker.helpers.arrayElement(['bullish', 'bearish', 'neutral']) as 'bullish' | 'bearish' | 'neutral'
   }));
 };
 

@@ -5,13 +5,15 @@ import { Card } from '../../components/ui/card'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
 import { Send, FileText, TrendingUp } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { HeatMap } from '../../components/ui/heat-map'
 import { MarketStatus } from '../../components/ui/market-status'
 import { AILoading } from '../../components/ui/ai-loading'
 import { cn } from '../../utils/styles'
 import { simulateWebSocket, aggregateMarketData, type WebSocketMessage } from '../../utils/websocketSimulation'
 import { CustomTooltip } from '../../components/ui/custom-tooltip'
+import { ParticleBackground } from '../ui/particle-background'
+import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts'
 
 interface Message {
   type: 'user' | 'ai'
@@ -47,6 +49,15 @@ export function ZomAIDemo() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [data, setData] = useState<StockData[]>([])
+  const [showCommandHelp, setShowCommandHelp] = useState(false)
+
+  const shortcuts = {
+    'ctrl+enter': () => handleSubmit(new Event('submit') as any),
+    'ctrl+k': () => setInput(''),
+    'ctrl+h': () => setShowCommandHelp(prev => !prev)
+  }
+
+  useKeyboardShortcuts(shortcuts)
 
   useEffect(() => {
     const messages: WebSocketMessage[] = []
@@ -213,8 +224,41 @@ export function ZomAIDemo() {
         duration: 0.5,
         ease: "easeOut"
       }}
-      className="space-y-6 transform-gpu"
+      className="relative space-y-6 transform-gpu"
     >
+      <ParticleBackground />
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-4">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/50 border border-primary/20 backdrop-blur-sm">
+          <div className="text-xs text-gray-400">
+            <span className="text-primary">Ctrl+Enter</span> Submit • <span className="text-primary">Ctrl+K</span> Clear • <span className="text-primary">Ctrl+H</span> Help
+          </div>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/50 border border-primary/20 backdrop-blur-sm">
+          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-xs text-gray-400">Real-time data</span>
+          <div className="text-xs text-primary">
+            &lt;500ms latency
+          </div>
+        </div>
+      </div>
+      <AnimatePresence mode="wait">
+        {showCommandHelp && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-16 right-4 z-50 p-4 rounded-lg bg-black/90 border border-primary/20 backdrop-blur-sm"
+          >
+            <h4 className="text-sm font-medium text-primary mb-2">Available Commands</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><span className="text-primary">/analyze</span> - Run market analysis</li>
+              <li><span className="text-primary">/sentiment</span> - Show market sentiment</li>
+              <li><span className="text-primary">/patterns</span> - Show detected patterns</li>
+              <li><span className="text-primary">/help</span> - Show all commands</li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Model Metrics */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
