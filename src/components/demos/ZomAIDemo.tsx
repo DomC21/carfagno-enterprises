@@ -187,8 +187,34 @@ export function ZomAIDemo() {
     { symbol: 'META', score: 72, volume: 6800000 }
   ]
 
+  if (loading || !data.length || !modelMetrics.length) {
+    return (
+      <div className="space-y-6">
+        <Card className="p-4 bg-black border-border">
+          <div className="h-8 w-3/4 bg-gray-800 rounded-lg animate-pulse mb-4" />
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="h-[200px] bg-gray-800 rounded-lg animate-pulse" />
+            <div className="h-[200px] bg-gray-800 rounded-lg animate-pulse" />
+          </div>
+        </Card>
+        <Card className="p-4 bg-black border-border">
+          <div className="h-8 w-1/2 bg-gray-800 rounded-lg animate-pulse mb-4" />
+          <div className="h-[300px] bg-gray-800 rounded-lg animate-pulse" />
+        </Card>
+      </div>
+    )
+  }
+
   return (
-    <div className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: "easeOut"
+      }}
+      className="space-y-6 transform-gpu"
+    >
       {/* Model Metrics */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -841,6 +867,6 @@ export function ZomAIDemo() {
           </div>
         </Card>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }

@@ -1,8 +1,8 @@
 
 import { Link } from 'react-router-dom'
 import { Brain, LineChart, Bot } from "lucide-react"
-import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import { FeatureCard } from "@/components/ui/feature-card"
+import { motion } from "framer-motion"
 
 const projects = [
   {
@@ -14,7 +14,8 @@ const projects = [
       'Advanced pattern recognition',
       'Real-time market data processing',
       'Automated trading signals'
-    ]
+    ],
+    gradient: 'from-blue-500 via-blue-600 to-blue-700'
   },
   {
     id: 'lukz',
@@ -25,7 +26,8 @@ const projects = [
       'Options flow analysis',
       'Congressional trade tracking',
       'Market sentiment analysis'
-    ]
+    ],
+    gradient: 'from-purple-500 via-purple-600 to-purple-700'
   },
   {
     id: 'zom-ai',
@@ -36,60 +38,103 @@ const projects = [
       'AI-powered market analysis',
       'Real-time stock screening',
       'Natural language processing'
-    ]
+    ],
+    gradient: 'from-yellow-500 via-yellow-600 to-yellow-700'
   }
 ]
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+}
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  show: { y: 0, opacity: 1 }
+}
+
 export default function Projects() {
   return (
-    <div className="container mx-auto py-section-sm sm:py-section px-4">
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text-animated">
-        Our Projects
-      </h1>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-lg sm:max-w-none mx-auto">
-        {projects.map((project, index) => {
-          const Icon = project.icon
-          return (
-            <ScrollReveal 
-              key={project.id}
-              delay={index * 0.1}
-              direction={index % 2 === 0 ? 'left' : 'right'}
-            >
-              <Link 
-                to={`/projects/${project.id}`}
-                className="block"
+    <div className="min-h-screen bg-black">
+      <div className="container mx-auto py-16 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text-animated">
+            Our Projects
+          </h1>
+          <p className="text-gray-300 text-xl sm:text-2xl max-w-3xl mx-auto font-medium leading-relaxed">
+            Explore our cutting-edge financial technology solutions powered by artificial intelligence
+          </p>
+        </motion.div>
+
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        >
+          {projects.map(project => {
+            const Icon = project.icon
+            return (
+              <motion.div
+                key={project.id}
+                variants={item}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <FeatureCard
-                  className="h-full group"
-                  glowColor={
-                    project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
-                    project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
-                    "rgba(234, 179, 8, 0.5)"
-                  }
+                <Link 
+                  to={`/projects/${project.id}`}
+                  className="block h-full"
                 >
-                  <div className="p-4 sm:p-6">
-                    <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary mb-4 group-hover:animate-glow" />
-                    <h3 className="text-lg sm:text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-gray-400 group-hover:text-gray-300 transition-colors mt-2">
-                      {project.description}
-                    </p>
-                    <div className="mt-6 space-y-2 border-t border-border pt-4">
-                      <p className="text-sm font-medium text-primary">Key Features:</p>
-                      {project.features.map((feature, i) => (
-                        <p key={i} className="text-sm text-gray-500 group-hover:text-gray-400 flex items-center">
-                          <span className="text-primary mr-2">•</span>
-                          {feature}
-                        </p>
-                      ))}
+                  <FeatureCard
+                    className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
+                    glowColor={
+                      project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
+                      project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
+                      "rgba(234, 179, 8, 0.5)"
+                    }
+                  >
+                    <div className="p-8 sm:p-10">
+                      <div className={`w-20 h-20 rounded-2xl mb-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} shadow-xl transform-gpu transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl`}>
+                        <Icon className="w-10 h-10 text-white transform-gpu transition-transform duration-300 group-hover:rotate-3" />
+                      </div>
+                      
+                      <h3 className="text-2xl sm:text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-extrabold mb-6 tracking-tight">
+                        {project.title}
+                      </h3>
+                      
+                      <p className="text-lg sm:text-xl text-gray-300 group-hover:text-white transition-colors duration-300 mb-10 leading-relaxed">
+                        {project.description}
+                      </p>
+                      
+                      <div className="space-y-5">
+                        <h4 className="text-xl font-bold text-primary tracking-tight">Key Features</h4>
+                        {project.features.map((feature, i) => (
+                          <div 
+                            key={i}
+                            className="flex items-center gap-4 text-gray-400 group-hover:text-gray-200 transition-all duration-300 transform-gpu hover:translate-x-2"
+                          >
+                            <div className="w-3 h-3 rounded-full bg-primary transform-gpu transition-transform duration-300 group-hover:scale-125" />
+                            <span className="text-lg">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </FeatureCard>
-              </Link>
-            </ScrollReveal>
-          )
-        })}
+                  </FeatureCard>
+                </Link>
+              </motion.div>
+            )
+          })}
+        </motion.div>
       </div>
     </div>
   )

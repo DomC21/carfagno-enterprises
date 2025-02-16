@@ -40,8 +40,22 @@ export function NeuralNetworksDemo() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+      <div className="space-y-6">
+        <Card className="p-4 bg-black border-border">
+          <div className="h-8 w-1/3 bg-gray-800 rounded-lg animate-pulse mb-4" />
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="space-y-2">
+                <div className="h-4 w-1/4 bg-gray-800 rounded-lg animate-pulse" />
+                <div className="h-2 w-full bg-gray-800 rounded-lg animate-pulse" />
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card className="p-4 bg-black border-border">
+          <div className="h-8 w-1/2 bg-gray-800 rounded-lg animate-pulse mb-4" />
+          <div className="h-[200px] bg-gray-800 rounded-lg animate-pulse" />
+        </Card>
       </div>
     )
   }
@@ -54,7 +68,15 @@ export function NeuralNetworksDemo() {
   }
 
   return (
-    <div className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: "easeOut"
+      }}
+      className="space-y-6 transform-gpu"
+    >
       {/* Model Parameters */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -445,6 +467,6 @@ export function NeuralNetworksDemo() {
           </Card>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }
