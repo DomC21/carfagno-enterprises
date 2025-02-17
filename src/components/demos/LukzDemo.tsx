@@ -142,7 +142,7 @@ export function LukzDemo() {
     data: trades,
     error: tradesError,
     isLoading: tradesLoading,
-    lastUpdated: tradesLastUpdated
+    lastUpdated
   } = useRealtimeData<Trade[]>(() => generateCongressionalTrades(5), {
     interval: 5000,
     retryAttempts: 3
