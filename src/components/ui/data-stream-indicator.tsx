@@ -1,9 +1,9 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 
 interface Props {
-  lastUpdated?: number
+  lastUpdated?: Date | number | null
   className?: string
+  isLoading?: boolean
 }
 
 export function DataStreamIndicator({ lastUpdated, className = '' }: Props) {
