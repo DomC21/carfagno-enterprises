@@ -1,16 +1,36 @@
 
-import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { Card } from '../components/ui/card'
-import { projectDetails } from '../data/projectDetails'
 import { ScrollReveal } from '../components/ui/scroll-reveal'
-import { NeuralNetworksDemo, LukzDemo, ZomAIDemo } from '../components/demos'
+import { 
+  DataIngestionDemo, 
+  ModelArchitectureDemo, 
+  PerformanceMetricsDemo,
+  OptionsStrategyDemo, 
+  GreeksAnalysisDemo, 
+  FlowAnalysisDemo,
+  MarketSentimentDemo, 
+  PatternRecognitionDemo, 
+  AlertSystemDemo 
+} from '../components/demos'
 
 const demoComponents = {
-  'neural-networks': NeuralNetworksDemo,
-  'lukz': LukzDemo,
-  'zom-ai': ZomAIDemo
+  'neural-networks': [
+    { component: DataIngestionDemo, title: 'Automated Data Ingestion' },
+    { component: ModelArchitectureDemo, title: 'Neural Network Architecture' },
+    { component: PerformanceMetricsDemo, title: 'Model Performance Metrics' }
+  ],
+  'lukz': [
+    { component: OptionsStrategyDemo, title: 'Options Strategy Builder' },
+    { component: GreeksAnalysisDemo, title: 'Real-Time Greeks Analysis' },
+    { component: FlowAnalysisDemo, title: 'Options Flow Analysis' }
+  ],
+  'zom-ai': [
+    { component: MarketSentimentDemo, title: 'Market Sentiment Analysis' },
+    { component: PatternRecognitionDemo, title: 'Technical Pattern Recognition' },
+    { component: AlertSystemDemo, title: 'Custom Alert System' }
+  ]
 }
 
 export default function ProjectDetail() {
@@ -26,11 +46,58 @@ export default function ProjectDetail() {
     return () => clearTimeout(timer)
   }, [id])
 
-  if (!id || !projectDetails[id]) {
+  if (!id || !demoComponents[id as keyof typeof demoComponents]) {
     return <Navigate to="/projects" replace />
   }
 
-  const project = projectDetails[id]
+  const project = {
+    id,
+    title: id === 'neural-networks' ? 'Neural Networks and Data Pipeline' :
+           id === 'lukz' ? 'Lukz (Options Analysis Platform)' :
+           'Zom AI (Stock Analysis Tool)',
+    description: id === 'neural-networks' ? 'Advanced data processing and neural network architecture for real-time analysis.' :
+                 id === 'lukz' ? 'Comprehensive options trading analysis and strategy visualization platform.' :
+                 'AI-powered stock analysis with pattern recognition and sentiment tracking.',
+    features: id === 'neural-networks' ? [
+      'Real-time data processing pipeline',
+      'Dynamic feature selection',
+      'Model performance monitoring'
+    ] : id === 'lukz' ? [
+      'Options strategy visualization',
+      'Real-time Greeks analysis',
+      'Unusual activity detection'
+    ] : [
+      'Market sentiment tracking',
+      'Technical pattern recognition',
+      'Custom alert system'
+    ],
+    technologies: id === 'neural-networks' ? [
+      'TensorFlow.js',
+      'WebSocket streaming',
+      'Real-time visualization'
+    ] : id === 'lukz' ? [
+      'Options pricing models',
+      'Greeks calculation engine',
+      'Flow analysis algorithms'
+    ] : [
+      'Natural Language Processing',
+      'Pattern recognition AI',
+      'Real-time market data'
+    ],
+    benefits: id === 'neural-networks' ? [
+      'Improved prediction accuracy',
+      'Real-time insights',
+      'Automated data processing'
+    ] : id === 'lukz' ? [
+      'Better trading decisions',
+      'Risk management',
+      'Market opportunity detection'
+    ] : [
+      'AI-powered insights',
+      'Pattern-based alerts',
+      'Market sentiment analysis'
+    ]
+  }
 
   if (isLoading) {
     return (
@@ -64,7 +131,7 @@ export default function ProjectDetail() {
             {project.title}
           </h1>
           <p className="text-xl text-gray-300 mb-8">{project.description}</p>
-          <div className="text-lg text-gray-200 mb-8">{project.details}</div>
+          <div className="text-lg text-gray-200 mb-8">{project.description}</div>
         </Card>
       </ScrollReveal>
 
@@ -112,15 +179,19 @@ export default function ProjectDetail() {
         </ScrollReveal>
       </div>
 
-      {/* Project Demo */}
-      <ScrollReveal delay={0.4}>
-        <Card className="bg-black border-border p-6 mt-6">
-          <h2 className="text-xl font-semibold mb-6 text-primary">Interactive Demo</h2>
-          {id && demoComponents[id as keyof typeof demoComponents] && (
-            React.createElement(demoComponents[id as keyof typeof demoComponents])
-          )}
-        </Card>
-      </ScrollReveal>
+      {/* Project Demos */}
+      {id && demoComponents[id as keyof typeof demoComponents] && (
+        <div className="grid grid-cols-1 gap-8 mt-6">
+          {demoComponents[id as keyof typeof demoComponents].map((demo, index) => (
+            <ScrollReveal key={index} delay={0.4 + index * 0.1}>
+              <Card className="bg-black border-border p-6">
+                <h2 className="text-xl font-semibold mb-6 text-primary">{demo.title}</h2>
+                <demo.component />
+              </Card>
+            </ScrollReveal>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

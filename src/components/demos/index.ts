@@ -1,3 +1,3 @@
-export { NeuralNetworksDemo } from './NeuralNetworksDemo'
-export { LukzDemo } from './LukzDemo'
-export { ZomAIDemo } from './ZomAIDemo'
+export { DataIngestionDemo, ModelArchitectureDemo, PerformanceMetricsDemo } from './neural-networks'
+export { OptionsStrategyDemo, GreeksAnalysisDemo, FlowAnalysisDemo } from './lukz'
+export { MarketSentimentDemo, PatternRecognitionDemo, AlertSystemDemo } from './zom-ai'
