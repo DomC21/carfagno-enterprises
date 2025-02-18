@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
 import { Brain, LineChart, Bot, Mail, ChevronRight, Sparkles, Code, Network } from 'lucide-react'
+import { DataIngestionDemo, FeatureSelectionDemo, ModelEvaluationDemo } from '@/components/demos/neural-networks'
+import { StrategyBuilderDemo, GreeksDashboardDemo, UnusualActivityDemo } from '@/components/demos/lukz'
+import { StockScreenerDemo, AIInsightsDemo, AlertsDemo } from '@/components/demos/zom-ai'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -86,21 +89,48 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const projects = [
+  interface ProjectDemo {
+    component: React.ComponentType
+    title: string
+  }
+
+  interface Project {
+    id: string
+    title: string
+    description: string
+    demos: ProjectDemo[]
+  }
+
+  const projects: Project[] = [
     {
       id: 'neural-networks',
       title: 'Neural Networks and Data Pipeline',
-      description: 'A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends, predict market movements, and generate actionable signals. Key components include technical indicators, backtesting, and an intuitive dashboard.'
+      description: 'A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends, predict market movements, and generate actionable signals. Key components include technical indicators, backtesting, and an intuitive dashboard.',
+      demos: [
+        { component: DataIngestionDemo, title: 'Automated Data Ingestion' },
+        { component: FeatureSelectionDemo, title: 'Dynamic Feature Selection' },
+        { component: ModelEvaluationDemo, title: 'Model Evaluation Metrics' }
+      ]
     },
     {
       id: 'lukz',
       title: 'Lukz',
-      description: 'A financial analytics platform leveraging API integration for features like Greek flow data, Congressional trades, and premium flow analysis. It includes interactive visualizations and real-time data updates for investors.'
+      description: 'A financial analytics platform leveraging API integration for features like Greek flow data, Congressional trades, and premium flow analysis. It includes interactive visualizations and real-time data updates for investors.',
+      demos: [
+        { component: StrategyBuilderDemo, title: 'Options Strategy Builder' },
+        { component: GreeksDashboardDemo, title: 'Real-Time Greeks Dashboard' },
+        { component: UnusualActivityDemo, title: 'Unusual Options Activity' }
+      ]
     },
     {
       id: 'zom-ai',
       title: 'Zom AI',
-      description: 'A cutting-edge stock analysis tool offering real-time updates, technical and fundamental metrics, and ChatGPT-powered insights to bridge the gap between data and understanding.'
+      description: 'A cutting-edge stock analysis tool offering real-time updates, technical and fundamental metrics, and ChatGPT-powered insights to bridge the gap between data and understanding.',
+      demos: [
+        { component: StockScreenerDemo, title: 'Interactive Stock Screener' },
+        { component: AIInsightsDemo, title: 'AI-Driven Insights' },
+        { component: AlertsDemo, title: 'Customizable Alerts' }
+      ]
     }
   ]
 
@@ -373,6 +403,34 @@ function App() {
 
                   {/* Hidden anchor for scroll target */}
                   <div id={`${project.id}-details`} className="hidden" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Project Demos */}
+          <div className="mt-16 space-y-24">
+            {projects.map((project) => (
+              <div key={project.id} className="space-y-12">
+                <div className="text-center">
+                  <h3 className={`text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r ${colorClasses.gradient.primary} bg-clip-text text-transparent`}>
+                    {project.title} Demos
+                  </h3>
+                  <p className="text-gray-300 max-w-3xl mx-auto">
+                    Explore interactive demonstrations of {project.title}'s key features and capabilities.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {project.demos.map(({ component: Demo, title }) => (
+                    <div key={title} className="relative">
+                      {/* Glow Effect */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75" />
+                      
+                      {/* Demo Content */}
+                      <Demo />
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
