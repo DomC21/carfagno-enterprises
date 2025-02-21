@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Routes, Route } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import { Layout } from '@/components/layout'
@@ -24,16 +25,18 @@ export default function App() {
       <PreferencesProvider>
         <AccessibilityProvider>
           <KeyboardProvider>
-            <Suspense fallback={<LoadingFallback />}>
-              <Routes>
-                <Route element={<Layout />}>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/projects/:id" element={<ProjectDetail />} />
-                  <Route path="/coaching" element={<CoachingPage />} />
-                </Route>
-              </Routes>
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                  <Route element={<Layout />}>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/projects" element={<Projects />} />
+                    <Route path="/projects/:id" element={<ProjectDetail />} />
+                    <Route path="/coaching" element={<CoachingPage />} />
+                  </Route>
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
           </KeyboardProvider>
         </AccessibilityProvider>
       </PreferencesProvider>
