@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import './styles/fonts.css'
 import './styles/globals.css'
+import { RouteLoading } from '@/components/RouteLoading'
 import App from './App'
 
 // Performance optimizations
@@ -34,14 +35,7 @@ preloadLinks.forEach(({ rel, href, as, type, crossOrigin }) => {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <Suspense fallback={
-        <div className="fixed inset-0 flex items-center justify-center bg-black">
-          <div className="space-y-4 text-center">
-            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-            <div className="text-primary">Loading...</div>
-          </div>
-        </div>
-      }>
+      <Suspense fallback={<RouteLoading />}>
         <App />
       </Suspense>
     </BrowserRouter>
