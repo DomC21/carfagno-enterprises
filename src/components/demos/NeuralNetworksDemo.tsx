@@ -17,13 +17,13 @@ export function NeuralNetworksDemo() {
             <Input 
               value={symbol}
               onChange={(e) => setSymbol(e.target.value)}
-              className="bg-gray-900"
+              className="bg-gray-900 text-white"
             />
           </div>
           <div>
             <label className="text-sm text-gray-400 mb-2 block">Timeframe</label>
             <Select value={timeframe} onValueChange={setTimeframe}>
-              <SelectTrigger>
+              <SelectTrigger className="text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
