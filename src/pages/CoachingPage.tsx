@@ -165,24 +165,36 @@ function CoachingPage() {
               </div>
             </div>
 
-            <div className="relative min-h-[35vh] sm:min-h-[40vh] md:min-h-[45vh] flex items-center justify-center z-20">
+            <div className="relative py-16 sm:py-20 md:py-24 z-20">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent mix-blend-overlay"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60" style={{ height: '60%', bottom: 0 }} />
               <div className="container mx-auto px-4">
-                <div className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 mx-auto group">
-                  <div className="absolute -inset-2 bg-white/5 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent opacity-50"></div>
-                  <img
-                    src="/dom-picx.jpg"
-                    alt="Dom Carfagno"
-                    className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover object-center border-4 border-white/10 group-hover:border-white/20 transition-all duration-300 group-hover:scale-[1.02]"
-                    loading="eager"
-                    draggable="false"
-                  />
-                  <div className="absolute -bottom-28 sm:-bottom-24 left-1/2 transform -translate-x-1/2 w-full px-4">
-                    <p className="text-white/70 text-center text-base sm:text-lg md:text-xl max-w-[300px] sm:max-w-md md:max-w-lg mx-auto leading-relaxed">
-                      "Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With over $100,000 in assets under management at just 18 years old, I've developed proven strategies and tools that empower clients to achieve their financial goals."
-                    </p>
+                <div className="max-w-4xl mx-auto">
+                  <div className="flex flex-col items-center gap-8 sm:gap-12">
+                    <div className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 group">
+                      <div className="absolute -inset-2 bg-white/5 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent opacity-50"></div>
+                      <img
+                        src="/dom-picx.jpg"
+                        alt="Dom Carfagno"
+                        className="relative w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72 rounded-full object-cover object-center border-4 border-white/10 group-hover:border-white/20 transition-all duration-300 group-hover:scale-[1.02]"
+                        loading="eager"
+                        draggable="false"
+                      />
+                    </div>
+                    <div className="text-center max-w-3xl">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6">Meet Dom Carfagno</h2>
+                      <div className="space-y-4 text-white/70 text-base sm:text-lg md:text-xl">
+                        <p>
+                          Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. At just 18 years old, I've already grown my assets under management to over $100,000, thanks to my early start in investing and my determination to learn everything I could about finance.
+                        </p>
+                        <p>
+                          One key part of my journey has been the <strong className="text-white">Wyndmoor Way Fund</strong>, which helped me refine my strategies and truly understand the power of compound interest. Now, through Carfagno Enterprises, I'm on a mission to spread <strong className="text-white">financial literacy</strong> so that people of all ages can take control of their financial futures.
+                        </p>
+                        <p>
+                          I believe that technology can be a powerful complement to human insight. That's why our tools—like Lukz for congressional trade tracking and Rust for portfolio optimization—are specifically designed to help you learn and make informed decisions, not to replace personal guidance or that all-important human touch. My goal is to empower you with resources that both simplify and demystify investing, making it more accessible to everyone.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
