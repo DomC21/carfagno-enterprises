@@ -8,6 +8,7 @@ export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
         src="/images/ce-logo.svg" 
         alt="CE Logo" 
         className="h-8 w-8 dark:invert"
+        style={{ filter: 'invert(1)' }}  // Force white color in light mode
       />
       <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
         Carfagno Enterprises
