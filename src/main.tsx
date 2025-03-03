@@ -18,7 +18,8 @@ if ('serviceWorker' in navigator) {
 // Preload critical assets
 const preloadLinks = [
   { rel: 'preload', href: '/fonts/inter-var.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
-  { rel: 'preload', href: '/images/logo.svg', as: 'image' }
+  { rel: 'preload', href: '/images/logo.svg', as: 'image' },
+  { rel: 'preload', href: '/images/ce-logo.svg', as: 'image' }
 ]
 
 preloadLinks.forEach(({ rel, href, as, type, crossOrigin }) => {

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- C shape -->
+  <path d="M70 20 A30 30 0 1 0 70 80" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="12"
+        stroke-linecap="round"/>
+  
+  <!-- E shape -->
+  <path d="M45 30 H80 M45 50 H75 M45 70 H80" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="12"
+        stroke-linecap="round"/>
+</svg>
