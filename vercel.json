@@ -8,6 +8,8 @@
   "buildCommand": "pnpm install && pnpm build",
   "installCommand": "pnpm install",
   "framework": "vite",
+  "outputDirectory": "dist",
+  "public": true,
   "trailingSlash": false,
   "cleanUrls": true,
   "headers": [
