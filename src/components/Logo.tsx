@@ -3,8 +3,8 @@ import { cn } from "../lib/utils"
 
 export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("relative flex items-center min-h-[3rem]", className)} {...props}>
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+    <div className={cn("flex items-center min-h-[3rem] w-full", className)} {...props}>
+      <div className="flex-none ml-4">
         <img 
           src={`${import.meta.env.BASE_URL}images/ce-logo.png?v=2`}
           alt="CE Logo" 
@@ -12,7 +12,7 @@ export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
           style={{ objectFit: 'contain' }}
         />
       </div>
-      <div className="absolute inset-x-0 flex justify-center">
+      <div className="flex-grow flex justify-center">
         <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
           Carfagno Enterprises
         </span>
