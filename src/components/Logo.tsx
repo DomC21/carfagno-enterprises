@@ -3,7 +3,7 @@ import { cn } from "../lib/utils"
 
 export function Logo({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("flex items-center gap-4", className)} {...props}>
+    <div className={cn("flex items-center gap-2", className)} {...props}>
       <img 
         src={`${import.meta.env.BASE_URL}images/ce-logo.png?v=2`}
         alt="CE Logo" 
