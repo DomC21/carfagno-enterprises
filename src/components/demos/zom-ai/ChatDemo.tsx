@@ -35,7 +35,6 @@ const simulatedMessages: Message[] = [
 ]
 
 export function ChatDemo() {
-  const [playing, setPlaying] = useState(false)
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
   const [showInput, setShowInput] = useState(true)
   const [inputValue, setInputValue] = useState('')
@@ -64,7 +63,6 @@ export function ChatDemo() {
   }
 
   useEffect(() => {
-    setPlaying(true)
     playNextMessage()
   }, [])
 
@@ -80,10 +78,9 @@ export function ChatDemo() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {
-          <div className="space-y-4">
-            <AnimatePresence mode="wait">
-              {simulatedMessages.slice(0, currentMessageIndex).map((message, index) => (
+        <div className="space-y-4">
+          <AnimatePresence mode="wait">
+            {simulatedMessages.slice(0, currentMessageIndex).map((message, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
