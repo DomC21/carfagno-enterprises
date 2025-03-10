@@ -85,16 +85,19 @@ Performance Metrics:
       'Real-time market updates',
       'Natural language queries'
     ],
-    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis. The system features:
+    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis.
 
-• Custom-trained GPT models optimized for financial analysis
-• Real-time market data integration via multiple data providers
-• Advanced natural language processing for sentiment analysis
-• Automated research report generation with ML-based insights
-• Real-time stock screening with custom metrics
-• Multi-model ensemble for market predictions
-• Automated due diligence pipeline
-• Real-time news sentiment analysis
+Data Sources:
+• Unusual Whales: Options flow, insider trades, dark pool data
+• Alpha Vantage: Real-time market data, technical indicators
+• FinancialDatasets.ai: Company fundamentals, institutional holdings
+
+Key Capabilities:
+• Natural language market analysis with <500ms response time
+• Real-time data processing of 10,000+ documents daily
+• Sentiment analysis with 92% accuracy
+• Access to 20+ real-time data sources
+• 15+ years of historical data coverage
 
 Technical Architecture:
 1. AI Core: Custom-trained GPT models + ML ensemble
@@ -103,17 +106,8 @@ Technical Architecture:
 4. Research Generation: Automated report creation
 5. Query Interface: Natural language processing
 
-Performance Metrics:
-• Query Response Time: <500ms
-• Daily Document Analysis: 10,000+
-• Sentiment Analysis Accuracy: 92%
-• Real-time Data Sources: 20+
-• Historical Data Coverage: 15+ years
-
-AI Capabilities:
-• Natural language market analysis
-• Automated technical analysis
-• Fundamental analysis automation
+AI Features:
+• Automated technical & fundamental analysis
 • News impact assessment
 • Risk analysis and scoring
 • Pattern recognition in market data
