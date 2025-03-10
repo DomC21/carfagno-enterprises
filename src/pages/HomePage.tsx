@@ -84,7 +84,7 @@ export default function HomePage() {
       z.object({
         name: z.string().min(2, 'Name must be at least 2 characters'),
         email: z.string().email('Please enter a valid email'),
-        interest: z.enum(['neural-networks', 'lukz', 'zom-ai'], {
+        interest: z.enum(['neural-networks', 'zom-ai'], {
           required_error: 'Please select your interest'
         })
       })
@@ -412,7 +412,6 @@ export default function HomePage() {
                                   </SelectTrigger>
                                   <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
                                     <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
-                                    <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
                                     <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
                                   </SelectContent>
                                 </Select>

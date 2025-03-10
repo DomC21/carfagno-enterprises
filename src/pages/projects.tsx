@@ -103,7 +103,6 @@ export default function Projects() {
                       className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
                       glowColor={
                         project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
-                        project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
                         "rgba(234, 179, 8, 0.5)"
                       }
                     >

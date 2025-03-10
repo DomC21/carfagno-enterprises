@@ -120,7 +120,7 @@ function CoachingPage() {
           </h1>
           
           <h2 className={"text-lg sm:text-xl md:text-2xl text-white/70 mb-8 sm:mb-10 leading-relaxed max-w-[280px] sm:max-w-xl md:max-w-2xl mx-auto " + animationClasses.fadeInScale}>
-            Gain access to cutting-edge tools like Lukz, Zom AI, and Rust, alongside proven investment strategies and personalized guidance to transform your financial future.
+            Gain access to cutting-edge tools like Zom AI and Rust, alongside proven investment strategies and personalized guidance to transform your financial future.
           </h2>
 
           <Button 
@@ -192,7 +192,7 @@ function CoachingPage() {
                           Through Carfagno Enterprises, I want to spread financial literacy and give people the tools they need to take control of their future. I believe investing isn't just about making money. It's about building something bigger than yourself. Whether it's helping a family save for college, guiding someone toward financial independence, or supporting students through the Wyndmoor Way Fund, my goal is to use what I've learned to give back and help others succeed.
                         </p>
                         <p>
-                          I also believe that technology is one of the greatest tools we have to make finance more accessible. That's why I created Lukz, Zom AI, and Rust—not to replace human decision-making, but to enhance it. These tools make it easier for people to understand the markets, analyze trends, and make smarter financial decisions without getting lost in complicated data.
+                          I also believe that technology is one of the greatest tools we have to make finance more accessible. That's why I created Zom AI and Rust—not to replace human decision-making, but to enhance it. These tools make it easier for people to understand the markets, analyze trends, and make smarter financial decisions without getting lost in complicated data.
                         </p>
                         <p>
                           At the end of the day, Carfagno Enterprises is about more than just finance. It's about empowering people, creating opportunities, and using the knowledge I've gained to make an impact. I'm still learning every day, but I know one thing for sure—investing has the power to change lives, and I want to help as many people as possible realize that potential.
