@@ -81,65 +81,64 @@ export function ChatDemo() {
         <div className="space-y-4">
           <AnimatePresence mode="wait">
             {simulatedMessages.slice(0, currentMessageIndex).map((message, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className={`flex items-start gap-3 ${
-                    message.type === 'user' ? 'justify-end' : 'justify-start'
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className={`flex items-start gap-3 ${
+                  message.type === 'user' ? 'justify-end' : 'justify-start'
+                }`}
+              >
+                {message.type === 'ai' && (
+                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-primary" />
+                  </div>
+                )}
+                <div
+                  className={`max-w-[80%] rounded-lg p-3 ${
+                    message.type === 'user'
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-800 text-gray-100'
                   }`}
                 >
-                  {message.type === 'ai' && (
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                      <Bot className="w-5 h-5 text-primary" />
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      message.type === 'user'
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-800 text-gray-100'
-                    }`}
-                  >
-                    <p className="text-sm">{message.content}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-
-            {showInput && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex gap-2"
-              >
-                <Input
-                  value={inputValue}
-                  readOnly
-                  className="bg-gray-800 border-gray-700"
-                  placeholder="Type your question..."
-                />
-                <Button className="bg-primary text-white hover:bg-primary/90">
-                  <Send className="w-4 h-4" />
-                </Button>
+                  <p className="text-sm">{message.content}</p>
+                </div>
               </motion.div>
-            )}
+            ))}
+          </AnimatePresence>
 
-            {isTyping && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex items-center gap-2 text-gray-400"
-              >
-                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style={{ animationDelay: '200ms' }} />
-                <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style={{ animationDelay: '400ms' }} />
-              </motion.div>
-            )}
-          </div>
-        )}
+          {showInput && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex gap-2"
+            >
+              <Input
+                value={inputValue}
+                readOnly
+                className="bg-gray-800 border-gray-700"
+                placeholder="Type your question..."
+              />
+              <Button className="bg-primary text-white hover:bg-primary/90">
+                <Send className="w-4 h-4" />
+              </Button>
+            </motion.div>
+          )}
+
+          {isTyping && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex items-center gap-2 text-gray-400"
+            >
+              <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style={{ animationDelay: '0ms' }} />
+              <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style={{ animationDelay: '200ms' }} />
+              <div className="w-2 h-2 rounded-full bg-gray-500 animate-bounce" style={{ animationDelay: '400ms' }} />
+            </motion.div>
+          )}
+        </div>
       </motion.div>
     </div>
   )
