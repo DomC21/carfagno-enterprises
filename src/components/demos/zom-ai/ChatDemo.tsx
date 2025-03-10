@@ -1,6 +1,6 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '../../ui/button'
 import { Input } from '../../ui/input'
 import { Send, Bot } from 'lucide-react'
@@ -63,6 +63,11 @@ export function ChatDemo() {
     }
   }
 
+  useEffect(() => {
+    setPlaying(true)
+    playNextMessage()
+  }, [])
+
   return (
     <div className="relative">
       <div className="absolute top-0 left-0 right-0 bg-red-500/10 text-white px-4 py-2 text-sm rounded-t-lg">
@@ -75,17 +80,7 @@ export function ChatDemo() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {!playing ? (
-          <Button
-            onClick={() => {
-              setPlaying(true)
-              playNextMessage()
-            }}
-            className="w-full bg-primary text-white hover:bg-primary/90"
-          >
-            Play Demo
-          </Button>
-        ) : (
+        {
           <div className="space-y-4">
             <AnimatePresence mode="wait">
               {simulatedMessages.slice(0, currentMessageIndex).map((message, index) => (
