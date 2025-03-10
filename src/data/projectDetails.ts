@@ -63,7 +63,7 @@ Performance Metrics:
   'zom-ai': {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.',
+    description: 'A large language model that taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
     features: [
       'AI-powered market analysis',
       'Natural language processing',
