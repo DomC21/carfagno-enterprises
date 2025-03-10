@@ -59,66 +59,11 @@ Performance Metrics:
 • Model Update Frequency: Every 5 minutes
 • Historical Data Coverage: 20+ years`
   },
-  'lukz': {
-    id: 'lukz',
-    title: 'Lukz Financial Analytics',
-    description: 'A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.',
-    features: [
-      'Real-time options flow analysis',
-      'Congressional trade tracking',
-      'Greek metrics visualization',
-      'Market sentiment analysis',
-      'Custom alert system'
-    ],
-    technologies: [
-      'React',
-      'Node.js',
-      'WebSocket',
-      'GraphQL',
-      'Time-series databases'
-    ],
-    benefits: [
-      'Institutional-grade market insights',
-      'Advanced options analysis',
-      'Political trading intelligence',
-      'Real-time market alerts',
-      'Professional-grade analytics'
-    ],
-    details: `Lukz represents the cutting edge of financial analytics, combining advanced data processing with real-time insights. The system features:
 
-• Real-time options flow analysis using WebSocket streams for live market data
-• Congressional trade tracking with automated form parsing (SEC EDGAR integration)
-• Advanced Greek calculations using proprietary algorithms
-• Market sentiment analysis powered by NLP models
-• Machine learning-based alert system with custom triggers
-• High-frequency data processing pipeline
-• Multi-source data aggregation system
-• Real-time visualization engine
-
-Technical Architecture:
-1. Data Collection: WebSocket streams + REST APIs for multiple data sources
-2. Processing Pipeline: Apache Kafka + Node.js microservices
-3. Analysis Engine: Custom algorithms for Greeks calculation
-4. Storage Layer: Time-series databases for historical analysis
-5. Presentation Layer: React-based real-time UI
-
-Performance Metrics:
-• Data Processing Rate: 100,000+ options contracts/day
-• Latency: Sub-millisecond response time
-• Real-time Updates: Every 100ms
-• Historical Data: 10+ years of options flow
-• System Uptime: 99.99% availability
-
-Integration Capabilities:
-• REST API endpoints for external system integration
-• WebSocket feeds for real-time data streaming
-• Custom webhook support for alerts
-• Export functionality for data analysis`
-  },
   'zom-ai': {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.',
+    description: 'A large language model that taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
     features: [
       'AI-powered market analysis',
       'Natural language processing',
@@ -140,16 +85,19 @@ Integration Capabilities:
       'Real-time market updates',
       'Natural language queries'
     ],
-    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis. The system features:
+    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis.
 
-• Custom-trained GPT models optimized for financial analysis
-• Real-time market data integration via multiple data providers
-• Advanced natural language processing for sentiment analysis
-• Automated research report generation with ML-based insights
-• Real-time stock screening with custom metrics
-• Multi-model ensemble for market predictions
-• Automated due diligence pipeline
-• Real-time news sentiment analysis
+Data Sources:
+• Unusual Whales: Options flow, insider trades, dark pool data
+• Alpha Vantage: Real-time market data, technical indicators
+• FinancialDatasets.ai: Company fundamentals, institutional holdings
+
+Key Capabilities:
+• Natural language market analysis with <500ms response time
+• Real-time data processing of 10,000+ documents daily
+• Sentiment analysis with 92% accuracy
+• Access to 20+ real-time data sources
+• 15+ years of historical data coverage
 
 Technical Architecture:
 1. AI Core: Custom-trained GPT models + ML ensemble
@@ -158,17 +106,8 @@ Technical Architecture:
 4. Research Generation: Automated report creation
 5. Query Interface: Natural language processing
 
-Performance Metrics:
-• Query Response Time: <500ms
-• Daily Document Analysis: 10,000+
-• Sentiment Analysis Accuracy: 92%
-• Real-time Data Sources: 20+
-• Historical Data Coverage: 15+ years
-
-AI Capabilities:
-• Natural language market analysis
-• Automated technical analysis
-• Fundamental analysis automation
+AI Features:
+• Automated technical & fundamental analysis
 • News impact assessment
 • Risk analysis and scoring
 • Pattern recognition in market data

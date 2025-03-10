@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom'
-import { Brain, LineChart, Bot } from "lucide-react"
+import { Brain, Bot } from "lucide-react"
 import { FeatureCard } from "../components/ui/feature-card"
 import { motion } from "framer-motion"
 import { EnhancedTooltip } from "../components/ui/enhanced-tooltip"
@@ -29,21 +29,9 @@ const projects: Project[] = [
     gradient: 'from-blue-500 via-blue-600 to-blue-700'
   },
   {
-    id: 'lukz',
-    title: 'Lukz',
-    description: 'A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.',
-    icon: LineChart,
-    features: [
-      'Options flow analysis',
-      'Congressional trade tracking',
-      'Market sentiment analysis'
-    ],
-    gradient: 'from-purple-500 via-purple-600 to-purple-700'
-  },
-  {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.',
+    description: 'Zom AI taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
     icon: Bot,
     features: [
       'AI-powered market analysis',
@@ -115,7 +103,6 @@ export default function Projects() {
                       className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
                       glowColor={
                         project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
-                        project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
                         "rgba(234, 179, 8, 0.5)"
                       }
                     >

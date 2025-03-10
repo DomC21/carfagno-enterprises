@@ -84,7 +84,7 @@ export default function HomePage() {
       z.object({
         name: z.string().min(2, 'Name must be at least 2 characters'),
         email: z.string().email('Please enter a valid email'),
-        interest: z.enum(['neural-networks', 'lukz', 'zom-ai'], {
+        interest: z.enum(['neural-networks', 'zom-ai'], {
           required_error: 'Please select your interest'
         })
       })
@@ -319,22 +319,7 @@ export default function HomePage() {
               </Button>
             </div>
 
-            {/* Lukz Card */}
-            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
-              <h3 className="text-2xl font-semibold text-white mb-4">
-                Lukz
-              </h3>
-              <p className="text-white/70 mb-6">
-                A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.
-              </p>
-              <Button 
-                className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
-                onClick={() => navigate('/projects/lukz')}
-              >
-                Learn More
-                <ChevronRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
+
 
             {/* Zom AI Card */}
             <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
@@ -427,7 +412,6 @@ export default function HomePage() {
                                   </SelectTrigger>
                                   <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
                                     <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
-                                    <SelectItem value="lukz" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Lukz</SelectItem>
                                     <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
                                   </SelectContent>
                                 </Select>
