@@ -75,7 +75,13 @@ export default function ProjectDetail() {
           <div className="prose prose-invert max-w-none">
             <h2 className="text-2xl font-semibold mb-6 text-primary">Overview</h2>
             <p className="text-xl text-gray-300 mb-8">{project.description}</p>
-            <div className="text-lg text-gray-200">{project.details}</div>
+            <div className="space-y-8">
+              {project.details.split('\n\n').map((section, index) => (
+                <div key={index} className="text-lg text-gray-200">
+                  {section}
+                </div>
+              ))}
+            </div>
           </div>
         </Card>
       </ScrollReveal>
