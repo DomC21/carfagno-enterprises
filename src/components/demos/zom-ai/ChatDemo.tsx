@@ -1,4 +1,4 @@
-import * as React from 'react'
+
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Button } from '../../ui/button'
