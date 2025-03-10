@@ -144,8 +144,6 @@ function CoachingPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-2 h-2 mt-2 rounded-full bg-white/70 shrink-0" />
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Lukz</h3>
-                    <p className="text-white/70 text-lg">A financial analytics platform providing real-time flow data, Congressional trades, and alerts.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom'
-import { Brain, LineChart, Bot } from "lucide-react"
+import { Brain, Bot } from "lucide-react"
 import { FeatureCard } from "../components/ui/feature-card"
 import { motion } from "framer-motion"
 import { EnhancedTooltip } from "../components/ui/enhanced-tooltip"
@@ -29,21 +29,9 @@ const projects: Project[] = [
     gradient: 'from-blue-500 via-blue-600 to-blue-700'
   },
   {
-    id: 'lukz',
-    title: 'Lukz',
-    description: 'A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.',
-    icon: LineChart,
-    features: [
-      'Options flow analysis',
-      'Congressional trade tracking',
-      'Market sentiment analysis'
-    ],
-    gradient: 'from-purple-500 via-purple-600 to-purple-700'
-  },
-  {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.',
+    description: 'A cutting-edge stock analysis tool leveraging large language models and real-time data for ChatGPT-powered insights.',
     icon: Bot,
     features: [
       'AI-powered market analysis',

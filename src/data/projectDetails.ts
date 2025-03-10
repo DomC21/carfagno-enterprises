@@ -59,62 +59,7 @@ Performance Metrics:
 • Model Update Frequency: Every 5 minutes
 • Historical Data Coverage: 20+ years`
   },
-  'lukz': {
-    id: 'lukz',
-    title: 'Lukz Financial Analytics',
-    description: 'A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.',
-    features: [
-      'Real-time options flow analysis',
-      'Congressional trade tracking',
-      'Greek metrics visualization',
-      'Market sentiment analysis',
-      'Custom alert system'
-    ],
-    technologies: [
-      'React',
-      'Node.js',
-      'WebSocket',
-      'GraphQL',
-      'Time-series databases'
-    ],
-    benefits: [
-      'Institutional-grade market insights',
-      'Advanced options analysis',
-      'Political trading intelligence',
-      'Real-time market alerts',
-      'Professional-grade analytics'
-    ],
-    details: `Lukz represents the cutting edge of financial analytics, combining advanced data processing with real-time insights. The system features:
 
-• Real-time options flow analysis using WebSocket streams for live market data
-• Congressional trade tracking with automated form parsing (SEC EDGAR integration)
-• Advanced Greek calculations using proprietary algorithms
-• Market sentiment analysis powered by NLP models
-• Machine learning-based alert system with custom triggers
-• High-frequency data processing pipeline
-• Multi-source data aggregation system
-• Real-time visualization engine
-
-Technical Architecture:
-1. Data Collection: WebSocket streams + REST APIs for multiple data sources
-2. Processing Pipeline: Apache Kafka + Node.js microservices
-3. Analysis Engine: Custom algorithms for Greeks calculation
-4. Storage Layer: Time-series databases for historical analysis
-5. Presentation Layer: React-based real-time UI
-
-Performance Metrics:
-• Data Processing Rate: 100,000+ options contracts/day
-• Latency: Sub-millisecond response time
-• Real-time Updates: Every 100ms
-• Historical Data: 10+ years of options flow
-• System Uptime: 99.99% availability
-
-Integration Capabilities:
-• REST API endpoints for external system integration
-• WebSocket feeds for real-time data streaming
-• Custom webhook support for alerts
-• Export functionality for data analysis`
-  },
   'zom-ai': {
     id: 'zom-ai',
     title: 'Zom AI',

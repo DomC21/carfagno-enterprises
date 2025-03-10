@@ -5,11 +5,11 @@ import { useParams, Navigate } from 'react-router-dom'
 import { Card } from '../components/ui/card'
 import { projectDetails } from '../data/projectDetails'
 import { ScrollReveal } from '../components/ui/scroll-reveal'
-import { NeuralNetworksDemo, LukzDemo, ZomAIDemo } from '../components/demos'
+import { NeuralNetworksDemo } from '../components/demos/NeuralNetworksDemo'
+import { ZomAIDemo } from '../components/demos/ZomAIDemo'
 
 const demoComponents = {
   'neural-networks': NeuralNetworksDemo,
-  'lukz': LukzDemo,
   'zom-ai': ZomAIDemo
 }
 
