@@ -63,13 +63,13 @@ Performance Metrics:
   'zom-ai': {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'A large language model that taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
+    description: 'A cutting-edge stock analysis tool designed to make complex financial data and advanced market insights accessible to everyone. By combining real-time data from top providers with next-generation language models, Zom empowers investors of all levels.',
     features: [
-      'AI-powered market analysis',
-      'Natural language processing',
-      'Real-time stock screening',
-      'Automated research reports',
-      'Sentiment analysis'
+      'Natural language stock queries',
+      'Real-time market data analysis',
+      'AI-powered insights',
+      'Interactive research tools',
+      'Comprehensive data integration'
     ],
     technologies: [
       'OpenAI GPT',
@@ -79,38 +79,44 @@ Performance Metrics:
       'Cloud Infrastructure'
     ],
     benefits: [
-      'Instant market research',
-      'AI-driven stock insights',
-      'Automated due diligence',
-      'Real-time market updates',
-      'Natural language queries'
+      'All-in-One Platform',
+      'Easy-to-Understand Explanations',
+      'Educational & Empowering',
+      'High-Tech & Futuristic',
+      'Institutional-Grade Insights'
     ],
-    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis.
+    details: `Zom AI is a cutting-edge stock analysis tool designed to make complex financial data and advanced market insights accessible to everyone. By combining real-time data from top providers with next-generation language models, Zom empowers investors of all levels.
 
-Data Sources:
-• Unusual Whales: Options flow, insider trades, dark pool data
-• Alpha Vantage: Real-time market data, technical indicators
-• FinancialDatasets.ai: Company fundamentals, institutional holdings
+Ask Any Stock Question
+• Get immediate answers about earnings, insider trades, or options flow activity
+• No more sifting through dense reports or navigating multiple platforms
+• Type your query and receive clear, concise explanations
 
-Key Capabilities:
-• Natural language market analysis with <500ms response time
-• Real-time data processing of 10,000+ documents daily
-• Sentiment analysis with 92% accuracy
+Leverage AI Insights
+• Advanced language modeling interprets financial metrics in plain English
+• Like having a personal research analyst available 24/7
+• Break down everything from P/E ratios to insider transactions
+
+Access Vast Market Data in Real-Time
+• Options flow and congressional trades via Unusual Whales
+• Historical stock prices and technical indicators from Alpha Vantage
+• Deep fundamental statements through FinancialDatasets.ai
+• Up-to-the-second updates on volatility, earnings, and institutional holdings
+
+Conduct Deeper Research
+• Highlight major news events and unusual market activity
+• Incorporate economic calendar data for context
+• Compare company fundamentals and analyze sector impacts
+• AI-powered analysis and summaries on demand
+
+Technical Capabilities
+• <500ms response time for natural language queries
+• Process 10,000+ documents daily
+• 92% accuracy in sentiment analysis
 • Access to 20+ real-time data sources
 • 15+ years of historical data coverage
 
-Technical Architecture:
-1. AI Core: Custom-trained GPT models + ML ensemble
-2. Data Pipeline: Real-time market feeds + news aggregation
-3. Analysis Engine: NLP models + sentiment analysis
-4. Research Generation: Automated report creation
-5. Query Interface: Natural language processing
-
-AI Features:
-• Automated technical & fundamental analysis
-• News impact assessment
-• Risk analysis and scoring
-• Pattern recognition in market data
-• Predictive analytics for market trends`
+Zom AI's Vision
+Our mission is to democratize financial analysis, removing barriers and bringing institutional-grade insights to every investor. Zom AI bridges the gap between raw market data and actionable knowledge, so you can focus on making decisions instead of drowning in spreadsheets and technical documents.`
   }
 }

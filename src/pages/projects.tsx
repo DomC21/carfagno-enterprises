@@ -31,7 +31,7 @@ const projects: Project[] = [
   {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'Zom AI taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
+    description: 'A cutting-edge stock analysis tool designed to make complex financial data and advanced market insights accessible to everyone. By combining real-time data from top providers with next-generation language models, Zom empowers investors of all levels.',
     icon: Bot,
     features: [
       'AI-powered market analysis',
