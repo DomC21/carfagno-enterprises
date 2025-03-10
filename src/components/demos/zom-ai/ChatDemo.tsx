@@ -31,11 +31,41 @@ const simulatedMessages: Message[] = [
     type: 'ai',
     content: 'For AAPL, our AI has identified several key risk factors: 1) Supply chain constraints in Asia could impact production, 2) Market saturation in the smartphone segment might affect growth, 3) Regulatory challenges in key markets. However, our sentiment analysis shows overall positive market confidence with strong institutional support.',
     timestamp: Date.now() + 3000
+  },
+  {
+    type: 'user',
+    content: 'Show me the latest insider trading activity.',
+    timestamp: Date.now() + 4000
+  },
+  {
+    type: 'ai',
+    content: 'Recent insider activity for AAPL shows: 1) CFO Luca Maestri sold 35,780 shares at $178.45 on Feb 1st, 2) SVP Deirdre O\'Brien sold 12,500 shares at $177.89 on Jan 28th. Our analysis indicates these are routine sales following options exercises and don\'t signal negative sentiment. Institutional holdings increased by 2.3% in Q4 2024.',
+    timestamp: Date.now() + 5000
+  },
+  {
+    type: 'user',
+    content: 'What\'s the technical analysis saying?',
+    timestamp: Date.now() + 6000
+  },
+  {
+    type: 'ai',
+    content: 'Technical analysis shows bullish signals: RSI at 62 indicates strong momentum without being overbought, MACD crossed above signal line, and price is forming a cup and handle pattern. Volume weighted average price (VWAP) suggests strong support at $172. Our AI models predict a 70% chance of testing $185 resistance within 30 days.',
+    timestamp: Date.now() + 7000
+  },
+  {
+    type: 'user',
+    content: 'Any unusual options activity?',
+    timestamp: Date.now() + 8000
+  },
+  {
+    type: 'ai',
+    content: 'Significant options flow detected: Large block of March $180 calls bought for $3.2M premium, suggesting bullish sentiment. Put/Call ratio at 0.75 indicates overall positive positioning. Dark pool data shows accumulation at $174-176 range. Implied volatility skew suggests market makers are pricing in potential upside movement.',
+    timestamp: Date.now() + 9000
   }
 ]
 
 export function ChatDemo() {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(2) // Start with first response visible
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0) // Start from beginning
   const [showInput, setShowInput] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -63,11 +93,19 @@ export function ChatDemo() {
   }
 
   useEffect(() => {
-    // Start playing remaining messages after a short delay
-    setTimeout(() => {
-      playNextMessage()
-    }, 500)
-  }, [])
+    // Start playing messages and reset when finished
+    const timer = setTimeout(() => {
+      if (currentMessageIndex < simulatedMessages.length) {
+        playNextMessage()
+      } else {
+        setCurrentMessageIndex(0)
+        setShowInput(false)
+        setIsTyping(false)
+      }
+    }, currentMessageIndex === simulatedMessages.length ? 2000 : 500)
+    
+    return () => clearTimeout(timer)
+  }, [currentMessageIndex])
 
   return (
     <div className="relative">
