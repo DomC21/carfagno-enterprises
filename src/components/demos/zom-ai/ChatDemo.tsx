@@ -92,17 +92,24 @@ export function ChatDemo() {
     }
   }
 
+  const [isResetting, setIsResetting] = useState(false)
+
   useEffect(() => {
     // Start playing messages and reset when finished
     const timer = setTimeout(() => {
       if (currentMessageIndex < simulatedMessages.length) {
         playNextMessage()
       } else {
-        setCurrentMessageIndex(0)
-        setShowInput(false)
-        setIsTyping(false)
+        setIsResetting(true)
+        // Wait for fade-out animation
+        setTimeout(() => {
+          setCurrentMessageIndex(0)
+          setShowInput(false)
+          setIsTyping(false)
+          setIsResetting(false)
+        }, 1000)
       }
-    }, currentMessageIndex === simulatedMessages.length ? 2000 : 500)
+    }, currentMessageIndex === simulatedMessages.length ? 3000 : 1000) // Longer delays for better readability
     
     return () => clearTimeout(timer)
   }, [currentMessageIndex])
@@ -121,7 +128,7 @@ export function ChatDemo() {
       >
         <div className="space-y-4">
           <AnimatePresence mode="wait">
-            {simulatedMessages.slice(0, currentMessageIndex).map((message, index) => (
+            {!isResetting && simulatedMessages.slice(0, currentMessageIndex).map((message, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
