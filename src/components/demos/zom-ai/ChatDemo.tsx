@@ -35,8 +35,8 @@ const simulatedMessages: Message[] = [
 ]
 
 export function ChatDemo() {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-  const [showInput, setShowInput] = useState(true)
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(2) // Start with first response visible
+  const [showInput, setShowInput] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   
@@ -50,20 +50,23 @@ export function ChatDemo() {
           setIsTyping(false)
           setShowInput(false)
           setCurrentMessageIndex(prev => prev + 1)
-        }, 2000)
+        }, 800)
       } else {
         setShowInput(false)
         setIsTyping(true)
         setTimeout(() => {
           setIsTyping(false)
           setCurrentMessageIndex(prev => prev + 1)
-        }, 3000)
+        }, 1000)
       }
     }
   }
 
   useEffect(() => {
-    playNextMessage()
+    // Start playing remaining messages after a short delay
+    setTimeout(() => {
+      playNextMessage()
+    }, 500)
   }, [])
 
   return (
