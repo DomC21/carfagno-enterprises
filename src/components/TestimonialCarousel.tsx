@@ -16,7 +16,7 @@ const testimonials: Testimonial[] = [
     role: "Software Engineer"
   },
   {
-    quote: "Using Lukz's Congressional trade tracking and premium flow analysis, I've made significantly better investment decisions. Dom's guidance in using these tools has been invaluable.",
+    quote: "The AI-powered insights and real-time analysis have transformed how I approach the market. Dom's guidance in using these tools has been invaluable.",
     author: "Michael R.",
     role: "Business Owner"
   },

@@ -1,16 +1,16 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "buildCommand": "pnpm install && pnpm build",
   "installCommand": "pnpm install",
   "framework": "vite",
   "outputDirectory": "dist",
   "public": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
   "cleanUrls": true,
   "headers": [
     {

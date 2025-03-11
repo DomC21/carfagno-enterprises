@@ -4,9 +4,7 @@ import React, { lazy } from 'react'
 export const NeuralNetworksDemo = lazy(() => 
   import('./NeuralNetworksDemo').then(module => ({ default: module.NeuralNetworksDemo }))
 )
-export const LukzDemo = lazy(() => 
-  import('./LukzDemo').then(module => ({ default: module.LukzDemo }))
-)
+
 export const ZomAIDemo = lazy(() => 
   import('./ZomAIDemo').then(module => ({ default: module.ZomAIDemo }))
 )

@@ -64,65 +64,7 @@ const neuralNetworksArchitecture: { nodes: Node[], connections: { from: string, 
   ]
 }
 
-const lukzArchitecture: { nodes: Node[], connections: { from: string, to: string, label?: string }[] } = {
-  nodes: [
-    {
-      id: 'options-feed',
-      label: 'Options Flow',
-      description: 'Real-time options flow data ingestion',
-      type: 'service',
-      x: 100,
-      y: 100
-    },
-    {
-      id: 'congress-feed',
-      label: 'Congress API',
-      description: 'Congressional trading data integration',
-      type: 'service',
-      x: 300,
-      y: 100
-    },
-    {
-      id: 'analyzer',
-      label: 'Flow Analyzer',
-      description: 'Advanced options flow analysis engine',
-      type: 'service',
-      x: 500,
-      y: 100
-    },
-    {
-      id: 'database',
-      label: 'Time Series DB',
-      description: 'High-performance time series database',
-      type: 'database',
-      x: 300,
-      y: 300
-    },
-    {
-      id: 'api',
-      label: 'GraphQL API',
-      description: 'GraphQL API for flexible data querying',
-      type: 'api',
-      x: 100,
-      y: 300
-    },
-    {
-      id: 'client',
-      label: 'Web Client',
-      description: 'React-based web interface',
-      type: 'client',
-      x: 500,
-      y: 300
-    }
-  ],
-  connections: [
-    { from: 'options-feed', to: 'analyzer', label: 'Options Data' },
-    { from: 'congress-feed', to: 'analyzer', label: 'Trade Data' },
-    { from: 'analyzer', to: 'database', label: 'Analysis' },
-    { from: 'database', to: 'api', label: 'Query' },
-    { from: 'api', to: 'client', label: 'Results' }
-  ]
-}
+
 
 const zomAiArchitecture: { nodes: Node[], connections: { from: string, to: string, label?: string }[] } = {
   nodes: [
@@ -210,14 +152,7 @@ export function Architecture() {
             />
           </Card>
 
-          {/* Lukz Architecture */}
-          <Card className="p-6 bg-black border-border">
-            <h2 className="text-2xl font-bold mb-6 text-primary">Lukz Architecture</h2>
-            <ArchitectureDiagram
-              nodes={lukzArchitecture.nodes}
-              connections={lukzArchitecture.connections}
-            />
-          </Card>
+
 
           {/* Zom AI Architecture */}
           <Card className="p-6 bg-black border-border">
