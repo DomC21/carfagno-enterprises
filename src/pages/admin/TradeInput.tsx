@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Input } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
 import { Slider } from '../../components/ui/slider'
@@ -6,7 +6,12 @@ import { Card } from '../../components/ui/card'
 
 export default function TradeInput() {
   const [riskScore, setRiskScore] = useState(5)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    ticker: string;
+    quantity: string;
+    price: string;
+    isOption: boolean;
+  }>({
     ticker: '',
     quantity: '',
     price: '',
