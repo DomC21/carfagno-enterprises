@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom'
-import { Brain, LineChart, Bot } from "lucide-react"
+import { Brain, Bot, UserPlus } from "lucide-react"
 import { FeatureCard } from "../components/ui/feature-card"
 import { motion } from "framer-motion"
 import { EnhancedTooltip } from "../components/ui/enhanced-tooltip"
@@ -17,6 +17,18 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: 'follow-dom',
+    title: 'Follow Dom',
+    description: 'Subscribe to see Dom\'s trades in real-time, complete with risk scores and instant SMS alerts for both equities and options.',
+    icon: UserPlus,
+    features: [
+      'Real-time trade alerts',
+      'Risk scoring (0-10)',
+      'SMS notifications'
+    ],
+    gradient: 'from-emerald-500 via-emerald-600 to-emerald-700'
+  },
+  {
     id: 'neural-networks',
     title: 'Neural Networks',
     description: 'A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.',
@@ -27,18 +39,6 @@ const projects: Project[] = [
       'Automated trading signals'
     ],
     gradient: 'from-blue-500 via-blue-600 to-blue-700'
-  },
-  {
-    id: 'lukz',
-    title: 'Lukz',
-    description: 'A financial analytics platform leveraging API integration for features like Greek flow data and Congressional trades.',
-    icon: LineChart,
-    features: [
-      'Options flow analysis',
-      'Congressional trade tracking',
-      'Market sentiment analysis'
-    ],
-    gradient: 'from-purple-500 via-purple-600 to-purple-700'
   },
   {
     id: 'zom-ai',
@@ -114,8 +114,8 @@ export default function Projects() {
                     <FeatureCard
                       className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
                       glowColor={
+                        project.id === 'follow-dom' ? "rgba(16, 185, 129, 0.5)" :
                         project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
-                        project.id === 'lukz' ? "rgba(147, 51, 234, 0.5)" :
                         "rgba(234, 179, 8, 0.5)"
                       }
                     >
