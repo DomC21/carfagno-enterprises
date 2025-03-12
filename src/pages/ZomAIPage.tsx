@@ -1,7 +1,7 @@
 import { type ReactElement } from "react"
 import { motion } from "framer-motion"
 import { Card } from "../components/ui/card"
-import { Hammer, Zap, Clock, Brain } from "lucide-react"
+import { Hammer, Zap, Brain } from "lucide-react"
 
 export default function ZomAIPage(): ReactElement {
   return (
