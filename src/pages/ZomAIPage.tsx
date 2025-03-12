@@ -226,6 +226,31 @@ export default function ZomAIPage(): ReactElement {
           </div>
         </div>
       </section>
+
+      {/* Call to Action */}
+      <section className="container mx-auto px-4 py-24 text-center">
+        <div className="max-w-3xl mx-auto space-y-8">
+          <h2 className="text-4xl font-bold text-teal-400">
+            Ready to save time and streamline your investing?
+          </h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a 
+              href="/projects/zom-ai"
+              className="px-8 py-4 bg-gradient-to-r from-teal-400 to-blue-500 text-white 
+                       font-semibold rounded-lg hover:brightness-110 transition-all"
+            >
+              Try Zom AI Now
+            </a>
+            <a 
+              href="/projects/zom-ai#features"
+              className="px-8 py-4 bg-black/50 text-teal-400 border border-teal-500/20 
+                       font-semibold rounded-lg hover:bg-black/70 transition-all"
+            >
+              Learn More About Zom's Features
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
