@@ -114,6 +114,91 @@ export default function ZomAIPage(): ReactElement {
           </Card>
         </div>
       </section>
+
+      {/* Scenario Comparison */}
+      <section className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center text-teal-400 mb-12">
+          The Zom AI Difference
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* Traditional Approach */}
+          <Card className="p-8 bg-black/50 backdrop-blur border-red-500/20">
+            <h3 className="text-2xl font-semibold text-red-400 mb-6">Without Zom (Traditional Approach)</h3>
+            <div className="space-y-6 text-gray-300">
+              <div>
+                <h4 className="font-semibold text-red-400 mb-2">Data Hunting</h4>
+                <p>
+                  A user wants to research three potential stocks. They open multiple tabs for each ticker,
+                  rummaging through different websites for fundamentals, technical indicators, insider trades, etc.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-red-400 mb-2">Time & Complexity</h4>
+                <p>
+                  They might spend 2–3 hours pulling data from half a dozen sources—some free,
+                  some behind logins, or scattered across finance sites.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-red-400 mb-2">Manual Interpretation</h4>
+                <p>
+                  Each site might present data differently, requiring the user to piece everything
+                  together and guess if the stock is undervalued or if there's unusual options flow.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-red-400 mb-2">Risk of Missing Key Info</h4>
+                <p>
+                  If they overlook something (like a big insider sale or a high-risk options bet),
+                  they could make a misinformed decision.
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          {/* Zom Approach */}
+          <Card className="p-8 bg-black/50 backdrop-blur border-teal-500/20">
+            <h3 className="text-2xl font-semibold text-teal-400 mb-6">With Zom (Using Our Hammer)</h3>
+            <div className="space-y-6 text-gray-300">
+              <div>
+                <h4 className="font-semibold text-teal-400 mb-2">Single Query</h4>
+                <p>
+                  The user opens Zom AI, types: "Compare TSLA, AAPL, and NVDA. Show me fundamentals,
+                  options flow, and any insider trades in the last 30 days."
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-teal-400 mb-2">Data Consolidation</h4>
+                <p>
+                  Zom instantly aggregates all relevant stats: real-time quotes, P/E ratios,
+                  recent insider buying/selling, even big options trades (all in one dashboard).
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-teal-400 mb-2">AI-Assisted Summaries</h4>
+                <p>
+                  Zom highlights major differences (e.g., "AAPL's P/E is lower, TSLA had large
+                  insider selling, NVDA shows bullish options flow"), saving hours of manual sifting.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-teal-400 mb-2">Time Saved</h4>
+                <p>
+                  The entire process might take 10 minutes—not hours—leaving the user with a
+                  clear snapshot to make an informed call.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-teal-400 mb-2">Confidence & Clarity</h4>
+                <p>
+                  The user can then decide which stock aligns best with their goals—Zom simply
+                  streamlines the data-collection and analysis process.
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
     </div>
   )
 }
