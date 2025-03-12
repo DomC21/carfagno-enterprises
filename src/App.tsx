@@ -7,10 +7,12 @@ import { AlertProvider } from '@/contexts/AlertContext'
 import { PreferencesProvider } from '@/providers/PreferencesProvider'
 
 // Lazy load route components with proper default exports
-const HomePage = lazy(() => import('@/pages/HomePage'))
-const Projects = lazy(() => import('@/pages/projects'))
-const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
-const CoachingPage = lazy(() => import('@/pages/CoachingPage'))
+const HomePage = lazy(() => import('./pages/HomePage'))
+const Projects = lazy(() => import('./pages/projects'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const CoachingPage = lazy(() => import('./pages/CoachingPage'))
+const FollowDom = lazy(() => import('./pages/FollowDom'))
+const TradeInput = lazy(() => import('./pages/admin/TradeInput'))
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[400px]">
@@ -30,7 +32,9 @@ export default function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/projects/:id" element={<ProjectDetail />} />
+                  <Route path="/follow-dom" element={<FollowDom />} />
                   <Route path="/coaching" element={<CoachingPage />} />
+                  <Route path="/admin/trade-input" element={<TradeInput />} />
                 </Route>
               </Routes>
             </Suspense>

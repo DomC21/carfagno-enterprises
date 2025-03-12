@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom'
-import { Brain, Bot } from "lucide-react"
+import { Brain, Bot, UserPlus } from "lucide-react"
 import { FeatureCard } from "../components/ui/feature-card"
 import { motion } from "framer-motion"
 import { EnhancedTooltip } from "../components/ui/enhanced-tooltip"
@@ -16,6 +16,18 @@ interface Project {
 }
 
 const projects: Project[] = [
+  {
+    id: 'follow-dom',
+    title: 'Follow Dom',
+    description: 'Subscribe to see Dom\'s trades in real-time, complete with risk scores and instant SMS alerts for both equities and options.',
+    icon: UserPlus,
+    features: [
+      'Real-time trade alerts',
+      'Risk scoring (0-10)',
+      'SMS notifications'
+    ],
+    gradient: 'from-emerald-500 via-emerald-600 to-emerald-700'
+  },
   {
     id: 'neural-networks',
     title: 'Neural Networks',
@@ -102,6 +114,7 @@ export default function Projects() {
                     <FeatureCard
                       className="h-full group transform-gpu transition-all duration-300 hover:translate-y-[-4px]"
                       glowColor={
+                        project.id === 'follow-dom' ? "rgba(16, 185, 129, 0.5)" :
                         project.id === 'neural-networks' ? "rgba(59, 130, 246, 0.5)" :
                         "rgba(234, 179, 8, 0.5)"
                       }
