@@ -494,10 +494,10 @@ export default function HomePage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 group text-center sm:text-left">
                 <a 
-                  href="mailto:DominicCarfagno@carfagnoenterprises.com" 
+                  href="mailto:support@carfagnoenterprises.com" 
                   className="text-base sm:text-lg md:text-xl text-teal-400 hover:text-blue-400 transition-all duration-300 transform-gpu hover:scale-[1.02] hover:brightness-110 group font-medium break-all sm:break-normal"
                 >
-                  DominicCarfagno@carfagnoenterprises.com
+                  support@carfagnoenterprises.com
                 </a>
               </div>
             </div>
