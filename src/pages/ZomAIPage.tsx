@@ -1,8 +1,9 @@
+import { type ReactElement } from "react"
 import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
+import { Card } from "../components/ui/card"
 import { Hammer, Zap, Clock, Brain } from "lucide-react"
 
-export default function ZomAIPage() {
+export default function ZomAIPage(): ReactElement {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
