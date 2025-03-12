@@ -18,11 +18,11 @@ export function Footer({ className, ...props }: React.HTMLAttributes<HTMLElement
           <div className="space-y-4">
             <h3 className={`text-lg font-semibold ${colorClasses.primary}`}>Contact</h3>
             <a 
-              href="mailto:DominicCarfagno@carfagnoenterprises.com"
+              href="mailto:support@carfagnoenterprises.com"
               className={`flex items-center gap-2 ${colorClasses.secondary} hover:text-teal-400 transition-colors text-sm`}
             >
               <Mail className="w-4 h-4" />
-              DominicCarfagno@carfagnoenterprises.com
+              support@carfagnoenterprises.com
             </a>
           </div>
 
