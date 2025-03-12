@@ -63,7 +63,7 @@ Performance Metrics:
   'zom-ai': {
     id: 'zom-ai',
     title: 'Zom AI',
-    description: 'A large language model that taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
+    description: 'Like a hammer in the hands of a skilled carpenter, Zom AI amplifies your investment capabilities by gathering and organizing financial data from top providers, allowing you to focus on making strategic decisions.',
     features: [
       'AI-powered market analysis',
       'Natural language processing',
@@ -85,32 +85,38 @@ Performance Metrics:
       'Real-time market updates',
       'Natural language queries'
     ],
-    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis.
+    details: `At Carfagno Enterprises, we see technology like a hammer: it doesn't replace the carpenter, it simply amplifies what they can do. Zom AI is designed to gather and organize your financial data so you can focus on strategic decisions.
 
-Data Sources:
-• Unusual Whales: Options flow, insider trades, dark pool data
-• Alpha Vantage: Real-time market data, technical indicators
-• FinancialDatasets.ai: Company fundamentals, institutional holdings
+The Power of Our Tool:
+• Instant data consolidation from multiple premium sources
+• Natural language queries for complex market analysis
+• AI-powered insights that save hours of research time
+• Comprehensive market coverage across stocks and options
+• Real-time updates and alerts for critical market events
 
-Key Capabilities:
-• Natural language market analysis with <500ms response time
-• Real-time data processing of 10,000+ documents daily
-• Sentiment analysis with 92% accuracy
+Data Integration:
+• Unusual Whales: Real-time options flow, insider trades, dark pool data
+• Alpha Vantage: Live market data, technical indicators, fundamentals
+• FinancialDatasets.ai: Deep company analysis, institutional holdings
+
+Time-Saving Features:
+• Single query interface for multiple data sources
+• Automated data consolidation and analysis
+• AI-assisted research summaries
+• Pattern recognition and trend analysis
+• Real-time market monitoring
+
+Technical Capabilities:
+• <500ms response time for natural language queries
+• Process 10,000+ documents daily
+• 92% accuracy in sentiment analysis
 • Access to 20+ real-time data sources
 • 15+ years of historical data coverage
 
-Technical Architecture:
-1. AI Core: Custom-trained GPT models + ML ensemble
-2. Data Pipeline: Real-time market feeds + news aggregation
-3. Analysis Engine: NLP models + sentiment analysis
-4. Research Generation: Automated report creation
-5. Query Interface: Natural language processing
-
-AI Features:
-• Automated technical & fundamental analysis
-• News impact assessment
-• Risk analysis and scoring
-• Pattern recognition in market data
-• Predictive analytics for market trends`
+Our Philosophy:
+We believe in empowering human investors, not automating them out of the equation. 
+Zom AI handles the heavy lifting of data gathering and analysis, but you remain 
+the decision-maker. Like a hammer that extends a carpenter's capabilities, 
+Zom AI amplifies your ability to make informed investment decisions.`
   }
 }
