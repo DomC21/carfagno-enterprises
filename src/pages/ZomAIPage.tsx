@@ -135,7 +135,7 @@ export default function ZomAIPage(): ReactElement {
               <div>
                 <h4 className="font-semibold text-red-400 mb-2">Time & Complexity</h4>
                 <p>
-                  They might spend 2–3 hours pulling data from half a dozen sources—some free,
+                  They might spend 2-3 hours pulling data from half a dozen sources - some free,
                   some behind logins, or scattered across finance sites.
                 </p>
               </div>
@@ -191,12 +191,39 @@ export default function ZomAIPage(): ReactElement {
               <div>
                 <h4 className="font-semibold text-teal-400 mb-2">Confidence & Clarity</h4>
                 <p>
-                  The user can then decide which stock aligns best with their goals—Zom simply
+                  The user can then decide which stock aligns best with their goals - Zom simply
                   streamlines the data-collection and analysis process.
                 </p>
               </div>
             </div>
           </Card>
+        </div>
+      </section>
+
+      {/* Company Philosophy */}
+      <section className="container mx-auto px-4 py-16 bg-gradient-to-b from-black/50 to-black">
+        <div className="max-w-4xl mx-auto space-y-12">
+          <div>
+            <h2 className="text-3xl font-bold text-teal-400 mb-6">
+              We Build Tools, Not Replacements
+            </h2>
+            <p className="text-lg text-gray-300">
+              At Carfagno Enterprises, we believe in empowering human investors, not automating 
+              them out of the equation. Zom speeds up tasks and provides cohesive insight, 
+              but you remain the decision-maker.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-3xl font-bold text-teal-400 mb-6">
+              Hammer, Not Autopilot
+            </h2>
+            <p className="text-lg text-gray-300">
+              Our AI is like a hammer - an extension of your capability to assess stocks more 
+              efficiently. You still swing the hammer, we just make sure it hits the nail 
+              on the head.
+            </p>
+          </div>
         </div>
       </section>
     </div>
