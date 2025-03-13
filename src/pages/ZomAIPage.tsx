@@ -133,7 +133,7 @@ export default function ZomAIPage(): ReactElement {
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-red-400 mb-2">Time & Complexity</h4>
+                <h4 className="font-semibold text-red-400 mb-2">Time and Complexity</h4>
                 <p>
                   They might spend 2-3 hours pulling data from half a dozen sources - some free,
                   some behind logins, or scattered across finance sites.
@@ -189,7 +189,7 @@ export default function ZomAIPage(): ReactElement {
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-teal-400 mb-2">Confidence & Clarity</h4>
+                <h4 className="font-semibold text-teal-400 mb-2">Confidence and Clarity</h4>
                 <p>
                   The user can then decide which stock aligns best with their goals - Zom simply
                   streamlines the data-collection and analysis process.
