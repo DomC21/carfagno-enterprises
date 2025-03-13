@@ -42,20 +42,18 @@ export function usePerformanceMonitor() {
       options?: boolean | AddEventListenerOptions
     ) {
       if (type.startsWith('click') || type.startsWith('keydown')) {
-        const wrappedListener = function(this: EventTarget, event: Event) {
+        const wrappedListener = function(this: any, event: Event) {
           const start = performance.now()
           if (typeof listener === 'function') {
             listener.call(this, event)
-          } else if (typeof listener === 'object' && listener.handleEvent) {
-            listener.handleEvent.call(listener, event)
+          } else {
+            listener.handleEvent(event)
           }
           const end = performance.now()
           const responseTime = end - start
-          if (responseTimeRef.current) {
-            responseTimeRef.current.push(responseTime)
-            if (responseTime > 100) {
-              console.warn(`Slow response time: ${responseTime.toFixed(2)}ms`)
-            }
+          responseTimeRef.current.push(responseTime)
+          if (responseTime > 100) {
+            console.warn(`Slow response time: ${responseTime.toFixed(2)}ms`)
           }
         }
         return originalAddEventListener.call(this, type, wrappedListener, options)

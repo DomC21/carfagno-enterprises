@@ -62,67 +62,55 @@ Performance Metrics:
 
   'zom-ai': {
     id: 'zom-ai',
-    title: 'Zom AI: Your Real-Time Stock Analysis Companion',
-    description: 'Ask Zom about any ticker\'s fundamentals, technicals, or news - and get instant, AI-driven clarity. Zom AI helps investors gather market data from multiple sources in one place, explain key metrics, and highlight important insights - so you can focus on making informed decisions quickly.',
+    title: 'Zom AI',
+    description: 'A large language model that taps into a vast amount of market, fundamental, and alternative data from top providers such as Unusual Whales, Alpha Vantage, and FinancialDatasets.ai, delivering up-to-date insights on stocks, options, insider trades, and more.',
     features: [
-      'Real-time quotes and fundamentals analysis',
-      'Technical indicators with plain English explanations',
-      'Options flow and unusual activity monitoring',
-      'AI-generated market insights and summaries',
-      'Personalized stock screening and alerts'
+      'AI-powered market analysis',
+      'Natural language processing',
+      'Real-time stock screening',
+      'Automated research reports',
+      'Sentiment analysis'
     ],
     technologies: [
-      'OpenAI GPT-4',
-      'TensorFlow',
+      'OpenAI GPT',
+      'Machine Learning',
       'Natural Language Processing',
       'Real-time Data Processing',
-      'Cloud Infrastructure',
-      'WebSocket APIs'
+      'Cloud Infrastructure'
     ],
     benefits: [
-      'Save hours on market research',
-      'Make data-driven decisions',
-      'Never miss important signals',
-      'Understand complex metrics easily',
-      'Stay ahead of market moves'
+      'Instant market research',
+      'AI-driven stock insights',
+      'Automated due diligence',
+      'Real-time market updates',
+      'Natural language queries'
     ],
-    details: `Zom AI is your intelligent market companion, designed to transform complex financial data into clear, actionable insights.
+    details: `Zom AI harnesses cutting-edge artificial intelligence to revolutionize stock analysis.
 
-Data Integration:
-• Unusual Whales: Real-time options flow, insider trades, dark pool activity
-• Alpha Vantage: Live market data, technical indicators, fundamentals
-• FinancialDatasets.ai: Deep company analysis, institutional holdings
+Data Sources:
+• Unusual Whales: Options flow, insider trades, dark pool data
+• Alpha Vantage: Real-time market data, technical indicators
+• FinancialDatasets.ai: Company fundamentals, institutional holdings
 
-Core Capabilities:
-• Instant Data Analysis: <500ms response time for market queries
-• Comprehensive Coverage: Process 10,000+ documents daily
-• High Accuracy: 92% accuracy in sentiment analysis
-• Extensive Sources: Access to 20+ real-time data feeds
-• Historical Context: 15+ years of market data
+Key Capabilities:
+• Natural language market analysis with <500ms response time
+• Real-time data processing of 10,000+ documents daily
+• Sentiment analysis with 92% accuracy
+• Access to 20+ real-time data sources
+• 15+ years of historical data coverage
 
-How Zom AI Works:
-1. You Ask a Question: "What's happening with AAPL?"
-2. Zom Gathers Data: Pulling real-time quotes, fundamentals, recent trades
-3. AI Analysis: Interpreting trends, patterns, and market sentiment
-4. Clear Answers: Plain English explanations of complex metrics
+Technical Architecture:
+1. AI Core: Custom-trained GPT models + ML ensemble
+2. Data Pipeline: Real-time market feeds + news aggregation
+3. Analysis Engine: NLP models + sentiment analysis
+4. Research Generation: Automated report creation
+5. Query Interface: Natural language processing
 
-Key Features:
-• Real-Time Market Pulse: Instant quotes, trends, and momentum indicators
-• Technical Analysis Helper: RSI, MACD, and other indicators explained simply
-• Options Flow Insights: Spot unusual activity and big institutional moves
-• AI Research Assistant: Automated analysis of news and market events
-• Custom Alerts: Personalized notifications for your watchlist
-
-Coming Soon (Q2 2025):
-• Advanced Pattern Recognition System
-• Enhanced Options Chain Analysis
-• Real-Time Earnings Impact Assessment
-• Institutional Money Flow Tracking
-
-Weekly Updates:
-• New technical indicators
-• Improved natural language processing
-• Enhanced visualization tools
-• Expanded data sources`
+AI Features:
+• Automated technical & fundamental analysis
+• News impact assessment
+• Risk analysis and scoring
+• Pattern recognition in market data
+• Predictive analytics for market trends`
   }
 }
