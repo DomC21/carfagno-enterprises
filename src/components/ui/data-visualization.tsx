@@ -41,14 +41,7 @@ export function DataVisualization({
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  interface TooltipProps {
-    active?: boolean
-    payload?: Array<{
-      payload: DataPoint
-    }>
-  }
-
-  const CustomTooltip = ({ active, payload }: TooltipProps) => {
+  const CustomTooltip = ({ active, payload }: any) => {
     if (!active || !payload?.[0]) return null
 
     const point = payload[0].payload as DataPoint
