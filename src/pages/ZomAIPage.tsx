@@ -24,7 +24,7 @@ function ZomAIPage(): JSX.Element {
               Zom AI: Your Real-Time Stock Analysis Companion
             </h1>
             <p className="text-xl text-white/70 mb-8 max-w-3xl mx-auto">
-              Ask Zom about any ticker&apos;s fundamentals, technicals, or news—and get instant, AI-driven clarity.
+              Ask Zom about any ticker&apos;s fundamentals, technical indicators, or recent market activity—get instant, AI-driven clarity.
             </p>
           </motion.div>
         </div>
@@ -42,20 +42,20 @@ function ZomAIPage(): JSX.Element {
           >
             <h2 className="text-2xl font-bold text-white mb-4">Purpose Overview</h2>
             <p className="text-white/70 text-lg mb-6">
-              Zom AI is designed to help investors gather market data from multiple sources in one place, explain key metrics, and highlight important insights—so you can focus on making informed decisions quickly.
+              Zom AI helps investors quickly gather key market details in one place, interpret metrics in plain English, and highlight important insights—so you can spend less time searching and more time deciding.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
               <div className="p-4 bg-black/30 rounded-xl">
-                <h3 className="text-teal-400 font-semibold mb-2">Unusual Whales</h3>
-                <p className="text-white/70">Real-time options flow, insider trades, dark pool activity</p>
+                <h3 className="text-teal-400 font-semibold mb-2">Real-Time Quotes &amp; Fundamentals</h3>
+                <p className="text-white/70">Zom instantly fetches prices, P/E ratios, EPS data, and more.</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
-                <h3 className="text-teal-400 font-semibold mb-2">Alpha Vantage</h3>
-                <p className="text-white/70">Live market data, technical indicators, fundamentals</p>
+                <h3 className="text-teal-400 font-semibold mb-2">Technical Indicators</h3>
+                <p className="text-white/70">From RSI and MACD to Bollinger Bands—Zom explains potential signals in easy-to-digest terms.</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
-                <h3 className="text-teal-400 font-semibold mb-2">FinancialDatasets.ai</h3>
-                <p className="text-white/70">Deep company analysis, institutional holdings</p>
+                <h3 className="text-teal-400 font-semibold mb-2">AI-Generated Summaries</h3>
+                <p className="text-white/70">No more deciphering charts alone—Zom can highlight key takeaways or market-moving info.</p>
               </div>
             </div>
           </motion.div>
@@ -105,7 +105,7 @@ function ZomAIPage(): JSX.Element {
               <div className="bg-zinc-900/50 border border-teal-500/20 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-white mb-4">Options Flow Intelligence</h3>
                 <p className="text-white/70 mb-6">
-                  Track unusual options activity and get insights into institutional trading patterns.
+                  Track unusual options activity and get insights into trading patterns.
                 </p>
                 <OptionsActivityDemo />
               </div>
@@ -138,23 +138,23 @@ function ZomAIPage(): JSX.Element {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="p-4 bg-black/30 rounded-xl">
                 <div className="text-teal-400 text-2xl font-bold mb-2">1</div>
-                <h3 className="text-white font-semibold mb-2">Enter a Ticker or Question</h3>
+                <h3 className="text-white font-semibold mb-2">Enter a Ticker or Ask a Question</h3>
                 <p className="text-white/70">Type any stock symbol or ask about market conditions</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
                 <div className="text-teal-400 text-2xl font-bold mb-2">2</div>
                 <h3 className="text-white font-semibold mb-2">Zom Gathers Data</h3>
-                <p className="text-white/70">We pull real-time data from multiple premium sources</p>
+                <p className="text-white/70">All relevant stats, fundamentals, or noteworthy changes</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
                 <div className="text-teal-400 text-2xl font-bold mb-2">3</div>
-                <h3 className="text-white font-semibold mb-2">AI Analysis</h3>
-                <p className="text-white/70">Our AI processes and interprets the market data</p>
+                <h3 className="text-white font-semibold mb-2">AI Summaries</h3>
+                <p className="text-white/70">Concise, user-friendly overviews of complex data</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
                 <div className="text-teal-400 text-2xl font-bold mb-2">4</div>
-                <h3 className="text-white font-semibold mb-2">Clear Answers</h3>
-                <p className="text-white/70">Get plain English explanations and actionable insights</p>
+                <h3 className="text-white font-semibold mb-2">You Remain in Control</h3>
+                <p className="text-white/70">It's your call—Zom just presents the facts and insights</p>
               </div>
             </div>
           </motion.div>
@@ -174,7 +174,7 @@ function ZomAIPage(): JSX.Element {
             <h2 className="text-2xl font-bold text-white mb-6">Example Queries</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-4 bg-black/30 rounded-xl">
-                <p className="text-teal-400 font-mono mb-2">&gt; Compare Tesla and Rivian&apos;s fundamentals</p>
+                <p className="text-teal-400 font-mono mb-2">&gt; Compare Tesla and Rivian&apos;s fundamentals.</p>
                 <p className="text-white/70">Get side-by-side comparison of key metrics</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
@@ -182,8 +182,8 @@ function ZomAIPage(): JSX.Element {
                 <p className="text-white/70">Check technical indicators with explanations</p>
               </div>
               <div className="p-4 bg-black/30 rounded-xl">
-                <p className="text-teal-400 font-mono mb-2">&gt; Any unusual options trades for AMD?</p>
-                <p className="text-white/70">Monitor options flow and institutional activity</p>
+                <p className="text-teal-400 font-mono mb-2">&gt; Any recent big trades for AMD?</p>
+                <p className="text-white/70">Monitor trading activity and institutional moves</p>
               </div>
             </div>
           </motion.div>
