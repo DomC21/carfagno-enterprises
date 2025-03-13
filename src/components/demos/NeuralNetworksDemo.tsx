@@ -49,12 +49,12 @@ export function NeuralNetworksDemo() {
           <div>
             <h4 className="text-lg font-medium mb-4">ZomAI Explanation</h4>
             <div className="prose prose-invert max-w-none">
-              <p className="text-gray-300">To understand why the AI predicted a -12.44% change for next week, let's look at the indicators in the provided data:</p>
+              <p className="text-gray-300">To understand why the AI predicted a -12.44% change for next week, let&apos;s look at the indicators in the provided data:</p>
               <ul className="space-y-4 text-gray-300">
                 <li><strong>Moving Averages (MA_50 and MA_200):</strong> The Moving Average (MA) is a trend-following indicator that smooths out price data by creating a constantly updated average price. The 50-day MA (MA_50) and 200-day MA (MA_200) are commonly used to identify trends. If the MA_50 is below the MA_200, it indicates a bearish trend.</li>
                 <li><strong>Exponential Moving Averages (EMA_50 and EMA_200):</strong> Similar to MA, Exponential Moving Averages (EMA) give more weight to recent prices. The EMA_50 and EMA_200 help identify potential trend reversals based on shorter-term and longer-term averages.</li>
                 <li><strong>Relative Strength Index (RSI):</strong> The Relative Strength Index is a momentum oscillator that measures the speed and change of price movements. An RSI above 70 may indicate the asset is overbought and could be due for a correction.</li>
-                <li><strong>Moving Average Convergence Divergence (MACD):</strong> MACD is a trend-following momentum indicator that shows the relationship between two moving averages of a security's price. The MACD line crossing below the signal line suggests a bearish trend.</li>
+                <li><strong>Moving Average Convergence Divergence (MACD):</strong> MACD is a trend-following momentum indicator that shows the relationship between two moving averages of a security&apos;s price. The MACD line crossing below the signal line suggests a bearish trend.</li>
                 <li><strong>Bollinger Bands (Bollinger High and Bollinger Low):</strong> Bollinger Bands consist of a middle band (MA) and two outer bands that are standard deviations away. They expand and contract based on volatility. Prices near the upper band may be considered overbought, while prices near the lower band may be considered oversold.</li>
                 <li><strong>Average True Range (ATR):</strong> The Average True Range measures market volatility. A higher ATR value generally indicates higher volatility, which could result in larger price movements.</li>
               </ul>

@@ -116,7 +116,7 @@ function CoachingPage() {
           </div>
 
           <h1 className={"text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 sm:mb-8 text-white " + animationClasses.fadeInScale + " max-w-[320px] sm:max-w-[600px] mx-auto leading-tight"}>
-            Master Your Money with Dom Carfagno's Expertise
+            Master Your Money with Dom Carfagno&apos;s Expertise
           </h1>
           
           <h2 className={"text-lg sm:text-xl md:text-2xl text-white/70 mb-8 sm:mb-10 leading-relaxed max-w-[280px] sm:max-w-xl md:max-w-2xl mx-auto " + animationClasses.fadeInScale}>
@@ -183,19 +183,19 @@ function CoachingPage() {
                       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6">Meet Dom Carfagno</h2>
                       <div className="space-y-4 text-white/70 text-base sm:text-lg md:text-xl">
                         <p>
-                          Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. At just 18 years old, I've grown my assets under management to over $100,000, but for me, investing has never just been about the money. It's been about learning, growing, and using finance as a tool to create something bigger than myself. I got into investing early because I was fascinated by how money works, how markets move, and how people make decisions that can change their financial future. I spent hours researching, testing strategies, and figuring out what works. The more I learned, the more I realized that most people never get the chance to truly understand investing, and that's something I want to change.
+                          Hi, I&apos;m Dom Carfagno, the founder of Carfagno Enterprises. At just 18 years old, I&apos;ve grown my assets under management to over $100,000, but for me, investing has never just been about the money. It&apos;s been about learning, growing, and using finance as a tool to create something bigger than myself. I got into investing early because I was fascinated by how money works, how markets move, and how people make decisions that can change their financial future. I spent hours researching, testing strategies, and figuring out what works. The more I learned, the more I realized that most people never get the chance to truly understand investing, and that&apos;s something I want to change.
                         </p>
                         <p>
-                          One of the biggest parts of my journey has been founding the <strong className="text-white">Wyndmoor Way Fund</strong> at La Salle College High School. I created it as a student-run investment fund with one mission: to help students who can't afford tuition. Education changed my life, and I believe no one should miss out on opportunities because of financial barriers. Through this fund, we apply real-world investing strategies while directly making an impact on students who need it most. It's more than just an investment portfolio. It's a way to use finance for something real, something that changes lives.
+                          One of the biggest parts of my journey has been founding the <strong className="text-white">Wyndmoor Way Fund</strong> at La Salle College High School. I created it as a student-run investment fund with one mission: to help students who can&apos;t afford tuition. Education changed my life, and I believe no one should miss out on opportunities because of financial barriers. Through this fund, we apply real-world investing strategies while directly making an impact on students who need it most. It&apos;s more than just an investment portfolio. It&apos;s a way to use finance for something real, something that changes lives.
                         </p>
                         <p>
-                          Through Carfagno Enterprises, I want to spread financial literacy and give people the tools they need to take control of their future. I believe investing isn't just about making money. It's about building something bigger than yourself. Whether it's helping a family save for college, guiding someone toward financial independence, or supporting students through the Wyndmoor Way Fund, my goal is to use what I've learned to give back and help others succeed.
+                          Through Carfagno Enterprises, I want to spread financial literacy and give people the tools they need to take control of their future. I believe investing isn&apos;t just about making money. It&apos;s about building something bigger than yourself. Whether it&apos;s helping a family save for college, guiding someone toward financial independence, or supporting students through the Wyndmoor Way Fund, my goal is to use what I&apos;ve learned to give back and help others succeed.
                         </p>
                         <p>
-                          I also believe that technology is one of the greatest tools we have to make finance more accessible. That's why I created Zom AI and Rust—not to replace human decision-making, but to enhance it. These tools make it easier for people to understand the markets, analyze trends, and make smarter financial decisions without getting lost in complicated data.
+                          I also believe that technology is one of the greatest tools we have to make finance more accessible. That&apos;s why I created Zom AI and Rust—not to replace human decision-making, but to enhance it. These tools make it easier for people to understand the markets, analyze trends, and make smarter financial decisions without getting lost in complicated data.
                         </p>
                         <p>
-                          At the end of the day, Carfagno Enterprises is about more than just finance. It's about empowering people, creating opportunities, and using the knowledge I've gained to make an impact. I'm still learning every day, but I know one thing for sure—investing has the power to change lives, and I want to help as many people as possible realize that potential.
+                          At the end of the day, Carfagno Enterprises is about more than just finance. It&apos;s about empowering people, creating opportunities, and using the knowledge I&apos;ve gained to make an impact. I&apos;m still learning every day, but I know one thing for sure—investing has the power to change lives, and I want to help as many people as possible realize that potential.
                         </p>
                       </div>
                     </div>
@@ -223,7 +223,7 @@ function CoachingPage() {
               <h3 className="text-2xl font-semibold text-white mb-6 relative z-10">Frequently Asked Questions</h3>
               <div className="mb-4">
                 <h4 className="font-semibold text-white">What will I get in a coaching session?</h4>
-                <p className="text-white/70">You'll receive a personalized budget plan, investment guidelines, and ongoing support.</p>
+                <p className="text-white/70">You&apos;ll receive a personalized budget plan, investment guidelines, and ongoing support.</p>
               </div>
               <div className="mb-4">
                 <h4 className="font-semibold text-white">How long are the sessions?</h4>
@@ -342,7 +342,7 @@ function CoachingPage() {
                   </Button>
 
                   <p className="text-sm text-white/70 mt-4">
-                    I'll reach out within 24 hours to confirm your session details.
+                    I&apos;ll reach out within 24 hours to confirm your session details.
                   </p>
                 </form>
               </Form>

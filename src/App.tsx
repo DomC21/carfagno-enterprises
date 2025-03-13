@@ -11,6 +11,7 @@ const HomePage = lazy(() => import('@/pages/HomePage'))
 const Projects = lazy(() => import('@/pages/projects'))
 const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
 const CoachingPage = lazy(() => import('@/pages/CoachingPage'))
+const OurVision = lazy(() => import('@/pages/OurVision'))
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[400px]">
@@ -31,6 +32,7 @@ export default function App() {
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/projects/:id" element={<ProjectDetail />} />
                   <Route path="/coaching" element={<CoachingPage />} />
+                  <Route path="/our-vision" element={<OurVision />} />
                 </Route>
               </Routes>
             </Suspense>

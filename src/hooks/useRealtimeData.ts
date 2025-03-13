@@ -80,8 +80,8 @@ export function useRealtimeData<T>(
   useEffect(() => {
     let mounted = true
     let frameId: number
-    let timeoutId: NodeJS.Timeout
-    let intervalId: NodeJS.Timeout
+    let timeoutId: NodeJS.Timeout | null = null
+    let intervalId: NodeJS.Timeout | null = null
 
     const update = async () => {
       if (!mounted) return

@@ -140,7 +140,7 @@ export function ReportGenerator() {
 
         switch (section.visualization) {
           case 'table':
-            // @ts-ignore - jspdf-autotable types
+            // @ts-expect-error Temporarily ignoring type error until proper typing is added - jspdf-autotable types
             doc.autoTable({
               startY: yOffset,
               head: [Object.keys(data[0])],

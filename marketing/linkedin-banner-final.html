@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CE LinkedIn Banner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            height: 396px;
+            width: 1584px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(79, 209, 197, 0.05) 0%,
+                rgba(66, 153, 225, 0.05) 100%
+            );
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 40px;
+            padding: 0 80px;
+            position: relative;
+            z-index: 2;
+            align-items: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .gradient-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            background: linear-gradient(
+                90deg,
+                rgb(79, 209, 197) 0%,    /* Teal */
+                rgb(79, 209, 197) 35%,   /* Hold teal */
+                rgb(66, 153, 225) 65%,   /* Transition to blue */
+                rgb(66, 153, 225) 100%   /* Blue */
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #D1D5DB;
+            margin-top: 16px;
+            opacity: 0.9;
+        }
+
+        .pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(79, 209, 197, 0.03) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(79, 209, 197, 0.03) 50%,
+                rgba(79, 209, 197, 0.03) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+
+        .accent-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                rgb(79, 209, 197) 0%,
+                rgb(66, 153, 225) 100%
+            );
+            opacity: 0.8;
+        }
+
+        .tools {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(
+                135deg,
+                rgba(79, 209, 197, 0.2) 0%,
+                rgba(66, 153, 225, 0.2) 100%
+            );
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D1D5DB;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="pattern"></div>
+    <div class="container">
+        <img src="/images/ce-logo.png?v=2" alt="CE Logo" class="logo" />
+        <div class="content">
+            <h1 class="gradient-text">Carfagno Enterprises</h1>
+            <p class="tagline">Empowering Investors Through Advanced Technology</p>
+        </div>
+        <div class="tools">
+            <div class="tool-icon">📈</div>
+            <div class="tool-icon">🤖</div>
+            <div class="tool-icon">📊</div>
+        </div>
+    </div>
+    <div class="accent-line"></div>
+</body>
+</html>

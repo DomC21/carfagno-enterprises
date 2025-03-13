@@ -34,25 +34,29 @@ export function generateTradingPattern(basePrice: number): TradingPattern {
 
   // Adjust volume based on pattern type
   switch (pattern) {
-    case 'double-top':
+    case 'double-top': {
       volume[8] *= 1.5 // Higher volume at first top
       volume[16] *= 1.3 // Slightly lower at second top
       break
-    case 'double-bottom':
+    }
+    case 'double-bottom': {
       volume[8] *= 1.4 // Higher volume at first bottom
       volume[16] *= 1.6 // Even higher at second bottom (accumulation)
       break
-    case 'head-shoulders':
+    }
+    case 'head-shoulders': {
       volume[6] *= 1.3 // Left shoulder
       volume[12] *= 1.5 // Head
       volume[18] *= 1.2 // Right shoulder
       break
-    case 'triangle':
+    }
+    case 'triangle': {
       // Decreasing volume as pattern develops
       for (let i = 0; i < volume.length; i++) {
         volume[i] *= (1 - i * 0.02)
       }
       break
+    }
   }
 
   return {
@@ -71,7 +75,7 @@ export function generatePriceData(pattern: TradingPattern, basePrice: number): n
   const volatility = faker.number.float({ min: 0.001, max: 0.003 })
 
   switch (pattern.type) {
-    case 'double-top':
+    case 'double-top': {
       // Generate double top pattern
       for (let i = 0; i < 24; i++) {
         if (i < 8) {
@@ -87,8 +91,8 @@ export function generatePriceData(pattern: TradingPattern, basePrice: number): n
         }
       }
       break
-
-    case 'double-bottom':
+    }
+    case 'double-bottom': {
       // Generate double bottom pattern
       for (let i = 0; i < 24; i++) {
         if (i < 8) {
@@ -104,8 +108,8 @@ export function generatePriceData(pattern: TradingPattern, basePrice: number): n
         }
       }
       break
-
-    case 'head-shoulders':
+    }
+    case 'head-shoulders': {
       // Generate head and shoulders pattern
       for (let i = 0; i < 24; i++) {
         if (i < 6) { // Left shoulder
@@ -123,8 +127,8 @@ export function generatePriceData(pattern: TradingPattern, basePrice: number): n
         }
       }
       break
-
-    case 'triangle':
+    }
+    case 'triangle': {
       // Generate triangle pattern
       const height = basePrice * 0.1
       for (let i = 0; i < 24; i++) {
@@ -133,6 +137,7 @@ export function generatePriceData(pattern: TradingPattern, basePrice: number): n
         prices.push(basePrice + (range / 2) * Math.sin(i) + faker.number.float({ min: -volatility, max: volatility }) * basePrice)
       }
       break
+    }
   }
 
   return prices

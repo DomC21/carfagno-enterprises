@@ -42,7 +42,7 @@ export default function AboutPage() {
           <div className={"bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
             <h2 className="text-2xl font-semibold text-white mb-4">Vision & Mission</h2>
             <p className="text-white/70 mb-4">
-              My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise to revolutionize how investors interact with market data.
+              My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I&apos;m building cutting-edge tools that combine AI technology with financial expertise to revolutionize how investors interact with market data.
             </p>
             <p className="text-white/70">
               With a strong foundation in financial analysis and strategic investment planning, I focus on developing innovative solutions that transform complex market data into actionable insights.
@@ -56,9 +56,9 @@ export default function AboutPage() {
           <div className="space-y-8">
             <div className={"relative pl-8 pb-8 border-l-2 border-white/10 " + animationClasses.fadeInScale}>
               <div className="absolute left-0 top-0 w-4 h-4 -translate-x-1/2 rounded-full bg-white/70"></div>
-              <h3 className="text-xl font-semibold text-white mb-2">St. Joe's Investment Competition Winner</h3>
+              <h3 className="text-xl font-semibold text-white mb-2">St. Joe&apos;s Investment Competition Winner</h3>
               <p className="text-white/70">
-                Led a team to victory in the St. Joe's Investment Competition, demonstrating exceptional skills in financial analysis and strategic investment planning.
+                Led a team to victory in the St. Joe&apos;s Investment Competition, demonstrating exceptional skills in financial analysis and strategic investment planning.
               </p>
             </div>
             <div className={"relative pl-8 pb-8 border-l-2 border-white/10 " + animationClasses.fadeInScale} style={{ animationDelay: '0.2s' }}>
@@ -81,7 +81,7 @@ export default function AboutPage() {
         {/* Call to Action */}
         <div className="max-w-4xl mx-auto text-center">
           <div className={"bg-white/5 rounded-3xl p-8 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
-            <h2 className="text-2xl font-semibold text-white mb-4">Let's Connect</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">Let&apos;s Connect</h2>
             <p className="text-white/70 mb-6">
               Interested in learning more about our innovative financial tools or discussing potential collaborations?
             </p>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CE Gradient Text</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: #000000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-text {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            background: linear-gradient(to right, 
+                rgb(79, 209, 197), /* Teal start - #4FD1C5 */
+                rgb(66, 153, 225)  /* Blue end - #4299E1 */
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Mobile size */
+        @media (max-width: 768px) {
+            .gradient-text {
+                font-size: 48px;
+            }
+        }
+
+        /* Example container to edit */
+        .edit-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <h1 class="gradient-text">
+            Get Early Access to Our Tools
+        </h1>
+    </div>
+
+    <!-- Instructions -->
+    <div style="color: #666; margin-top: 2rem; font-size: 14px;">
+        To use this template:
+        1. Replace the text between the h1 tags
+        2. Keep the font-family as Inter for brand consistency
+        3. The gradient automatically adjusts from teal (#4FD1C5) to blue (#4299E1)
+        4. Text size automatically adjusts for mobile/desktop
+    </div>
+</body>
+</html>

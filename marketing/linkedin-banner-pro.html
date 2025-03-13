@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CE LinkedIn Banner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000000;
+            height: 396px;
+            width: 1584px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-content {
+            padding-left: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 80px;
+        }
+
+        .gradient-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            background: linear-gradient(
+                90deg,
+                rgb(79, 209, 197) 0%,    /* Teal */
+                rgb(79, 209, 197) 35%,   /* Hold teal */
+                rgb(66, 153, 225) 65%,   /* Transition to blue */
+                rgb(66, 153, 225) 100%   /* Blue */
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #D1D5DB;
+            margin-top: 16px;
+            opacity: 0.9;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(79, 209, 197, 0.03) 0%,
+                rgba(66, 153, 225, 0.03) 100%
+            );
+            z-index: 1;
+        }
+
+        .accent-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                rgb(79, 209, 197) 0%,
+                rgb(66, 153, 225) 100%
+            );
+            opacity: 0.8;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div class="container">
+        <div class="left-content">
+            <h1 class="gradient-text">Carfagno<br/>Enterprises</h1>
+            <p class="tagline">Empowering Investors with Advanced Technology</p>
+        </div>
+        <div class="right-content">
+            <img src="/images/ce-logo.png?v=2" alt="CE Logo" class="logo" />
+        </div>
+    </div>
+    <div class="accent-line"></div>
+</body>
+</html>
