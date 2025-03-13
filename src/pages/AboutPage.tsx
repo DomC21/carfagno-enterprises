@@ -37,19 +37,6 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Vision & Mission */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <div className={"bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300 " + animationClasses.fadeInScale}>
-            <h2 className="text-2xl font-semibold text-white mb-4">Vision & Mission</h2>
-            <p className="text-white/70 mb-4">
-              My mission is to bridge the gap between complex financial data and actionable insights. Through Carfagno Enterprises, I'm building cutting-edge tools that combine AI technology with financial expertise to revolutionize how investors interact with market data.
-            </p>
-            <p className="text-white/70">
-              With a strong foundation in financial analysis and strategic investment planning, I focus on developing innovative solutions that transform complex market data into actionable insights.
-            </p>
-          </div>
-        </div>
-
         {/* Achievements Timeline */}
         <div className="max-w-4xl mx-auto mb-16">
           <h2 className="text-2xl font-bold text-teal-400 mb-8">Key Milestones</h2>
