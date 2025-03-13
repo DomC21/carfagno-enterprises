@@ -223,7 +223,7 @@ export default function HomePage() {
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
               buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
-              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[2].onclick = () => { navigate('/projects'); nav.remove(); };
               buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
               buttons[4].onclick = () => { navigate('/our-mission'); nav.remove(); };
             }}
@@ -288,7 +288,7 @@ export default function HomePage() {
                 animationClasses.buttonGlow,
                 animationClasses.fadeInScale
               )}
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              onClick={() => navigate('/projects')}
             >
               Explore Our Projects
               <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform duration-300 group-hover:translate-x-1" />
