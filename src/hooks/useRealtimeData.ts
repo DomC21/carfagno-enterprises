@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 interface UseRealtimeDataOptions {
   interval?: number
   onError?: (error: Error) => void
-  onUpdate?: (data: any) => void
+  onUpdate?: (data: unknown) => void
   initialDelay?: number
   retryAttempts?: number
   retryDelay?: number
@@ -80,8 +80,8 @@ export function useRealtimeData<T>(
   useEffect(() => {
     let mounted = true
     let frameId: number
-    let timeoutId: NodeJS.Timeout
-    let intervalId: NodeJS.Timeout
+    let timeoutId: NodeJS.Timeout | undefined = undefined
+    let intervalId: NodeJS.Timeout | undefined = undefined
 
     const update = async () => {
       if (!mounted) return
