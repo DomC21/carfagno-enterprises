@@ -8,7 +8,7 @@ import { AISummariesDemo } from "../components/demos/zom-ai/AISummariesDemo"
 import { ChevronRight } from "lucide-react"
 import { animationClasses } from "../utils/styles"
 
-export default function ZomAIPage(): JSX.Element {
+function ZomAIPage(): JSX.Element {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black">
       {/* Hero Section */}
@@ -212,3 +212,5 @@ export default function ZomAIPage(): JSX.Element {
     </div>
   )
 }
+
+export default ZomAIPage
