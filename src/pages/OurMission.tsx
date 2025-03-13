@@ -181,12 +181,12 @@ export default function OurMission() {
         {/* CTA Section */}
         <div className="text-center">
           <motion.div className={cn("inline-block", animationClasses.fadeIn)}>
-            <a 
-              href="/projects"
+            <Link 
+              to="/projects"
               className="inline-flex items-center px-8 py-4 text-lg border border-transparent font-medium rounded-xl text-white bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 shadow-lg shadow-teal-500/20 hover:shadow-xl hover:shadow-teal-500/30 transition-all duration-300"
             >
               See Our Tools in Action
-            </a>
+            </Link>
           </motion.div>
         </div>
       </main>
