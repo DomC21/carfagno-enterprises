@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 
 const animationClasses = {
@@ -52,12 +53,15 @@ export default function OurMission() {
                 Every feature we build focuses on making complex financial data clear and actionable, putting you in the driver's seat of your investment journey.
               </p>
               <div className="mt-6">
-                <a href="/projects/zom-ai" className="text-teal-400 hover:text-teal-300 font-medium flex items-center gap-2">
+                <Link 
+                  to="/projects/zom-ai" 
+                  className="text-teal-400 hover:text-teal-300 font-medium flex items-center gap-2 cursor-pointer"
+                >
                   Learn more about our approach
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
