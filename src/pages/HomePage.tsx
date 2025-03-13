@@ -186,13 +186,6 @@ export default function HomePage() {
             <Button 
               variant="ghost" 
               className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
-              onClick={() => navigate('/our-mission')}
-            >
-              Our Mission
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Projects
@@ -204,6 +197,13 @@ export default function HomePage() {
             >
               Contact
             </Button>
+            <Button 
+              variant="ghost" 
+              className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
+              onClick={() => navigate('/our-mission')}
+            >
+              Our Mission
+            </Button>
           </nav>
           <button 
             className="sm:hidden text-teal-400 hover:text-teal-300 p-5 text-2xl flex items-center justify-center"
@@ -213,9 +213,9 @@ export default function HomePage() {
               nav.innerHTML = `
                 <button class="absolute top-5 right-5 text-teal-400 hover:text-teal-300 p-5 text-3xl">✕</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Coaching</button>
-                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Our Mission</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Projects</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Our Mission</button>
               `;
               document.body.appendChild(nav);
               
@@ -223,9 +223,9 @@ export default function HomePage() {
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
               buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
-              buttons[2].onclick = () => { navigate('/our-mission'); nav.remove(); };
-              buttons[3].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
-              buttons[4].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[4].onclick = () => { navigate('/our-mission'); nav.remove(); };
             }}
           >
             ☰
@@ -310,7 +310,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Neural Networks Card */}
             <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
@@ -327,8 +327,6 @@ export default function HomePage() {
                 <ChevronRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
-
-
 
             {/* Zom AI Card */}
             <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
