@@ -6,7 +6,6 @@ import { Input } from '../components/ui/input'
 import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
-import { DataFlowAnimation } from '../components/DataFlowAnimation'
 import { animationClasses } from '../utils/styles'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -93,7 +92,6 @@ function CoachingPage() {
       </header>
 
       <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
-        <DataFlowAnimation />
         <div className="absolute inset-0 bg-black">
           <div className="absolute inset-0 bg-gradient-to-b from-blue-950/30 to-slate-900/30 mix-blend-overlay"></div>
         </div>

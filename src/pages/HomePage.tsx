@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { ChevronRight, Sparkles, User } from 'lucide-react'
-import { ErrorBoundary } from '../components/ErrorBoundary'
 import { useNavigate } from 'react-router-dom'
 import { cn } from '../lib/utils'
 import { animationClasses } from '../utils/styles'
-
 import { Logo } from '../components/Logo'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
@@ -20,10 +18,7 @@ const toast = {
   error: (msg: string) => console.error('Error:', msg)
 }
 
-interface MousePosition {
-  x: number
-  y: number
-}
+
 
 interface EarlyAccessForm {
   name: string
@@ -39,35 +34,7 @@ interface ContactForm {
 
 export default function HomePage() {
   const navigate = useNavigate()
-  const [mousePos, setMousePos] = useState<MousePosition>({ x: 0, y: 0 })
-  const [isMobile, setIsMobile] = useState(false)
 
-  // Mouse tracking with requestAnimationFrame for performance
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    if (!isMobile) {
-      let rafId: number
-      const handleMouseMove = (e: MouseEvent) => {
-        rafId = requestAnimationFrame(() => {
-          setMousePos({ x: e.clientX, y: e.clientY })
-        })
-      }
-
-      window.addEventListener('mousemove', handleMouseMove)
-      return () => {
-        window.removeEventListener('mousemove', handleMouseMove)
-        if (rafId) cancelAnimationFrame(rafId)
-      }
-    }
-    
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [isMobile])
   
   const earlyAccessForm = useForm<EarlyAccessForm>({
     defaultValues: {
