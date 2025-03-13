@@ -12,8 +12,6 @@ interface Point {
 const GraphAnimationComponent = ({ className }: AnimationProps) => {
   const { isVisible, shouldReduceMotion } = useAnimationControl()
   const [points, setPoints] = useState<Point[]>([])
-  
-  if (!isVisible || shouldReduceMotion) return null
 
   useEffect(() => {
     if (!isVisible || shouldReduceMotion) return
@@ -34,7 +32,7 @@ const GraphAnimationComponent = ({ className }: AnimationProps) => {
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isVisible, shouldReduceMotion])
 
   return (
     <div className={cn("absolute inset-0 pointer-events-none", className)} aria-hidden="true">
