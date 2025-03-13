@@ -186,6 +186,13 @@ export default function HomePage() {
             <Button 
               variant="ghost" 
               className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
+              onClick={() => navigate('/our-vision')}
+            >
+              Our Vision
+            </Button>
+            <Button 
+              variant="ghost" 
+              className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
               Projects
@@ -206,6 +213,7 @@ export default function HomePage() {
               nav.innerHTML = `
                 <button class="absolute top-5 right-5 text-teal-400 hover:text-teal-300 p-5 text-3xl">✕</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Coaching</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Our Vision</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Projects</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
               `;
@@ -215,8 +223,9 @@ export default function HomePage() {
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
               buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
-              buttons[2].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
-              buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[2].onclick = () => { navigate('/our-vision'); nav.remove(); };
+              buttons[3].onclick = () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
+              buttons[4].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
             }}
           >
             ☰
@@ -468,7 +477,7 @@ export default function HomePage() {
                 </h2>
                 <div className="space-y-4 sm:space-y-6">
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
-                    Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
+                    Hi, I&apos;m Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I&apos;m dedicated to creating cutting-edge tools that empower investors to succeed.
                   </p>
 
                 </div>
