@@ -14,11 +14,20 @@ interface ReportTemplate {
   sections: ReportSection[]
 }
 
+import type { OptionsData, GreekMetrics, CongressionalTrade, MarketSentiment } from '../../utils/fakeData'
+
+interface ReportData {
+  optionsData: OptionsData[]
+  greekMetrics: GreekMetrics[]
+  congressionalTrades: CongressionalTrade[]
+  marketSentiment: MarketSentiment[]
+}
+
 interface ReportSection {
   title: string
-  dataSource: string
+  dataSource: keyof ReportData
   visualization: 'table' | 'chart' | 'summary'
-  options?: Record<string, any>
+  options?: Record<string, unknown>
 }
 
 const defaultTemplates: ReportTemplate[] = [
@@ -73,7 +82,16 @@ const defaultTemplates: ReportTemplate[] = [
 export function ReportGenerator() {
   const [selectedTemplate, setSelectedTemplate] = React.useState<ReportTemplate | null>(null)
   const [isGenerating, setIsGenerating] = React.useState(false)
-  const [reportData, setReportData] = React.useState<Record<string, any>>({})
+  type ReportDataType = {
+    [K in keyof ReportData]: ReportData[K]
+  }
+
+  const [reportData, setReportData] = React.useState<ReportDataType>({
+    optionsData: [],
+    greekMetrics: [],
+    congressionalTrades: [],
+    marketSentiment: []
+  })
   const { addAlert } = useAlert()
 
   const fetchReportData = React.useCallback(async () => {
@@ -81,7 +99,12 @@ export function ReportGenerator() {
       setIsGenerating(true)
       
       // Fetch data based on selected template
-      const data: Record<string, any> = {}
+      const data: ReportDataType = {
+        optionsData: [],
+        greekMetrics: [],
+        congressionalTrades: [],
+        marketSentiment: []
+      }
       
       if (selectedTemplate) {
         for (const section of selectedTemplate.sections) {
@@ -107,7 +130,8 @@ export function ReportGenerator() {
         type: 'success',
         message: 'Report data fetched successfully'
       })
-    } catch (error) {
+    } catch (err) {
+      console.error('Failed to fetch report data:', err)
       addAlert({
         type: 'error',
         message: 'Failed to fetch report data'
@@ -135,40 +159,53 @@ export function ReportGenerator() {
         doc.text(section.title, 20, yOffset)
         yOffset += 10
 
-        const data = reportData[section.dataSource]
-        if (!data) continue
+        const sectionData = reportData[section.dataSource]
+        if (!sectionData || !Array.isArray(sectionData) || sectionData.length === 0) continue
+        
+        // Handle specific data types based on section
+        const data = section.dataSource === 'congressionalTrades' 
+          ? (sectionData as unknown as CongressionalTrade[])
+          : (sectionData as unknown as Record<string, unknown>[])
+        
+        // Ensure we have valid data for table operations
+        if (!data[0]) continue
 
         switch (section.visualization) {
-          case 'table':
-            // @ts-ignore - jspdf-autotable types
+          case 'table': {
+            const firstRow = data[0] as Record<string, unknown>
+            // @ts-expect-error jspdf-autotable types not properly defined
             doc.autoTable({
               startY: yOffset,
-              head: [Object.keys(data[0])],
-              body: data.map(Object.values),
+              head: [Object.keys(firstRow)],
+              body: data.map(row => Object.values(row as Record<string, unknown>)),
               margin: { top: 20 }
             })
-            yOffset = (doc as any).lastAutoTable.finalY + 20 // TODO: Add proper type definition for jsPDF with autotable
+            yOffset = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 20
             break
-            
-          case 'summary':
+          }
+          case 'summary': {
             doc.setFontSize(12)
             if (section.dataSource === 'congressionalTrades') {
-              const totalValue = data.reduce((sum: number, trade: any) => sum + trade.amount, 0)
-              const avgPerformance = data.reduce((sum: number, trade: any) => sum + trade.performance, 0) / data.length
-              
+              const trades = data as unknown[] as CongressionalTrade[]
+              const totalValue = trades.reduce((sum, trade) => sum + (trade.amount || 0), 0)
+              const avgPerformance = trades.reduce((sum, trade) => sum + (trade.performance || 0), 0) / trades.length
               doc.text(`Total Trading Value: $${totalValue.toLocaleString()}`, 20, yOffset)
               yOffset += 10
               doc.text(`Average Performance: ${avgPerformance.toFixed(2)}%`, 20, yOffset)
               yOffset += 20
             }
             break
-            
-          case 'chart':
+          }
+          case 'chart': {
             // For demo purposes, we'll just add a text summary
             doc.setFontSize(12)
             doc.text('Chart visualization would be rendered here in production', 20, yOffset)
             yOffset += 20
             break
+          }
+          default: {
+            break
+          }
         }
       }
 
@@ -179,7 +216,8 @@ export function ReportGenerator() {
         type: 'success',
         message: 'Report generated successfully'
       })
-    } catch (error) {
+    } catch (err) {
+      console.error('Failed to generate PDF report:', err)
       addAlert({
         type: 'error',
         message: 'Failed to generate PDF report'
@@ -246,7 +284,7 @@ export function ReportGenerator() {
         </Button>
       </div>
 
-      {selectedTemplate && reportData[Object.keys(reportData)[0]] && (
+      {selectedTemplate && Object.keys(reportData).length > 0 && (
         <Card className="p-6">
           <h2 className="text-xl font-semibold text-primary mb-4">Report Preview</h2>
           <div className="space-y-6">
@@ -254,11 +292,11 @@ export function ReportGenerator() {
               <div key={index} className="space-y-2">
                 <h3 className="text-lg font-medium text-primary">{section.title}</h3>
                 <div className="overflow-x-auto">
-                  {section.visualization === 'table' && reportData[section.dataSource] && (
+                  {section.visualization === 'table' && reportData[section.dataSource]?.length > 0 && (
                     <table className="min-w-full divide-y divide-gray-800">
                       <thead>
                         <tr>
-                          {Object.keys(reportData[section.dataSource][0]).map((key) => (
+                          {reportData[section.dataSource]?.[0] && Object.keys(reportData[section.dataSource][0] as unknown as Record<string, unknown>).map((key) => (
                             <th
                               key={key}
                               className="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase tracking-wider"
@@ -269,9 +307,9 @@ export function ReportGenerator() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-800">
-                        {reportData[section.dataSource].map((row: any, rowIndex: number) => (
+                        {reportData[section.dataSource]?.map((row, rowIndex) => (
                           <tr key={rowIndex}>
-                            {Object.values(row).map((value: any, valueIndex: number) => (
+                            {Object.values(row as Record<string, unknown>).map((value: unknown, valueIndex: number) => (
                               <td
                                 key={valueIndex}
                                 className="px-4 py-2 text-sm text-gray-300 whitespace-nowrap"

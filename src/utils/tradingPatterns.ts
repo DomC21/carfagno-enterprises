@@ -124,15 +124,20 @@ export function generatePriceData(pattern: TradingPattern, basePrice: number): n
       }
       break
 
-    case 'triangle':
-      // Generate triangle pattern
-      const height = basePrice * 0.1
-      for (let i = 0; i < 24; i++) {
-        const progress = i / 24
-        const range = height * (1 - progress)
-        prices.push(basePrice + (range / 2) * Math.sin(i) + faker.number.float({ min: -volatility, max: volatility }) * basePrice)
+    case 'triangle': {
+      const generateTrianglePrices = () => {
+        const height = basePrice * 0.1
+        const trianglePrices: number[] = []
+        for (let i = 0; i < 24; i++) {
+          const progress = i / 24
+          const range = height * (1 - progress)
+          trianglePrices.push(basePrice + (range / 2) * Math.sin(i) + faker.number.float({ min: -volatility, max: volatility }) * basePrice)
+        }
+        return trianglePrices
       }
+      prices.push(...generateTrianglePrices())
       break
+    }
   }
 
   return prices

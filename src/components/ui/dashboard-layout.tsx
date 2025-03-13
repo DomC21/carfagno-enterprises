@@ -19,8 +19,17 @@ interface DashboardItem {
 
 interface DashboardLayoutProps {
   items: DashboardItem[]
-  onLayoutChange?: (layout: any) => void
+  onLayoutChange?: (layout: LayoutItem[]) => void
   className?: string
+}
+
+interface LayoutItem {
+  id: string
+  x: number
+  y: number
+  w: number
+  h: number
+  content: React.ReactNode
 }
 
 const LAYOUT_PRESETS = {
@@ -45,7 +54,7 @@ const LAYOUT_PRESETS = {
 }
 
 export function DashboardLayout({ items, onLayoutChange, className = '' }: DashboardLayoutProps) {
-  const [layout, setLayout] = useState<any[]>([])
+  const [layout, setLayout] = useState<LayoutItem[]>([])
   const [breakpoint, setBreakpoint] = useState<'desktop' | 'tablet' | 'mobile'>('desktop')
 
   // Handle responsive layout
@@ -96,7 +105,7 @@ export function DashboardLayout({ items, onLayoutChange, className = '' }: Dashb
     setLayout(newLayout)
   }, [items, breakpoint])
 
-  const handleLayoutChange = (newLayout: any) => {
+  const handleLayoutChange = (newLayout: LayoutItem[]) => {
     setLayout(newLayout)
     onLayoutChange?.(newLayout)
   }
