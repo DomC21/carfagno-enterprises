@@ -15,74 +15,128 @@ export default function OurMission() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <motion.h1 
-            className={cn("text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent", 
+            className={cn("text-5xl sm:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent text-center mb-8", 
               animationClasses.fadeIn
             )}
           >
-            Our Mission: Empowering People Through AI
+            Democratizing AI-driven investing for everyone
           </motion.h1>
-          <p className={cn("mt-6 text-xl text-white/70", animationClasses.fadeIn)}>
-            At Carfagno Enterprises, we believe in building AI tools that streamline complex tasks, allowing humans to make confident, informed choices.
+          <p className={cn("mt-6 text-xl sm:text-2xl text-white/70 max-w-3xl mx-auto text-center", animationClasses.fadeIn)}>
+            We build tools that help everyday investors make confident, data-driven decisions while staying in complete control.
           </p>
         </div>
 
-        {/* Mission Statement */}
+        {/* Core Mission */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className={cn("bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300", animationClasses.fadeInScale)}>
-            <h2 className="text-2xl font-semibold text-white mb-4">Our Core Philosophy</h2>
-            <p className="text-white/70 mb-4">
-              We believe that AI should augment human intelligence, not replace it. Our solutions—like Zom—are designed to enhance your decision-making process by providing clear, actionable insights while keeping you in control.
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-white">Empowering, Not Replacing</h2>
+            </div>
+            <p className="text-white/70 text-lg mb-4">
+              Think of our AI tools like a hammer—they amplify your capabilities but rely on your expertise and judgment to be effective. We're not here to replace human decision-making, we're here to enhance it.
             </p>
-            <p className="text-white/70">
-              Transparency, innovation, and education are central to everything we do. We're committed to demystifying complex financial data and making it accessible to investors at all levels.
+            <p className="text-white/70 text-lg">
+              Every feature we build focuses on making complex financial data clear and actionable, putting you in the driver's seat of your investment journey.
             </p>
           </div>
         </div>
 
-        {/* AI for Humans Section */}
+        {/* Core Values */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className={cn("bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300", animationClasses.slideFromLeft)}>
-            <h2 className="text-2xl font-semibold text-white mb-4">AI for Humans</h2>
-            <p className="text-white/70 mb-4">
-              Our approach combines advanced analytics, comprehensive data aggregation, and intuitive interfaces to simplify complex financial decisions. Think of our AI tools as a hammer—they amplify your capabilities but rely on your expertise and judgment to be effective.
-            </p>
-            <p className="text-white/70">
-              By focusing on user-friendly design and clear explanations, we ensure that our tools enhance your understanding while streamlining your workflow.
-            </p>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-white">Our Core Values</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Accessibility</h3>
+                <p className="text-white/70">Making sophisticated investment tools available to everyone, not just Wall Street.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Transparency</h3>
+                <p className="text-white/70">Clear explanations of how our AI makes recommendations, no black boxes.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Education</h3>
+                <p className="text-white/70">Tools that teach as they work, helping you grow as an investor.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Innovation</h3>
+                <p className="text-white/70">Constantly improving our technology while keeping humans in control.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Impact Examples */}
+        {/* How We're Making It Happen */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className={cn("bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300", animationClasses.slideFromRight)}>
-            <h2 className="text-2xl font-semibold text-white mb-4">Making an Impact</h2>
-            <ul className="space-y-4 text-white/70">
-              <li className="flex items-start">
-                <span className="text-teal-400 mr-2">•</span>
-                <span>Neural Networks: Automated data processing that highlights key patterns while preserving your strategic control</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-teal-400 mr-2">•</span>
-                <span>Zom AI: Real-time market analysis that saves hours of research time while enhancing your understanding</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-teal-400 mr-2">•</span>
-                <span>Educational Focus: Tools that explain their insights, helping you learn and grow as an investor</span>
-              </li>
-            </ul>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-white">How We're Making It Happen</h2>
+            </div>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Zom AI: Your Investment Co-pilot</h3>
+                <p className="text-white/70">Real-time market analysis that saves hours of research time while enhancing your understanding. It's like having a tireless research assistant who never sleeps.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Neural Networks: Pattern Recognition</h3>
+                <p className="text-white/70">Advanced algorithms that process vast amounts of market data to identify patterns, while always leaving the final decision in your hands.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-teal-400 mb-2">Educational Resources</h3>
+                <p className="text-white/70">Comprehensive guides, tutorials, and real-time explanations that help you understand not just what to do, but why.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Future Vision */}
+        {/* Our Commitments */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className={cn("bg-white/5 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300", animationClasses.fadeInScale)}>
-            <h2 className="text-2xl font-semibold text-white mb-4">Looking Forward</h2>
-            <p className="text-white/70 mb-4">
-              As we continue to expand our suite of tools, our commitment remains unchanged: more AI integrations, broader data coverage, and deeper insights—always with the human investor in control.
-            </p>
-            <p className="text-white/70">
-              We're building a future where financial technology empowers rather than replaces human judgment, making sophisticated investment strategies accessible to everyone.
-            </p>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-white">Our Commitments</h2>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-teal-400/20 flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-teal-400">1</span>
+                </div>
+                <p className="text-white/70 text-lg">Expand our AI capabilities while maintaining our commitment to human-centered design</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-teal-400/20 flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-teal-400">2</span>
+                </div>
+                <p className="text-white/70 text-lg">Continue developing educational resources that empower investors at all levels</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-teal-400/20 flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-teal-400">3</span>
+                </div>
+                <p className="text-white/70 text-lg">Keep pushing the boundaries of what's possible while ensuring our tools remain accessible and user-friendly</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -91,9 +145,9 @@ export default function OurMission() {
           <motion.div className={cn("inline-block", animationClasses.fadeIn)}>
             <a 
               href="/projects"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              className="inline-flex items-center px-8 py-4 text-lg border border-transparent font-medium rounded-xl text-white bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 shadow-lg shadow-teal-500/20 hover:shadow-xl hover:shadow-teal-500/30 transition-all duration-300"
             >
-              Explore Our Tools
+              See Our Tools in Action
             </a>
           </motion.div>
         </div>
