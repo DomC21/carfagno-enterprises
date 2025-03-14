@@ -55,7 +55,7 @@ const teamMembers = [
   },
   {
     id: "jack",
-    name: "Jack Luethe",
+    name: "Jack Leuthe",
     role: "Head of Media & Design",
     bio: "Creates the visual identity and user interfaces that make our complex tools accessible and intuitive."
   }
