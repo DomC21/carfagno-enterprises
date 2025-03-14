@@ -119,9 +119,9 @@ export function KeyboardProvider({ children }: KeyboardProviderProps) {
         scope: 'navigation'
       },
       {
-        key: 'c',
-        description: 'Go to coaching',
-        action: () => window.location.href = '/coaching',
+        key: 'a',
+        description: 'Go to about us',
+        action: () => window.location.href = '/about',
         scope: 'navigation'
       }
     ]

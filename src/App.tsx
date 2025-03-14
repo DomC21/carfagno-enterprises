@@ -10,7 +10,7 @@ import { PreferencesProvider } from '@/providers/PreferencesProvider'
 const HomePage = lazy(() => import('@/pages/HomePage'))
 const Projects = lazy(() => import('@/pages/projects'))
 const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
-const CoachingPage = lazy(() => import('@/pages/CoachingPage'))
+const AboutUsPage = lazy(() => import('@/pages/AboutUsPage'))
 const OurMission = lazy(() => import('@/pages/OurMission'))
 const ZomAIPage = lazy(() => import('@/pages/ZomAIPage'))
 
@@ -32,7 +32,7 @@ export default function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/projects" element={<Projects />} />
                   <Route path="/projects/:id" element={<ProjectDetail />} />
-                  <Route path="/coaching" element={<CoachingPage />} />
+                  <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/our-mission" element={<OurMission />} />
                   <Route path="/zom-ai" element={<ZomAIPage />} />
                 </Route>
