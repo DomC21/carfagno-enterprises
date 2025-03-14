@@ -1,4 +1,4 @@
-import React from "react"
+// Page imports
 import { motion } from "framer-motion"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"

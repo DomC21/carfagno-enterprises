@@ -1,4 +1,4 @@
-import React from "react"
+// Component imports
 import { motion } from "framer-motion"
 import { Card } from "../../ui/card"
 import { Bot } from "lucide-react"
