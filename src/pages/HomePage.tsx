@@ -340,7 +340,7 @@ export default function HomePage() {
               </p>
               <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
-                onClick={() => navigate('/projects/zom-ai')}
+                onClick={() => navigate('/zom-ai')}
               >
                 Learn More
                 <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
