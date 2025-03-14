@@ -28,7 +28,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
       
       // Position CEO at the top center
       if (ceo) {
-        positions[ceo.id] = { x: 400, y: 80 }
+        positions[ceo.id] = { x: 400, y: 100 }
       }
       
       // Position direct reports in a row below CEO
@@ -38,7 +38,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
       directReports.forEach((member, index) => {
         positions[member.id] = { 
           x: reportWidth * (index + 1), 
-          y: 220 
+          y: 250 
         }
       })
       
@@ -47,12 +47,11 @@ export function OrgChart({ members, className }: OrgChartProps) {
         if (manager.reports && manager.reports.length > 0) {
           const indirectReports = members.filter(m => manager.reports?.includes(m.id))
           const managerPos = positions[manager.id]
-          const indirectWidth = 160
           
-          indirectReports.forEach((member, index) => {
+          indirectReports.forEach((member) => {
             positions[member.id] = {
-              x: managerPos.x - (indirectReports.length - 1) * indirectWidth / 2 + index * indirectWidth,
-              y: 360
+              x: managerPos.x,
+              y: 400
             }
           })
         }
@@ -93,8 +92,17 @@ export function OrgChart({ members, className }: OrgChartProps) {
     )
   
   return (
-    <div className={`relative w-full h-[400px] ${className}`}>
+    <div className={`relative w-full h-[500px] ${className}`}>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-900/5 to-transparent mix-blend-overlay rounded-xl"></div>
       <svg className="w-full h-full">
+        {/* Background grid */}
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(20, 184, 166, 0.1)" strokeWidth="0.5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        
         {/* Connections */}
         {connections.map((connection, i) => {
           const fromMember = members.find(m => m.id === connection.from)
@@ -106,18 +114,16 @@ export function OrgChart({ members, className }: OrgChartProps) {
           const isHighlighted = hoveredMember === connection.from || hoveredMember === connection.to
           
           return (
-            <motion.line
+            <motion.path
               key={i}
-              x1={fromPos.x}
-              y1={fromPos.y}
-              x2={toPos.x}
-              y2={toPos.y}
-              stroke={isHighlighted ? '#64f4b8' : '#1e293b'}
-              strokeWidth={isHighlighted ? 2 : 1}
-              strokeDasharray="4 4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: i * 0.1 }}
+              d={`M ${fromPos.x} ${fromPos.y + 50} C ${fromPos.x} ${(fromPos.y + toPos.y) / 2}, ${toPos.x} ${(fromPos.y + toPos.y) / 2}, ${toPos.x} ${toPos.y - 50}`}
+              fill="none"
+              stroke={isHighlighted ? '#64f4b8' : 'rgba(20, 184, 166, 0.4)'}
+              strokeWidth={isHighlighted ? 3 : 2}
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: i * 0.2 }}
             />
           )
         })}
@@ -128,6 +134,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
           const pos = positions[member.id]
           const isHovered = hoveredMember === member.id
           const isCEO = member.role.includes('CEO')
+          const hasReports = member.reports && member.reports.length > 0
           
           return (
             <motion.g
@@ -144,13 +151,29 @@ export function OrgChart({ members, className }: OrgChartProps) {
                 delay: members.indexOf(member) * 0.1
               }}
             >
+              {/* Glow effect */}
               <motion.circle
                 cx={pos.x}
                 cy={pos.y}
-                r={isCEO ? 50 : 40}
-                fill={isHovered ? 'rgba(20, 184, 166, 0.3)' : 'rgba(20, 184, 166, 0.1)'}
-                stroke={isHovered ? '#14b8a6' : 'rgba(20, 184, 166, 0.3)'}
-                strokeWidth={2}
+                r={isCEO ? 60 : hasReports ? 50 : 45}
+                fill="rgba(20, 184, 166, 0.1)"
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.8, 0.5] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Main circle */}
+              <motion.circle
+                cx={pos.x}
+                cy={pos.y}
+                r={isCEO ? 55 : hasReports ? 45 : 40}
+                fill={isHovered ? 'rgba(20, 184, 166, 0.3)' : 'rgba(20, 184, 166, 0.15)'}
+                stroke={isHovered ? '#14b8a6' : 'rgba(20, 184, 166, 0.5)'}
+                strokeWidth={3}
                 initial={{ scale: 1 }}
                 animate={{ scale: isHovered ? 1.1 : 1 }}
                 transition={{
@@ -159,31 +182,55 @@ export function OrgChart({ members, className }: OrgChartProps) {
                   damping: 20
                 }}
               />
+              
+              {/* Inner circle decoration */}
+              <motion.circle
+                cx={pos.x}
+                cy={pos.y}
+                r={isCEO ? 40 : hasReports ? 30 : 25}
+                fill="transparent"
+                stroke="rgba(255, 255, 255, 0.1)"
+                strokeWidth={1}
+                strokeDasharray={isCEO ? "10 5" : "5 3"}
+              />
+              
+              {/* Name text */}
               <motion.text
                 x={pos.x}
                 y={pos.y - 10}
                 textAnchor="middle"
-                fill={isHovered ? '#ffffff' : '#94a3b8'}
-                fontSize={isCEO ? "16" : "14"}
-                fontWeight={isHovered ? 'bold' : 'normal'}
+                fill={isHovered ? '#ffffff' : '#e2e8f0'}
+                fontSize={isCEO ? "18" : "16"}
+                fontWeight="bold"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
               >
                 {member.name}
               </motion.text>
+              
+              {/* Role text */}
               <motion.text
                 x={pos.x}
-                y={pos.y + 10}
+                y={pos.y + 15}
                 textAnchor="middle"
-                fill={isHovered ? '#14b8a6' : '#64748b'}
-                fontSize="12"
+                fill={isHovered ? '#14b8a6' : '#94a3b8'}
+                fontSize="14"
+                fontWeight="medium"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
               >
                 {member.role}
               </motion.text>
+              
+              {/* Bio popup on hover */}
               {isHovered && (
                 <motion.foreignObject
-                  x={pos.x + 60}
-                  y={pos.y - 40}
-                  width={200}
-                  height={80}
+                  x={pos.x + 70}
+                  y={pos.y - 50}
+                  width={250}
+                  height={100}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{
@@ -192,8 +239,8 @@ export function OrgChart({ members, className }: OrgChartProps) {
                     damping: 20
                   }}
                 >
-                  <div className="p-3 rounded-lg bg-black/80 border border-teal-500/20">
-                    <p className="text-sm text-gray-300">{member.bio}</p>
+                  <div className="p-4 rounded-lg bg-black/90 border border-teal-500/30 shadow-lg shadow-teal-500/10">
+                    <p className="text-sm text-gray-200 leading-relaxed">{member.bio}</p>
                   </div>
                 </motion.foreignObject>
               )}

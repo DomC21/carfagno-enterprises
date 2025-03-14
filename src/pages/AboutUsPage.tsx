@@ -53,7 +53,8 @@ const teamMembers = [
     id: "max",
     name: "Max Wickersham",
     role: "CMO",
-    bio: "Directs marketing strategy to communicate the value of our AI-driven financial tools to potential users."
+    bio: "Directs marketing strategy to communicate the value of our AI-driven financial tools to potential users.",
+    reports: ["jack"]
   },
   {
     id: "jack",
