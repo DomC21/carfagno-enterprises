@@ -200,7 +200,7 @@ function ZomAIPage(): JSX.Element {
               Get instant access to AI-powered market insights and make more informed investment decisions.
             </p>
             <Button size="lg" className={`${animationClasses.buttonGlow} bg-teal-500 hover:bg-teal-600 text-lg px-8 py-6`}>
-              Buy Zom AI Now
+              Release Coming Soon
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
             <div className="flex justify-center gap-4 mt-4">
