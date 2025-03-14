@@ -8,7 +8,7 @@
   "rewrites": [
     {
       "source": "/projects/zom-ai",
-      "destination": "/zom-ai"
+      "destination": "/index.html"
     },
     {
       "source": "/zom-ai",
