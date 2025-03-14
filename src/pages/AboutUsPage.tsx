@@ -37,7 +37,7 @@ const teamMembers = [
   },
   {
     id: "nolan",
-    name: "Nolan Corcorann",
+    name: "Nolan Corcoran",
     role: "Head of Product",
     bio: "Leads product development, translating market needs into powerful financial tools that empower users."
   },
