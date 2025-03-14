@@ -186,9 +186,9 @@ export default function HomePage() {
             <Button 
               variant="ghost" 
               className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              onClick={() => document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             >
-              Projects
+              Tools
             </Button>
             <Button 
               variant="ghost" 
@@ -213,7 +213,7 @@ export default function HomePage() {
               nav.innerHTML = `
                 <button class="absolute top-5 right-5 text-teal-400 hover:text-teal-300 p-5 text-3xl">✕</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">About Us</button>
-                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Projects</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Tools</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Our Mission</button>
               `;
@@ -223,7 +223,7 @@ export default function HomePage() {
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
               buttons[1].onclick = () => { navigate('/about'); nav.remove(); };
-              buttons[2].onclick = () => { navigate('/projects'); nav.remove(); };
+              buttons[2].onclick = () => { navigate('/tools'); nav.remove(); };
               buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
               buttons[4].onclick = () => { navigate('/our-mission'); nav.remove(); };
             }}
@@ -290,15 +290,15 @@ export default function HomePage() {
               )}
               onClick={() => navigate('/')}
             >
-              Explore Our Projects
+              Explore Our Tools
               <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10 bg-black">
+      {/* Tools Section */}
+      <section id="tools" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-10 bg-black">
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-4 sm:mb-6 md:mb-8 parallax" data-speed="0.1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 sm:mb-8">
@@ -306,7 +306,7 @@ export default function HomePage() {
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 text-white">
-              Cutting-Edge Projects
+              Cutting-Edge Tools
             </h2>
           </div>
 
@@ -321,7 +321,7 @@ export default function HomePage() {
               </p>
               <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
-                onClick={() => navigate('/projects/neural-networks')}
+                onClick={() => navigate('/tools/neural-networks')}
               >
                 Learn More
                 <ChevronRight className="ml-2 w-5 h-5" />

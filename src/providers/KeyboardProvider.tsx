@@ -114,8 +114,8 @@ export function KeyboardProvider({ children }: KeyboardProviderProps) {
       },
       {
         key: 'p',
-        description: 'Go to projects',
-        action: () => window.location.href = '/projects',
+        description: 'Go to tools',
+        action: () => window.location.href = '/tools',
         scope: 'navigation'
       },
       {

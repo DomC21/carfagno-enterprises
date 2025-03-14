@@ -30,8 +30,8 @@ export default function App() {
               <Routes>
                 <Route element={<Layout />}>
                   <Route path="/" element={<HomePage />} />
-                  <Route path="/projects" element={<Projects />} />
-                  <Route path="/projects/:id" element={<ProjectDetail />} />
+                  <Route path="/tools" element={<Projects />} />
+                  <Route path="/tools/:id" element={<ProjectDetail />} />
                   <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/our-mission" element={<OurMission />} />
                   <Route path="/zom-ai" element={<ZomAIPage />} />
