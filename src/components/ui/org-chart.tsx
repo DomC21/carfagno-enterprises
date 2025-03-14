@@ -7,6 +7,7 @@ export interface TeamMember {
   role: string
   bio: string
   reports?: string[]
+  profilePicture?: string
 }
 
 interface OrgChartProps {
@@ -28,7 +29,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
       
       // Position CEO at the top center
       if (ceo) {
-        positions[ceo.id] = { x: 400, y: 100 }
+        positions[ceo.id] = { x: 400, y: 120 }
       }
       
       // Position direct reports in a row below CEO
@@ -38,7 +39,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
       directReports.forEach((member, index) => {
         positions[member.id] = { 
           x: reportWidth * (index + 1), 
-          y: 250 
+          y: 300 
         }
       })
       
@@ -51,7 +52,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
           indirectReports.forEach((member) => {
             positions[member.id] = {
               x: managerPos.x,
-              y: 400
+              y: 480
             }
           })
         }
@@ -92,7 +93,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
     )
   
   return (
-    <div className={`relative w-full h-[500px] ${className}`}>
+    <div className={`relative w-full h-[600px] ${className}`}>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-900/5 to-transparent mix-blend-overlay rounded-xl"></div>
       <svg className="w-full h-full">
         {/* Background grid */}
@@ -113,10 +114,19 @@ export function OrgChart({ members, className }: OrgChartProps) {
           const toPos = positions[toMember.id]
           const isHighlighted = hoveredMember === connection.from || hoveredMember === connection.to
           
+          // Calculate node sizes for connection points
+          const fromIsCEO = fromMember.role.includes('CEO')
+          const fromHasReports = fromMember.reports && fromMember.reports.length > 0
+          const fromNodeSize = fromIsCEO ? 110 : fromHasReports ? 90 : 80
+          
+          const toIsCEO = toMember.role.includes('CEO')
+          const toHasReports = toMember.reports && toMember.reports.length > 0
+          const toNodeSize = toIsCEO ? 110 : toHasReports ? 90 : 80
+          
           return (
             <motion.path
               key={i}
-              d={`M ${fromPos.x} ${fromPos.y + 50} C ${fromPos.x} ${(fromPos.y + toPos.y) / 2}, ${toPos.x} ${(fromPos.y + toPos.y) / 2}, ${toPos.x} ${toPos.y - 50}`}
+              d={`M ${fromPos.x} ${fromPos.y + fromNodeSize/2 + 5} C ${fromPos.x} ${(fromPos.y + toPos.y) / 2}, ${toPos.x} ${(fromPos.y + toPos.y) / 2}, ${toPos.x} ${toPos.y - toNodeSize/2 - 5}`}
               fill="none"
               stroke={isHighlighted ? '#64f4b8' : 'rgba(20, 184, 166, 0.4)'}
               strokeWidth={isHighlighted ? 3 : 2}
@@ -135,6 +145,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
           const isHovered = hoveredMember === member.id
           const isCEO = member.role.includes('CEO')
           const hasReports = member.reports && member.reports.length > 0
+          const nodeSize = isCEO ? 110 : hasReports ? 90 : 80
           
           return (
             <motion.g
@@ -155,7 +166,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
               <motion.circle
                 cx={pos.x}
                 cy={pos.y}
-                r={isCEO ? 60 : hasReports ? 50 : 45}
+                r={nodeSize / 2 + 5}
                 fill="rgba(20, 184, 166, 0.1)"
                 initial={{ scale: 1 }}
                 animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.8, 0.5] }}
@@ -166,12 +177,19 @@ export function OrgChart({ members, className }: OrgChartProps) {
                 }}
               />
               
-              {/* Main circle */}
+              {/* Profile picture or placeholder */}
+              <defs>
+                <clipPath id={`clip-${member.id}`}>
+                  <circle cx={pos.x} cy={pos.y} r={nodeSize / 2} />
+                </clipPath>
+              </defs>
+              
+              {/* Border circle */}
               <motion.circle
                 cx={pos.x}
                 cy={pos.y}
-                r={isCEO ? 55 : hasReports ? 45 : 40}
-                fill={isHovered ? 'rgba(20, 184, 166, 0.3)' : 'rgba(20, 184, 166, 0.15)'}
+                r={nodeSize / 2}
+                fill="none"
                 stroke={isHovered ? '#14b8a6' : 'rgba(20, 184, 166, 0.5)'}
                 strokeWidth={3}
                 initial={{ scale: 1 }}
@@ -183,21 +201,42 @@ export function OrgChart({ members, className }: OrgChartProps) {
                 }}
               />
               
-              {/* Inner circle decoration */}
-              <motion.circle
-                cx={pos.x}
-                cy={pos.y}
-                r={isCEO ? 40 : hasReports ? 30 : 25}
-                fill="transparent"
-                stroke="rgba(255, 255, 255, 0.1)"
-                strokeWidth={1}
-                strokeDasharray={isCEO ? "10 5" : "5 3"}
-              />
+              {/* Profile image or placeholder */}
+              {member.profilePicture ? (
+                <image
+                  href={member.profilePicture}
+                  x={pos.x - nodeSize / 2}
+                  y={pos.y - nodeSize / 2}
+                  height={nodeSize}
+                  width={nodeSize}
+                  clipPath={`url(#clip-${member.id})`}
+                  preserveAspectRatio="xMidYMid slice"
+                />
+              ) : (
+                <g>
+                  <circle
+                    cx={pos.x}
+                    cy={pos.y}
+                    r={nodeSize / 2 - 2}
+                    fill="rgba(20, 184, 166, 0.15)"
+                  />
+                  <text
+                    x={pos.x}
+                    y={pos.y}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#e2e8f0"
+                    fontSize={nodeSize / 4}
+                  >
+                    {member.name.split(' ').map(n => n[0]).join('')}
+                  </text>
+                </g>
+              )}
               
               {/* Name text */}
               <motion.text
                 x={pos.x}
-                y={pos.y - 10}
+                y={pos.y + nodeSize / 2 + 20}
                 textAnchor="middle"
                 fill={isHovered ? '#ffffff' : '#e2e8f0'}
                 fontSize={isCEO ? "18" : "16"}
@@ -212,7 +251,7 @@ export function OrgChart({ members, className }: OrgChartProps) {
               {/* Role text */}
               <motion.text
                 x={pos.x}
-                y={pos.y + 15}
+                y={pos.y + nodeSize / 2 + 45}
                 textAnchor="middle"
                 fill={isHovered ? '#14b8a6' : '#94a3b8'}
                 fontSize="14"

@@ -28,7 +28,8 @@ const teamMembers = [
     name: "Dom Carfagno",
     role: "CEO & Founder",
     bio: "Founded Carfagno Enterprises with a vision to revolutionize financial technology through AI-driven tools and solutions.",
-    reports: ["cole", "nolan", "max", "jack"]
+    reports: ["cole", "nolan", "max", "jack"],
+    profilePicture: "/images/dom-profile.jpg"
   },
   {
     id: "cole",
