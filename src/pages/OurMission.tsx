@@ -54,7 +54,7 @@ export default function OurMission() {
               </p>
               <div className="mt-6">
                 <Link 
-                  to="/projects/zom-ai" 
+                  to="/tools/zom-ai" 
                   className="text-teal-400 hover:text-teal-300 font-medium flex items-center gap-2 cursor-pointer"
                 >
                   Learn more about our approach
