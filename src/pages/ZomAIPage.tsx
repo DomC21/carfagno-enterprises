@@ -194,12 +194,16 @@ function ZomAIPage(): JSX.Element {
       {/* CTA Section */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl text-center">
-          <div className="space-y-4">
-            <Button size="lg" className={`${animationClasses.buttonGlow} bg-teal-500 hover:bg-teal-600`}>
-              Try Zom Now
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-white mb-4">Ready to Transform Your Stock Analysis?</h2>
+            <p className="text-white/70 text-lg mb-6 max-w-3xl mx-auto">
+              Get instant access to AI-powered market insights and make more informed investment decisions.
+            </p>
+            <Button size="lg" className={`${animationClasses.buttonGlow} bg-teal-500 hover:bg-teal-600 text-lg px-8 py-6`}>
+              Release Coming Soon
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 mt-4">
               <Button variant="outline" className="border-teal-500/20 hover:bg-teal-500/10">
                 View Pricing
               </Button>
