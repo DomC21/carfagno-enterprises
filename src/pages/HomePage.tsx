@@ -179,9 +179,9 @@ export default function HomePage() {
             <Button 
               variant="ghost" 
               className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
-              onClick={() => navigate('/coaching')}
+              onClick={() => navigate('/about')}
             >
-              Coaching
+              About Us
             </Button>
             <Button 
               variant="ghost" 
@@ -212,7 +212,7 @@ export default function HomePage() {
               nav.className = 'fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex flex-col items-center justify-center gap-10 px-6';
               nav.innerHTML = `
                 <button class="absolute top-5 right-5 text-teal-400 hover:text-teal-300 p-5 text-3xl">✕</button>
-                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Coaching</button>
+                <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">About Us</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Projects</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
                 <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Our Mission</button>
@@ -222,7 +222,7 @@ export default function HomePage() {
               // Add click handlers
               const buttons = nav.querySelectorAll('button');
               buttons[0].onclick = () => nav.remove();
-              buttons[1].onclick = () => { navigate('/coaching'); nav.remove(); };
+              buttons[1].onclick = () => { navigate('/about'); nav.remove(); };
               buttons[2].onclick = () => { navigate('/projects'); nav.remove(); };
               buttons[3].onclick = () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); nav.remove(); };
               buttons[4].onclick = () => { navigate('/our-mission'); nav.remove(); };
