@@ -11,6 +11,10 @@
       "destination": "/zom-ai"
     },
     {
+      "source": "/zom-ai",
+      "destination": "/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
