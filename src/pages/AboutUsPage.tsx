@@ -13,7 +13,6 @@ import * as z from 'zod'
 import { api } from '../lib/api'
 import toast from 'react-hot-toast'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
-import { OrgChart, TeamMember } from '../components/ui/org-chart'
 
 interface SupportForm {
   name: string
@@ -28,7 +27,6 @@ const teamMembers = [
     name: "Dom Carfagno",
     role: "CEO & Founder",
     bio: "Founded Carfagno Enterprises with a vision to revolutionize financial technology through AI-driven tools and solutions.",
-    reports: ["cole", "nolan", "max", "jack"],
     profilePicture: "/images/dom-profile.jpg"
   },
   {
@@ -41,8 +39,7 @@ const teamMembers = [
     id: "nolan",
     name: "Nolan Corcorann",
     role: "Head of Product",
-    bio: "Leads product development, translating market needs into powerful financial tools that empower users.",
-    reports: ["darryl"]
+    bio: "Leads product development, translating market needs into powerful financial tools that empower users."
   },
   {
     id: "darryl",
@@ -54,8 +51,7 @@ const teamMembers = [
     id: "max",
     name: "Max Wickersham",
     role: "CMO",
-    bio: "Directs marketing strategy to communicate the value of our AI-driven financial tools to potential users.",
-    reports: ["jack"]
+    bio: "Directs marketing strategy to communicate the value of our AI-driven financial tools to potential users."
   },
   {
     id: "jack",
@@ -178,13 +174,7 @@ function AboutUsPage() {
                 <div className="max-w-4xl mx-auto">
                   <h2 className="text-3xl font-semibold text-white mb-10 text-center">Our Team</h2>
                   
-                  {/* Visual Org Chart */}
-                  <div className="mb-12">
-                    <OrgChart members={teamMembers as TeamMember[]} className="mb-8" />
-                    <p className="text-center text-white/70 text-sm">Interactive org chart - hover over team members to see their bios</p>
-                  </div>
-                  
-                  {/* Team Grid (for mobile and as additional detail) */}
+                  {/* Team Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {teamMembers.map((member, index) => (
                       <div key={index} className="bg-white/5 p-6 rounded-xl hover:bg-white/10 transition-all duration-300 border border-teal-500/20">
