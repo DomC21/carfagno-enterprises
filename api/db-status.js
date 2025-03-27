@@ -1,9 +1,5 @@
-// For testing without a real MongoDB connection
-// import dbConnect from '../lib/mongoose';
-// import WaitlistEntry from '../models/WaitlistEntry';
-
-// Import mock database from waitlist.js
-import { mockWaitlistEntries } from './waitlist';
+// Import mock database and MongoDB initialization from waitlist.js
+import { mockWaitlistEntries, initMongoDB } from './waitlist';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -11,26 +7,58 @@ export default async function handler(req, res) {
   }
 
   try {
-    // For testing without a real MongoDB connection
-    // await dbConnect();
+    // Initialize MongoDB if available
+    const mongoAvailable = await initMongoDB();
     
-    // Get mock waitlist entry count
-    const entryCount = mockWaitlistEntries.length;
-    
-    // Get database stats
-    const stats = {
-      waitlistEntries: entryCount,
-      databaseConnected: true,
-      lastUpdated: new Date().toISOString(),
-      mode: 'mock' // Indicate we're using mock data
-    };
-    
-    return res.status(200).json(stats);
+    if (mongoAvailable) {
+      // Use MongoDB for status
+      try {
+        const dbConnect = (await import('../lib/mongoose')).default;
+        const WaitlistEntry = (await import('../models/WaitlistEntry')).default;
+        
+        await dbConnect();
+        
+        // Get waitlist entry count from MongoDB
+        const entryCount = await WaitlistEntry.countDocuments();
+        
+        // Get database stats
+        const stats = {
+          waitlistEntries: entryCount,
+          databaseConnected: true,
+          lastUpdated: new Date().toISOString(),
+          mode: 'mongodb',
+          mongodbUri: process.env.MONGODB_URI ? 'configured' : 'not configured'
+        };
+        
+        return res.status(200).json(stats);
+      } catch (error) {
+        console.error('MongoDB status error:', error);
+        throw error; // Re-throw to be caught by outer try/catch
+      }
+    } else {
+      // Fallback to mock database
+      console.log('MongoDB not available, using mock database for status');
+      
+      // Get mock waitlist entry count
+      const entryCount = mockWaitlistEntries.length;
+      
+      // Get database stats
+      const stats = {
+        waitlistEntries: entryCount,
+        databaseConnected: true,
+        lastUpdated: new Date().toISOString(),
+        mode: 'mock', // Indicate we're using mock data
+        mongodbUri: process.env.MONGODB_URI ? 'configured' : 'not configured'
+      };
+      
+      return res.status(200).json(stats);
+    }
   } catch (error) {
     console.error('Database status error:', error);
     return res.status(500).json({ 
       error: 'Failed to retrieve database status',
-      databaseConnected: false
+      databaseConnected: false,
+      mode: 'error'
     });
   }
 }
