@@ -266,16 +266,21 @@ export default function HomePage() {
                   <span className="relative inline-block">
                     <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/10 via-blue-400/10 to-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
                     <span className="relative inline-block">
-                      Introducing Zom AI
+                      Carfagno Enterprises
                     </span>
                   </span>
                 </h1>
               </div>
 
-              {/* Subheading */}
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white relative z-40">
-                Your AI Companion in the Market
+              {/* Introducing Zom AI */}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white relative z-40 mt-4">
+                Introducing Zom AI
               </h2>
+              
+              {/* Subheading */}
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/80 relative z-40 mt-2">
+                Your AI Companion in the Market
+              </h3>
 
               <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/80 leading-relaxed relative z-40">
                 Get real-time insights, save hours of research, and make more informed decisions—Zom AI does the heavy lifting, so you don't have to.
@@ -368,35 +373,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="relative min-h-[30vh] flex items-center justify-center overflow-visible z-15 bg-black py-12">
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 reveal-on-scroll">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
-              <span className="text-white/70 text-sm font-medium">What Users Say</span>
-            </div>
-            
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6 text-white">
-              Transforming Trading Decisions
-            </h2>
-          </div>
 
-          <div className="max-w-4xl mx-auto bg-black/50 border border-teal-500/20 rounded-xl p-8 reveal-on-scroll">
-            <p className="text-xl text-white/80 italic mb-6">
-              "Zom AI has completely transformed how I research stocks. What used to take me hours now takes minutes. The AI explanations of technical indicators have helped me make more confident trading decisions."
-            </p>
-            <div className="flex items-center justify-center">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-blue-500 flex items-center justify-center text-white font-bold text-xl">
-                JD
-              </div>
-              <div className="ml-4 text-left">
-                <p className="text-white font-medium">John Doe</p>
-                <p className="text-white/60 text-sm">Active Trader, 3 years</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Demo Access & Subscription */}
       <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-black">
