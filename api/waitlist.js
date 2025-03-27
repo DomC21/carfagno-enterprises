@@ -1,8 +1,9 @@
-import { google } from 'googleapis';
-import nodemailer from 'nodemailer';
+// For testing without a real MongoDB connection
+// import dbConnect from '../lib/mongoose';
+// import WaitlistEntry from '../models/WaitlistEntry';
 
-// Simple in-memory storage for proof of concept
-export const waitlistEntries = [];
+// Mock database for testing
+export const mockWaitlistEntries = [];
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -11,11 +12,22 @@ export default async function handler(req, res) {
   }
 
   try {
+    // For testing without a real MongoDB connection
+    // await dbConnect();
+    
     const { name, email, phoneNumber, preferredPlan } = req.body;
 
     // Validate required fields
     if (!name || !email) {
       return res.status(400).json({ error: 'Name and email are required' });
+    }
+
+    // Check for duplicate email (mock implementation)
+    const existingEntry = mockWaitlistEntries.find(entry => entry.email === email);
+    if (existingEntry) {
+      return res.status(400).json({ 
+        error: 'This email is already on the waitlist' 
+      });
     }
 
     // Create waitlist entry
@@ -28,9 +40,9 @@ export default async function handler(req, res) {
       createdAt: new Date().toISOString()
     };
 
-    // Store in memory (for proof of concept)
-    waitlistEntries.push(entry);
-    console.log('New waitlist entry:', entry);
+    // Save to mock database
+    mockWaitlistEntries.push(entry);
+    console.log('New waitlist entry saved to mock database:', entry);
 
     // Return success response
     return res.status(200).json({ 
@@ -40,6 +52,14 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('Waitlist submission error:', error);
+    
+    // Handle duplicate email error
+    if (error.code === 11000) {
+      return res.status(400).json({ 
+        error: 'This email is already on the waitlist' 
+      });
+    }
+    
     return res.status(500).json({ 
       error: 'Something went wrong processing your request' 
     });

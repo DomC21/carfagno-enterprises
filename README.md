@@ -23,6 +23,9 @@ pnpm build
 
 # Preview production build
 pnpm preview
+
+# Test database connection
+pnpm test-db
 ```
 
 ## Waitlist API
@@ -35,7 +38,28 @@ The website includes a waitlist system for Zom AI with the following endpoints:
 
 - `GET /api/waitlist-entries` - View all waitlist entries (admin only)
 
-Note: This is a proof of concept implementation using in-memory storage. Data will be lost when the server restarts.
+- `GET /api/db-status` - Check database connection and stats (admin only)
+
+## Database Setup
+
+The waitlist system uses MongoDB to store user submissions. To set up the database:
+
+1. Create a MongoDB Atlas account and cluster
+2. Create a `.env.local` file with the following variables:
+   ```
+   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/waitlist?retryWrites=true&w=majority
+   MONGODB_DB=waitlist
+   ```
+3. Add the same environment variables to your Vercel project settings
+
+### Database Schema
+
+The waitlist entries are stored with the following schema:
+- `name`: User's full name (required)
+- `email`: User's email address (required, unique)
+- `phoneNumber`: User's phone number (optional)
+- `preferredPlan`: User's preferred plan (basic, pro, or enterprise)
+- `createdAt`: Timestamp when the entry was created
 
 ## Expanding the ESLint configuration
 
