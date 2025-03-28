@@ -1,11 +1,65 @@
-# React + TypeScript + Vite
+# Carfagno Enterprises Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the source code for the Carfagno Enterprises website, showcasing our AI-driven financial tools and services.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Modern React application built with TypeScript and Vite
+- Responsive design with dark/futuristic theme
+- Interactive demos of our AI tools
+- Waitlist system for early access to Zom AI
+
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
+
+# Test database connection
+pnpm test-db
+```
+
+## Waitlist API
+
+The website includes a waitlist system for Zom AI with the following endpoints:
+
+- `POST /api/waitlist` - Submit a new waitlist entry
+  - Required fields: name, email
+  - Optional fields: phoneNumber, preferredPlan
+
+- `GET /api/waitlist-entries` - View all waitlist entries (admin only)
+
+- `GET /api/db-status` - Check database connection and stats (admin only)
+
+## Database Setup
+
+The waitlist system uses MongoDB to store user submissions. To set up the database:
+
+1. Create a MongoDB Atlas account and cluster
+2. Create a `.env.local` file with the following variables:
+   ```
+   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/waitlist?retryWrites=true&w=majority
+   MONGODB_DB=waitlist
+   ```
+3. Add the same environment variables to your Vercel project settings
+
+### Database Schema
+
+The waitlist entries are stored with the following schema:
+- `name`: User's full name (required)
+- `email`: User's email address (required, unique)
+- `phoneNumber`: User's phone number (optional)
+- `preferredPlan`: User's preferred plan (basic, pro, or enterprise)
+- `createdAt`: Timestamp when the entry was created
 
 ## Expanding the ESLint configuration
 
