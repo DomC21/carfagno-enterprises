@@ -1,72 +1,8 @@
-// Mock database for testing when MongoDB is not available
-export const mockWaitlistEntries = [];
+import { connectToDatabase, isMongoDBConnected } from './lib/mongoose';
+import WaitlistEntryModel from './models/WaitlistEntry';
 
-// Initialize MongoDB if available
-export async function initMongoDB() {
-  // Check if MongoDB URI is configured
-  if (process.env.MONGODB_URI && process.env.MONGODB_URI !== '') {
-    try {
-      // Dynamic imports to avoid build errors
-      const mongoose = (await import('mongoose')).default;
-      
-      // Set connection options with retry
-      const options = {
-        serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
-        retryWrites: true,
-        w: 'majority',
-        connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
-        socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-      };
-      
-      // Connect to MongoDB
-      await mongoose.connect(process.env.MONGODB_URI, options);
-      
-      // Load the WaitlistEntry model
-      if (!mongoose.models.WaitlistEntry) {
-        const waitlistSchema = new mongoose.Schema({
-          name: { 
-            type: String, 
-            required: true,
-            trim: true
-          },
-          email: { 
-            type: String, 
-            required: true,
-            trim: true,
-            lowercase: true,
-            unique: true
-          },
-          phoneNumber: { 
-            type: String, 
-            default: '',
-            trim: true
-          },
-          preferredPlan: { 
-            type: String, 
-            enum: ['basic', 'pro', 'enterprise'],
-            default: 'basic'
-          },
-          createdAt: { 
-            type: Date, 
-            default: Date.now 
-          }
-        });
-        
-        // Create a text index on name and email for search functionality
-        waitlistSchema.index({ name: 'text', email: 'text' });
-        
-        // Register the model
-        mongoose.model('WaitlistEntry', waitlistSchema);
-      }
-      
-      return true;
-    } catch (error) {
-      console.error('Failed to initialize MongoDB:', error);
-      return false;
-    }
-  }
-  return false;
-}
+// Fallback in-memory storage when MongoDB is not available
+const mockWaitlistEntries = [];
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -82,21 +18,35 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Name and email are required' });
     }
 
-    // Initialize MongoDB if available
-    const mongoAvailable = await initMongoDB();
+    // Validate email format
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Please provide a valid email address' });
+    }
+
+    // Try to connect to MongoDB
+    const mongoose = await connectToDatabase();
     
-    if (mongoAvailable) {
-      // Use MongoDB for storage
+    // If MongoDB is connected, use it as primary storage
+    if (mongoose && isMongoDBConnected()) {
       try {
-        const mongoose = (await import('mongoose')).default;
-        const WaitlistEntry = mongoose.model('WaitlistEntry');
+        // Check if email already exists
+        const existingEntry = await WaitlistEntryModel.findOne({ email });
+        if (existingEntry) {
+          return res.status(409).json({ 
+            error: 'Email already registered on the waitlist',
+            entry: existingEntry,
+            storage: 'mongodb'
+          });
+        }
         
         // Create new waitlist entry
-        const entry = new WaitlistEntry({
+        const entry = new WaitlistEntryModel({
           name,
           email,
           phoneNumber: phoneNumber || '',
-          preferredPlan: preferredPlan || 'basic'
+          preferredPlan: preferredPlan || 'basic',
+          createdAt: new Date()
         });
         
         // Save to MongoDB
@@ -105,60 +55,51 @@ export default async function handler(req, res) {
         return res.status(200).json({ 
           success: true, 
           message: 'Successfully added to waitlist',
-          entry,
+          entry: entry.toObject(),
           storage: 'mongodb'
         });
-      } catch (error) {
-        console.error('MongoDB waitlist submission error:', error);
-        
-        // Handle duplicate email error
-        if (error.code === 11000) {
-          return res.status(400).json({ 
-            error: 'This email is already on the waitlist' 
-          });
-        }
-        
-        throw error; // Re-throw to be caught by outer try/catch
+      } catch (mongoError) {
+        console.error('MongoDB operation error:', mongoError);
+        // Fall through to fallback storage if MongoDB operation fails
       }
-    } else {
-      // Fallback to mock database
-      console.log('MongoDB not available, using mock database');
-      
-      // Check for duplicate email (mock implementation)
-      const existingEntry = mockWaitlistEntries.find(entry => entry.email === email);
-      if (existingEntry) {
-        return res.status(400).json({ 
-          error: 'This email is already on the waitlist' 
-        });
-      }
-
-      // Create waitlist entry
-      const entry = {
-        id: Date.now().toString(),
-        name,
-        email,
-        phoneNumber: phoneNumber || '',
-        preferredPlan: preferredPlan || 'basic',
-        createdAt: new Date().toISOString()
-      };
-
-      // Save to mock database
-      mockWaitlistEntries.push(entry);
-      console.log('New waitlist entry saved to mock database:', entry);
-
-      // Return success response
-      return res.status(200).json({ 
-        success: true, 
-        message: 'Successfully added to waitlist',
-        entry,
-        storage: 'mock' // Indicate we're using mock storage
+    }
+    
+    // Fallback to in-memory storage if MongoDB is not available or operation failed
+    console.log('=> Using fallback in-memory storage for waitlist entry');
+    
+    // Check if email already exists in mock storage
+    const existingMockEntry = mockWaitlistEntries.find(entry => entry.email === email);
+    if (existingMockEntry) {
+      return res.status(409).json({ 
+        error: 'Email already registered on the waitlist',
+        entry: existingMockEntry,
+        storage: 'in-memory'
       });
     }
+    
+    // Create new entry for mock storage
+    const mockEntry = {
+      name,
+      email,
+      phoneNumber: phoneNumber || '',
+      preferredPlan: preferredPlan || 'basic',
+      createdAt: new Date()
+    };
+    
+    // Add to mock storage
+    mockWaitlistEntries.push(mockEntry);
+    
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Successfully added to waitlist (using fallback storage)',
+      entry: mockEntry,
+      storage: 'in-memory'
+    });
   } catch (error) {
     console.error('Waitlist submission error:', error);
-    
     return res.status(500).json({ 
-      error: 'Something went wrong processing your request' 
+      error: 'Something went wrong processing your request',
+      message: error.message
     });
   }
 }
