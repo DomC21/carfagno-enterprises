@@ -9,7 +9,7 @@ This document provides instructions for setting up and configuring MongoDB Atlas
 3. Select the free tier (M0)
 4. Choose AWS as the cloud provider
 5. Select N. Virginia (us-east-1) as the region
-6. Name the cluster "waitlist-cluster"
+6. Name the cluster "Cluster0"
 7. Click "Create Cluster"
 
 ## 2. Configure Database Access
@@ -18,10 +18,12 @@ This document provides instructions for setting up and configuring MongoDB Atlas
 2. Click "Add New Database User"
 3. Create a user with the following settings:
    - Authentication Method: Password
-   - Username: waitlist-admin
-   - Password: [Generate a secure password]
+   - Username: domcarfagno
+   - Password: BullishonNvda1 (or use a simpler password without special characters)
    - Database User Privileges: Read and write to any database
 4. Click "Add User"
+
+> **Important**: If you encounter authentication issues, try creating a new database user with a simpler password that doesn't contain special characters.
 
 ## 3. Configure Network Access
 
@@ -47,7 +49,7 @@ This document provides instructions for setting up and configuring MongoDB Atlas
 Add the following to your `.env.local` file:
 
 ```
-MONGODB_URI=mongodb+srv://<username>:<password>@waitlist-cluster.mongodb.net/waitlist?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://domcarfagno:BullishonNvda1@cluster0.psz9e.mongodb.net/waitlist?retryWrites=true&w=majority&appName=Cluster0
 MONGODB_DB=waitlist
 ```
 

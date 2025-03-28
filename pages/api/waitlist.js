@@ -9,8 +9,17 @@ export async function initMongoDB() {
       // Dynamic imports to avoid build errors
       const mongoose = (await import('mongoose')).default;
       
+      // Set connection options with retry
+      const options = {
+        serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+        retryWrites: true,
+        w: 'majority',
+        connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+        socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+      };
+      
       // Connect to MongoDB
-      await mongoose.connect(process.env.MONGODB_URI);
+      await mongoose.connect(process.env.MONGODB_URI, options);
       
       // Load the WaitlistEntry model
       if (!mongoose.models.WaitlistEntry) {
