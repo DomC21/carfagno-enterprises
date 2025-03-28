@@ -1,38 +1,36 @@
-// MongoDB model for waitlist entries
 import mongoose from 'mongoose';
 
-// Define the schema if it doesn't exist
 const WaitlistEntrySchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true,
+  name: {
+    type: String,
+    required: [true, 'Name is required'],
     trim: true
   },
-  email: { 
-    type: String, 
-    required: true,
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true,
     trim: true,
     lowercase: true,
-    unique: true
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email address']
   },
-  phoneNumber: { 
-    type: String, 
-    default: '',
-    trim: true
+  phoneNumber: {
+    type: String,
+    trim: true,
+    default: ''
   },
-  preferredPlan: { 
-    type: String, 
+  preferredPlan: {
+    type: String,
     enum: ['basic', 'pro', 'enterprise'],
     default: 'basic'
   },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
-// Create a text index on name and email for search functionality
-WaitlistEntrySchema.index({ name: 'text', email: 'text' });
+// Check if the model already exists to prevent overwriting during hot reloads
+const WaitlistEntryModel = mongoose.models.WaitlistEntry || mongoose.model('WaitlistEntry', WaitlistEntrySchema);
 
-// Export the model
-export default mongoose.models.WaitlistEntry || mongoose.model('WaitlistEntry', WaitlistEntrySchema);
+export default WaitlistEntryModel;
