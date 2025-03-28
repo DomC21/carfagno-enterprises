@@ -1,62 +1,36 @@
-// Import mock database and MongoDB initialization from waitlist.js
-import { mockWaitlistEntries, initMongoDB } from './waitlist';
+// API endpoint to check database connection status
+import { connectToDatabase } from './lib/mongodb';
 
 export default async function handler(req, res) {
+  // Only allow GET requests
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Initialize MongoDB if available
-    const mongoAvailable = await initMongoDB();
+    // Try to connect to MongoDB
+    const { client, db } = await connectToDatabase();
     
-    if (mongoAvailable) {
-      // Use MongoDB for status
-      try {
-        const mongoose = (await import('mongoose')).default;
-        const WaitlistEntry = mongoose.model('WaitlistEntry');
-        
-        // Get waitlist entry count from MongoDB
-        const entryCount = await WaitlistEntry.countDocuments();
-        
-        // Get database stats
-        const stats = {
-          waitlistEntries: entryCount,
-          databaseConnected: true,
-          lastUpdated: new Date().toISOString(),
-          mode: 'mongodb',
-          mongodbUri: process.env.MONGODB_URI ? 'configured' : 'not configured'
-        };
-        
-        return res.status(200).json(stats);
-      } catch (error) {
-        console.error('MongoDB status error:', error);
-        throw error; // Re-throw to be caught by outer try/catch
-      }
-    } else {
-      // Fallback to mock database
-      console.log('MongoDB not available, using mock database for status');
-      
-      // Get mock waitlist entry count
-      const entryCount = mockWaitlistEntries.length;
-      
-      // Get database stats
-      const stats = {
-        waitlistEntries: entryCount,
-        databaseConnected: true,
-        lastUpdated: new Date().toISOString(),
-        mode: 'mock', // Indicate we're using mock data
-        mongodbUri: process.env.MONGODB_URI ? 'configured' : 'not configured'
-      };
-      
-      return res.status(200).json(stats);
-    }
+    // Get database stats
+    const stats = await db.stats();
+    
+    // Return success response with database stats
+    return res.status(200).json({
+      status: 'connected',
+      database: db.databaseName,
+      collections: stats.collections,
+      documents: stats.objects,
+      storage: 'mongodb'
+    });
   } catch (error) {
-    console.error('Database status error:', error);
-    return res.status(500).json({ 
-      error: 'Failed to retrieve database status',
-      databaseConnected: false,
-      mode: 'error'
+    console.error('Database connection error:', error);
+    
+    // Return fallback response
+    return res.status(200).json({
+      status: 'disconnected',
+      error: error.message,
+      storage: 'mock',
+      message: 'Using fallback in-memory storage'
     });
   }
 }
