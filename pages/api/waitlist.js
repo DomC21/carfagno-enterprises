@@ -105,7 +105,8 @@ export default async function handler(req, res) {
         return res.status(200).json({ 
           success: true, 
           message: 'Successfully added to waitlist',
-          entry
+          entry,
+          storage: 'mongodb'
         });
       } catch (error) {
         console.error('MongoDB waitlist submission error:', error);
