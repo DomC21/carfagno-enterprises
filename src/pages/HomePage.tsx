@@ -113,7 +113,7 @@ export default function HomePage() {
   const onWaitlistSubmit = async (data: WaitlistForm) => {
     try {
       await api.post('/api/waitlist', data)
-      toast.success('Thank you for joining the Zom AI waitlist! We will notify you about early access and special discounts.')
+      toast.success('Thank you for joining the Zom AI waitlist! You will receive exclusive early access and special discounts when we launch.')
       waitlistForm.reset()
     } catch (error) {
       toast.error('Something went wrong. Please try again later.')
@@ -266,23 +266,14 @@ export default function HomePage() {
                   <span className="relative inline-block">
                     <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/10 via-blue-400/10 to-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
                     <span className="relative inline-block">
-                      Carfagno Enterprises
+                      Introducing Zom AI: Your AI Companion in the Market
                     </span>
                   </span>
                 </h1>
               </div>
-
-              {/* Introducing Zom AI */}
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-white relative z-40 mt-4">
-                Introducing Zom AI
-              </h2>
               
               {/* Subheading */}
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/80 relative z-40 mt-2">
-                Your AI Companion in the Market
-              </h3>
-
-              <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/80 leading-relaxed relative z-40">
+              <p className="text-xl sm:text-2xl md:text-3xl max-w-[800px] mx-auto text-white/80 leading-relaxed relative z-40">
                 Get real-time insights, save hours of research, and make more informed decisions—Zom AI does the heavy lifting, so you don't have to.
               </p>
             </div>
@@ -475,7 +466,7 @@ export default function HomePage() {
                       </div>
 
                       <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0">
-                        Join the Waitlist
+                        Join the Waitlist for Early Access & Special Discounts!
                         <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                       </Button>
                     </form>
