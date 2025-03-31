@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
-import { Clock, Search, CheckCircle, XCircle, ArrowRight } from "lucide-react";
+import { Clock, Search, CheckCircle, XCircle } from "lucide-react";
 
 export const TimeSavingDemo: React.FC = () => {
   return (
