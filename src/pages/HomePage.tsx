@@ -19,6 +19,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../lib/api'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
+import { RealTimeAnalysisDemo } from '../components/demos/zom-ai/RealTimeAnalysisDemo'
+import { TimeSavingDemo } from '../components/demos/zom-ai/TimeSavingDemo'
+import { AICompanionDemo } from '../components/demos/zom-ai/AICompanionDemo'
 const toast = {
   success: (msg: string) => console.log('Success:', msg),
   error: (msg: string) => console.error('Error:', msg)
@@ -315,9 +318,12 @@ export default function HomePage() {
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Real-Time Stock Analysis
               </h3>
-              <p className="text-white/70 mb-6">
+              <p className="text-white/70 mb-4">
                 Get instant insights on any stock you query with comprehensive data and metrics.
               </p>
+              <div className="mb-6">
+                <RealTimeAnalysisDemo />
+              </div>
               <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
@@ -332,9 +338,12 @@ export default function HomePage() {
               <h3 className="text-2xl font-semibold text-white mb-4">
                 Time-Saving Research
               </h3>
-              <p className="text-white/70 mb-6">
+              <p className="text-white/70 mb-4">
                 No more hours of research—ask Zom, and get comprehensive answers in seconds.
               </p>
+              <div className="mb-6">
+                <TimeSavingDemo />
+              </div>
               <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
@@ -349,9 +358,12 @@ export default function HomePage() {
               <h3 className="text-2xl font-semibold text-white mb-4">
                 AI Companion
               </h3>
-              <p className="text-white/70 mb-6">
+              <p className="text-white/70 mb-4">
                 Zom interprets complex data into plain English so you can make confident decisions.
               </p>
+              <div className="mb-6">
+                <AICompanionDemo />
+              </div>
               <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
@@ -449,8 +461,8 @@ export default function HomePage() {
                             <FormItem>
                               <FormControl>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <SelectTrigger className="relative z-50 bg-black backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
-                                    <SelectValue placeholder="Select your preferred plan" />
+                                  <SelectTrigger className="relative z-50 bg-black backdrop-blur-sm border-teal-500/20 text-white focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                                    <SelectValue placeholder="Select your preferred plan" className="text-white" />
                                   </SelectTrigger>
                                   <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
                                     <SelectItem value="basic" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Basic Plan (Free)</SelectItem>
