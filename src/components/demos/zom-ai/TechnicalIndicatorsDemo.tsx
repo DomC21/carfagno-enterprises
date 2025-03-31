@@ -1,6 +1,8 @@
 // Component imports
 import { motion } from "framer-motion"
 import { Card } from "../../ui/card"
+import { StockTermExplainer } from "../../ui/stock-term-explainer"
+import { stockTermDefinitions } from "../../../data/stockTermDefinitions"
 
 interface Indicator {
   name: string
@@ -43,7 +45,17 @@ export function TechnicalIndicatorsDemo() {
           >
             <Card className="p-4 bg-black/30 border-teal-500/20">
               <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-bold text-white">{indicator.name}</h3>
+                <h3 className="text-lg font-bold text-white">
+                {indicator.name === "RSI (14)" ? (
+                  <StockTermExplainer term="RSI" definitions={stockTermDefinitions} />
+                ) : indicator.name === "MACD" ? (
+                  <StockTermExplainer term="MACD" definitions={stockTermDefinitions} />
+                ) : indicator.name === "Bollinger Bands" ? (
+                  <StockTermExplainer term="Bollinger Bands" definitions={stockTermDefinitions} />
+                ) : (
+                  indicator.name
+                )}
+              </h3>
                 <span className={`text-sm font-medium px-2 py-1 rounded ${
                   indicator.signal === "buy" 
                     ? "bg-green-500/20 text-green-400"

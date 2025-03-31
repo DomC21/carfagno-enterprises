@@ -1,13 +1,11 @@
 // Page imports
 import { motion } from "framer-motion"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
 import { RealTimeQuotesDemo } from "@/components/demos/zom-ai/RealTimeQuotesDemo"
 import { TechnicalIndicatorsDemo } from "@/components/demos/zom-ai/TechnicalIndicatorsDemo"
 import { OptionsActivityDemo } from "@/components/demos/zom-ai/OptionsActivityDemo"
 import { AISummariesDemo } from "@/components/demos/zom-ai/AISummariesDemo"
-import { ChevronRight } from "lucide-react"
-import { animationClasses } from "@/utils/styles"
+import { WaitlistForm } from "@/components/ui/waitlist-form"
 
 function ZomAIPage(): JSX.Element {
   return (
@@ -193,23 +191,39 @@ function ZomAIPage(): JSX.Element {
 
       {/* CTA Section */}
       <section className="py-16 px-4">
-        <div className="container mx-auto max-w-6xl text-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Transform Your Stock Analysis?</h2>
-            <p className="text-white/70 text-lg mb-6 max-w-3xl mx-auto">
-              Get instant access to AI-powered market insights and make more informed investment decisions.
-            </p>
-            <Button size="lg" className={`${animationClasses.buttonGlow} bg-teal-500 hover:bg-teal-600 text-lg px-8 py-6`}>
-              Release Coming Soon
-              <ChevronRight className="ml-2 w-5 h-5" />
-            </Button>
-            <div className="flex justify-center gap-4 mt-4">
-              <Button variant="outline" className="border-teal-500/20 hover:bg-teal-500/10">
-                View Pricing
-              </Button>
-              <Button variant="ghost" className="text-teal-400 hover:text-teal-300 hover:bg-teal-500/10">
-                Learn More
-              </Button>
+        <div className="container mx-auto max-w-6xl">
+          <div className="bg-zinc-900/50 border border-teal-500/20 rounded-2xl p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <h2 className="text-3xl font-bold text-white mb-4">Ready to Transform Your Stock Analysis?</h2>
+                <p className="text-white/70 text-lg mb-6">
+                  Get instant access to AI-powered market insights and make more informed investment decisions.
+                </p>
+                <div className="hidden md:block">
+                  <ul className="space-y-2 text-white/70">
+                    <li className="flex items-center">
+                      <span className="text-teal-400 mr-2">✓</span> Real-time stock data and analysis
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-teal-400 mr-2">✓</span> Technical indicators with plain English explanations
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-teal-400 mr-2">✓</span> AI-powered insights and recommendations
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-teal-400 mr-2">✓</span> Early access to new features
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="bg-black/30 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Join the Waitlist</h3>
+                <p className="text-white/70 mb-6">
+                  Be among the first to experience Zom AI when we launch. Sign up now for early access.
+                </p>
+                <WaitlistForm />
+              </div>
             </div>
           </div>
         </div>

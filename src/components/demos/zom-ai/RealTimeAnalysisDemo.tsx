@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "../../../components/ui/button";
 import { Card, CardContent } from "../../../components/ui/card";
-// Remove unused import
+import { StockTermExplainer } from "../../../components/ui/stock-term-explainer";
+import { stockTermDefinitions } from "../../../data/stockTermDefinitions";
 
 const examplePrompts = [
   "What's the current price of AAPL?",
@@ -27,11 +28,11 @@ const exampleResponses = {
           <span className="ml-2 text-green-500">+$1.68 (+0.93%)</span>
         </div>
         <div>
-          <span className="text-gray-400">Day Range:</span>
+          <StockTermExplainer term="Day Range" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">$180.44 - $183.12</span>
         </div>
         <div>
-          <span className="text-gray-400">Volume:</span>
+          <StockTermExplainer term="Volume" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">52.3M</span>
         </div>
       </div>
@@ -48,19 +49,19 @@ const exampleResponses = {
       </div>
       <div className="grid grid-cols-2 gap-2 text-sm">
         <div>
-          <span className="text-gray-400">P/E Ratio:</span>
+          <StockTermExplainer term="P/E Ratio" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">49.8</span>
         </div>
         <div>
-          <span className="text-gray-400">Market Cap:</span>
+          <StockTermExplainer term="Market Cap" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">$551.2B</span>
         </div>
         <div>
-          <span className="text-gray-400">EPS (TTM):</span>
+          <StockTermExplainer term="EPS" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">$3.48</span>
         </div>
         <div>
-          <span className="text-gray-400">Forward P/E:</span>
+          <StockTermExplainer term="Forward P/E" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">42.3</span>
         </div>
       </div>
@@ -80,11 +81,17 @@ const exampleResponses = {
         <div className="text-center">$415.32</div>
         <div className="text-center">$147.68</div>
         
-        <div className="text-gray-400">P/E Ratio</div>
+        <div className="text-gray-400">
+          <StockTermExplainer term="P/E Ratio" definitions={stockTermDefinitions} iconOnly={true} className="text-gray-400" />
+          P/E Ratio
+        </div>
         <div className="text-center">37.2</div>
         <div className="text-center">25.1</div>
         
-        <div className="text-gray-400">Market Cap</div>
+        <div className="text-gray-400">
+          <StockTermExplainer term="Market Cap" definitions={stockTermDefinitions} iconOnly={true} className="text-gray-400" />
+          Market Cap
+        </div>
         <div className="text-center">$3.09T</div>
         <div className="text-center">$1.86T</div>
         
@@ -105,7 +112,7 @@ const exampleResponses = {
       </div>
       <div className="grid grid-cols-2 gap-2 text-sm">
         <div>
-          <span className="text-gray-400">52-Week High:</span>
+          <StockTermExplainer term="52-Week High/Low" definitions={stockTermDefinitions} className="text-gray-400" />
           <span className="ml-2">$189.77</span>
         </div>
         <div>

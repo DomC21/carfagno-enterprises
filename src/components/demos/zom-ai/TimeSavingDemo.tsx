@@ -2,6 +2,8 @@ import React from "react";
 import { Card, CardContent } from "../../../components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
 import { Clock, Search, CheckCircle, XCircle } from "lucide-react";
+import { StockTermExplainer } from "../../../components/ui/stock-term-explainer";
+import { stockTermDefinitions } from "../../../data/stockTermDefinitions";
 
 export const TimeSavingDemo: React.FC = () => {
   return (
@@ -124,7 +126,9 @@ export const TimeSavingDemo: React.FC = () => {
                       
                       <div className="space-y-4">
                         <div>
-                          <h4 className="text-teal-400 font-medium mb-1">RSI (Relative Strength Index)</h4>
+                          <h4 className="text-teal-400 font-medium mb-1">
+                            <StockTermExplainer term="RSI" definitions={stockTermDefinitions} />
+                          </h4>
                           <div className="flex items-center gap-2">
                             <div className="w-full bg-gray-700 rounded-full h-2">
                               <div className="bg-yellow-500 h-2 rounded-full" style={{ width: "68%" }}></div>
@@ -135,13 +139,17 @@ export const TimeSavingDemo: React.FC = () => {
                         </div>
                         
                         <div>
-                          <h4 className="text-teal-400 font-medium mb-1">MACD</h4>
+                          <h4 className="text-teal-400 font-medium mb-1">
+                            <StockTermExplainer term="MACD" definitions={stockTermDefinitions} />
+                          </h4>
                           <p className="text-sm">MACD (12,26,9): +15.32 (above signal line)</p>
                           <p className="text-sm mt-1">Bullish momentum continues with MACD above signal line.</p>
                         </div>
                         
                         <div>
-                          <h4 className="text-teal-400 font-medium mb-1">Bollinger Bands</h4>
+                          <h4 className="text-teal-400 font-medium mb-1">
+                            <StockTermExplainer term="Bollinger Bands" definitions={stockTermDefinitions} />
+                          </h4>
                           <div className="grid grid-cols-3 text-sm text-center">
                             <div>
                               <p className="text-gray-400">Lower Band</p>

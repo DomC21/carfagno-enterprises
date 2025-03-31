@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { AICompanionDemo } from "../../components/demos/zom-ai/AICompanionDemo";
 import { motion } from "framer-motion";
+import { BeginnerHelpDialog } from "../../components/ui/beginner-help-dialog";
 
 export default function AICompanionPage() {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ export default function AICompanionPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-white mb-6">AI Companion</h1>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-white">AI Companion</h1>
+            <BeginnerHelpDialog />
+          </div>
           <p className="text-white/70 text-lg mb-8">
             Zom interprets complex data into plain English so you can make confident decisions.
           </p>

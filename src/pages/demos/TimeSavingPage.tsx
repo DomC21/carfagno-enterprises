@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { TimeSavingDemo } from "../../components/demos/zom-ai/TimeSavingDemo";
 import { motion } from "framer-motion";
+import { BeginnerHelpDialog } from "../../components/ui/beginner-help-dialog";
 
 export default function TimeSavingPage() {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ export default function TimeSavingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-white mb-6">Time-Saving Research</h1>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-white">Time-Saving Research</h1>
+            <BeginnerHelpDialog />
+          </div>
           <p className="text-white/70 text-lg mb-8">
             No more hours of research—ask Zom, and get comprehensive answers in seconds.
           </p>

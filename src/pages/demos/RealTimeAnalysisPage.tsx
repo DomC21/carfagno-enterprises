@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { RealTimeAnalysisDemo } from "../../components/demos/zom-ai/RealTimeAnalysisDemo";
 import { motion } from "framer-motion";
+import { BeginnerHelpDialog } from "../../components/ui/beginner-help-dialog";
 
 export default function RealTimeAnalysisPage() {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ export default function RealTimeAnalysisPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl font-bold text-white mb-6">Real-Time Stock Analysis</h1>
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-white">Real-Time Stock Analysis</h1>
+            <BeginnerHelpDialog />
+          </div>
           <p className="text-white/70 text-lg mb-8">
             Get instant insights on any stock you query with comprehensive data and metrics.
           </p>
