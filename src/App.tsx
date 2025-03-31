@@ -13,6 +13,9 @@ const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
 const AboutUsPage = lazy(() => import('@/pages/AboutUsPage'))
 const OurMission = lazy(() => import('@/pages/OurMission'))
 const ZomAIPage = lazy(() => import('@/pages/ZomAIPage'))
+const RealTimeAnalysisPage = lazy(() => import('@/pages/demos/RealTimeAnalysisPage'))
+const TimeSavingPage = lazy(() => import('@/pages/demos/TimeSavingPage'))
+const AICompanionPage = lazy(() => import('@/pages/demos/AICompanionPage'))
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-[400px]">
@@ -35,6 +38,9 @@ export default function App() {
                   <Route path="/about" element={<AboutUsPage />} />
                   <Route path="/our-mission" element={<OurMission />} />
                   <Route path="/zom-ai" element={<ZomAIPage />} />
+                  <Route path="/demos/real-time-analysis" element={<RealTimeAnalysisPage />} />
+                  <Route path="/demos/time-saving" element={<TimeSavingPage />} />
+                  <Route path="/demos/ai-companion" element={<AICompanionPage />} />
                 </Route>
               </Routes>
             </Suspense>

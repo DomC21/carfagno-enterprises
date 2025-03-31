@@ -19,11 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../lib/api'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
-import { RealTimeAnalysisDemo } from '../components/demos/zom-ai/RealTimeAnalysisDemo'
-import { TimeSavingDemo } from '../components/demos/zom-ai/TimeSavingDemo'
-import { AICompanionDemo } from '../components/demos/zom-ai/AICompanionDemo'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../components/ui/collapsible'
-import { ChevronDown } from 'lucide-react'
+// No demo components needed as they're used in dedicated pages
 const toast = {
   success: (msg: string) => console.log('Success:', msg),
   error: (msg: string) => console.error('Error:', msg)
@@ -323,20 +319,13 @@ export default function HomePage() {
               <p className="text-white/70 mb-4">
                 Get instant insights on any stock you query with comprehensive data and metrics.
               </p>
-              <Collapsible className="mb-6">
-                <CollapsibleTrigger asChild>
-                  <Button 
-                    className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
-                    variant="outline"
-                  >
-                    See How It Works
-                    <ChevronDown className="h-4 w-4 transition-transform duration-200 data-[state=open]:rotate-180" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <RealTimeAnalysisDemo />
-                </CollapsibleContent>
-              </Collapsible>
+              <Button 
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
+                onClick={() => navigate('/demos/real-time-analysis')}
+              >
+                See How It Works
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Button>
               <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
@@ -354,20 +343,13 @@ export default function HomePage() {
               <p className="text-white/70 mb-4">
                 No more hours of research—ask Zom, and get comprehensive answers in seconds.
               </p>
-              <Collapsible className="mb-6">
-                <CollapsibleTrigger asChild>
-                  <Button 
-                    className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
-                    variant="outline"
-                  >
-                    See How It Works
-                    <ChevronDown className="h-4 w-4 transition-transform duration-200 data-[state=open]:rotate-180" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <TimeSavingDemo />
-                </CollapsibleContent>
-              </Collapsible>
+              <Button 
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
+                onClick={() => navigate('/demos/time-saving')}
+              >
+                See How It Works
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Button>
               <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
@@ -385,20 +367,13 @@ export default function HomePage() {
               <p className="text-white/70 mb-4">
                 Zom interprets complex data into plain English so you can make confident decisions.
               </p>
-              <Collapsible className="mb-6">
-                <CollapsibleTrigger asChild>
-                  <Button 
-                    className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
-                    variant="outline"
-                  >
-                    See How It Works
-                    <ChevronDown className="h-4 w-4 transition-transform duration-200 data-[state=open]:rotate-180" />
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4 space-y-4">
-                  <AICompanionDemo />
-                </CollapsibleContent>
-              </Collapsible>
+              <Button 
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
+                onClick={() => navigate('/demos/ai-companion')}
+              >
+                See How It Works
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Button>
               <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
