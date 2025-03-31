@@ -21,7 +21,7 @@ const WaitlistEntrySchema = new mongoose.Schema({
   },
   preferredPlan: {
     type: String,
-    enum: ['basic', 'pro', 'enterprise'],
+    enum: ['basic', 'gold', 'enterprise'],
     default: 'basic'
   },
   createdAt: {

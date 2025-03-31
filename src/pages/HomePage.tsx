@@ -33,7 +33,7 @@ interface WaitlistForm {
   name: string
   email: string
   phoneNumber: string
-  preferredPlan: 'basic' | 'pro' | 'enterprise'
+  preferredPlan: 'basic' | 'gold' | 'enterprise'
 }
 
 interface ContactForm {
@@ -87,7 +87,7 @@ export default function HomePage() {
         name: z.string().min(2, 'Name must be at least 2 characters'),
         email: z.string().email('Please enter a valid email'),
         phoneNumber: z.string().optional(),
-        preferredPlan: z.enum(['basic', 'pro', 'enterprise'], {
+        preferredPlan: z.enum(['basic', 'gold', 'enterprise'], {
           required_error: 'Please select your preferred plan'
         })
       })
@@ -453,9 +453,9 @@ export default function HomePage() {
                                     <SelectValue placeholder="Select your preferred plan" />
                                   </SelectTrigger>
                                   <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
-                                    <SelectItem value="basic" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Basic Plan</SelectItem>
-                                    <SelectItem value="pro" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Pro Plan</SelectItem>
-                                    <SelectItem value="enterprise" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Enterprise Plan</SelectItem>
+                                    <SelectItem value="basic" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Basic Plan (Free)</SelectItem>
+                                    <SelectItem value="gold" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Gold Plan (Paid)</SelectItem>
+                                    <SelectItem value="enterprise" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Enterprise Plan (Contact Only)</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </FormControl>
