@@ -403,7 +403,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm mb-6 animate-float">
                 <span className="text-teal-400 text-sm font-medium">Waitlist</span>
               </div>
 
@@ -514,7 +514,7 @@ export default function HomePage() {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
           <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-teal-500/20 mb-6 animate-float">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400 animate-pulse" />
                 <span className="text-teal-400 text-sm font-medium">About Me</span>
               </div>
@@ -557,7 +557,7 @@ export default function HomePage() {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400" />
                 <span className="text-teal-400 text-sm font-medium">Get in Touch</span>
               </div>
