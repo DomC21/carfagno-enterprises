@@ -21,7 +21,7 @@ const WaitlistEntrySchema = new mongoose.Schema({
   },
   preferredPlan: {
     type: String,
-    enum: ['basic', 'gold', 'enterprise'],
+    enum: ['basic', 'pro', 'enterprise'],
     default: 'basic'
   },
   createdAt: {
@@ -30,7 +30,7 @@ const WaitlistEntrySchema = new mongoose.Schema({
   }
 });
 
-// Check if the model already exists to prevent overwriting
-const WaitlistEntry = mongoose.models.WaitlistEntry || mongoose.model('WaitlistEntry', WaitlistEntrySchema);
+// Check if the model already exists to prevent overwriting during hot reloads
+const WaitlistEntryModel = mongoose.models.WaitlistEntry || mongoose.model('WaitlistEntry', WaitlistEntrySchema);
 
-export default WaitlistEntry;
+export default WaitlistEntryModel;

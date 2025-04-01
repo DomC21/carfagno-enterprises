@@ -1,4 +1,4 @@
-import { connectToDatabase } from './lib/mongoose';
+import { connectToDatabase, isMongoDBConnected } from './lib/mongoose';
 import WaitlistEntryModel from './models/WaitlistEntry';
 
 // Fallback in-memory storage when MongoDB is not available
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     const mongoose = await connectToDatabase();
     
     // If MongoDB is connected, use it as primary storage
-    if (mongoose && mongoose.connection.readyState === 1) {
+    if (mongoose && isMongoDBConnected()) {
       try {
         // Check if email already exists
         const existingEntry = await WaitlistEntryModel.findOne({ email });
