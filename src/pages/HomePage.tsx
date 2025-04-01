@@ -264,9 +264,11 @@ export default function HomePage() {
               {/* Large Branding Text */}
               <div className="relative w-full">
                 <div className="space-y-2 sm:space-y-3 md:space-y-4">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight text-white/90 leading-[1.1] relative z-40">
-                    Carfagno Enterprises Introduces
-                  </h2>
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight relative z-40">
+                    <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                      Carfagno Enterprises Introduces
+                    </span>
+                  </h1>
                   <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
                       Zom AI
