@@ -314,8 +314,8 @@ export default function HomePage() {
               <span className="text-white/70 text-sm font-medium">Our Solutions</span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 text-white">
-              Cutting-Edge Tools
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+              Zom AI Features
             </h2>
           </div>
 
