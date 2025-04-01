@@ -56,7 +56,7 @@ export const TimeSavingDemo: React.FC = () => {
                   </div>
                   
                   <div className="mt-4 p-3 bg-red-950/20 rounded-lg border border-red-500/20">
-                    <p className="font-medium text-red-400">Time spent: 15-30 minutes</p>
+                    <p className="font-medium text-red-400">Time spent: 1-2 hours</p>
                   </div>
                 </div>
               </CardContent>
