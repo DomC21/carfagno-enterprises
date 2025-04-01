@@ -130,7 +130,7 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ onSuccess }) => {
       
       <Button
         type="submit"
-        className={`w-full ${
+        className={`w-full text-white ${
           status === "success"
             ? "bg-green-600 hover:bg-green-700"
             : "bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600"
