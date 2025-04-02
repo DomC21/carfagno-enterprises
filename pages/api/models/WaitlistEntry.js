@@ -30,6 +30,7 @@ const WaitlistEntrySchema = new mongoose.Schema({
   }
 });
 
+// Check if the model already exists to prevent overwriting during hot reloads
 const WaitlistEntryModel = mongoose.models.WaitlistEntry || mongoose.model('WaitlistEntry', WaitlistEntrySchema);
 
 export default WaitlistEntryModel;
