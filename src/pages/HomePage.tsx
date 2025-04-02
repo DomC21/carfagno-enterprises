@@ -19,6 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { api } from '../lib/api'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../components/ui/form'
+// No demo components needed as they're used in dedicated pages
 const toast = {
   success: (msg: string) => console.log('Success:', msg),
   error: (msg: string) => console.error('Error:', msg)
@@ -29,10 +30,11 @@ interface MousePosition {
   y: number
 }
 
-interface EarlyAccessForm {
+interface WaitlistForm {
   name: string
   email: string
-  interest: string
+  phoneNumber: string
+  preferredPlan: 'basic' | 'gold' | 'enterprise'
 }
 
 interface ContactForm {
@@ -73,19 +75,21 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [isMobile])
   
-  const earlyAccessForm = useForm<EarlyAccessForm>({
+  const waitlistForm = useForm<WaitlistForm>({
     defaultValues: {
       name: '',
       email: '',
-      interest: ''
+      phoneNumber: '',
+      preferredPlan: 'basic'
     },
     mode: 'onBlur',
     resolver: zodResolver(
       z.object({
         name: z.string().min(2, 'Name must be at least 2 characters'),
         email: z.string().email('Please enter a valid email'),
-        interest: z.enum(['neural-networks', 'zom-ai'], {
-          required_error: 'Please select your interest'
+        phoneNumber: z.string().optional(),
+        preferredPlan: z.enum(['basic', 'gold', 'enterprise'], {
+          required_error: 'Please select your preferred plan'
         })
       })
     )
@@ -107,14 +111,14 @@ export default function HomePage() {
     )
   })
 
-  const onEarlyAccessSubmit = async (data: EarlyAccessForm) => {
+  const onWaitlistSubmit = async (data: WaitlistForm) => {
     try {
-      await api.post('/api/early-access', data)
-      toast.success('Thank you for your interest! We will be in touch soon.')
-      earlyAccessForm.reset()
+      await api.post('/api/waitlist', data)
+      toast.success('Thank you for joining the Zom AI waitlist! You will receive exclusive early access and special discounts when we launch.')
+      waitlistForm.reset()
     } catch (error) {
       toast.error('Something went wrong. Please try again later.')
-      console.error('Early access submission error:', error)
+      console.error('Waitlist submission error:', error)
     }
   }
 
@@ -253,44 +257,49 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 md:space-y-8 relative z-40">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
               <Sparkles className="w-5 h-5 text-white" />
-              <span className="text-white text-sm font-medium">Innovating Financial Technology</span>
+              <span className="text-white text-sm font-medium">AI-Powered Financial Analysis</span>
             </div>
 
             <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {/* Large Branding Text */}
               <div className="relative w-full">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-white leading-[1.1] relative z-40">
-                  <span className="relative inline-block">
-                    <span className="absolute -inset-2 bg-gradient-to-r from-teal-500/10 via-blue-400/10 to-blue-500/10 blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></span>
-                    <span className="relative inline-block">
-                      Carfagno Enterprises
+                <div className="space-y-2 sm:space-y-3 md:space-y-4">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight relative z-40">
+                    <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                      Carfagno Enterprises Introduces
                     </span>
-                  </span>
-                </h1>
+                  </h1>
+                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight relative z-40">
+                    <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                      Zom AI
+                    </span>
+                  </h1>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight relative z-40">
+                    <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+                      Your AI Companion in the Market
+                    </span>
+                  </h2>
+                </div>
               </div>
-
+              
               {/* Subheading */}
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white relative z-40">
-                The Future of AI-Driven Financial Intelligence
-              </h2>
-
-              <p className="text-base sm:text-lg md:text-xl max-w-[600px] mx-auto text-white/80 leading-relaxed relative z-40">
-                Your competitive edge in the market. We combine cutting-edge AI technology with deep financial expertise to provide unparalleled investment insights.
+              <p className="text-xl sm:text-2xl md:text-3xl max-w-[800px] mx-auto text-white/80 leading-relaxed relative z-40">
+                Get real-time insights, save hours of research, and make more informed decisions—Zom AI does the heavy lifting, so you don't have to.
               </p>
             </div>
 
             <Button 
               className={cn(
-                "group bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto",
+                "group bg-gradient-to-r from-teal-400 to-blue-500 text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto",
                 "relative overflow-hidden",
                 animationClasses.buttonBase,
                 animationClasses.buttonHover,
                 animationClasses.buttonGlow,
                 animationClasses.fadeInScale
               )}
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/zom-ai')}
             >
-              Explore Our Tools
+              Learn More About Zom AI
               <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
@@ -305,39 +314,75 @@ export default function HomePage() {
               <span className="text-white/70 text-sm font-medium">Our Solutions</span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 text-white">
-              Cutting-Edge Tools
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
+              Zom AI Features
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Neural Networks Card */}
+            {/* Zom AI Real-Time Analysis */}
             <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
-                Neural Networks and Data Pipeline
+                Real-Time Stock Analysis
               </h3>
-              <p className="text-white/70 mb-6">
-                A robust trading tool integrating neural networks and a structured data pipeline to analyze stock price trends.
+              <p className="text-white/70 mb-4">
+                Get instant insights on any stock you query with comprehensive data and metrics.
               </p>
               <Button 
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
+                onClick={() => navigate('/demos/real-time-analysis')}
+              >
+                See How It Works
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Button>
+              <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
-                onClick={() => navigate('/tools/neural-networks')}
+                onClick={() => navigate('/zom-ai')}
               >
                 Learn More
                 <ChevronRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
 
-
-
-            {/* Zom AI Card */}
+            {/* Zom AI Time-Saving */}
             <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
               <h3 className="text-2xl font-semibold text-white mb-4">
-                Zom AI
+                Time-Saving Research
               </h3>
-              <p className="text-white/70 mb-6">
-                A cutting-edge stock analysis tool offering real-time updates and ChatGPT-powered insights.
+              <p className="text-white/70 mb-4">
+                No more hours of research—ask Zom, and get comprehensive answers in seconds.
               </p>
+              <Button 
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
+                onClick={() => navigate('/demos/time-saving')}
+              >
+                See How It Works
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Button>
+              <Button
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
+                onClick={() => navigate('/zom-ai')}
+              >
+                Learn More
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
+              </Button>
+            </div>
+
+            {/* Zom AI Companion */}
+            <div className="group relative bg-black rounded-3xl p-8 hover:bg-black/80 transition-all duration-300 border border-teal-500/20">
+              <h3 className="text-2xl font-semibold text-white mb-4">
+                AI Companion
+              </h3>
+              <p className="text-white/70 mb-4">
+                Zom interprets complex data into plain English so you can make confident decisions.
+              </p>
+              <Button 
+                className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
+                onClick={() => navigate('/demos/ai-companion')}
+              >
+                See How It Works
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Button>
               <Button
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
@@ -350,22 +395,24 @@ export default function HomePage() {
         </div>
       </section>
 
+
+
       {/* Demo Access & Subscription */}
       <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex items-center justify-center overflow-visible z-20 bg-black">
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.1)_0%,transparent_70%)] animate-pulse-slow"></div>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
-                <span className="text-teal-400 text-sm font-medium">Early Access</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm mb-6 animate-float">
+                <span className="text-teal-400 text-sm font-medium">Waitlist</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4 sm:mb-6 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-                Get Early Access to Our Tools
+                Join the Zom AI Waitlist
               </h2>
               
               <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto">
-                Subscribe to be the first to explore our cutting-edge financial tools and receive exclusive insights.
+                Sign up now for early access and exclusive discounts when Zom AI launches. Be among the first to transform your trading decisions with AI-powered insights.
               </p>
             </div>
 
@@ -373,11 +420,11 @@ export default function HomePage() {
               <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6 sm:p-8 md:p-10 reveal-on-scroll">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-blue-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <Form {...earlyAccessForm}>
-                    <form onSubmit={earlyAccessForm.handleSubmit(onEarlyAccessSubmit)} className="space-y-6 relative z-50">
+                  <Form {...waitlistForm}>
+                    <form onSubmit={waitlistForm.handleSubmit(onWaitlistSubmit)} className="space-y-6 relative z-50">
                       <div className="space-y-4 relative">
                         <FormField
-                          control={earlyAccessForm.control}
+                          control={waitlistForm.control}
                           name="name"
                           render={({ field }) => (
                             <FormItem>
@@ -393,7 +440,7 @@ export default function HomePage() {
                           )}
                         />
                         <FormField
-                          control={earlyAccessForm.control}
+                          control={waitlistForm.control}
                           name="email"
                           render={({ field }) => (
                             <FormItem>
@@ -410,18 +457,36 @@ export default function HomePage() {
                           )}
                         />
                         <FormField
-                          control={earlyAccessForm.control}
-                          name="interest"
+                          control={waitlistForm.control}
+                          name="phoneNumber"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Phone Number (Optional)" 
+                                  type="tel" 
+                                  className="relative z-50 bg-gradient-to-br from-blue-900/30 to-blue-950/30 backdrop-blur-sm border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={waitlistForm.control}
+                          name="preferredPlan"
                           render={({ field }) => (
                             <FormItem>
                               <FormControl>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <SelectTrigger className="relative z-50 bg-black backdrop-blur-sm border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
-                                    <SelectValue placeholder="Select your interest" />
+                                  <SelectTrigger className="relative z-50 bg-black backdrop-blur-sm border-teal-500/20 text-white focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                                    <SelectValue placeholder="Select your preferred plan" className="text-white" />
                                   </SelectTrigger>
                                   <SelectContent className="bg-black backdrop-blur-sm border-teal-500/20">
-                                    <SelectItem value="neural-networks" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Neural Networks</SelectItem>
-                                    <SelectItem value="zom-ai" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Zom AI</SelectItem>
+                                    <SelectItem value="basic" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Basic Plan (Free)</SelectItem>
+                                    <SelectItem value="gold" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Gold Plan (Paid)</SelectItem>
+                                    <SelectItem value="enterprise" className="hover:bg-teal-500/10 focus:bg-teal-500/10">Enterprise Plan (Contact Only)</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </FormControl>
@@ -432,7 +497,7 @@ export default function HomePage() {
                       </div>
 
                       <Button type="submit" className="relative z-10 w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 transform-gpu hover:scale-[1.02] hover:shadow-lg hover:shadow-teal-500/20 hover:brightness-110 border-0">
-                        Get Early Access
+                        Join the Waitlist for Early Access & Special Discounts!
                         <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                       </Button>
                     </form>
@@ -449,7 +514,7 @@ export default function HomePage() {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
           <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-teal-500/20 mb-6 animate-float">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400 animate-pulse" />
                 <span className="text-teal-400 text-sm font-medium">About Me</span>
               </div>
@@ -492,7 +557,7 @@ export default function HomePage() {
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-4 sm:mb-6 reveal-on-scroll">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-teal-500/20 mb-6 animate-float">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm mb-6 animate-float">
                 <User className="w-5 h-5 text-teal-400" />
                 <span className="text-teal-400 text-sm font-medium">Get in Touch</span>
               </div>
