@@ -1,3 +1,4 @@
+import './lib/dotenv.js';
 import { connectToDatabase, isMongoDBConnected } from './lib/mongoose';
 import WaitlistEntryModel from './models/WaitlistEntry';
 

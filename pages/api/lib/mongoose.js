@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import '../lib/dotenv.js';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB || 'waitlist';
