@@ -5,6 +5,7 @@ import { PreferencesDialog } from '../ui/preferences-dialog'
 import { usePreferences } from '../../providers/PreferencesProvider'
 import { useState } from 'react'
 import { cn } from '../../utils/styles'
+import { Navigation } from '../navigation/Navigation'
 
 interface LayoutProps {
   children?: ReactNode
@@ -21,7 +22,8 @@ export function Layout({ children }: LayoutProps) {
         "text-lg": preferences.fontSize === "lg"
       })}>
       <ParticleBackground />
-      <div className="relative z-10 px-4 sm:px-6 lg:px-8">
+      <Navigation />
+      <div className="relative z-10 px-4 sm:px-6 lg:px-8 pt-20">
         {children || <Outlet />}
       </div>
 
