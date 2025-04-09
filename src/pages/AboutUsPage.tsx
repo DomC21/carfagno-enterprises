@@ -1,9 +1,7 @@
-import { ChevronLeft, ChevronRight, Mail, Users } from 'lucide-react'
+import { ChevronRight, Mail, Users } from 'lucide-react'
 import { Footer } from '../components/Footer'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
-import { useNavigate } from 'react-router-dom'
-import { Logo } from '../components/Logo'
 import { useEffect } from 'react'
 import { DataFlowAnimation } from '../components/DataFlowAnimation'
 import { animationClasses } from '../utils/styles'
@@ -62,7 +60,6 @@ const teamMembers = [
 ];
 
 function AboutUsPage() {
-  const navigate = useNavigate()
   const form = useForm<SupportForm>({
     defaultValues: {
       name: '',
@@ -98,27 +95,6 @@ function AboutUsPage() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-[980px] mx-auto px-6 py-3">
-          <div className="flex items-center justify-between">
-            <Logo 
-              className={"w-32 " + animationClasses.fadeInScale + " hover:opacity-80 transition-all duration-300 cursor-pointer"}
-              onClick={() => document.documentElement.scrollIntoView({ behavior: 'smooth', block: 'start' })} 
-            />
-            <nav className="flex items-center gap-2 sm:gap-4">
-              <Button
-                variant="ghost"
-                className="group bg-white/5 hover:bg-white/10 text-white border-0 transition-all duration-300"
-                onClick={() => navigate('/')}
-              >
-                <ChevronLeft className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
-                <span className="hidden sm:inline">Back to Home</span>
-                <span className="sm:hidden">Back</span>
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
 
       <div className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
         <DataFlowAnimation />
