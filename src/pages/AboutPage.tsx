@@ -1,9 +1,9 @@
 
-import { ChevronLeft } from 'lucide-react'
-import { Button } from '../components/ui/button'
-import { useNavigate } from 'react-router-dom'
 import { Footer } from '../components/Footer'
 import { animationClasses } from '../utils/styles'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../components/ui/button'
+import { ChevronRight } from 'lucide-react'
 
 export default function AboutPage() {
   const navigate = useNavigate()
@@ -12,14 +12,6 @@ export default function AboutPage() {
     <div className="min-h-screen bg-black text-white">
 
       <div className="container mx-auto px-4 py-16 pt-24">
-        <Button
-          variant="ghost"
-          className="mb-8 text-teal-400 hover:text-teal-300 group"
-          onClick={() => navigate('/')}
-        >
-          <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
-          Back to Home
-        </Button>
 
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-16">
@@ -85,14 +77,14 @@ export default function AboutPage() {
                 onClick={() => navigate('/#contact')}
               >
                 Contact Me
-                <ChevronLeft className="ml-2 w-5 h-5 rotate-180 transition-transform group-hover:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button
                 className="group bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border-0 transition-all duration-300"
                 onClick={() => navigate('/#subscribe')}
               >
                 Subscribe for Updates
-                <ChevronLeft className="ml-2 w-5 h-5 rotate-180 transition-transform group-hover:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
           </div>

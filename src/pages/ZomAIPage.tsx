@@ -16,27 +16,8 @@ function ZomAIPage(): JSX.Element {
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black">
-      {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10 py-3 px-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Logo 
-            className="w-32 hover:opacity-80 transition-all duration-300 cursor-pointer" 
-            onClick={() => navigate('/')}
-          />
-          <Button
-            variant="ghost"
-            className="group bg-white/5 hover:bg-white/10 text-white border-0 transition-all duration-300"
-            onClick={() => navigate('/')}
-          >
-            <ChevronLeft className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
-            <span className="hidden sm:inline">Back to Home</span>
-            <span className="sm:hidden">Back</span>
-          </Button>
-        </div>
-      </div>
-      
       {/* Hero Section */}
-      <section className="pt-28 pb-16 px-4">
+      <section className="pt-20 pb-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
