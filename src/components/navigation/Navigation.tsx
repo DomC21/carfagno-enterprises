@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Button } from '../ui/button'
@@ -7,7 +6,7 @@ import { Logo } from '../Logo'
 export function Navigation() {
   const navigate = useNavigate()
   const location = useLocation()
-  const [isMobile, setIsMobile] = useState(false)
+  const [, setIsMobile] = useState(false)
   
   useEffect(() => {
     const checkMobile = () => {
