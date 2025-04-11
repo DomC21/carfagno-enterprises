@@ -7,11 +7,18 @@ const MONGODB_DB = process.env.MONGODB_DB || 'waitlist';
 // Connection state tracking
 let isConnected = false;
 
+const isVercelBuild = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production' && process.env.NEXT_PHASE === 'build';
+
 /**
  * Connect to MongoDB using mongoose
  * @returns {Promise<typeof mongoose>} Mongoose instance
  */
 export async function connectToDatabase() {
+  if (isVercelBuild) {
+    console.log('=> Skipping MongoDB connection during Vercel build phase');
+    return null;
+  }
+
   if (isConnected) {
     console.log('=> Using existing mongoose connection');
     return mongoose;
