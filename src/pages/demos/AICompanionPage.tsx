@@ -1,24 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/ui/button";
-import { ChevronLeft } from "lucide-react";
 import { AICompanionDemo } from "../../components/demos/zom-ai/AICompanionDemo";
 import { motion } from "framer-motion";
 import { BeginnerHelpDialog } from "../../components/ui/beginner-help-dialog";
 
 export default function AICompanionPage() {
-  const navigate = useNavigate();
-  
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black">
-      <div className="container mx-auto max-w-6xl px-4 py-16">
-        <Button 
-          variant="ghost" 
-          className="mb-6 text-teal-400 hover:text-teal-300"
-          onClick={() => navigate("/")}
-        >
-          <ChevronLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Button>
+      <div className="container mx-auto max-w-6xl px-4 py-16 pt-24">
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}

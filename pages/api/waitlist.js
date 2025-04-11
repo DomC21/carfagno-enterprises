@@ -1,8 +1,11 @@
+import './lib/dotenv.js';
 import { connectToDatabase, isMongoDBConnected } from './lib/mongoose';
 import WaitlistEntryModel from './models/WaitlistEntry';
 
 // Fallback in-memory storage when MongoDB is not available
 const mockWaitlistEntries = [];
+
+const isVercelBuild = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production' && process.env.NEXT_PHASE === 'build';
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -22,6 +25,15 @@ export default async function handler(req, res) {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: 'Please provide a valid email address' });
+    }
+
+    if (isVercelBuild) {
+      console.log('=> Skipping MongoDB connection during Vercel build phase');
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Build phase mock response',
+        storage: 'build-mock'
+      });
     }
 
     // Try to connect to MongoDB
