@@ -6,12 +6,37 @@ import { TechnicalIndicatorsDemo } from "@/components/demos/zom-ai/TechnicalIndi
 import { OptionsActivityDemo } from "@/components/demos/zom-ai/OptionsActivityDemo"
 import { AISummariesDemo } from "@/components/demos/zom-ai/AISummariesDemo"
 import { WaitlistForm } from "@/components/ui/waitlist-form"
+import { useNavigate } from "react-router-dom"
+import { ChevronLeft } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Logo } from "@/components/Logo"
 
 function ZomAIPage(): JSX.Element {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black">
+      {/* Navigation */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10 py-3 px-6">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <Logo 
+            className="w-32 hover:opacity-80 transition-all duration-300 cursor-pointer" 
+            onClick={() => navigate('/')}
+          />
+          <Button
+            variant="ghost"
+            className="group bg-white/5 hover:bg-white/10 text-white border-0 transition-all duration-300"
+            onClick={() => navigate('/')}
+          >
+            <ChevronLeft className="w-5 h-5 mr-2 transition-transform duration-300 group-hover:-translate-x-1" />
+            <span className="hidden sm:inline">Back to Home</span>
+            <span className="sm:hidden">Back</span>
+          </Button>
+        </div>
+      </div>
+      
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-4">
+      <section className="pt-28 pb-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -25,6 +50,15 @@ function ZomAIPage(): JSX.Element {
             <p className="text-xl text-white/70 mb-8 max-w-3xl mx-auto">
               Ask Zom about any ticker&apos;s fundamentals, technical indicators, or recent market activity—get instant, AI-driven clarity.
             </p>
+            <div className="flex justify-center">
+              <Button
+                variant="default"
+                className="text-white bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 px-6 py-3 rounded-lg font-medium text-lg"
+                onClick={() => navigate('/demos/ai-companion')}
+              >
+                What&apos;s Zom AI?
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
