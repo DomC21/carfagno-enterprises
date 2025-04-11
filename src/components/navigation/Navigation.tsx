@@ -42,13 +42,14 @@ export function Navigation() {
       <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Tools</button>
       <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Contact</button>
       <button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Our Mission</button>
+      ${location.pathname !== '/' ? '<button class="text-teal-400 hover:text-teal-300 px-8 py-5 text-2xl font-medium w-full text-center">Back to Home</button>' : ''}
     `
     document.body.appendChild(nav)
     
     const buttons = nav.querySelectorAll('button')
     buttons[0].onclick = () => nav.remove()
     buttons[1].onclick = () => { navigate('/about'); nav.remove() }
-    buttons[2].onclick = () => { navigate('/tools'); nav.remove() }
+    buttons[2].onclick = () => { navigate('/zom-ai'); nav.remove() }
     buttons[3].onclick = () => { 
       if (location.pathname === '/') {
         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -61,6 +62,10 @@ export function Navigation() {
       nav.remove()
     }
     buttons[4].onclick = () => { navigate('/our-mission'); nav.remove() }
+    
+    if (location.pathname !== '/' && buttons.length > 5) {
+      buttons[5].onclick = () => { navigate('/'); nav.remove() }
+    }
   }
 
   return (
@@ -87,13 +92,7 @@ export function Navigation() {
           <Button 
             variant="ghost" 
             className="nav-link text-white/90 hover:text-white px-2 transition-all duration-300"
-            onClick={() => {
-              if (location.pathname === '/') {
-                document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              } else {
-                navigate('/tools')
-              }
-            }}
+            onClick={() => navigate('/zom-ai')}
           >
             Tools
           </Button>
@@ -120,6 +119,16 @@ export function Navigation() {
           >
             Our Mission
           </Button>
+          {location.pathname !== '/' && (
+            <Button
+              variant="ghost"
+              className="group bg-white/5 hover:bg-white/10 text-white border-0 transition-all duration-300"
+              onClick={() => navigate('/')}
+            >
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Back</span>
+            </Button>
+          )}
         </nav>
         <button 
           className="sm:hidden text-teal-400 hover:text-teal-300 p-5 text-2xl flex items-center justify-center"

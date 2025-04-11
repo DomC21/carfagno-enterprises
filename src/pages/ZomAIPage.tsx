@@ -51,13 +51,15 @@ function ZomAIPage(): JSX.Element {
               Ask Zom about any ticker&apos;s fundamentals, technical indicators, or recent market activity—get instant, AI-driven clarity.
             </p>
             <div className="flex justify-center">
-              <Button
-                variant="default"
-                className="text-white bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 px-6 py-3 rounded-lg font-medium text-lg"
+              <div 
+                className="cursor-pointer hover:opacity-80 transition-all duration-300 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 px-6 py-3 rounded-lg"
                 onClick={() => navigate('/demos/ai-companion')}
               >
-                What&apos;s Zom AI?
-              </Button>
+                <div className="flex items-center">
+                  <span className="text-white font-bold text-2xl">ZOM</span>
+                  <span className="text-white font-medium text-lg ml-1">AI</span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
