@@ -341,8 +341,10 @@ export default function HomePage() {
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
               >
-                Learn More
-                <ChevronRight className="ml-2 w-5 h-5" />
+                <div className="flex items-center justify-center">
+                  <span className="text-lg font-bold mr-1">ZOM</span>
+                  <span className="text-md font-semibold bg-white text-teal-500 px-1 rounded">AI</span>
+                </div>
               </Button>
             </div>
 
@@ -365,8 +367,10 @@ export default function HomePage() {
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
               >
-                Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
+                <div className="flex items-center justify-center">
+                  <span className="text-lg font-bold mr-1">ZOM</span>
+                  <span className="text-md font-semibold bg-white text-teal-500 px-1 rounded">AI</span>
+                </div>
               </Button>
             </div>
 
@@ -389,8 +393,10 @@ export default function HomePage() {
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0"
                 onClick={() => navigate('/zom-ai')}
               >
-                Learn More
-                <ChevronRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1" />
+                <div className="flex items-center justify-center">
+                  <span className="text-lg font-bold mr-1">ZOM</span>
+                  <span className="text-md font-semibold bg-white text-teal-500 px-1 rounded">AI</span>
+                </div>
               </Button>
             </div>
           </div>
