@@ -7,9 +7,6 @@ import { OptionsActivityDemo } from "@/components/demos/zom-ai/OptionsActivityDe
 import { AISummariesDemo } from "@/components/demos/zom-ai/AISummariesDemo"
 import { WaitlistForm } from "@/components/ui/waitlist-form"
 import { useNavigate } from "react-router-dom"
-import { ChevronLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Logo } from "@/components/Logo"
 
 function ZomAIPage(): JSX.Element {
   const navigate = useNavigate();
