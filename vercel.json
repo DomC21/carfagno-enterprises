@@ -4,6 +4,7 @@
   "framework": "vite",
   "outputDirectory": "dist",
   "public": true,
+  "ignoreCommand": "echo 'Skipping preflight check'",
   "trailingSlash": false,
   "rewrites": [
     {
