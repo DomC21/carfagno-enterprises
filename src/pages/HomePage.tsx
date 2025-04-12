@@ -299,8 +299,10 @@ export default function HomePage() {
               )}
               onClick={() => navigate('/zom-ai')}
             >
-              Learn More About Zom AI
-              <ChevronRight className="ml-2 w-5 h-5 inline-block transition-transform duration-300 group-hover:translate-x-1" />
+              <div className="flex items-center justify-center">
+                <span className="text-2xl font-bold mr-1">ZOM</span>
+                <span className="text-xl font-semibold bg-white text-teal-500 px-1 rounded">AI</span>
+              </div>
             </Button>
           </div>
         </div>
