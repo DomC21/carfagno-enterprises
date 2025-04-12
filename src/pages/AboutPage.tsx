@@ -1,31 +1,17 @@
 
-import { ChevronLeft } from 'lucide-react'
-import { Button } from '../components/ui/button'
-import { useNavigate } from 'react-router-dom'
-import { Logo } from '../components/Logo'
 import { Footer } from '../components/Footer'
 import { animationClasses } from '../utils/styles'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../components/ui/button'
+import { ChevronRight } from 'lucide-react'
 
 export default function AboutPage() {
   const navigate = useNavigate()
   
   return (
     <div className="min-h-screen bg-black text-white">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 to-black/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-[980px] mx-auto px-6 py-3">
-          <Logo className={"w-32 " + animationClasses.fadeInScale + " hover:opacity-80 transition-all duration-300 cursor-pointer"} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
-        </div>
-      </header>
 
       <div className="container mx-auto px-4 py-16 pt-24">
-        <Button
-          variant="ghost"
-          className="mb-8 text-teal-400 hover:text-teal-300 group"
-          onClick={() => navigate('/')}
-        >
-          <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
-          Back to Home
-        </Button>
 
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-16">
@@ -91,14 +77,14 @@ export default function AboutPage() {
                 onClick={() => navigate('/#contact')}
               >
                 Contact Me
-                <ChevronLeft className="ml-2 w-5 h-5 rotate-180 transition-transform group-hover:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button
                 className="group bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border-0 transition-all duration-300"
                 onClick={() => navigate('/#subscribe')}
               >
                 Subscribe for Updates
-                <ChevronLeft className="ml-2 w-5 h-5 rotate-180 transition-transform group-hover:translate-x-1" />
+                <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
           </div>

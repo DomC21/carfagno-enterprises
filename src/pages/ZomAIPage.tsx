@@ -6,8 +6,11 @@ import { TechnicalIndicatorsDemo } from "@/components/demos/zom-ai/TechnicalIndi
 import { OptionsActivityDemo } from "@/components/demos/zom-ai/OptionsActivityDemo"
 import { AISummariesDemo } from "@/components/demos/zom-ai/AISummariesDemo"
 import { WaitlistForm } from "@/components/ui/waitlist-form"
+import { useNavigate } from "react-router-dom"
 
 function ZomAIPage(): JSX.Element {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black">
       {/* Hero Section */}
@@ -25,6 +28,17 @@ function ZomAIPage(): JSX.Element {
             <p className="text-xl text-white/70 mb-8 max-w-3xl mx-auto">
               Ask Zom about any ticker&apos;s fundamentals, technical indicators, or recent market activity—get instant, AI-driven clarity.
             </p>
+            <div className="flex justify-center">
+              <div 
+                className="cursor-pointer hover:opacity-80 transition-all duration-300 bg-gradient-to-r from-teal-400 to-blue-500 hover:from-teal-500 hover:to-blue-600 px-6 py-3 rounded-lg"
+                onClick={() => navigate('/demos/ai-companion')}
+              >
+                <div className="flex items-center">
+                  <span className="text-white font-bold text-2xl">ZOM</span>
+                  <span className="text-white font-medium text-lg ml-1">AI</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>

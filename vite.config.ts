@@ -15,6 +15,8 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets",
     chunkSizeWarningLimit: 1000,
+    emptyOutDir: true,
+    sourcemap: process.env.NODE_ENV === 'development',
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
@@ -29,17 +31,17 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    port: 5173,
-    host: true,
-    strictPort: true,
-    allowedHosts: ["old-session-app-tunnel-s1nkxb52.devinapps.com"]
-  },
-  preview: {
-    port: 4173,
-    host: true,
-    strictPort: true,
-    allowedHosts: ["old-session-app-tunnel-s1nkxb52.devinapps.com"]
-  },
+  ...(process.env.NODE_ENV === 'development' && {
+    server: {
+      port: 5173,
+      host: true,
+      strictPort: true,
+    },
+    preview: {
+      port: 4173,
+      host: true,
+      strictPort: true,
+    },
+  }),
 })
 

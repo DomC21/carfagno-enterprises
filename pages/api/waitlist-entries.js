@@ -4,6 +4,8 @@ import WaitlistEntryModel from './models/WaitlistEntry';
 // Fallback in-memory storage when MongoDB is not available
 const mockWaitlistEntries = [];
 
+const isVercelBuild = process.env.VERCEL === '1' && process.env.VERCEL_ENV === 'production' && process.env.NEXT_PHASE === 'build';
+
 export default async function handler(req, res) {
   // Only allow GET requests
   if (req.method !== 'GET') {
@@ -11,6 +13,17 @@ export default async function handler(req, res) {
   }
 
   try {
+    if (isVercelBuild) {
+      console.log('=> Skipping MongoDB connection during Vercel build phase');
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Build phase mock response',
+        entries: [],
+        count: 0,
+        storage: 'build-mock'
+      });
+    }
+    
     // Try to connect to MongoDB
     const mongoose = await connectToDatabase();
     
