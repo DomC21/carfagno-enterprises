@@ -22,9 +22,14 @@ function ZomAIPage(): JSX.Element {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-              Zom AI: Your Real-Time Stock Analysis Companion
-            </h1>
+            <div className="flex justify-center mb-6">
+              <img 
+                src={`${import.meta.env.BASE_URL}images/z-logo.svg`}
+                alt="Zom AI Logo" 
+                className="h-24 md:h-32"
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
             <p className="text-xl text-white/70 mb-8 max-w-3xl mx-auto">
               Ask Zom about any ticker&apos;s fundamentals, technical indicators, or recent market activity—get instant, AI-driven clarity.
             </p>
