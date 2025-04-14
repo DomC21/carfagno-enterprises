@@ -266,14 +266,14 @@ export default function HomePage() {
                 <div className="space-y-2 sm:space-y-3 md:space-y-4">
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-                      Carfagno Enterprises Introduces
+                      Carfagno Enterprises: AI-Powered Financial Tools
                     </span>
                   </h1>
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight relative z-40">
+                  <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
                       Zom AI
                     </span>
-                  </h1>
+                  </h2>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
                       Your AI Companion in the Market
