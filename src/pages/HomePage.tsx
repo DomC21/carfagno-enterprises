@@ -266,17 +266,17 @@ export default function HomePage() {
                 <div className="space-y-2 sm:space-y-3 md:space-y-4">
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-                      Carfagno Enterprises Introduces
+                      Carfagno Enterprises: AI-Powered Financial Tools
                     </span>
                   </h1>
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight relative z-40">
+                  <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
                       Zom AI
                     </span>
-                  </h1>
+                  </h2>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight relative z-40">
                     <span className="bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-                      Your AI Companion in the Market
+                      Make Smarter Investment Decisions
                     </span>
                   </h2>
                 </div>
@@ -284,7 +284,7 @@ export default function HomePage() {
               
               {/* Subheading */}
               <p className="text-xl sm:text-2xl md:text-3xl max-w-[800px] mx-auto text-white/80 leading-relaxed relative z-40">
-                Get real-time insights, save hours of research, and make more informed decisions—Zom AI does the heavy lifting, so you don't have to.
+                Zom AI gives you real-time stock insights and saves you hours of research. Make better investment decisions with our easy-to-use AI tools.
               </p>
             </div>
 
@@ -326,7 +326,7 @@ export default function HomePage() {
                 Real-Time Stock Analysis
               </h3>
               <p className="text-white/70 mb-4">
-                Get instant insights on any stock you query with comprehensive data and metrics.
+                Get quick answers about any stock with easy-to-understand data and key metrics.
               </p>
               <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
@@ -350,7 +350,7 @@ export default function HomePage() {
                 Time-Saving Research
               </h3>
               <p className="text-white/70 mb-4">
-                No more hours of research—ask Zom, and get comprehensive answers in seconds.
+                Save time on research—simply ask Zom your questions and get clear answers in seconds.
               </p>
               <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
@@ -374,7 +374,7 @@ export default function HomePage() {
                 AI Companion
               </h3>
               <p className="text-white/70 mb-4">
-                Zom interprets complex data into plain English so you can make confident decisions.
+                Zom explains market data in simple terms to help you make confident investment choices.
               </p>
               <Button 
                 className="w-full bg-white/10 hover:bg-white/20 text-white border-0 mb-4"
@@ -412,7 +412,7 @@ export default function HomePage() {
               </h2>
               
               <p className="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto">
-                Sign up now for early access and exclusive discounts when Zom AI launches. Be among the first to transform your trading decisions with AI-powered insights.
+                Join our waitlist today for early access and special discounts when Zom AI launches. Be one of the first to use our AI tools to improve your investment decisions.
               </p>
             </div>
 
@@ -542,7 +542,7 @@ export default function HomePage() {
                 </h2>
                 <div className="space-y-4 sm:space-y-6">
                   <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-[300px] sm:max-w-none mx-auto md:mx-0">
-                    Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. With a deep passion for innovation and financial markets, I'm dedicated to creating cutting-edge tools that empower investors to succeed.
+                    Hi, I'm Dom Carfagno, the founder of Carfagno Enterprises. I'm passionate about making financial tools that help everyday investors make better decisions in the market.
                   </p>
 
                 </div>
@@ -563,7 +563,7 @@ export default function HomePage() {
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-4 sm:mb-6 bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent">
-                Contact Us
+                Get in Touch
               </h2>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 group text-center sm:text-left">
