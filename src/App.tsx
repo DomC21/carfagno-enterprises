@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Brain, LineChart, Bot, Mail, ChevronRight, Sparkles, Code, Network } from 'lucide-react'
 import { DataIngestionDemo, FeatureSelectionDemo, ModelEvaluationDemo } from '@/components/demos/neural-networks'
 import { StrategyBuilderDemo, GreeksDashboardDemo, UnusualActivityDemo } from '@/components/demos/lukz'
@@ -10,6 +10,127 @@ import { FinancialPatterns } from '@/components/ui/financial-patterns'
 import { MarketDataStream } from '@/components/ui/market-data-stream'
 
 function App() {
+  const [waitlistName, setWaitlistName] = useState('')
+  const [waitlistEmail, setWaitlistEmail] = useState('')
+  const [waitlistPhone, setWaitlistPhone] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
+  const [contactName, setContactName] = useState('')
+  const [contactEmail, setContactEmail] = useState('')
+  const [contactMessage, setContactMessage] = useState('')
+  const [isContactSubmitting, setIsContactSubmitting] = useState(false)
+  const [contactSubmitMessage, setContactSubmitMessage] = useState('')
+
+  const handleWaitlistSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage('')
+
+    const errors: string[] = [];
+    if (!waitlistName) {
+      errors.push("Name is required.");
+    }
+    if (!waitlistEmail) {
+      errors.push("Email is required.");
+    } else if (!/\S+@\S+\.\S+/.test(waitlistEmail)) {
+      errors.push("Please enter a valid email address.");
+    }
+    if (!waitlistPhone) {
+      errors.push("Phone number is required.");
+    }
+    // }
+
+    if (errors.length > 0) {
+      setSubmitMessage(errors.join(' ')); // Join errors into a single message
+      setIsSubmitting(false);
+      return;
+    }
+
+  try {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+    const response = await fetch(`${backendUrl}/api/waitlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: waitlistName, email: waitlistEmail, phone: waitlistPhone }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || `HTTP error! status: ${response.status}`);
+    }
+
+    setSubmitMessage(data.message || 'Thanks for joining the waitlist!');
+    setWaitlistName('');
+    setWaitlistEmail('');
+    setWaitlistPhone('');
+  } catch (error: any) {
+    console.error('Submission error:', error);
+    setSubmitMessage(error.message || 'Failed to submit. Please try again.');
+  } finally {
+    setIsSubmitting(false);
+  }
+}
+
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsContactSubmitting(true)
+    setContactSubmitMessage('')
+
+    const errors: string[] = [];
+    if (!contactName) {
+      errors.push("Name is required.");
+    }
+    if (!contactEmail) {
+      errors.push("Email is required.");
+    } else if (!/\S+@\S+\.\S+/.test(contactEmail)) {
+      errors.push("Please enter a valid email address.");
+    }
+    if (!contactMessage) {
+      errors.push("Message is required.");
+    }
+
+    if (errors.length > 0) {
+      setContactSubmitMessage(errors.join(' '));
+      setIsContactSubmitting(false);
+      return;
+    }
+
+    try {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+      const response = await fetch(`${backendUrl}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: contactName, email: contactEmail, message: contactMessage }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || `HTTP error! status: ${response.status}`);
+      }
+
+      setContactSubmitMessage(data.message || 'Message sent successfully!');
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+    } catch (error: any) {
+      console.error('Contact form submission error:', error);
+      setContactSubmitMessage(error.message || 'Failed to send message. Please try again.');
+    } finally {
+      setIsContactSubmitting(false);
+    }
+  }
+
+
+
+
+
   // Define consistent color and animation classes for reuse
   const colorClasses = {
     primary: 'text-teal-400',
@@ -478,19 +599,34 @@ function App() {
               <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75" />
               
               <div className="relative bg-blue-950/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-8 sm:p-10">
-                <form className="space-y-6 relative z-50">
+                <form className="space-y-6 relative z-50" onSubmit={handleWaitlistSubmit}>
                   <div className="space-y-4 relative">
-                    <Input 
-                      placeholder="Name" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                    <Input
+                      placeholder="Name"
+                      value={waitlistName}
+                      onChange={(e) => setWaitlistName(e.target.value)}
+                      disabled={isSubmitting}
+                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50"
                     />
-                    <Input 
-                      placeholder="Email" 
-                      type="email" 
-                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                    <Input
+                      placeholder="Email"
+                      type="email"
+                      value={waitlistEmail}
+                      onChange={(e) => setWaitlistEmail(e.target.value)}
+                      disabled={isSubmitting}
+                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50"
                     />
-                    <Select>
-                      <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-300 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50">
+                    <Input
+                      placeholder="Phone Number"
+                      type="tel"
+                      value={waitlistPhone}
+                      onChange={(e) => setWaitlistPhone(e.target.value)}
+                      disabled={isSubmitting}
+                      className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50"
+                    />
+                    {/* Keep Select for visual consistency, but disable it as it's not part of the waitlist form */}
+                    <Select disabled={true}>
+                      <SelectTrigger className="relative z-50 bg-blue-900/30 border-teal-500/20 text-gray-500 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50 cursor-not-allowed">
                         <SelectValue placeholder="Select your interest" />
                       </SelectTrigger>
                       <SelectContent className="bg-blue-950 border-teal-500/20">
@@ -500,10 +636,14 @@ function App() {
                       </SelectContent>
                     </Select>
                   </div>
-
-                  <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0 transform-gpu hover:scale-[1.02]">
-                    Get Early Access
-                    <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 transform-gpu" />
+                  {submitMessage && (
+                    <p className={`text-sm ${submitMessage.includes('Failed') || submitMessage.includes('required') || submitMessage.includes('valid') ? 'text-red-400' : 'text-green-400'} text-center`}>
+                      {submitMessage}
+                    </p>
+                  )}
+                  <Button type="submit" disabled={isSubmitting} className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0 transform-gpu hover:scale-[1.02] disabled:opacity-75 disabled:cursor-not-allowed">
+                    {isSubmitting ? 'Submitting...' : 'Join Waitlist'} {/* Changed button text */}
+                    {!isSubmitting && <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 transform-gpu" />}
                   </Button>
                 </form>
               </div>
@@ -536,27 +676,45 @@ function App() {
                 DominicCarfagno@carfagnoenterprises.com
               </a>
             </div>
-            <form className={`relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.6s' }}>
+            <form onSubmit={handleContactSubmit} className={`relative space-y-3 sm:space-y-4 md:space-y-6 bg-blue-950/50 backdrop-blur-sm p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl border border-teal-500/20 ${animationClasses.fadeIn}`} style={{ animationDelay: '0.6s' }}>
               {/* Glow Effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-75" />
               
               <div className="relative space-y-4">
                 <Input 
                   placeholder="Name" 
-                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                  disabled={isContactSubmitting}
+                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50" 
                 />
                 <Input 
                   placeholder="Email" 
                   type="email" 
-                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50" 
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  disabled={isContactSubmitting}
+                  className="relative z-50 bg-blue-900/30 border-teal-500/20 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50" 
                 />
                 <textarea 
                   placeholder="Message"
-                  className="relative z-50 w-full h-28 sm:h-32 md:h-40 bg-blue-900/30 border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50"
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                  disabled={isContactSubmitting}
+                  className="relative z-50 w-full h-28 sm:h-32 md:h-40 bg-blue-900/30 border border-teal-500/20 rounded-md p-3 sm:p-4 placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 focus:ring-2 focus:outline-none text-base sm:text-lg transition-all duration-300 transform-gpu hover:border-teal-400/50 disabled:opacity-50"
                 />
-                <Button className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0 transform-gpu hover:scale-[1.02]">
-                  Send Message
-                  <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 transform-gpu" />
+                 {contactSubmitMessage && (
+                    <p className={`text-sm ${contactSubmitMessage.includes('Failed') || contactSubmitMessage.includes('required') || contactSubmitMessage.includes('valid') ? 'text-red-400' : 'text-green-400'} text-center`}>
+                      {contactSubmitMessage}
+                    </p>
+                  )}
+                <Button 
+                  type="submit" 
+                  disabled={isContactSubmitting}
+                  className="w-full group bg-gradient-to-r from-teal-400 to-blue-500 text-white font-semibold py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/20 border-0 transform-gpu hover:scale-[1.02] disabled:opacity-75 disabled:cursor-not-allowed"
+                >
+                  {isContactSubmitting ? 'Sending...' : 'Send Message'}
+                  {!isContactSubmitting && <ChevronRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 transform-gpu" />}
                 </Button>
               </div>
             </form>
